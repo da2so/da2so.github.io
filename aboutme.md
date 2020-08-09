@@ -1,16 +1,18 @@
 ---
 layout: page
 title: About me
-subtitle: Today Song: Sik-k, Darling 
+subtitle: How about me??
 ---
 
-My name is Sin-Han Kang.
+Hi. My name is Sin-Han Kang. The following is described about me!
+Enjoy my site.
 
 - E-mail: kangsinhan@nate.com, sinhan.kang@nota.ai
-- Phone-number: +82-010-8688-****
+- Phone-number: +82-010-8688-********
 - Company: NOTA
 - Nationality: Korean
 - Birth: June, 23, 1995
+
 
 ### Research Interest
 
@@ -18,14 +20,17 @@ My name is Sin-Han Kang.
 - Knowledge Distillation
 - Pruning
 
-### Education 
-**Korea University**-M.S. in Brain & Cognitive Engineering,		Sep.2018 - Aug.2020
 
-**Korea Aerospace University**-A.B. in Software Engineering,	Mar.2014 - Feb.2018
+
+
+### Education 
+-**Korea University**-M.S. in Brain & Cognitive Engineering,	Sep.2018 - Aug.2020
+
+-**Korea Aerospace University**-A.B. in Software Engineering,	Mar.2014 - Feb.2018
+
 
 
 ### Publication
-
 **S.H. Kang**, H. G. Jung, S. W. Lee, "Interpreting Undesirable Pixels for Image Classification on Black-Box Models", ICCV Workshop on Interpreting and Explaining Visual Artificial Intelligience Models, 2019 (Accepted).
 
 
