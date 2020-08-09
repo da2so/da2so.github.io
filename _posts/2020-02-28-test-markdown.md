@@ -53,7 +53,10 @@ foo(3)
 ```
 This formula $f(x) = x^2$ is an example.
 
-$$f(x) = x^2$$
+$$
+f(x) = x^2
+$$
+This formula $f(x) = x^2$ is an example.
 
 And here is the same code yet again but with line numbers:
 
