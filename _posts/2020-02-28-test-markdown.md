@@ -6,6 +6,7 @@ gh-repo: daattali/beautiful-jekyll
 gh-badge: [star, fork, follow]
 tags: [test]
 comments: true
+use_math: true
 ---
 
 This is a demo post to show you how to write blog posts with markdown.  I strongly encourage you to [take 5 minutes to learn how to write in markdown](https://markdowntutorial.com/) - it'll teach you how to transform regular text into bold/italics/headings/tables/etc.
@@ -49,6 +50,15 @@ var foo = function(x) {
 }
 foo(3)
 ```
+
+$$
+\sqrt{3x-1}+(1+x)^2
+$$
+
+\\
+\sqrt{3x-1}+(1+x)^2
+\\
+
 
 And here is the same code yet again but with line numbers:
 
