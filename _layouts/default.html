@@ -4,11 +4,11 @@ layout: base
 
 <div class="intro-header"></div>
   {% if page.use_math %}
-
-<div role="main" class="container-md">
-
-  {{ content }}
-
-      {% include mathjax_support.html %}
+    {% include mathjax_support.html %}
   {% endif %}	
+<div role="main" class="container-md">
+{% if page.use_math %}
+	{% include mathjax_support.html %}
+{% endif %}	
+  {{ content }}
 </div>
