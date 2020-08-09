@@ -13,7 +13,7 @@ This is a demo post to show you how to write blog posts with markdown.  I strong
 **Here is some bold text**
 
 ## Here is a secondary heading
-
+<span style="color:blue">some *blue* text</span>.
 Here's a useless table:
 
 | Number | Next number | Previous number |
