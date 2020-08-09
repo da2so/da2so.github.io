@@ -22,8 +22,6 @@ Enjoy my site.
 - Pruning
 
 
-
-
 ### Education 
 -**Korea University**-M.S. in Brain & Cognitive Engineering,	Sep.2018 - Aug.2020
 
