@@ -23,13 +23,14 @@ Enjoy my site.
 - Knowledge Distillation
 - Pruning
 
+*****
 
 ### Education 
 -**Korea University**-M.S. in Brain & Cognitive Engineering,	Sep.2018 - Aug.2020
 
 -**Korea Aerospace University**-A.B. in Software Engineering,	Mar.2014 - Feb.2018
 
-
+*****
 
 ### Publication
 **S.H. Kang**, H. G. Jung, S. W. Lee, "Interpreting Undesirable Pixels for Image Classification on Black-Box Models", ICCV Workshop on Interpreting and Explaining Visual Artificial Intelligience Models, 2019 (Accepted).
