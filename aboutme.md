@@ -1,16 +1,32 @@
 ---
 layout: page
 title: About me
-subtitle: Why you'd want to go on a date with me
+subtitle: Today Song: Sik-k, Darling 
 ---
 
-My name is Inigo Montoya. I have the following qualities:
+My name is Sin-Han Kang.
 
-- I rock a great mustache
-- I'm extremely loyal to my family
+- E-mail: kangsinhan@nate.com, sinhan.kang@nota.ai
+- Phone-number: +82-010-8688-****
+- Company: NOTA
+- Nationality: Korean
+- Birth: June, 23, 1995
 
-What else do you need?
+### Research Interest
 
-### my history
+- Explainable AI (XAI)
+- Knowledge Distillation
+- Pruning
 
-To be honest, I'm having some trouble remembering right now, so why don't you just watch [my movie](https://en.wikipedia.org/wiki/The_Princess_Bride_%28film%29) and it will answer **all** your questions.
+### Education 
+**Korea University**-M.S. in Brain & Cognitive Engineering,		Sep.2018 - Aug.2020
+
+**Korea Aerospace University**-A.B. in Software Engineering,	Mar.2014 - Feb.2018
+
+
+### Publication
+
+**S.H. Kang**, H. G. Jung, S. W. Lee, "Interpreting Undesirable Pixels for Image Classification on Black-Box Models", ICCV Workshop on Interpreting and Explaining Visual Artificial Intelligience Models, 2019 (Accepted).
+
+
+**S.H. Kang**, H. G. Jung, S. W. Lee, "Counterfactual Explanation Based on Gradual Construction for Deep Networks", Journal of Pattern Recongition, 2020 (Submitted).
