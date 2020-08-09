@@ -4,7 +4,7 @@
 title: da2so
 
 # Short description of your site
-description: 
+description: Explainable AI(XAI) and Model Compression
 
 # Your name to show in the footer
 author: Sin-Han Kang
@@ -40,7 +40,7 @@ round-avatar: true
 social-network-links:
   email: "kangsinhan@nate.com"
   github: da2so
-  rss: true
+  rss: false
 #  reddit: yourname
 #  linkedin: daattali
 #  xing: yourname
