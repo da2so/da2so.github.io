@@ -50,6 +50,7 @@ var foo = function(x) {
 }
 foo(3)
 ```
+This formula $f(x) = x^2$ is an example.
 
 $$
 \sqrt{3x-1}+(1+x)^2
