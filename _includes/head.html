@@ -4,9 +4,6 @@
 
   <title>{% if page.use-site-title %}{{ site.title }} {{ site.title-separator | default: '-' }} {{ site.description }}{% elsif page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
   
-  {% if page.use_math %}
-    {% include mathjax_support.html %}
-  {% endif %}
 
   {% if site.author %}
   <meta name="author" content="{{ site.author }}">
@@ -173,4 +170,7 @@
     {% include {{ page.head-extra }} %}
   {% endif %}
 
+  {% if page.use_math %}
+    {% include mathjax_support.html %}
+  {% endif %}
 </head>
