@@ -48,7 +48,12 @@ The goal is to find deletion (perturbation) regions that are maximally informati
 Let <span style="color:DodgerBlue">$m:\lambda \rightarrow [0,1]$</span> be a mask, associating each pixel <span style="color:DodgerBlue">$u \in \lambda$</span> with a scalar value <span style="color:DodgerBlue">$m(u)$</span>.
 Then, the perturbation operator is defined as follows:
 
-
+\\[ 
+x = \left\{ \\begin{array}{ll}
+         x & \mbox{if $x \geq 0$};\cr
+        -x & \mbox{if $x < 0$}.
+        \\end{array} \right. 
+\\] 
 
 \\[
 \\begin{array}{cc}
@@ -60,7 +65,7 @@ Then, the perturbation operator is defined as follows:
 
 
 | If <span style="color:DodgerBlue">$m(u)=1 \quad $</span> $\rightarrow$ Preserve the original pixel |
-| elif <span style="color:DodgerBlue">$m(u)=0 \quad </span> $\rightarrow$ Replace the original pixel with a pixel of reference data|
+| elif <span style="color:DodgerBlue">$m(u)=0 \quad $</span> $\rightarrow$ Replace the original pixel with a pixel of reference data|
 
 
 <br />
