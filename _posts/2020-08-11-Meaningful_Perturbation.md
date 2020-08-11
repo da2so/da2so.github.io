@@ -52,24 +52,11 @@ Then, the perturbation operator is defined as follows:
 \\[ 
 \Phi(x_0: m)(u)= \\left\\{ \\begin{array}{ll} m(u)x_0(u)+(1-m(u))u_0, & \text{constant}, \cr
 											 m(u)x_0(u)+(1-m(u))\eta(u), & \text{noise}, \cr 
-											 \int g^{\sigma_0 m(u)} (v-u)x_0(v)dv, & \text{blur} 
+											 \int g_{\sigma_0 m(u)} (v-u)x_0(v)dv, & \text{blur} 
 							\\end{array} \\right. 
 \\]
 
 
-\\[ 
-x = \\left\\{ \\begin{array}{ll}
-         x & \mbox{if $x \geq 0$};\cr
-        -x & \mbox{if $x < 0$}.
-        \\end{array} \\right. 
-\\] 
-
-\\[
-\\begin{array}{cc}
-  a & b \cr
-  c & c
-\\end{array}
-\\]
 ,where <span style="color:DodgerBlue">$u_0$</span> is an average color, <span style="color:DodgerBlue">$\eta(u)$</span> are i.i.d Gaussian noise samples for each pixel and <span style="color:DodgerBlue">$\sigma_0$</span> is the maximum isotropic standard deviation of the Gaussian blur kernel <span style="color:DodgerBlue">$g_\sigma$</span>.
 
 
