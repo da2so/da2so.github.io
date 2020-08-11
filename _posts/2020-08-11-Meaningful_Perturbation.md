@@ -52,15 +52,15 @@ Then, the perturbation operator is defined as follows:
 
 \\[
 \\begin{array}{cc}
-  a & b \\\
+  a & b \cr
   c & c
 \\end{array}
 \\]
 ,where <span style="color:DodgerBlue">$u_0$</span> is an average color, <span style="color:DodgerBlue">$\eta(u)$</span> are i.i.d Gaussian noise samples for each pixel and <span style="color:DodgerBlue">$\sigma_0$</span> is the maximum isotropic standard deviation of the Gaussian blur kernel <span style="color:DodgerBlue">$g_\sigma$</span>.
 
 
-| If <span style="color:DodgerBlue">$m(u)=1 \quad \rightarrow$</span> Preserve the original pixel |
-| elif <span style="color:DodgerBlue">$m(u)=0 \quad \rightarrow$</span> Replace the original pixel with a pixel of reference data|
+| If <span style="color:DodgerBlue">$m(u)=1 \quad $</span> $\rightarrow$ Preserve the original pixel |
+| elif <span style="color:DodgerBlue">$m(u)=0 \quad </span> $\rightarrow$ Replace the original pixel with a pixel of reference data|
 
 
 <br />
@@ -68,7 +68,7 @@ Then, the perturbation operator is defined as follows:
 #### <span style="color:gray"> 2.2.1 The objective function </span>
 Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that causes the score <span style="color:DodgerBlue">$f_c(\Phi (x_0:m)) \ll f_c(x_0)$</span> to drop significantly, where <span style="color:DodgerBlue">$c$</span> is the target class.
 
-<span style="color:DodgerBlue">\\[ m^*= argmin_{m \in [0,1]^\Lambda} \lambda \Vert 1-m\Vert_1+ f_c(\Lambda(x_0:m))\\] </span>
+<span style="color:DodgerBlue">\\[ m^*= argmin_{m \in [0,1]^\Lambda} \lambda \Vert 1-m\Vert_1+ f_c(\Phi(x_0:m))\\] </span>
 
 ,where <span style="color:DodgerBlue">$\lambda$</span> encourages most of the mask to be turned off.
 
