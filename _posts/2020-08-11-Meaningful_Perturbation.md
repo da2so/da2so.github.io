@@ -49,10 +49,10 @@ Let <span style="color:DodgerBlue">$m:\lambda \rightarrow [0,1]$</span> be a mas
 Then, the perturbation operator is defined as follows:
 
 \\[ 
-x = \left\{ \\begin{array}{ll}
+x = \\left\\{ \\begin{array}{ll}
          x & \mbox{if $x \geq 0$};\cr
         -x & \mbox{if $x < 0$}.
-        \\end{array} \right. 
+        \\end{array} \\right. 
 \\] 
 
 \\[
