@@ -26,14 +26,19 @@ Enjoy my site.
 *****
 
 ### Education 
--**Korea University**-M.S. in Brain & Cognitive Engineering,	Sep.2018 - Aug.2020
+-**Korea University**
+	* Major: M.S. in Brain & Cognitive Engineering	
+	* Period: Sep.2018 - Aug.2020
 
 -**Korea Aerospace University**-A.B. in Software Engineering,	Mar.2014 - Feb.2018
+	* Major: A.B. in Software Engineering
+	* Period: Mar.2014 - Feb.2018
+
 
 *****
 
 ### Publication
-**S.H. Kang**, H. G. Jung, S. W. Lee, "Interpreting Undesirable Pixels for Image Classification on Black-Box Models", ICCV Workshop on Interpreting and Explaining Visual Artificial Intelligience Models, 2019 (Accepted).
+**S.H. Kang**, H. G. Jung, S. W. Lee, "Interpreting Undesirable Pixels for Image Classification on Black-Box Models", ICCV Workshop on Interpreting and Explaining Visual Artificial Intelligience Models, 2019.
 
 
-**S.H. Kang**, H. G. Jung, S. W. Lee, "Counterfactual Explanation Based on Gradual Construction for Deep Networks", Journal of Pattern Recongition, 2020 (Submitted).
+**S.H. Kang**, H. G. Jung, S. W. Lee, "Counterfactual Explanation Based on Gradual Construction for Deep Networks", In arXiv:2008.01897, 2020.
