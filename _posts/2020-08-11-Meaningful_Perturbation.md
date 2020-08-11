@@ -69,7 +69,7 @@ Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that c
 #### <span style="color:gray">2.2.2 Dealing with artifacts</span>
 By committing to finding a single representative perturbation, our approach incurs the risk of triggering artifacts of the black-box model, like below figures
 
-<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="300" height="170" style="float: left">
+<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/3.png" width="300" height="170" style="float: left">
 <br />
 <br />
 <br />
@@ -94,4 +94,11 @@ witch these two modifications, the final objective function is follows:
 ,where second term represents TV regularization and third term indicates Generalization for the mask.
 
 
+## 3. Implement details
 
+<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/4.png" width="400" height="230" style="float: left">
+
+### <span style="color:gray">3.1 Procedure of the upsampling method in the method</span>
+
+
+![3](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/5.png){: .mx-auto.d-block :}
