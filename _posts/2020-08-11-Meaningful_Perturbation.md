@@ -9,9 +9,9 @@ thumbnail-img: /assets/thumbnail_img/2020-08-11-Meaningful_Perturbation/post.png
 
 ## 1. How to explain the decision of black-box model??
 
-<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="370" height="220" style="float: left">
+<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="370" height="230" style="float: left">
 
-Given those things from left figure, we wonder that why the deep network predicts the image as "dog".
+Given the left figure, we wonder that why the deep network predicts the image as "dog".
 
 
 To gratify this curiosity, we aim to find <span style="background-color: #A4FF21">the important regions of an input image</span> to classify it as "dog" class.
@@ -32,7 +32,6 @@ If we find and remove <span style="background-color: #A4FF21">the regions</span>
 
 ## 2. How to find the important regions to be classified as a target class?
 
-<br />
 
 ### <span style="color:gray">2.1 Problem definition </span>
 
@@ -49,16 +48,11 @@ The goal is to find deletion (perturbation) regions that are maximally informati
 Let <span style="color:DodgerBlue">$m:\lambda \rightarrow [0,1]$</span> be a mask, associating each pixel <span style="color:DodgerBlue">$u \in \lambda$</span> with a scalar value <span style="color:DodgerBlue">$m(u)$</span>.
 Then, the perturbation operator is defined as follows:
 
-\\[ \Phi(x_0: m)(u)= \\left\{ \\begin{array}{c} m(u)x_0(u)+(1-m(u))u_0, \quad \text{constant}, \\\\ m(u)x_0(u)+(1-m(u))\eta(u), \quad \text{noise}, \\\\ \int g^{\sigma_0 m(u)} (v-u)x_0(v)dv, \quad blur \\end{array}\\right \\]
 
-
-\\[ |x| = \left\{ \\begin{array}{ll}
-         x & \mbox{if $x \geq 0$};\\\\
-        -x & \mbox{if $x < 0$}.\\end{array} \right. \\] 
 
 \\[
 \\begin{array}{cc}
-  a & b \\
+  a & b \\\
   c & c
 \\end{array}
 \\]
@@ -79,7 +73,7 @@ Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that c
 ,where <span style="color:DodgerBlue">$\lambda$</span> encourages most of the mask to be turned off.
 
 
-#### <span style="color:gray">2.2.2 Dealing with artifacts</span>
+#### <span style="color:gray">2.2.2 Dealing with artifacts</span>  
 By committing to finding a single representative perturbation, our approach incurs the risk of triggering artifacts of the black-box model, like below figures.
 
 <img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/3.png" width="300" height="170" style="float: left">
@@ -93,7 +87,7 @@ $\rightarrow$ Explanations containing artifacts
 To solve this problem, we suggest two approaches in generating explanations.
 
 
-<span style="color:#5256BC"><b><First, generalization for the mask</b></span>  
+<span style="color:#5256BC"><b>First, generalization for the mask</b></span>  
 This means not relying on the details of a singly-learned mask <span style="color:DodgerBlue">$m$</span>. Hence, we reformulate the problem to apply the mask <span style="color:DodgerBlue">$m$</span> stochastically, up to small random jitter.
 
 
@@ -111,6 +105,8 @@ With these two modifications, the final objective function is follows:
 
 <img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/4.png" width="400" height="230" style="float: left">
 
+<br />
+<br />
 <br />
 <br />
 <br />
