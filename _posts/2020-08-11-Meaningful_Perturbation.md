@@ -63,8 +63,8 @@ Then, the perturbation operator is defined as follows:
 | If <span style="color:DodgerBlue">$m(u)=1 \quad $</span> $\rightarrow$ Preserve the original pixel |
 | elif <span style="color:DodgerBlue">$m(u)=0 \quad $</span> $\rightarrow$ Replace the original pixel with a pixel of reference data|
 
-
-<br />
+{: .box-note}
+**Note:** I will define constant, noise and blur as reference data <span style="color:DodgerBlue">$R$</span>.
 
 #### <span style="color:gray"> 2.2.1 The objective function </span>
 Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that causes the score <span style="color:DodgerBlue">$f_c(\Phi (x_0:m)) \ll f_c(x_0)$</span> to drop significantly, where <span style="color:DodgerBlue">$c$</span> is the target class.
