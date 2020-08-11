@@ -48,6 +48,15 @@ The goal is to find deletion (perturbation) regions that are maximally informati
 Let <span style="color:DodgerBlue">$m:\lambda \rightarrow [0,1]$</span> be a mask, associating each pixel <span style="color:DodgerBlue">$u \in \lambda$</span> with a scalar value <span style="color:DodgerBlue">$m(u)$</span>.
 Then, the perturbation operator is defined as follows:
 
+
+\\[ 
+\Phi(x_0: m)(u)= \\left\\{ \\begin{array}{c} m(u)x_0(u)+(1-m(u))u_0, \quad \text{constant}, \cr
+											 m(u)x_0(u)+(1-m(u))\eta(u), \quad \text{noise}, \cr 
+											 \int g^{\sigma_0 m(u)} (v-u)x_0(v)dv, \quad blur 
+							\\end{array}\\right 
+\\]
+
+
 \\[ 
 x = \\left\\{ \\begin{array}{ll}
          x & \mbox{if $x \geq 0$};\cr
