@@ -9,7 +9,7 @@ thumbnail-img: /assets/thumbnail_img/2020-08-11-Meaningful_Perturbation/post.png
 
 ## 1. How to explain the decision of black-box model??
 
-<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="370" height="210" style="float: left">
+<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="370" height="220" style="float: left">
 
 Given those things from left figure, we wonder that why the deep network predicts the image as "dog".
 
@@ -32,6 +32,7 @@ If we find and remove <span style="background-color: #A4FF21">the regions</span>
 
 ## 2. How to find the important regions to be classified as a target class?
 
+<br />
 
 ### <span style="color:gray">2.1 Problem definition </span>
 
@@ -41,7 +42,7 @@ If we find and remove <span style="background-color: #A4FF21">the regions</span>
 * Prediction score for the target class: <span style="color:DodgerBlue">$f_c(x_0)$</span>
 
 
-### <span style="color:gray">2.2 Methods </span>
+### <span style="color:gray">2.2 Methods </span>  
 The goal is to find deletion (perturbation) regions that are maximally informative to the decision.
 
 
@@ -51,13 +52,13 @@ Then, the perturbation operator is defined as follows:
 \\[ \Phi(x_0: m)(u)= \\left\{ \\begin{array}{c} m(u)x_0(u)+(1-m(u))u_0, \quad \text{constant}, \\\\ m(u)x_0(u)+(1-m(u))\eta(u), \quad \text{noise}, \\\\ \int g^{\sigma_0 m(u)} (v-u)x_0(v)dv, \quad blur \\end{array}\\right \\]
 
 
-\\[ |x| = \left\{ \begin{array}{ll}
-         x & \mbox{if $x \geq 0$};\\
-        -x & \mbox{if $x < 0$}.\end{array} \right. \\] 
+\\[ |x| = \left\{ \\begin{array}{ll}
+         x & \mbox{if $x \geq 0$};\\\\
+        -x & \mbox{if $x < 0$}.\\end{array} \right. \\] 
 
 \\[
 \\begin{array}{cc}
-  a & b \\\\
+  a & b \\
   c & c
 \\end{array}
 \\]
@@ -92,12 +93,11 @@ $\rightarrow$ Explanations containing artifacts
 To solve this problem, we suggest two approaches in generating explanations.
 
 
-<span style="color:#5256BC">First, generalization for the mask</span>
-
+<span style="color:#5256BC"><b><First, generalization for the mask</b></span>  
 This means not relying on the details of a singly-learned mask <span style="color:DodgerBlue">$m$</span>. Hence, we reformulate the problem to apply the mask <span style="color:DodgerBlue">$m$</span> stochastically, up to small random jitter.
 
 
-<span style="color:#5256BC">Second, Total Variation (TV) regularization and upsampling</span>  
+<span style="color:#5256BC"><b>Second, Total Variation (TV) regularization and upsampling</b></span>  
 By uisng TV regularization and upsampling mask, we can encourage the result to have a simple, regular structure which can not be co-adapted to artifacts.
 
 With these two modifications, the final objective function is follows:
