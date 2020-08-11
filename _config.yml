@@ -73,7 +73,7 @@ url-pretty: "da2so.com"
 link-tags: true
 
 # Excerpt Word Length - Truncates the excerpt to the specified number of words on the index page
-excerpt_length: 30
+excerpt_length: 40
 
 # The keywords to associate with your website, for SEO purposes
 #keywords: "my,list,of,keywords"
