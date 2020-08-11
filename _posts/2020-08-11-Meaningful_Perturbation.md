@@ -9,7 +9,7 @@ thumbnail-img: /assets/thumbnail_img/2020-08-11-Meaningful_Perturbation/post.png
 
 ## 1. How to explain the decision of black-box model??
 
-<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="370" height="230" style="float: left">
+<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="370" height="210" style="float: left">
 
 Given those things from left figure, we wonder that why the deep network predicts the image as "dog".
 
@@ -45,11 +45,10 @@ If we find and remove <span style="background-color: #A4FF21">the regions</span>
 The goal is to find deletion (perturbation) regions that are maximally informative to the decision.
 
 
-Let <span style="color:DodgerBlue">$m:\lambda \rightarrow [0,1]$</span> be a mask, associating each pixel <span style="color:DodgerBlue">$u \in \lambda$</span> with a scalar value <span style="color:DodgerBlue">$m(u)$</span>. 
-
+Let <span style="color:DodgerBlue">$m:\lambda \rightarrow [0,1]$</span> be a mask, associating each pixel <span style="color:DodgerBlue">$u \in \lambda$</span> with a scalar value <span style="color:DodgerBlue">$m(u)$</span>.
 Then, the perturbation operator is defined as follows:
 
-\\[ \Phi(x_0: m)(u)= \left\{ \begin{array}{c} m(u)x_0(u)+(1-m(u))u_0, \quad \text{constant}, \\ m(u)x_0(u)+(1-m(u))\eta(u), \quad \text{noise}, \\ \int g^{\sigma_0 m(u)} (v-u)x_0(v)dv, \quad blur \end{array}\right \\]
+\\[ \Phi(x_0: m)(u)= \\left\{ \\begin{array}{c} m(u)x_0(u)+(1-m(u))u_0, \quad \text{constant}, \\\\ m(u)x_0(u)+(1-m(u))\eta(u), \quad \text{noise}, \\\\ \int g^{\sigma_0 m(u)} (v-u)x_0(v)dv, \quad blur \\end{array}\\right \\]
 
 
 \\[ |x| = \left\{ \begin{array}{ll}
@@ -98,8 +97,7 @@ To solve this problem, we suggest two approaches in generating explanations.
 This means not relying on the details of a singly-learned mask <span style="color:DodgerBlue">$m$</span>. Hence, we reformulate the problem to apply the mask <span style="color:DodgerBlue">$m$</span> stochastically, up to small random jitter.
 
 
-<span style="color:#5256BC">Second, Total Variation (TV) regularization and upsampling</span>
-
+<span style="color:#5256BC">Second, Total Variation (TV) regularization and upsampling</span>  
 By uisng TV regularization and upsampling mask, we can encourage the result to have a simple, regular structure which can not be co-adapted to artifacts.
 
 With these two modifications, the final objective function is follows:
@@ -113,6 +111,9 @@ With these two modifications, the final objective function is follows:
 
 <img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/4.png" width="400" height="230" style="float: left">
 
+<br />
+<br />
+<br />
 <br />
 <br />
 <br />
