@@ -50,10 +50,10 @@ Then, the perturbation operator is defined as follows:
 
 
 \\[ 
-\Phi(x_0: m)(u)= \\left\\{ \\begin{array}{c} m(u)x_0(u)+(1-m(u))u_0, \quad \text{constant}, \cr
-											 m(u)x_0(u)+(1-m(u))\eta(u), \quad \text{noise}, \cr 
-											 \int g^{\sigma_0 m(u)} (v-u)x_0(v)dv, \quad blur 
-							\\end{array}\\right 
+\Phi(x_0: m)(u)= \\left\\{ \\begin{array}{ll} m(u)x_0(u)+(1-m(u))u_0, & \text{constant}, \cr
+											 m(u)x_0(u)+(1-m(u))\eta(u), & \text{noise}, \cr 
+											 \int g^{\sigma_0 m(u)} (v-u)x_0(v)dv, & \text{blur} 
+							\\end{array} \\right. 
 \\]
 
 
