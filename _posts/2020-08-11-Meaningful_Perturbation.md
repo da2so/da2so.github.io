@@ -16,7 +16,7 @@ Given those things from left figure, we wonder that why the deep network predict
 
 To gratify this curiosity, we aim to find <span style="background-color: #A4FF21">the important regions of an input image</span> to classify it as "dog" class.
 
-\text{<span style="color: red">\\[\downarrow \text{The idea}\\] </span>
+<span style="color: red">\\[\downarrow \text{The idea}\\] </span>
 
 If we find and remove <span style="background-color: #A4FF21">the regions</span>, the probability of the prediction significantly gets lower.
 
@@ -31,6 +31,8 @@ If we find and remove <span style="background-color: #A4FF21">the regions</span>
 
 
 ## 2. How to find the important regions to be classified as a target class?
+
+
 ### <span style="color:gray">2.1 Problem definition </span>
 
 * Input image: <span style="color:DodgerBlue">$x_0$</span>
@@ -38,7 +40,7 @@ If we find and remove <span style="background-color: #A4FF21">the regions</span>
 * Target class: <span style="color:DodgerBlue">$c$</span>
 * Prediction score for the target class: <span style="color:DodgerBlue">$f_c(x_0)$</span>
 
-<br />
+
 ### <span style="color:gray">2.2 Methods </span>
 The goal is to find deletion (perturbation) regions that are maximally informative to the decision.
 
@@ -54,7 +56,7 @@ Then, the perturbation operator is defined as follows:
          x & \mbox{if $x \geq 0$};\\
         -x & \mbox{if $x < 0$}.\end{array} \right. \\] 
 
-,where <span style="color:DodgerBlue">$u_0$</span> is an average color, <span style="color:DodgerBlue">$\eta(u)$</span> are i.i.d Gaussian noise samples for each pixel and <span style="color:DodgerBlue">$\sigma_0$</span> is the maximum isotropic standard deviation of the Gaussian blur kernel <span style="color:DodgerBlue">$g_\sigma$</span>
+,where <span style="color:DodgerBlue">$u_0$</span> is an average color, <span style="color:DodgerBlue">$\eta(u)$</span> are i.i.d Gaussian noise samples for each pixel and <span style="color:DodgerBlue">$\sigma_0$</span> is the maximum isotropic standard deviation of the Gaussian blur kernel <span style="color:DodgerBlue">$g_\sigma$</span>.
 
 
 | If <span style="color:DodgerBlue">$m(u)=1 \quad \rightarrow$</span> Preserve the original pixel |
@@ -72,7 +74,7 @@ Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that c
 
 
 #### <span style="color:gray">2.2.2 Dealing with artifacts</span>
-By committing to finding a single representative perturbation, our approach incurs the risk of triggering artifacts of the black-box model, like below figures
+By committing to finding a single representative perturbation, our approach incurs the risk of triggering artifacts of the black-box model, like below figures.
 
 <img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/3.png" width="300" height="170" style="float: left">
 <br />
@@ -86,13 +88,15 @@ To solve this problem, we suggest two approaches in generating explanations.
 
 
 <span style="color:#5256BC">First, generalization for the mask</span>
+
 This means not relying on the details of a singly-learned mask <span style="color:DodgerBlue">$m$</span>. Hence, we reformulate the problem to apply the mask <span style="color:DodgerBlue">$m$</span> stochastically, up to small random jitter.
 
 
 <span style="color:#5256BC">Second, Total Variation (TV) regularization and upsampling</span>
+
 By uisng TV regularization and upsampling mask, we can encourage the result to have a simple, regular structure which can not be co-adapted to artifacts.
 
-witch these two modifications, the final objective function is follows:
+With these two modifications, the final objective function is follows:
 
 <span style="color:DodgerBlue">\\[min_{m \in [0,1]^\Lambda} \lambda_1 \Vert 1-m \Vert_1 + \lambda_2 \sum_u \Vert \bigtriangledown m(u) \Vert^\beta_\beta + \mathbb{E}_\tau \[ f_c(\Phi (x( \cdot -\tau), m)) \] \\] </span>
 
@@ -102,6 +106,11 @@ witch these two modifications, the final objective function is follows:
 ## 3. Implement details
 
 <img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/4.png" width="400" height="230" style="float: left">
+
+<br />
+<br />
+<br />
+<br />
 
 ### <span style="color:gray">3.1 Procedure of the upsampling method in the method</span>
 
