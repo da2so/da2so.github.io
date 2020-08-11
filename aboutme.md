@@ -26,11 +26,11 @@ Enjoy my site.
 *****
 
 ### Education 
--**Korea University**
+* **Korea University**
 	* Major: M.S. in Brain & Cognitive Engineering	
 	* Period: Sep.2018 - Aug.2020
 
--**Korea Aerospace University**-A.B. in Software Engineering,	Mar.2014 - Feb.2018
+* **Korea Aerospace University**
 	* Major: A.B. in Software Engineering
 	* Period: Mar.2014 - Feb.2018
 
