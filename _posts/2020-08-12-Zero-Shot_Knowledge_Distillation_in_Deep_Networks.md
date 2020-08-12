@@ -39,7 +39,7 @@ L=\sum_{(x,y) \in \mathbb{D}} L_K (S(x,\theta_S,\tau), T(x,\theta_T, \tau))+\lam
 
 
 
-###<span style="color:gray"> 2.2 Modelling the Data in Softmax Space</span>
+### <span style="color:gray"> 2.2 Modelling the Data in Softmax Space</span>
 
 In this paper, we deal with the scenario where we have no access to **(i)** any training data samples (either from the target distribution or different) **(ii)** meta-data extracted from it.
 
@@ -50,18 +50,17 @@ In order to craft the *Data impressions*, we model output space of the *Teacher*
 
 
 {: .box-note}
-** Dirichlet distribution:**  <span style="color:DodgerBlue">$Dir(x_1, \cdots x_K, \alpha_1, \cdots, \alpha_K) s.t. \sum^K_i x_i =1 and x_i \geq$0 \forall i</span>
-
-The distribution to represent the softmax output <span style="color:DodgerBlue">$s^k$</span> of class <span style="color:DodgerBlue">$k$</span> would be modelled as, <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> where <span style="color:DodgerBlue">$k \in {1 \cdots K}$</span> is the class index, <span style="color:DodgerBlue">$K$</span> is the dimension of the output probability vector and <span style="color:DodgerBlue">$\alpha^k$</span> is the concentration parameter of the distribution modelling class <span style="color:DodgerBlue">$k$</span>. (<span style="color:DodgerBlue">$\alpha^k=\[\alpha^k_1, \cdots \alpha^k_K\] and \alpha^k_i>0, \forall i $</span>)
-
-
-###<span style="color:gray"> 2.2.1 Concentration Parameter ($\alpha$)</span>
-
-<span style="color:DodgerBlue">$\alpha$</span> can be thought of as determining how "concentrated" the porbability mass of a sample from a Dirichlet distribution is likely to be.
+**Dirichlet distribution:**  $Dir(x_1, \cdots x_K, \alpha_1, \cdots, \alpha_K) \; s.t. \; \sum^K_i x_i =1 \;and\; x_i \geq 0 \forall i$
+The distribution to represent the softmax output <span style="color:DodgerBlue">$s^k$</span> of class <span style="color:DodgerBlue">$k$</span> would be modelled as, <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> where <span style="color:DodgerBlue">$k \in {1 \cdots K}$</span> is the class index, <span style="color:DodgerBlue">$K$</span> is the dimension of the output probability vector and <span style="color:DodgerBlue">$\alpha^k$</span> is the concentration parameter of the distribution modelling class <span style="color:DodgerBlue">$k$</span>, where <span style="color:DodgerBlue">$\alpha^k=\[\alpha^k_1, \cdots \alpha^k_K\]$</span> and <span style="color:DodgerBlue">$\alpha^k_i>0, \forall i $</span>.
 
 
-| If <span style="color:DodgerBlue">$\alpha \ll 1$</span> $\rightarrow$ the mass is highly concentrated in only a few components|
-| Elif <span style="color:DodgerBlue">$\alpha \gg 1 $</span> $\rightarrow$ the mass is dispersed almost equally among all the components|
+### <span style="color:gray"> 2.2.1 Concentration Parameter ($\alpha$)</span>
+
+Concentration parameter <span style="color:DodgerBlue">$\alpha$</span> can be thought of as determining how "concentrated" the porbability mass of a sample from a Dirichlet distribution is likely to be.
+
+
+| <b>If</b> <span style="color:DodgerBlue">$\alpha \ll 1$</span> <b>$\rightarrow$</b> the mass is highly concentrated in only a few components|
+| <b>Elif</b> <span style="color:DodgerBlue">$\alpha \gg 1 $</span> <b>$\rightarrow$</b> the mass is dispersed almost equally among all the components|
 
 So, it is important to determine right <span style="color:DodgerBlue">$\alpha$</span>. We make its values to reflect the similarties across the components in the softmax vector. Since these components denote the underlying categories in the recognition problem, <span style="color:DodgerBlue">$\alpha$</span> should reflect the visual similarities among them.
 
@@ -71,12 +70,12 @@ Thus, we resort to the *Teacher* network for extracting this information. We com
 
 ![2](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/2.PNG){: .mx-auto.d-block :}
 
-###<span style="color:gray"> 2.2.2 Class Similarity Matrix ($C$)</span>
+### <span style="color:gray"> 2.2.2 Class Similarity Matrix ($C$)</span>
 
 The weights <span style="color:DodgerBlue">$w_k$</span> can be considered as the template of the class <span style="color:DodgerBlue">$k$</span> learned by the *Teacher* network. This is because the predicted class probability is proportional to the alignment of the pre-final layer’s output with the template <span style="color:DodgerBlue">$w_k$</span>.
 
-|If pre-final layer's output is positive scaled version of <span style="color:DodgerBlue">$w_k$</span> $\rightarrow$ predicted probability for class <span style="color:DodgerBlue">$k$</span>peaks|
-|Elif pre-final layer's ouput is misaligned with the <span style="color:DodgerBlue">$w_k$</span> $\rightarrow$ predicted probability for class <span style="color:DodgerBlue">$k$</span> is reduced|
+|<b>If</b> pre-final layer's output is positive scaled version of <span style="color:DodgerBlue">$w_k$</span> <b>$\rightarrow$</b> predicted probability for class <span style="color:DodgerBlue">$k$</span>peaks|
+|<b>Elif</b> pre-final layer's ouput is misaligned with the <span style="color:DodgerBlue">$w_k$</span> <b>$\rightarrow$</b> predicted probability for class <span style="color:DodgerBlue">$k$</span> is reduced|
 
 Therefor, , wetreat the weights wk as the class template for class <span style="color:DodgerBlue">$k$</span> and compute the similarity between classes <span style="color:DodgerBlue">$i$</span> and <span style="color:DodgerBlue">$j$</span> as:
 
