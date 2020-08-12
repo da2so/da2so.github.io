@@ -35,5 +35,4 @@ Knowledge distillation methods train the _Student_ by minimizing the following o
 L=\sum_{(x,y) \in \mathbb{D}} L_K (S(x,\theta_S,\tau), T(x,\theta_T, \tau))+\lambda L_C( \widehat{y}_S,y)
 \\] </span>
 
-,where <span style="color:DodgerBlue">$D$</span> is training dataset, <span style="color:DodgerBlue">$L_C$</span> is the cross-entropy loss computed on the labels <span style="color:DodgerBlue">$ \widehat{y}_S $</span> 
-
+,where <span style="color:DodgerBlue">$D$</span> is training dataset, <span style="color:DodgerBlue">$L_C$</span> is the cross-entropy loss computed on the labels <span style="color:DodgerBlue">$ \widehat{y}_S $</span> predicited by the *Student* and ground truth 
