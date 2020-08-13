@@ -45,7 +45,7 @@ GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a dis
 
 <span style="color:DodgerBlue">
 \\[
-L_{GAN}= \mathbb{E}_\{ y \sim p_{data}(y) \} \[ log D(y) \] 
+L_\{GAN\}= \mathbb{E}_\{ y \sim p_\{data\}(y) \} \[ log D(y) \] 
 \\]
 </span>
 
