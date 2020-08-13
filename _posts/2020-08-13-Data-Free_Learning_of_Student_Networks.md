@@ -45,9 +45,10 @@ GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a dis
 
 <span style="color:DodgerBlue">
 \\[
-L_\{ GAN \}= \mathbb{E}_\{ y \sim p_\{ data \} \}
+L_{GAN}= \mathbb{E}_\{ y \sim p_\{ data \} (y) \}
 \\]
 </span>
+
 
 where  <span style="color:DodgerBlue">$x$</span> is the desired data and  <span style="color:DodgerBlue">$z$</span> is an input noise vector of  <span style="color:DodgerBlue">$G$</span>. However, in the absence of training data, it is thus impossible to train the discriminator as vanilla GANs. And then, this affects that we cannot also train the generator.
 
