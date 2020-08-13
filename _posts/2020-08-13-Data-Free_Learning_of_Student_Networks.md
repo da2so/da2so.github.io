@@ -45,7 +45,7 @@ GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a dis
 
 <span style="color:DodgerBlue">
 \\[
-L_G= \mathbb{E}_{ y \sim p_d(y) } \[ log D(y) \] + 
+L_G= \mathbb{E}_\{ y \sim p_d (y) \} \[ log D(y) \] + 
 
 \\]
 </span>
@@ -91,5 +91,8 @@ L_a=-\frac{1}{n} \sum_i \Vert f^i_T\Vert_1, \quad \cdots Eq. (4)
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$\Vert \dot \Vert_1$</span> is the $l_1$ norm.
+where <span style="color:DodgerBlue">$\Vert \cdot \Vert_1$</span> is the $l_1$ norm.
 
+<span style="color:#5256BC"><b>(iii) The number5 of training examples in each category is usually balanced</b></span>
+
+We
