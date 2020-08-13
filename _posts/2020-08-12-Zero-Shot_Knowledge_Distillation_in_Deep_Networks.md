@@ -46,7 +46,7 @@ In this paper, we deal with the scenario where we have no access to **(i)** any 
 To tackle this, our approach taps the learned parameters of the *Teacher* and produce synthesized input representations, named as *Data Impressions* ,from the underlying data distribution on which it is trained. These can be used as a transfer set in order to perform knowledge distillation to a *Student* model.
 
 
-In order to craft the *Data impressions*, we model output space of the *Teacher* model. Let <span style="color:DodgerBlue">$s \sim p(s)$</span>, be the random vector that represents the softmax outputs of the *Teacher*, <span style="color:DodgerBlue">$T(x, \theta_T)$</span>. We model <span style="color:DodgerBlue">$p(s^k)$</span> belonging to each class <span style="color:DodgerBlue">$k$</span>, using Dirichlet distribution.
+In order to craft the *Data impressions*, we model output space of the *Teacher* model. Let <span style="color:DodgerBlue">$s \sim p(s)$</span>, be the random vector that <span style="background-color: #A4FF21">represents the softmax outputs of the *Teacher*</span>, <span style="color:DodgerBlue">$T(x, \theta_T)$</span>. We model <span style="color:DodgerBlue">$p(s^k)$</span> belonging to each class <span style="color:DodgerBlue">$k$</span>, using Dirichlet distribution.
 
 
 {: .box-note}
@@ -54,7 +54,7 @@ In order to craft the *Data impressions*, we model output space of the *Teacher*
 The distribution to represent the softmax output <span style="color:DodgerBlue">$s^k$</span> of class <span style="color:DodgerBlue">$k$</span> would be modelled as, <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> where <span style="color:DodgerBlue">$k \in {1 \cdots K}$</span> is the class index, <span style="color:DodgerBlue">$K$</span> is the dimension of the output probability vector and <span style="color:DodgerBlue">$\alpha^k$</span> is the concentration parameter of the distribution modelling class <span style="color:DodgerBlue">$k$</span>, where <span style="color:DodgerBlue">$\alpha^k=\[\alpha^k_1, \cdots \alpha^k_K\]$</span> and <span style="color:DodgerBlue">$\alpha^k_i>0, \forall i $</span>.
 
 
-### <span style="color:gray"> 2.2.1 Concentration Parameter ($\alpha$)</span>
+#### <span style="color:gray"> 2.2.1 Concentration Parameter ($\alpha$)</span>
 
 Concentration parameter <span style="color:DodgerBlue">$\alpha$</span> can be thought of as determining how "concentrated" the porbability mass of a sample from a Dirichlet distribution is likely to be.
 
@@ -70,7 +70,7 @@ Thus, we resort to the *Teacher* network for extracting this information. We com
 
 ![2](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/2.PNG){: .mx-auto.d-block :}
 
-### <span style="color:gray"> 2.2.2 Class Similarity Matrix ($C$)</span>
+#### <span style="color:gray"> 2.2.2 Class Similarity Matrix ($C$)</span>
 
 The weights <span style="color:DodgerBlue">$w_k$</span> can be considered as the template of the class <span style="color:DodgerBlue">$k$</span> learned by the *Teacher* network. This is because the predicted class probability is proportional to the alignment of the pre-final layer’s output with the template <span style="color:DodgerBlue">$w_k$</span>.
 
@@ -84,3 +84,18 @@ C(i,j)=\frac{w^T_i w_j}{\Vert w_i \Vert \Vert w_j \Vert}.
 \\]
 
 Since the elements of the concentration parameter have to be positive real numbers, we perform a min-max normalization over each row of the class similarity matrix.
+
+### <span style="color:gray"> 2.3 Crafting *Data Impression* via Dirichlet Sampling</span>
+
+Once the parameters <span style="color:DodgerBlue">$K$</span> and <span style="color:DodgerBlue">$\alpha^k$</span> of the Dirichlet distribution are obtained for each class <span style="color:DodgerBlue">$k$</span>, we can sample class probability (softmax) vectors. As we optimize the following equation, we obtain the input representations (*Data Impressions*).
+
+<span style="color:DodgerBlue">
+\\[
+\overline{x}^k_i=argmin_x L_C(y^k_i, T(x, \theta_T, \tau))
+\\]
+</span>
+
+<span style="color:DodgerBlue">$Y^k=\[ y^k_1,y^k_2, \cdots ,y^k_N \in \mathbb(R)^{K \times N}$</span> is the <span style="color:DodgerBlue">$N$</span> softmax vectors correspoding to class <span style="color:DodgerBlue">$k$</span>, sampled from <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> distribution. And, Correspoding to each sampled sofmax vector <span style="color:DodgerBlue">$y^k_i$</span>, we can craft a *Data Impression* <span style="color:DodgerBlue">$\overline{x}^k_i$</span>, for which the *Teacher* predicts a similar softmax 
+ 
+
+We initialize <span style="color:DodgerBlue">$\overline{x}^k_i$</span> as a random noisy image and update it over multiple iterations till the cross-entropy loss between the sampled softmax vector <span style="color:DodgerBlue">$y^k_i$</span> and the softmax output predicted by the *Teacher* is minimized. And the process is repeated for each of the <span style="color:DodgerBlue">$N$</span> sampled softmax probability vectors in <span style="color:DodgerBlue">$Y^k$</span>, <span style="color:DodgerBlue">$y \in {1, \cdots,K}$</span>
