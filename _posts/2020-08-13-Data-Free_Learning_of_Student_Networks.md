@@ -45,7 +45,7 @@ GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a dis
 
 <span style="color:DodgerBlue">
 \\[
-L_\{GAN\}= \mathbb{E}_\{ y \sim p_d (y) \} \[ log D(y) \] + \mathbb\{E\}_z \[log (1-D(G(z)))\] \quad \cdots Eq. (2)
+L_\{GAN\}= \mathbb{E}_y \[ log D(y) \] + \mathbb\{E\}_z \[log (1-D(G(z)))\] \quad \cdots Eq. (2)
 \\]
 </span>
 
@@ -94,4 +94,25 @@ where <span style="color:DodgerBlue">$\Vert \cdot \Vert_1$</span> is the $l_1$ n
 
 <span style="color:#5256BC"><b>(iii) The number5 of training examples in each category is usually balanced</b></span>
 
-We employ the information entropy loss to measure the class balance of generated images. Specifically, given a probability vector <span style="color:DodgerBlue">$p= (p_1, \cdots, p_k)$</span>, the information entropy, which measures the degree of confusion, of <span style="color:DodgerBlue">$p$</span> is caculated as <span style="color:DodgerBlue">$\mathcal{H}_\{ info \} (p)= -\frac{1}{k} \sum_i p_i log (p_i)$</span>. The value of <span style="color:DodgerBlue">$\mathcal{H}_{info}(p)$</span> indicates the amount of information that <span style="color:DodgerBlue">$p$</span> owns, which will take the maximum when all variables to equal to <span style="color:DodgerBlue">$\frac{1}{k}$</span>. The information
+We employ the information entropy loss to measure the class balance of generated images. Specifically, given a probability vector <span style="color:DodgerBlue">$p= (p_1, \cdots, p_k)$</span>, the information entropy, which measures the degree of confusion, of <span style="color:DodgerBlue">$p$</span> is caculated as <span style="color:DodgerBlue">$\mathcal{H}_\{ info \} (p)= -\frac{1}{k} \sum_i p_i log (p_i)$</span>. The value of <span style="color:DodgerBlue">$\mathcal{H}_{info}(p)$</span> indicates the amount of information that <span style="color:DodgerBlue">$p$</span> owns, which will take the maximum when all variables to equal to <span style="color:DodgerBlue">$\frac{1}{k}$</span>. When we apply the information entropy to output vectors <span style="color:DodgerBlue">$\\{ y^1_T, \cdots, y^n_T \\} \;$</span>, The information entropy loss of generated images is defined as
+
+<span style="color:DodgerBlue">
+\\[
+L_{ie}=-\mathcal{H}_\{ info \} (\frac{1}{n} \sum_i y^i_T). \quad \cdots Eq. (5)
+\\]
+</span>
+
+
+When the loss takes the mininum, every element in vector <span style="color:DodgerBlue">$\\{ y^1_T, \cdots, y^n_T \\} \;$</span> would equal to <span style="color:DodgerBlue">$\frac{1}{k}$</span>, which implies <span style="color:DodgerBlue">$G$</span> could generate images of each category with roughlt the same probability.
+
+
+By combining the aforementioned three loss functions, we obtain the final objective funcion
+
+
+<span style="color:DodgerBlue">
+\\[
+L_\{Total\}=L_\{oh\}+\alpha L_\{a\}+\beta L_\{ie\}, \quad \cdots Eq. (6)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$\alpha$</span> and <span style="color:DodgerBlue">$\beta$</span> are hyper paramertes for balancing three different terms. 
