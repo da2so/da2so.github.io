@@ -45,7 +45,7 @@ GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a dis
 
 <span style="color:DodgerBlue">
 \\[
-L_G= \mathbb{E}_\{ y \sim p_d (y) \} \[ log D(y) \] + \mathbb\{E\}
+L_\{GAN\}= \mathbb{E}_\{ y \sim p_d (y) \} \[ log D(y) \] + \mathbb\{E\}_\{ z \sim  \}
 \\]
 </span>
 
@@ -94,4 +94,4 @@ where <span style="color:DodgerBlue">$\Vert \cdot \Vert_1$</span> is the $l_1$ n
 
 <span style="color:#5256BC"><b>(iii) The number5 of training examples in each category is usually balanced</b></span>
 
-We employ the information entropy loss to measure the class balance of generated images. Specifically, given a probability vector <span style="color:DodgerBlue">$p= (p_1, \cdots, p_k)$</span>, the information entropy, which measures the degree of confusion, of <span style="color:DodgerBlue">$p$</span> is caculated as <span style="color:DodgerBlue">$\mathcal{H}_\{ info \} (p)= -\frac{1}{k} \sum_i p_i log (p_i)$</span>
+We employ the information entropy loss to measure the class balance of generated images. Specifically, given a probability vector <span style="color:DodgerBlue">$p= (p_1, \cdots, p_k)$</span>, the information entropy, which measures the degree of confusion, of <span style="color:DodgerBlue">$p$</span> is caculated as <span style="color:DodgerBlue">$\mathcal{H}_\{ info \} (p)= -\frac{1}{k} \sum_i p_i log (p_i)$</span>.
