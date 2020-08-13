@@ -43,7 +43,7 @@ L=\sum_{(x,y) \in \mathbb{D}} L_K (S(x,\theta_S,\tau), T(x,\theta_T, \tau))+\lam
 
 In this paper, we deal with the scenario where we have no access to **(i)** any training data samples (either from the target distribution or different) **(ii)** meta-data extracted from it.
 
-To tackle this, our approach taps the learned parameters of the *Teacher* and produce synthesized input representations, named as *Data Impressions* ,from the underlying data distribution on which it is trained. These can be used as a transfer set in order to perform knowledge distillation to a *Student* model.
+To tackle this, our approach taps the learned parameters of the *Teacher* and produce synthesized input representations, named as *Data Impressions* (DIs),from the underlying data distribution on which it is trained. These can be used as a transfer set in order to perform knowledge distillation to a *Student* model.
 
 
 In order to craft the *Data impressions*, we model output space of the *Teacher* model. Let <span style="color:DodgerBlue">$s \sim p(s)$</span>, be the random vector that <span style="background-color: #B1FF8C">represents the softmax outputs of the *Teacher*</span>, <span style="color:DodgerBlue">$T(x, \theta_T)$</span>. We model <span style="color:DodgerBlue">$p(s^k)$</span> belonging to each class <span style="color:DodgerBlue">$k$</span>, using Dirichlet distribution.
