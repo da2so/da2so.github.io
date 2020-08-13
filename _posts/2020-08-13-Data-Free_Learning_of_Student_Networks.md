@@ -45,7 +45,8 @@ GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a dis
 
 <span style="color:DodgerBlue">
 \\[
-L_G= \mathbb{E}_{ y \sim p_d(y) } \[ log D(y) \] + \mathbb{E}_\{z \sim p_z(z) \} \[ log (1-D(G(z))) \] \quad \cdots Eq. (2)
+L_G= \mathbb{E}_{ y \sim p_d(y) } \[ log D(y) \] + 
+
 \\]
 </span>
 
@@ -81,8 +82,7 @@ By introducing the one-hot loss, we expect that a generated image can be classif
 <span style="color:#5256BC"><b>(ii) Intermediate features extracted by convolution layers are important representations of input images</b></span>
 
 
-We denote features of <span style="color:DodgerBlue">$x^i$</span> extracted by the teacher network as <span style="color:DodgerBlue">$f^i_T$</span>, which corresponds to the output before the fully-connected layer. Since filters in the teacher DNNs have been trained to extract intrinsic patterns in training data, feature maps tend to receive higher activation value if input images are real rather than some random vectors.
-
+We denote features of <span style="color:DodgerBlue">$x^i$</span> extracted by the teacher network as <span style="color:DodgerBlue">$f^i_T$</span>, which corresponds to the output before the fully-connected layer. Since filters in the teacher DNNs have been trained to extract intrinsic patterns in training data, feature maps tend to receive higher activation value if input images are real rather than some random vectors.  
 Hence, we define an activation loss function as:
 
 <span style="color:DodgerBlue">
