@@ -50,7 +50,9 @@ In order to craft the *Data impressions*, we model output space of the *Teacher*
 
 
 {: .box-note}
-**Dirichlet distribution:**  $Dir(x_1, \cdots x_K, \alpha_1, \cdots, \alpha_K) \; s.t. \; \sum^K_i x_i =1 \;and\; x_i \geq 0 \forall i$
+**Dirichlet distribution:**  $Dir(x_1, \cdots x_K, \alpha_1, \cdots, \alpha_K) \; s.t. \; \sum^K_i x_i =1 \;and\; x_i \geq 0 \; \forall i$
+
+
 The distribution to represent the softmax output <span style="color:DodgerBlue">$s^k$</span> of class <span style="color:DodgerBlue">$k$</span> would be modelled as, <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> where <span style="color:DodgerBlue">$k \in {1 \cdots K}$</span> is the class index, <span style="color:DodgerBlue">$K$</span> is the dimension of the output probability vector and <span style="color:DodgerBlue">$\alpha^k$</span> is the concentration parameter of the distribution modelling class <span style="color:DodgerBlue">$k$</span>, where <span style="color:DodgerBlue">$\alpha^k=\[\alpha^k_1, \cdots \alpha^k_K\]$</span> and <span style="color:DodgerBlue">$\alpha^k_i>0, \forall i $</span>.
 
 
@@ -104,4 +106,26 @@ We initialize <span style="color:DodgerBlue">$\overline{x}^k_i$</span> as a rand
 
 
 #### <span style="color:gray"> 2.3.1 Scaling Factor (<span style="color:DodgerBlue">$\beta$</span)</span>
+
+The probaiblity density function of the Dirichlet distribution for <span style="color:DodgerBlue">$K$</span> random vairables is a <span style="color:DodgerBlue">$K-1$</span> dimensional probability simplex that exists on a <span style="color:DodgerBlue">$K$</span> diemensional space. Since we treat Dirichlet distribution, it is important to discuss the significance of the range of <span style="color:DodgerBlue">$\alpha_i \in \alpha$</span>, in controlling the density of the distribution
+
+![3](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/3.png){: .mx-auto.d-block :}
+
+Thus, we define a scaling vector <span style="color:DodgerBlue">$\beta$</span> which can control the range of the individual elements of the concentration parameter, which in turn decides regions in the simplex from which sampling is performed. This becomes a hyper-parameter for the algorithm. Thus, the actual sampling of the probability sampling of the probability vectors happen from <span style="color:DodgerBlue">$p(s)=Dir(K,\beta \time \alpha$</span>.
+
+|<b>If</b> small value of <span style="color:DodgerBlue">$\beta$</span>  $\rightarrow$ Variance of the sampled simplexes is high|
+|<b>Elif</b> large value of <span style="color:DodgerBlue">$\beta$</span>  $\rightarrow$ Variance of the sampled simplexes is low|
+
+### <span style="color:gray"> 2.4 Zero-Shot Knowledge Distillation</span>
+
+We treat *Data Impressions* as the 'Transfer set' and perform knowledge distillation as follows. 
+
+\\[
+\theta_S=argim_theta_S \sum_{\overline{x} \in \overline{X}} L_K (S(\overline{x},\theta_S,\tau), T(\overline{x},\theta_T, \tau)
+\\]
+We ignore the cross-entropy loss <span style="color:DodgerBlue">$L_C$</span> from the general Distillation objective function. The proposed ZSKD approach is detailed in Algorithm 1. 
+
+
+
+![4](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/4.PNG){: .mx-auto.d-block :}
 
