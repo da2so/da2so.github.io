@@ -46,7 +46,7 @@ In this paper, we deal with the scenario where we have no access to **(i)** any 
 To tackle this, our approach taps the learned parameters of the *Teacher* and produce synthesized input representations, named as *Data Impressions* ,from the underlying data distribution on which it is trained. These can be used as a transfer set in order to perform knowledge distillation to a *Student* model.
 
 
-In order to craft the *Data impressions*, we model output space of the *Teacher* model. Let <span style="color:DodgerBlue">$s \sim p(s)$</span>, be the random vector that <span style="background-color: #A4FF21">represents the softmax outputs of the *Teacher*</span>, <span style="color:DodgerBlue">$T(x, \theta_T)$</span>. We model <span style="color:DodgerBlue">$p(s^k)$</span> belonging to each class <span style="color:DodgerBlue">$k$</span>, using Dirichlet distribution.
+In order to craft the *Data impressions*, we model output space of the *Teacher* model. Let <span style="color:DodgerBlue">$s \sim p(s)$</span>, be the random vector that <span style="background-color: #B1FF8C">represents the softmax outputs of the *Teacher*</span>, <span style="color:DodgerBlue">$T(x, \theta_T)$</span>. We model <span style="color:DodgerBlue">$p(s^k)$</span> belonging to each class <span style="color:DodgerBlue">$k$</span>, using Dirichlet distribution.
 
 
 {: .box-note}
@@ -79,9 +79,11 @@ The weights <span style="color:DodgerBlue">$w_k$</span> can be considered as the
 
 Therefor, , wetreat the weights wk as the class template for class <span style="color:DodgerBlue">$k$</span> and compute the similarity between classes <span style="color:DodgerBlue">$i$</span> and <span style="color:DodgerBlue">$j$</span> as:
 
+<span style="color:DodgerBlue">
 \\[
 C(i,j)=\frac{w^T_i w_j}{\Vert w_i \Vert \Vert w_j \Vert}.
 \\]
+</span>
 
 Since the elements of the concentration parameter have to be positive real numbers, we perform a min-max normalization over each row of the class similarity matrix.
 
@@ -95,7 +97,11 @@ Once the parameters <span style="color:DodgerBlue">$K$</span> and <span style="c
 \\]
 </span>
 
-<span style="color:DodgerBlue">$Y^k=\[ y^k_1,y^k_2, \cdots ,y^k_N \in \mathbb(R)^{K \times N}$</span> is the <span style="color:DodgerBlue">$N$</span> softmax vectors correspoding to class <span style="color:DodgerBlue">$k$</span>, sampled from <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> distribution. And, Correspoding to each sampled sofmax vector <span style="color:DodgerBlue">$y^k_i$</span>, we can craft a *Data Impression* <span style="color:DodgerBlue">$\overline{x}^k_i$</span>, for which the *Teacher* predicts a similar softmax 
+<span style="color:DodgerBlue">$Y^k=\[ y^k_1,y^k_2, \cdots ,y^k_N \] \in \mathbb{R}^{K \times N}$</span> is the <span style="color:DodgerBlue">$N$</span> softmax vectors correspoding to class <span style="color:DodgerBlue">$k$</span>, sampled from <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> distribution. Correspoding to each sampled sofmax vector <span style="color:DodgerBlue">$y^k_i$</span>, we can craft a *Data Impression* <span style="color:DodgerBlue">$\overline{x}^k_i$</span>, for which the *Teacher* predicts a similar softmax 
  
 
 We initialize <span style="color:DodgerBlue">$\overline{x}^k_i$</span> as a random noisy image and update it over multiple iterations till the cross-entropy loss between the sampled softmax vector <span style="color:DodgerBlue">$y^k_i$</span> and the softmax output predicted by the *Teacher* is minimized. And the process is repeated for each of the <span style="color:DodgerBlue">$N$</span> sampled softmax probability vectors in <span style="color:DodgerBlue">$Y^k$</span>, <span style="color:DodgerBlue">$y \in {1, \cdots,K}$</span>
+
+
+#### <span style="color:gray"> 2.3.1 Scaling Factor (<span style="color:DodgerBlue">$\beta$</span)</span>
+
