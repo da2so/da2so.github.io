@@ -70,7 +70,7 @@ So, it is important to determine right <span style="color:DodgerBlue">$\alpha$</
 Thus, we resort to the *Teacher* network for extracting this information. We compute a normalized class similarity matrix (<span style="color:DodgerBlue">$C$</span>) using the weights <span style="color:DodgerBlue">$W$</span> connecting the final (softmax) and the pre-final layers. The element <span style="color:DodgerBlue">$C(i,j)$</span> of this matrix denotes the visual similarity between the categories <span style="color:DodgerBlue">$i$</span> and <span style="color:DodgerBlue">$j$</span> in [0,1].
 
 
-![2](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/2.png){: .mx-auto.d-block :}
+![2](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/2.PNG){: .mx-auto.d-block :}
 
 #### <span style="color:gray"> 2.2.2 Class Similarity Matrix ($C$)</span>
 
