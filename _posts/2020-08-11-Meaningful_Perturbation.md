@@ -67,11 +67,11 @@ Then, the perturbation operator is defined as follows:
 **Note:** I will define constant, noise and blur as reference data <span style="color:DodgerBlue">$R$</span>.
 
 #### <span style="color:gray"> 2.2.1 The objective function </span>
-Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that causes the score <span style="color:DodgerBlue">$f_c(\Phi (x_0:m)) \ll f_c(x_0)$</span> to drop significantly, where <span style="color:DodgerBlue">$c$</span> is the target class.
+Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that causes the score <span style="color:DodgerBlue">$f_c(\Phi (x_0:m)) \ll f_c(x_0)$</span> to drop significantly, where <span style="color:DodgerBlue">$c$</span> is the target class. This represents that masked regions (pixels) were important to classifiy <span style="color:DodgerBlue">$x_0$</span> as <span style="color:DodgerBlue">$c$</span>.
 
 <span style="color:DodgerBlue">\\[ m^*= argmin_{m \in [0,1]^\Lambda} \lambda \Vert 1-m\Vert_1+ f_c(\Phi(x_0:m))\\] </span>
 
-,where <span style="color:DodgerBlue">$\lambda$</span> encourages most of the mask to be turned off.
+,where <span style="color:DodgerBlue">$\lambda$</span> encourages most of the mask to be turned off. 
 
 
 #### <span style="color:gray">2.2.2 Dealing with artifacts</span>  
