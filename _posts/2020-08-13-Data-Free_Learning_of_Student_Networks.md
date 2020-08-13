@@ -45,7 +45,7 @@ GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a dis
 
 <span style="color:DodgerBlue">
 \\[
-L_G= \mathbb{E}_\{ y \sim p_d(y) \} \[ log D(y) \] + \mathbb{E}_\{z \sim p_z(z) \} \[log (1-D(G(z)))\] \quad \cdots Eq. (2)
+L_G= \mathbb{E}_{ y \sim p_d(y) } \[ log D(y) \] + \mathbb{E}_\{z \sim p_z(z) \} \[log (1-D(G(z)))\] \quad \cdots Eq. (2)
 \\]
 </span>
 
@@ -87,7 +87,9 @@ Hence, we define an activation loss function as:
 
 <span style="color:DodgerBlue">
 \\[
-L_a=-\frac{1}{n}
+L_a=-\frac{1}{n} \sum_i \Vert f^i_T\Vert_1, \quad \cdots Eq. (4)
 \\]
 </span>
+
+where <span style="color:DodgerBlue">$\Vert \dot \Vert_1$</span> is the $l_1$ norm.
 
