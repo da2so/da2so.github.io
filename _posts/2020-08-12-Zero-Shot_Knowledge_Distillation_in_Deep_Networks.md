@@ -123,7 +123,7 @@ We treat *Data Impressions* as the 'Transfer set' and perform knowledge distilla
 
 <span style="color:DodgerBlue">
 \\[
-\theta_S=argin_{\theta_S} \sum_\overline{x} L_K (S(\overline{x},\theta_S,\tau), T(\overline{x},\theta_T, \tau))
+\theta_S=argmin_{\theta_S} \sum_\overline{x} L_K (S(\overline{x},\theta_S,\tau), T(\overline{x},\theta_T, \tau))
 \\]
 </span>
 
