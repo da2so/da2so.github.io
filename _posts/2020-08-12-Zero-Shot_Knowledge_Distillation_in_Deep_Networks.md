@@ -105,24 +105,28 @@ Once the parameters <span style="color:DodgerBlue">$K$</span> and <span style="c
 We initialize <span style="color:DodgerBlue">$\overline{x}^k_i$</span> as a random noisy image and update it over multiple iterations till the cross-entropy loss between the sampled softmax vector <span style="color:DodgerBlue">$y^k_i$</span> and the softmax output predicted by the *Teacher* is minimized. And the process is repeated for each of the <span style="color:DodgerBlue">$N$</span> sampled softmax probability vectors in <span style="color:DodgerBlue">$Y^k$</span>, <span style="color:DodgerBlue">$y \in {1, \cdots,K}$</span>
 
 
-#### <span style="color:gray"> 2.3.1 Scaling Factor (<span style="color:DodgerBlue">$\beta$</span)</span>
+#### <span style="color:gray"> 2.3.1 Scaling Factor ($\beta$)</span>
 
-The probaiblity density function of the Dirichlet distribution for <span style="color:DodgerBlue">$K$</span> random vairables is a <span style="color:DodgerBlue">$K-1$</span> dimensional probability simplex that exists on a <span style="color:DodgerBlue">$K$</span> diemensional space. Since we treat Dirichlet distribution, it is important to discuss the significance of the range of <span style="color:DodgerBlue">$\alpha_i \in \alpha$</span>, in controlling the density of the distribution
+The probaiblity density function of the Dirichlet distribution for <span style="color:DodgerBlue">$K$</span> random vairables is a <span style="color:DodgerBlue">$K-1$</span> dimensional probability simplex that exists on a <span style="color:DodgerBlue">$K$</span> diemensional space. Since we treat Dirichlet distribution, it is important to discuss the significance of the range of <span style="color:DodgerBlue">$\alpha_i \in \alpha$</span>, in controlling the density of the distribution.
 
 ![3](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/3.png){: .mx-auto.d-block :}
 
-Thus, we define a scaling vector <span style="color:DodgerBlue">$\beta$</span> which can control the range of the individual elements of the concentration parameter, which in turn decides regions in the simplex from which sampling is performed. This becomes a hyper-parameter for the algorithm. Thus, the actual sampling of the probability sampling of the probability vectors happen from <span style="color:DodgerBlue">$p(s)=Dir(K,\beta \time \alpha$</span>.
+Thus, we define a scaling vector <span style="color:DodgerBlue">$\beta$</span> which can control the range of the individual elements of the concentration parameter, which in turn decides regions in the simplex from which sampling is performed. This becomes a hyper-parameter for the algorithm. Thus, the actual sampling of the probability sampling of the probability vectors happen from <span style="color:DodgerBlue">$p(s)=Dir(K,\beta \times \alpha$</span>.
 
 |<b>If</b> small value of <span style="color:DodgerBlue">$\beta$</span>  $\rightarrow$ Variance of the sampled simplexes is high|
 |<b>Elif</b> large value of <span style="color:DodgerBlue">$\beta$</span>  $\rightarrow$ Variance of the sampled simplexes is low|
+
 
 ### <span style="color:gray"> 2.4 Zero-Shot Knowledge Distillation</span>
 
 We treat *Data Impressions* as the 'Transfer set' and perform knowledge distillation as follows. 
 
+<span style="color:DodgerBlue">
 \\[
-\theta_S=argim_theta_S \sum_{\overline{x} \in \overline{X}} L_K (S(\overline{x},\theta_S,\tau), T(\overline{x},\theta_T, \tau)
+\theta_S=argin_\theta_S \sum_{\overline{x} \in \overline{X}} L_K (S(\overline{x},\theta_S,\tau), T(\overline{x},\theta_T, \tau))
 \\]
+</span>
+
 We ignore the cross-entropy loss <span style="color:DodgerBlue">$L_C$</span> from the general Distillation objective function. The proposed ZSKD approach is detailed in Algorithm 1. 
 
 
