@@ -45,7 +45,7 @@ GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a dis
 
 <span style="color:DodgerBlue">
 \\[
-L_\{ GAN\}= \mathbb{E}_\{ y \sim p_\{ data\} (y) \} \[ log D(y) \] + \mathbb{E}_\{z \sim p_z(z)\} \[log (1-D(G(z)))\] \quad \cdots Eq. (2)
+L_\{ GAN\}= \mathbb{E}_\{ y \sim p_\{ data \} 
 \\]
 </span>
 
@@ -63,7 +63,7 @@ in vanilla GANs is therefore inapplicable for approximating the original trainin
 
 * A set of random vector: <span style="color:DodgerBlue">$\{ z^1, \cdots ,z^n \}$</span>
 * Images generated from random vectors: <span style="color:DodgerBlue">$\{ x^1, \cdots , x^n\}$</span>, where <span style="color:DodgerBlue">$x^i=G(z^i)$</span>
-* Outputs from the teacher network: <span style="color:DodgerBlue">$\{ y^1_T, \cdots, y^n_T \}$</span> with <span style="color:DodgerBlue">$y^_T=\mathcal{N}_T (x^i)$</span>
+* Outputs from the teacher network: <span style="color:DodgerBlue">$\{ y^1_T, \cdots, y^n_T \}$</span> with <span style="color:DodgerBlue">$y^i_T=\mathcal{N}_T (x^i)$</span>
 * The predicted labels: <span style="color:DodgerBlue">$\{ t^1, \cdots, t^n \}$</span> caculated by <span style="color:DodgerBlue">$t^i=argmax_j (y6i_T)_j$</span>
 
 
