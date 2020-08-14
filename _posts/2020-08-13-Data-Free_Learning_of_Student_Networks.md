@@ -118,7 +118,7 @@ L_\{Total\}=L_\{oh\}+\alpha L_\{a\}+\beta L_\{ie\}, \quad \cdots Eq. (6)
 where <span style="color:DodgerBlue">$\alpha$</span> and <span style="color:DodgerBlue">$\beta$</span> are hyper paramertes for balancing three different terms. The algorithm of DAFL is described in Algorithm 1.
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/2.png){: .mx-auto.d-block width="80%" height="70% :}
+![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/2.png){: .mx-auto.d-block width="60%" height="50% :}
 
 
 ## 3. Experiment Settting & Result
