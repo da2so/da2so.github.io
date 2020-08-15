@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Data-Free Learning of Student Networks
+title: Zero-Shot Knowledge Transfer via Aversarial Belif Matching
 tags: [Model Compression, Knowledge Distillation, Data-free, GAN]
 comments: true
 use_math: true
-thumbnail-img: /assets/thumbnail_img/2020-08-13-Data-Free_Learning_of_Student_Networks/post.png
+thumbnail-img: /assets/thumbnail_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/post.png
 ---
 
 ## 1. Data-free Knowledge distillation
@@ -16,112 +16,9 @@ thumbnail-img: /assets/thumbnail_img/2020-08-13-Data-Free_Learning_of_Student_Ne
 As the word itself, We perform knowledge distillation when there are no original dataset on which the Teacher network has been trained. It is because, in real world, most datasets are proprietary and not shared publicly due to privacy or confidentiality concerns. 
 
 
-In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in this paper, we prospose a novel framework, named as *Data-Free Learning* (DAFL), for trainging efficient deep neural networks by exploiting generative adversarial networks (GANs).
+In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in this paper, we train an adversarial generator to search for iamges on which the student poorly mathces the teacher, and then using them to train the student.
 
+![1](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/1.png){: .mx-auto.d-block :}
 
-![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/1.png){: .mx-auto.d-block :}
+## 2. Zero-shot knowledge transfer Method
 
-## 2. Method
-
-### <span style="color:gray">2.1 Teacher-Student Interactions </span>
-
-Knowledge Distillation (KD) is a widely used apporach to transfer the output information from a heavy network to a smaller network for achieving higher performance. To describe this formally, let <span style="color:DodgerBlue">$\mathcal{N}_T$</span> and <span style="color:DodgerBlue">$\mathcal{N}_S$</span> denote the original pre-trained CNN (teacher network) and the desired portable network (student network). The student network can be optimized using the following loss function based on KD:
-
-<span style="color:DodgerBlue">
-\\[
-L_{KD}=\frac{1}{n} \sum_i \mathcal{H}_\{cross \}(y^i_S, y^i_T). \quad \cdots Eq.(1)
-\\]
-</span>
-
-where <span style="color:DodgerBlue">$\mathcal{H}_\{cross \}$</span> is the cross-entropy loss, <span style="color:DodgerBlue">$y^i_T= \mathcal{N}_T(x^i)$</span> and <span style="color:DodgerBlue">$y^i_S=\mathcal{N}_S(x^i)$</span> are the outputs of the teacher network <span style="color:DodgerBlue">$\mathcal{N}_T$</span> and student network <span style="color:DodgerBlue">$\mathcal{N}_S$</span>, respectively.
-
-
-
-### <span style="color:gray">2.2 GAN for Generating Training Samples </span>
-
-In order to learn portable network without original data, we exploit GAN to generate training samples utilizing the available information of the given network.
-
-GANs consist of a generator  <span style="color:DodgerBlue">$G$</span> and a discriminator  <span style="color:DodgerBlue">$D$</span>.  <span style="color:DodgerBlue">$G$</span> is expected to generates desired data while <span style="color:DodgerBlue">$D$</span> is trained to the differences between real images and the those produced by the generator as follows:
-
-<span style="color:DodgerBlue">
-\\[
-L_\{GAN\}= \mathbb{E}_y \[ log D(y) \] + \mathbb\{E\}_z \[log (1-D(G(z)))\] \quad \cdots Eq. (2)
-\\]
-</span>
-
-
-where  <span style="color:DodgerBlue">$x$</span> is the desired data and  <span style="color:DodgerBlue">$z$</span> is an input noise vector of  <span style="color:DodgerBlue">$G$</span>. However, in the absence of training data, it is thus impossible to train the discriminator as vanilla GANs. And then, this affects that we cannot also train the generator.
-
-To tackle this problem, we propose to regard the given teacher network as a *fixed discriminator*. Therefore,  <span style="color:DodgerBlue">$G$</span> can be optimized directly without training <span style="color:DodgerBlue">$D$</span> together, *i.e* the parameters of original network <span style="color:DodgerBlue">$D$</span> are fixed during training <span style="color:DodgerBlue">$G$</span>.
-
-
-However, given the teacher deep neural network as the discriminator,the output is to classify images to different concept sets, instead of indicating the reality of images. The loss function
-in vanilla GANs is therefore inapplicable for approximating the original training set. Thus, we introduce several new loss functions that satisfy the following properties.
-
-
-<span style="color:#5256BC"><b>(i) The outputs are encouraged to be one-hot vectors</b></span>
-
-
-* A set of random vector: <span style="color:DodgerBlue">$\\{ z^1, \cdots ,z^n \\}$</span>
-* Images generated from random vectors: <span style="color:DodgerBlue">$\\{ x^1, \cdots , x^n\\}$</span>, where <span style="color:DodgerBlue">$x^i=G(z^i)$</span>
-* Outputs from the teacher network: <span style="color:DodgerBlue">$\\{ y^1_T, \cdots, y^n_T \\} \;$</span> with <span style="color:DodgerBlue">$y^i_T=\mathcal{N}_T (x^i)$</span>
-* The predicted labels: <span style="color:DodgerBlue">$\\{ t^1, \cdots, t^n \\}$</span> caculated by <span style="color:DodgerBlue">$t^i=argmax_j \,(y^i_T)_j$</span>
-
-
-If images generated by <span style="color:DodgerBlue">$G$</span> follow the same distribution as that of the training data of the teacher, they should also have similar outputs as the training data. We thus introduce the one-hot loss by taking <span style="color:DodgerBlue">$\\{ t^1, \cdots, t^n \\}$</span> as pseudo ground-truth labels.
-
-<span style="color:DodgerBlue">
-\\[
-L_\{oh\}=\frac{1}{n}\sum_i \mathcal{H}_\{ cross \} (y^i_T,t^i) \quad \cdots Eq.(3)
-\\]
-</span>
-
-By introducing the one-hot loss, we expect that a generated image can be classified into one particular category concerned by the teacher network with a higher probability.
-
-<span style="color:#5256BC"><b>(ii) Intermediate features extracted by convolution layers are important representations of input images</b></span>
-
-
-We denote features of <span style="color:DodgerBlue">$x^i$</span> extracted by the teacher network as <span style="color:DodgerBlue">$f^i_T$</span>, which corresponds to the output before the fully-connected layer. Since filters in the teacher DNNs have been trained to extract intrinsic patterns in training data, feature maps tend to receive higher activation value if input images are real rather than some random vectors.  
-Hence, we define an activation loss function as:
-
-<span style="color:DodgerBlue">
-\\[
-L_a=-\frac{1}{n} \sum_i \Vert f^i_T\Vert_1, \quad \cdots Eq. (4)
-\\]
-</span>
-
-where <span style="color:DodgerBlue">$\Vert \cdot \Vert_1$</span> is the $l_1$ norm.
-
-<span style="color:#5256BC"><b>(iii) The number5 of training examples in each category is usually balanced</b></span>
-
-We employ the information entropy loss to measure the class balance of generated images. Specifically, given a probability vector <span style="color:DodgerBlue">$p= (p_1, \cdots, p_k)$</span>, the information entropy, which measures the degree of confusion, of <span style="color:DodgerBlue">$p$</span> is caculated as <span style="color:DodgerBlue">$\mathcal{H}_\{ info \} (p)= -\frac{1}{k} \sum_i p_i log (p_i)$</span>. The value of <span style="color:DodgerBlue">$\mathcal{H}_{info}(p)$</span> indicates the amount of information that <span style="color:DodgerBlue">$p$</span> owns, which will take the maximum when all variables to equal to <span style="color:DodgerBlue">$\frac{1}{k}$</span>. When we apply the information entropy to output vectors <span style="color:DodgerBlue">$\\{ y^1_T, \cdots, y^n_T \\} \;$</span>, The information entropy loss of generated images is defined as
-
-<span style="color:DodgerBlue">
-\\[
-L_{ie}=-\mathcal{H}_\{ info \} (\frac{1}{n} \sum_i y^i_T). \quad \cdots Eq. (5)
-\\]
-</span>
-
-
-When the loss takes the mininum, every element in vector <span style="color:DodgerBlue">$\\{ y^1_T, \cdots, y^n_T \\} \;$</span> would equal to <span style="color:DodgerBlue">$\frac{1}{k}$</span>, which implies <span style="color:DodgerBlue">$G$</span> could generate images of each category with roughlt the same probability.
-
-
-By combining the aforementioned three loss functions, we obtain the final objective funcion
-
-
-<span style="color:DodgerBlue">
-\\[
-L_\{Total\}=L_\{oh\}+\alpha L_\{a\}+\beta L_\{ie\}, \quad \cdots Eq. (6)
-\\]
-</span>
-
-where <span style="color:DodgerBlue">$\alpha$</span> and <span style="color:DodgerBlue">$\beta$</span> are hyper paramertes for balancing three different terms. The algorithm of DAFL is described in Algorithm 1.
-
-
-![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/2.png){: .mx-auto.d-block width="60%" height="50% :}
-
-
-## 3. Experiment Settting & Result
-
-
-![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/3.png){: .mx-auto.d-block :}
