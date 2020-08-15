@@ -92,7 +92,7 @@ L_a=-\frac{1}{n} \sum_i \Vert f^i_T\Vert_1, \quad \cdots Eq. (4)
 
 where <span style="color:DodgerBlue">$\Vert \cdot \Vert_1$</span> is the $l_1$ norm.
 
-<span style="color:#5256BC"><b>(iii) The number5 of training examples in each category is usually balanced</b></span>
+<span style="color:#5256BC"><b>(iii) The number of training examples in each category is usually balanced</b></span>
 
 We employ the information entropy loss to measure the class balance of generated images. Specifically, given a probability vector <span style="color:DodgerBlue">$p= (p_1, \cdots, p_k)$</span>, the information entropy, which measures the degree of confusion, of <span style="color:DodgerBlue">$p$</span> is caculated as <span style="color:DodgerBlue">$\mathcal{H}_\{ info \} (p)= -\frac{1}{k} \sum_i p_i log (p_i)$</span>. The value of <span style="color:DodgerBlue">$\mathcal{H}_{info}(p)$</span> indicates the amount of information that <span style="color:DodgerBlue">$p$</span> owns, which will take the maximum when all variables to equal to <span style="color:DodgerBlue">$\frac{1}{k}$</span>. When we apply the information entropy to output vectors <span style="color:DodgerBlue">$\\{ y^1_T, \cdots, y^n_T \\} \;$</span>, The information entropy loss of generated images is defined as
 
