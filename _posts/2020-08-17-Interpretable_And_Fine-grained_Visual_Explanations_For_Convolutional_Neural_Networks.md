@@ -35,3 +35,23 @@ Perturbatuion based explanations can be defined as:
  <span style="color:#5256BC">Explanation by deletion: </span> The smallest region of the image which must be deleted to change the model output.
 
 
+#### <span style="color:gray">2.1.1 Problem definition </span>
+
+* CNN: <span style="color:DodgerBlue">$f_{cnn}$</span>
+* Input image: <span style="color:DodgerBlue">$x \in \mathbb{R}^{3 \times H \times W}$</span>
+* Output: <span style="color:DodgerBlue">$\y_x=f_{cnn} (x; \theta_\{ cnn\} )$</span>
+* Softmax scores:  <span style="color:DodgerBlue">$y^c_x$</span> of the different classes <span style="color:DodgerBlue">$c$</span>
+* Explanations: <span style="color:DodgerBlue">$e^x_{c_T}$</span> for a target class <span style="color:DodgerBlue">$c_T$</span>
+
+#### <span style="color:gray">2.1.2 The objective function </span>
+
+An explanation is computed by removing either relevant or irrelevant information from the image <span style="color:DodgerBlue">$x$</span>. 
+
+To do this, we use a mask based operator <span style="color:DodgerBlue">$\Phi$</span>, which computes a weighted average between the image <span style="color:DodgerBlue">$x$</span> and a reference image <span style="color:DodgerBlue">$r$</span>, using a mask <span style="color:DodgerBlue">$m_{c_T} \in \[ 0,1 \]^{3 \times H \times W}$</span>:
+
+
+<span style="color:DodgerBlue">
+\\[
+e_{c_T}=\Phi(x,m_\{c_T \})= x \cdot m_\{c_T \} + (1- m_\{c_T \} )\cdot r \quad \cdots Eq.(1).
+\\]
+</span>
