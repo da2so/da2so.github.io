@@ -1,4 +1,4 @@
----|I
+---
 layout: post
 title: Zero-Shot Knowledge Transfer via Aversarial Belif Matching
 tags: [Model Compression, Knowledge Distillation, Data-free, GAN]
