@@ -80,7 +80,7 @@ L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_I} \Vert \frac{f (A^{(t)}_l}{ \V
 
 The dynamics of our algorithm is illustrated in Fig. 2, where we use two layer MLPs for both teacher and student, and learn the pseudo points directly. These are initialized away from the real data manifold. 
 
-uring training, pseudo points can be seen to explore the input space, typically running along decision boundaries where the student is most likely to mathc the teacher poorly. At the same time, the student is trained to match the teacher on the pseudo points, and so they must keep changing locations. When the decision boundaries between student and teacher are well aligned, some pseudo points will naturally depart from them and search for new high teacher mismatch regions, which allows disconnected decision boundaries to be explored as well.
+During training, pseudo points can be seen to explore the input space, typically running along decision boundaries where the student is most likely to mathc the teacher poorly. At the same time, the student is trained to match the teacher on the pseudo points, and so they must keep changing locations. When the decision boundaries between student and teacher are well aligned, some pseudo points will naturally depart from them and search for new high teacher mismatch regions, which allows disconnected decision boundaries to be explored as well.
 
 
 ![1](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/2.png){: .mx-auto.d-block :}
