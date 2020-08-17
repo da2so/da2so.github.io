@@ -24,16 +24,16 @@ We propose an optimization based visual explanation method, which highlights the
 
 We provide *local explanations*, which focus on an individual input.
 
-&nbsp;&nbsp;&nbsp;&nbsp; <ol>Given one data point, our method highlights the evidence on which a model bases its deciion.</ol>
+* Given one data point, our method highlights the evidence on which a model bases its deciion.
 
 
 ### <span style="color:gray">2.1 Perturbation based visual explanations </span>
 
 Perturbatuion based explanations can be defined as:
 
- <span style="color:#5256BC">Explanation by preservation: </span> The smallest region of the image which must be retained to preserve the original model output. 
+ * <span style="color:#5256BC">Explanation by preservation: </span> The smallest region of the image which must be retained to preserve the original model output. 
 
- <span style="color:#5256BC">Explanation by deletion: </span> The smallest region of the image which must be deleted to change the model output.
+*  <span style="color:#5256BC">Explanation by deletion: </span> The smallest region of the image which must be deleted to change the model output.
 
 
 #### <span style="color:gray">2.1.1 Problem definition </span>
@@ -51,7 +51,7 @@ An explanation is computed by removing either relevant or irrelevant information
 To do this, we use a mask based operator <span style="color:DodgerBlue">$\Phi$</span>, which computes a weighted average between the image <span style="color:DodgerBlue">$x$</span> and a reference image <span style="color:DodgerBlue">$r$</span>, using a mask <span style="color:DodgerBlue">$m_{c_T} \in \[ 0,1 \]^{3 \times H \times W}$</span>:
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/2.png){: .mx-auto.d-block height=400 width=500 :}
+![1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/2.png){: .mx-auto.d-block  width="70%" :}
 
 <span style="color:DodgerBlue">
 \\[
@@ -60,4 +60,4 @@ e_{c_T}=\Phi(x,m_\{c_T \})= x \cdot m_\{c_T \} + (1- m_\{c_T \} )\cdot r \quad \
 </span>
 
 
-We introduce a similarity metric 
+We introduce a similarity metric <span style="color:DodgerBlue">$\varphi (y^{c_T}_x, y^{c_T}_e$</span>.
