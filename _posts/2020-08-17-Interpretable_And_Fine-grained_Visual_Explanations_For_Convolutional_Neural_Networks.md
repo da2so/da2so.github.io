@@ -27,11 +27,10 @@ We provide *local explanations*, which focus on an individual input. Given one d
 
 ### <span style="color:gray">2.1 Perturbation based visual explanations </span>
 
-Perturbatuion based explanations can be defined as:
+<span> Perturbatuion based explanations can be defined as: </span>
 * <span style="color:#5256BC">Explanation by preservation: </span> The smallest region of the image which must be retained to preserve the original model output. 
-*  <span style="color:#5256BC">Explanation by deletion: </span> The smallest region of the image which must be deleted to change the model output.
+* <span style="color:#5256BC">Explanation by deletion: </span> The smallest region of the image which must be deleted to change the model output.
 
-<br />
 
 #### <span style="color:gray">2.1.1 Problem definition </span>
 
@@ -41,7 +40,6 @@ Perturbatuion based explanations can be defined as:
 * Softmax scores:  <span style="color:DodgerBlue">$y^c_x$</span> of the different classes <span style="color:DodgerBlue">$c$</span>
 * Explanations: <span style="color:DodgerBlue">$e^x_{c_T}$</span> for a target class <span style="color:DodgerBlue">$c_T$</span>
 
-<br />
 
 #### <span style="color:gray">2.1.2 The objective function </span>
 
@@ -79,7 +77,7 @@ We use the mask based definition of an explanation with a reference (<span style
 
 <span style="color:DodgerBlue">
 \\[
-e^*_\{ c_T\ }=m^*_\{ c_T \} \cdot x, \cr
+e^*_\{ c_T \}=m^*_\{ c_T \} \cdot x
 \\]
 </span>
 
