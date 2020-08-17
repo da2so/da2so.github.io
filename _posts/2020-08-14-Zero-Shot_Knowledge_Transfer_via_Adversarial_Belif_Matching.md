@@ -30,7 +30,7 @@ In order to perform data-free knowledge distillation, it is a necessary to recon
 * Student network: <span style="color:DodgerBlue">$S(x; \theta)$</span> with weigths <span style="color:DodgerBlue">$\theta$</span>
 	* Probability vector of student network: <span style="color:DodgerBlue">$s$</span>
 * Generator: <span style="color:DodgerBlue">$G(z; \phi) $</span> with weights <span style="color:DodgerBlue">$\phi$</span>
-	* Pseudo data: <span style="color:DodgerBlue">$x_p$</span> from a noise vector <span style="color:DodgerBlue">$z \sim \mathcal(N) (0, \Iota) $</span>
+	* Pseudo data: <span style="color:DodgerBlue">$x_p$</span> from a noise vector <span style="color:DodgerBlue">$z \sim \mathcal(N) (0, I) $</span>
 
 
 ### <span style="color:gray"> 2.2 Method </span>
@@ -40,7 +40,8 @@ The goal is to produce pseudo data from generator and use them to train student 
 To do this, Our zero-shot training algorithm is described in Algorithm 1. For <span style="color:DodgerBlue">$N$</span> iterations we sample one batch of <span style="color:DodgerBlue">$z$</span>, and take <span style="color:DodgerBlue">$n_G$</span> gradient updates on the generator whi learning rate <span style="color:DodgerBlue">$\eta$</span>, such that it produces pseudo samples <span style="color:DodgerBlue">$x_p$</span> that maximize <span style="color:DodgerBlue">$D_{KL} (T(x_p) || S(X_p))$</span>.
 
 {: .box-note}
-**$D_{KL} (T(x_p) || S(X_p))= \sum_i t_p^{(i)} log (t^{(i)}_p // s^{(i)}_p)$: ** Kullback-Leibler (KL) divergence between outputs of the teacher and student netowkrs on pseudo data ($i$ is image classes)
+**$D_{KL} (T(x_p) || S(X_p))= \sum_i t_p^{(i)} log (t^{(i)}_p // s^{(i)}_p)$:** Kullback-Leibler (KL) divergence between outputs of the teacher and student netowkrs on pseudo data ($i$ is image classes)
+
 
 
 | **If** maximize <span style="color:DodgerBlue">$D_{KL} (T(x_p) || S(X_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\uparrow$, <span style="color:DodgerBlue">\; $s^{(i)}_p$</span> $\downarrow$|
