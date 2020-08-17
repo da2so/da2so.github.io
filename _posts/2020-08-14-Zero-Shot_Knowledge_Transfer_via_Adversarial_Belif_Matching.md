@@ -44,8 +44,8 @@ To do this, Our zero-shot training algorithm is described in Algorithm 1. For <s
 
 
 
-| **If** maximize <span style="color:DodgerBlue">$D_{KL} (T(x_p) \| \| S(X_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\uparrow$, <span style="color:DodgerBlue">\; $s^{(i)}_p$</span> $\downarrow$|
-| **Elif** minimize <span style="color:DodgerBlue">$D_{KL} (T(x_p) \| \| S(X_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\downarrow$, <span style="color:DodgerBlue">\; $s^{(i)}_p$</span> $\uparrow$|
+| **If** maximize <span style="color:DodgerBlue">$D_{KL} (T(x_p) \| \| S(X_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\uparrow$, <span style="color:DodgerBlue">$\; s^{(i)}_p$</span> $\downarrow$|
+| **Elif** minimize <span style="color:DodgerBlue">$D_{KL} (T(x_p) \| \| S(X_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\downarrow$, <span style="color:DodgerBlue">$\; s^{(i)}_p$</span> $\uparrow$|
 
 
 We then take <span style="color:DodgerBlue">$n_S$</span> gradient steps on the student with <span style="color:DodgerBlue">$x_p$</span> fixed, such that it matches the teacher's predictions on <span style="color:DodgerBlue">$x_p$</span>. In practice, we use <span style="color:DodgerBlue">$n_S > n_G$</span>, which gives more time to the student to match the teacher on <span style="color:DodgerBlue">$x_p$</span> and encourages the generator to explore other regions of the input space at the next iteration.
