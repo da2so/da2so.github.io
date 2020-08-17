@@ -30,7 +30,7 @@ In order to perform data-free knowledge distillation, it is a necessary to recon
 * Student network: <span style="color:DodgerBlue">$S(x; \theta)$</span> with weigths <span style="color:DodgerBlue">$\theta$</span>
 	* Probability vector of student network: <span style="color:DodgerBlue">$s$</span>
 * Generator: <span style="color:DodgerBlue">$G(z; \phi) $</span> with weights <span style="color:DodgerBlue">$\phi$</span>
-	* Pseudo data: <span style="color:DodgerBlue">$x_p$</span> from a noise vector <span style="color:DodgerBlue">$z \sim \mathcal(N) (0, I) $</span>
+	* Pseudo data: <span style="color:DodgerBlue">$x_p$</span> from a noise vector <span style="color:DodgerBlue">$z \sim \mathcal{N} (0, I) $</span>
 
 
 ### <span style="color:gray"> 2.2 Method </span>
