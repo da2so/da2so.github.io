@@ -73,12 +73,13 @@ We introduce a similarity metric <span style="color:DodgerBlue">$\varphi (y^{c_T
 
 From the similarity metric, we define two versions of the objective functions.
 
-1. Preserving explanation
+(1) Preserving explanation
 
 We use the mask based definition of an explanation with a reference (<span style="color:DodgerBlue">$r=0$</span>) as well as similarity metric:
 
 <span style="color:DodgerBlue">
 \\[
-e^*_{c_T}=m^*_\{ c_T \} \cdot x, \\
+e^*_\{ c_T\ }=m^*_\{ c_T \} \cdot x, \cr
 \\]
 </span>
+
