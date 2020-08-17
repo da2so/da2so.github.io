@@ -24,7 +24,7 @@ We propose an optimization based visual explanation method, which highlights the
 
 We provide *local explanations*, which focus on an individual input.
 
-&nbsp;&nbsp;&nbsp;&nbsp;- Given one data point, our method highlights the evidence on which a model bases its deciion.
+&nbsp;&nbsp;&nbsp;&nbsp; <ul>Given one data point, our method highlights the evidence on which a model bases its deciion.</ul>
 
 
 ### <span style="color:gray">2.1 Perturbation based visual explanations </span>
