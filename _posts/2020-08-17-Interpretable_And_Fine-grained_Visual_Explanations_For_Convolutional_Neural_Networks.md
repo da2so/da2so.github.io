@@ -28,8 +28,8 @@ We provide *local explanations*, which focus on an individual input. Given one d
 ### <span style="color:gray">2.1 Perturbation based visual explanations </span>
 
 <span> Perturbatuion based explanations can be defined as: </span>
-* <span style="color:#5256BC">Explanation by preservation: </span> The smallest region of the image which must be retained to preserve the original model output. 
-* <span style="color:#5256BC">Explanation by deletion: </span> The smallest region of the image which must be deleted to change the model output.
+*  <span style="color:#5256BC">Explanation by preservation: </span> The smallest region of the image which must be retained to preserve the original model output. 
+*  <span style="color:#5256BC">Explanation by deletion: </span> The smallest region of the image which must be deleted to change the model output.
 
 
 #### <span style="color:gray">2.1.1 Problem definition </span>
@@ -77,7 +77,8 @@ We use the mask based definition of an explanation with a reference (<span style
 
 <span style="color:DodgerBlue">
 \\[
-e^*_\{ c_T \}=m^*_\{ c_T \} \cdot x
+e^\ast_\{ c_T\ }=m^\ast_\{ c_T \} \cdot x, \cr
+m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \} \{ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot \Vert m_\{ c_T \} \Vert_1 \}. \quad \cdots Eq .(2)
 \\]
 </span>
 
