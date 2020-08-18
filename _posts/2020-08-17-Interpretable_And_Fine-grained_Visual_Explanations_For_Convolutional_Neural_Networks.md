@@ -128,7 +128,7 @@ To solve the optimization with subject to Eq. (4), one could incorporate the con
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-\overline{h}_i^l (e_{c_T})= min (bu, max(bl, h^l_i (e_\{ c_T \}))), 
+\overline{h}^l_i ( e_{c_T} ) = min (bu, max(bl, h^l_i (e_\{ c_T \}))), 
 \\]
 </span>
 
