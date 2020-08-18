@@ -128,10 +128,7 @@ To solve the optimization with subject to Eq. (4), one could incorporate the con
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-\overline{h}_i^l (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
-bu =max(0,h^l_i (x)), \cr
-bl= min (0, h^l_i (x)),
-\\end{array}. 
+\overline{h}_i^l (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), 
 \\]
 </span>
 
@@ -142,7 +139,7 @@ However, since this method changes the architecture of the model which we explai
 
 <span style="color:DodgerBlue">
 \\[
-\gamma_i^l=\overline{\gamma}_i^l \cdot \[ h^l_i (e_{c_T}) \leq bu \] \cdot \[  h^l_i ( e_{c_T }) \geq bl \] , 
+\gamma^l_i=\overline{\gamma}_i^l \cdot \[ h^l_i (e_{c_T}) \leq bu \] \cdot \[  h^l_i ( e_{c_T }) \geq bl \] , \quad \cdots Eq. (6)
 \\]
 </span>
 
