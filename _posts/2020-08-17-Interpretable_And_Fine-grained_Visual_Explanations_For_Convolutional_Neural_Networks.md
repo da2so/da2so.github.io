@@ -77,7 +77,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 
 <span style="color:DodgerBlue">
 \\[
-e^{ \ast }_\{ c_T \} = m^{ \ast }
+e^{ \ast }_{ c_T } = m^{ \ast }_\{ c \} 
 \\]
 </span>
 
