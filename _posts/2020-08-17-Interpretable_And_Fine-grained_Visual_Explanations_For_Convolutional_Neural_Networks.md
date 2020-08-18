@@ -78,8 +78,8 @@ Using the mask based definition of an explanation with a reference (<span style=
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
-				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \] . \quad \cdots Eq .(2)
-\\end{array}.
+				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \] . 
+\\end{array}. \quad \cdots Eq .(2)
 \\]
 </span>
 
@@ -92,8 +92,8 @@ we can compute a *deleting explanation* using:
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
-				  m^\ast_\{ c_T \}= argmax_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \] . \quad \cdots Eq .(3)
-\\end{array}.
+				  m^\ast_\{ c_T \}= argmax_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \]. 
+\\end{array}. \quad \cdots Eq .(3)
 \\]
 </span>
 
@@ -111,7 +111,7 @@ To solve the optimization in Eq. (2) and (3), we utilize Stochastic Gradient Des
 
 CNNs have been proven susceptible to adversarial images. Due to the computational similarity of adversarial methods and optimization based visual explanation approaches, advesarial noise is aslo a concern for our method. 
 
-To tackle this problem, we propose a novel adversarial defense which filters gradients during backpropagation in a targeted way. The basic idea is: A neuron within a CNN is only allowed to be activated by the explanation <span style="color:DodgerBlue">$e_{c_T}$</span> if the same neuron was also activated by the original image <span style="color:DodgerBlue">$x$</span>.  
+To tackle this problem, we propose a novel adversarial defense which filters gradients during backpropagation in a targeted way. <span style="background-color: #B1FF8C">The basic idea is: A neuron within a CNN is only allowed to be activated by the explanation <span style="color:DodgerBlue">$e_{c_T}$</span> if the same neuron was also activated by the original image <span style="color:DodgerBlue">$x$</span>.</span>  
 
 
 If we regard neurons as indicators for the existence of features (*e.g.* edges, object parts, ...), the proposed constraint enforces that the explanation <span style="color:DodgerBlue">$e_{c_T}$</span> can only contain features which exist at the same location in the original image <span style="color:DodgerBlue">$x$</span> as follow:
@@ -131,14 +131,30 @@ To solve the optimization with subject to Eq. (4), one could incorporate the con
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-\widehat{h^l_i} (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
+\overline{h}_i^l (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
 bu =max(0,h^l_i (x)), \cr
 bl= min (0, h^l_i (x)),
-\\end{array}
+\\end{array} \quad \cdots Eq. (5)
 \\]
 </span>
 
 where <span style="color:DodgerBlue">$h^l_i(e_{c_T})$</span> is the acutal activation of the origianl nonlinearity-layer and <span style="color:DodgerBlue">$\overline{h}^l_i (e_{c_T})$</span> the adjusted activation after ensuring the bounds <span style="color:DodgerBlue">$bu$</span>, <span style="color:DodgerBlue">$bl$</span> of the original input. 
 
 
-However, since this method changes the architecture of the model which we explain, we clip gradients in the backward pass of the optimizatio, which lead to a violationof Eq
+However, since this method changes the architecture of the model which we explain, we clip gradients in the backward pass of the optimizatio, which lead to a violation of Eq. (4). This is equivalent to adding an additional clipping-layer after each nonlinearity which acts as the identity in the forward pass and uses the gradient update of Eq. (5) in the backward pass. When backpropagating an error-signal  <span style="color:DodgerBlue">$\overline{\gamma}_i^l$</span> through the clipping-layer, the gradient update rule for the resulting error  <span style="color:DodgerBlue">$\gamma_i^l$</span> is defined by:
+
+<span style="color:DodgerBlue">
+\\[
+\gamma_i^l=\overline{\gamma}_i^l \cdot \[ h^l_i (e_{c_T}) \leq bu \] \cdot \[  h^l_i ( e_{c_T }) \geq bl \] , \quad \cdots Eq. (6)
+\]
+</span>
+
+
+where <span style="color:DodgerBlue">$\[ \cdot \]$</span> is the indicator function and <span style="color:DodgerBlue">$bl$</span>, <span style="color:DodgerBlue">$bu$</span> the bounds computed in Eq. (5). This clipping only affects the gradients of the similarity metric <span style="color:DodgerBlue">$varphi ( \cdot , \cdot )$</span> which are propagated through the network. The result examples of our adversarial defense are shown in Fig 4.
+
+
+![4](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/4.png){: .mx-auto.d-block :}
+
+
+
+
