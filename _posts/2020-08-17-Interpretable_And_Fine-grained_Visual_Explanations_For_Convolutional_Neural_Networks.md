@@ -78,12 +78,12 @@ Using the mask based definition of an explanation with a reference (<span style=
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
-				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R .
+				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \] . \quad \cdots Eq .(2)
 \\end{array}.
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$R=\Vert m_{c_T} \Vert$</span><span style="color:DodgerBlue">$\lambda$</span> encourages the mask to be sparse (*i.e.* many pixels are zero / appear black).
+where <span style="color:DodgerBlue">$R_m=\Vert m_{c_T} \Vert$</span><span style="color:DodgerBlue">$\lambda$</span> encourages the mask to be sparse (*i.e.* many pixels are zero / appear black).
 
 <span style="color:#5256BC">**(2) Deletion game**</span>
 
@@ -92,13 +92,12 @@ we can compute a *deleting explanation* using:
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
-				  m^\ast_\{ c_T \}= argmax_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R.
+				  m^\ast_\{ c_T \}= argmax_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \] . \quad \cdots Eq .(3)
 \\end{array}.
 \\]
 </span>
 
-<span style="color:DodgerBlue">$\lambda$</span> encourages masks to contain mainly ones (*i.e.* appear white) such as Fig. 3 (b1).
-
+<span style="color:DodgerBlue">$\lambda$</span> encourages masks Fig. 3 (b1) to contain mainly ones (*i.e.* appear white) and only small entries at pixels, which provide the most prominent evidence for the target class.
 
 
 ![3](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/3.png){: .mx-auto.d-block :}
@@ -121,7 +120,7 @@ If we regard neurons as indicators for the existence of features (*e.g.* edges, 
 \\[ 
 \\left\\{ \\begin{array}{ll} 0 \leq h^l_i (e_{c_T}) \leq h^l_i (x), & if \; h^l_i (x) \geq 0, \cr
 							 0 \geq h^l_i (e_{c_T}) \geq h^l_i (x), & otherwise, 
-							\\end{array} \\right. 
+							\\end{array} \\right. \quad \cdots Eq. (4)
 \\]</span>
 
 where <span style="color:DodgerBlue">$h^l_i$</span> is the activation of the <span style="color:DodgerBlue">$i$</span>-th neuron in the <span style="color:DodgerBlue">$l$</span>-th layer of the network after the nonlinearity. This constraint is applied after all nonlinearity-layers (*e.g.* ReLU-Layers) of the network, besides the final final classification layer.
@@ -139,4 +138,7 @@ bl= min (0, h^l_i (x)),
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$h^l_i(e_{c_T})$</span> is the acutal activation of the origianl nonlinearity-layer and <span style="color:DodgerBlue">$\overline{h}^l_i (e_{c_T})$</span> the adjusted activation after ensuring the bounds <span style="color:DodgerBlue">$bu$</span>,<span style="color:DodgerBlue">$bl$</span> of the original input. 
+where <span style="color:DodgerBlue">$h^l_i(e_{c_T})$</span> is the acutal activation of the origianl nonlinearity-layer and <span style="color:DodgerBlue">$\overline{h}^l_i (e_{c_T})$</span> the adjusted activation after ensuring the bounds <span style="color:DodgerBlue">$bu$</span>, <span style="color:DodgerBlue">$bl$</span> of the original input. 
+
+
+However, since this method changes the architecture of the model which we explain, we clip gradients in the backward pass of the optimizatio, which lead to a violationof Eq
