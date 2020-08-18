@@ -22,7 +22,7 @@ To tackle this problem, it is a necessary to reconstruct a dataset for training 
 
 * Proposing *DeepInversion*, a new method for synthesizing class-conditional images from a CNN trained for iamge classification.
 	* Introducing a regularization term for intermediate layer activations of synthesized images based on just the two layer-wise statistics: mean and variance from teacher network.  
-* Improving synthesis diversity via application-specific extension of *DeepInversion*, called *Adaptive DeppInversion*.
+* Improving synthesis diversity via application-specific extension of *DeepInversion*, called *Adaptive DeepInversion*.
 	* Exploiting disagreements between the pretrained teacher and the in-training student network to expand the coverage of the training set.
 
 
