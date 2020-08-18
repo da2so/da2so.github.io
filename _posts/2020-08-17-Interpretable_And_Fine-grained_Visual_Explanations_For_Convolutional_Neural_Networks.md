@@ -77,7 +77,8 @@ Using the mask based definition of an explanation with a reference (<span style=
 
 <span style="color:DodgerBlue">
 \\[
-e_\{ c_T \} = m^\ast_\{ c_T \} 
+e^\ast_\{ c_T \} = m^\ast_\{ c_T \} = argmin_\{ m_\{ c_T \} \} \{ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot \Vert m_\{ c_T \} \Vert_1 \}. \quad \cdots Eq .(2)
+
 \\]
 </span>
 
@@ -109,6 +110,10 @@ To tackle this problem, we propose a novel adversarial defense which filters gra
 
 If we regard neurons as indicators for the existence of features (*e.g.* edges, object parts, ...), the proposed constraint enforces that the explanation <span style="color:DodgerBlue">$e_{c_T}$</span> can only contain features which exist at the same location in the original image <span style="color:DodgerBlue">$x$</span> as follow:
 
-\\[
-
-\\] 
+<span style="color:DodgerBlue">
+\\[ 
+\\left\\{ \\begin{array}{ll} m(u)x_0(u)+(1-m(u))u_0, & \text{constant}, \cr
+											 m(u)x_0(u)+(1-m(u))\eta(u), & \text{noise}, \cr 
+											 \int g_{\sigma_0 m(u)} (v-u)x_0(v)dv, & \text{blur} 
+							\\end{array} \\right. 
+\\]</span>
