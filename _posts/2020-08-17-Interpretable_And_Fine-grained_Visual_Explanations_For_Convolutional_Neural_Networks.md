@@ -14,8 +14,8 @@ We propose an optimization based visual explanation method, which highlights the
 
 ### <span style="color:gray">1.1 Sub-goal </span>
 
-<span style="color:gray">*A.*</span> Defend against adversarial evidence (i.e. faulty evidence due to artifacts).
-<span style="color:gray">*B.*</span> Provide the explanations which are both fine-grained and preserve the characteristics of images, such as edges and colors.
+<span style="color:gray">**A.**</span> Defend against adversarial evidence (i.e. faulty evidence due to artifacts).  
+<span style="color:gray">**B.**</span> Provide the explanations which are both fine-grained and preserve the characteristics of images, such as edges and colors.
 
 ![1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/1.png){: .mx-auto.d-block :}
 
