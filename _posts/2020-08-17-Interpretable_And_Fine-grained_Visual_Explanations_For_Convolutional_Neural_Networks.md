@@ -71,19 +71,19 @@ We introduce a similarity metric <span style="color:DodgerBlue">$\varphi (y^{c_T
 
 From the similarity metric, we define two versions of the objective functions.
 
-(1) Preserving game
+<span style="color:#5256BC">**(1) Preserving game**</span>
 
 Using the mask based definition of an explanation with a reference (<span style="color:DodgerBlue">$r=0$</span>) as well as similarity metric, a *preserving explanation* can be computed by:
 
 <span style="color:DodgerBlue">
 \\[
-e^{ \ast }_{c_T} = m_\{c_T \} 
+e^\{ \ast \}_\{ c_T \} = m_\{ c_T \} 
 \\]
 </span>
 
 where <span style="color:DodgerBlue">$\lambda$</span> encourages the mask to be sparse (*i.e.* many pixels are zero / appear black).
 
-(2) Deletion game
+<span style="color:#5256BC">**(2) Deletion game**</span>
 
 we can compute a *deleting explanation* using:
 
@@ -97,3 +97,12 @@ we can compute a *deleting explanation* using:
 
 
 To solve the optimization in Eq. (2) and (3), we utilize Stochastic Gradient Descent (SGD and start with an explanation <span style="color:DodgerBlue">$e^0_{c_T} =1 \cdot x$</span> identical to the original image (*i.e.* a mask initialized with ones).
+
+
+
+### <span style="color:gray">2.2 Defending against Adversarial Evidence </span>
+
+CNNs have been proven susceptible to adversarial images. Due to the computational similarity of adversarial methods and optimization based visual explanation approaches, advesarial noise is aslo a concern for our method. 
+
+To tackle this problem, we propose a novel adversarial defense which filters gradients during backpropagation in a targeted way. The 
+
