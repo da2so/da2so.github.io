@@ -78,7 +78,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
-				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot \Vert m_{c_T} \Vert_1.
+				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) .
 \\end{array}.
 \\]
 </span>
