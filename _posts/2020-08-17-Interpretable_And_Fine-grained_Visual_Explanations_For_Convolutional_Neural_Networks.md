@@ -77,7 +77,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 
 <span style="color:DodgerBlue">
 \\[
-e^\ast_\{ c_T \} = m^T_\{ c_T \} \cdot x, \cr 
+e^\ast_\{ c_T \} = m_\{ c_T \} \cdot x, \cr 
 
 \\]
 </span>
@@ -118,3 +118,6 @@ If we regard neurons as indicators for the existence of features (*e.g.* edges, 
 \\]</span>
 
 where <span style="color:DodgerBlue">$h^l_i$</span> is the activation of the <span style="color:DodgerBlue">$i$</span>-th neuron in the <span style="color:DodgerBlue">$l$</span>-th layer of the network after the nonlinearity. This constraint is applied after all nonlinearity-layers (*e.g.* ReLU-Layers) of the network, besides the final final classification layer.
+
+
+To solve the optimization with subject to Eq
