@@ -132,7 +132,7 @@ To solve the optimization with subject to Eq. (4), one could incorporate the con
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-\widehat{h}^l_i (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
+\widehat{h^l_i} (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
 bu =max(0,h^l_i (x)), \cr
 bl= min (0, h^l_i (x)),
 \\end{array}
