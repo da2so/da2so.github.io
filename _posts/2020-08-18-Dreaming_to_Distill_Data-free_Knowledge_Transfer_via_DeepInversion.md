@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Dreaming to Distill: Data-free Knowledge Transfer via DeepInversion
+title: Dreaming to Distill Data-free Knowledge Transfer via DeepInversion
 tags: [Knowledge distillation, Data-free, Synthesized image]
 comments: true
 use_math: true
