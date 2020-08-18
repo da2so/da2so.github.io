@@ -78,18 +78,24 @@ Using the mask based definition of an explanation with a reference (<span style=
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
-				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot \Vert m_c_T \Vert_1.
+				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R .
 \\end{array}.
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$\lambda$</span> encourages the mask to be sparse (*i.e.* many pixels are zero / appear black).
+where <span style="color:DodgerBlue">$R=\Vert m_{c_T} \Vert$</span><span style="color:DodgerBlue">$\lambda$</span> encourages the mask to be sparse (*i.e.* many pixels are zero / appear black).
 
 <span style="color:#5256BC">**(2) Deletion game**</span>
 
 we can compute a *deleting explanation* using:
 
-
+<span style="color:DodgerBlue">
+\\[
+\\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
+				  m^\ast_\{ c_T \}= argmax_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R.
+\\end{array}.
+\\]
+</span>
 
 <span style="color:DodgerBlue">$\lambda$</span> encourages masks to contain mainly ones (*i.e.* appear white) such as Fig. 3 (b1).
 
