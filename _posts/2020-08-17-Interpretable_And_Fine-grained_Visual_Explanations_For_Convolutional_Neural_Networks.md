@@ -78,7 +78,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
-				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) .
+				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot \Vert \Vert_1.
 \\end{array}.
 \\]
 </span>
@@ -130,4 +130,4 @@ bl= min (0, h^l_i (x)),
 \\]
 
 
-where <span style="color:DodgerBlue">$h^l_i(e_{c_T})$</span> is the acutal activation of the origianl nonlinearity-layer and <span style="color:DodgerBlue">$\overline{h}^l_i (e_{c_T})$</span> the adjusted activation after ensuring the bounds <span style="color:DodgerBlue">$bu00$</span>,<span style="color:DodgerBlue">$bl$</span> of the original input. 
+where <span style="color:DodgerBlue">$h^l_i(e_{c_T})$</span> is the acutal activation of the origianl nonlinearity-layer and <span style="color:DodgerBlue">$\overline{h}^l_i (e_{c_T})$</span> the adjusted activation after ensuring the bounds <span style="color:DodgerBlue">$bu$</span>,<span style="color:DodgerBlue">$bl$</span> of the original input. 
