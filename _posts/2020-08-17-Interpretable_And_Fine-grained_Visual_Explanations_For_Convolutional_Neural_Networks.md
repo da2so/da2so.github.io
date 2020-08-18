@@ -77,7 +77,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 
 <span style="color:DodgerBlue">
 \\[
-e^{ \ast }_\{ c_T \} = m^{ \ast }_\{ c \} 
+e^{ \ast }_\{ c_T \} = m^{ \ast }
 \\]
 </span>
 
@@ -96,4 +96,4 @@ we can compute a *deleting explanation* using:
 ![3](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/3.png){: .mx-auto.d-block :}
 
 
-To solve the optimization in Eq. (2) and (3), we utilize Stochastic Gradient Descent (SGD and start with an explanation <span style="color:DodgerBlue">$\lambda$</span>
+To solve the optimization in Eq. (2) and (3), we utilize Stochastic Gradient Descent (SGD and start with an explanation <span style="color:DodgerBlue">$e^0_{c_T} =1 \cdot x$</span> identical to the original image (*i.e.* a mask initialized with ones).
