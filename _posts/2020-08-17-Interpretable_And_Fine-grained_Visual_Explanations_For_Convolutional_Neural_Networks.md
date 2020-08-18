@@ -78,7 +78,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
-				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot \Vert m \Vert_1.
+				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \}  \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot \Vert m_c_T \Vert_1.
 \\end{array}.
 \\]
 </span>
@@ -123,13 +123,14 @@ where <span style="color:DodgerBlue">$h^l_i$</span> is the activation of the <sp
 
 To solve the optimization with subject to Eq. (4), one could incorporate the constraints via a penalty function with adding an additional layer <span style="color:DodgerBlue">$\overline{h}^l_i$</span> after each nonlinearity:
 
+<span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-\overline{h}^l_i (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
+\widehat{h}^l_i (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
 bu =max(0,h^l_i (x)), \cr
 bl= min (0, h^l_i (x)),
 \\end{array}
 \\]
-
+</span>
 
 where <span style="color:DodgerBlue">$h^l_i(e_{c_T})$</span> is the acutal activation of the origianl nonlinearity-layer and <span style="color:DodgerBlue">$\overline{h}^l_i (e_{c_T})$</span> the adjusted activation after ensuring the bounds <span style="color:DodgerBlue">$bu$</span>,<span style="color:DodgerBlue">$bl$</span> of the original input. 
