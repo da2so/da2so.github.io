@@ -77,7 +77,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 
 <span style="color:DodgerBlue">
 \\[
-e^\{ \ast \}_\{ c_T \} = m_\{ c_T \} 
+e_\{ c_T \} = m_\{ c_T \} 
 \\]
 </span>
 
@@ -104,5 +104,5 @@ To solve the optimization in Eq. (2) and (3), we utilize Stochastic Gradient Des
 
 CNNs have been proven susceptible to adversarial images. Due to the computational similarity of adversarial methods and optimization based visual explanation approaches, advesarial noise is aslo a concern for our method. 
 
-To tackle this problem, we propose a novel adversarial defense which filters gradients during backpropagation in a targeted way. The 
+To tackle this problem, we propose a novel adversarial defense which filters gradients during backpropagation in a targeted way. The basic idea is: A neuron within a CNN is only allowed to be activated by the explanation <span style="color:DodgerBlue">$e_{c_T}$</span> if the same neuron was also activated by the original image <span style="color:DodgerBlue">$x$</span>.  
 
