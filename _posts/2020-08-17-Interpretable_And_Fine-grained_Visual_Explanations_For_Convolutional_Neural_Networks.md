@@ -77,8 +77,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 
 <span style="color:DodgerBlue">
 \\[
-e^\ast_\{ c_T \} = m_\{ c_T \} \cdot x, \cr 
-
+e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr 
 \\]
 </span>
 
@@ -120,4 +119,13 @@ If we regard neurons as indicators for the existence of features (*e.g.* edges, 
 where <span style="color:DodgerBlue">$h^l_i$</span> is the activation of the <span style="color:DodgerBlue">$i$</span>-th neuron in the <span style="color:DodgerBlue">$l$</span>-th layer of the network after the nonlinearity. This constraint is applied after all nonlinearity-layers (*e.g.* ReLU-Layers) of the network, besides the final final classification layer.
 
 
-To solve the optimization with subject to Eq
+To solve the optimization with subject to Eq. (4), one could incorporate the constraints via a penalty function with adding an additional layer <span style="color:DodgerBlue">$\overline{h}^l_i$</span> after each nonlinearity:
+
+\\[
+\overline{h}^l_i (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
+bu =max(0,h^l_i (x)), \cr
+bl= min (0, h^l_i (x)),
+\\]
+
+
+where <span style="color:DodgerBlue">$h^l_i(e_{c_T})$</span> is the acutal activation of the origianl nonlinearity-layer and <span style="color:DodgerBlue">$\overline{h}^l_i (e_{c_T})$</span> the adjusted activation after ensuring the bounds <span style="color:DodgerBlue">$bu00$</span>,<span style="color:DodgerBlue">$bl$</span> of the original input. 
