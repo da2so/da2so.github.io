@@ -77,7 +77,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 
 <span style="color:DodgerBlue">
 \\[
-e_\{ c_T \} = m_\{ c_T \} 
+e_\{ c_T \} = m^\ast_\{ c_T \} 
 \\]
 </span>
 
@@ -106,3 +106,9 @@ CNNs have been proven susceptible to adversarial images. Due to the computationa
 
 To tackle this problem, we propose a novel adversarial defense which filters gradients during backpropagation in a targeted way. The basic idea is: A neuron within a CNN is only allowed to be activated by the explanation <span style="color:DodgerBlue">$e_{c_T}$</span> if the same neuron was also activated by the original image <span style="color:DodgerBlue">$x$</span>.  
 
+
+If we regard neurons as indicators for the existence of features (*e.g.* edges, object parts, ...), the proposed constraint enforces that the explanation <span style="color:DodgerBlue">$e_{c_T}$</span> can only contain features which exist at the same location in the original image <span style="color:DodgerBlue">$x$</span> as follow:
+
+\\[
+
+\\] 
