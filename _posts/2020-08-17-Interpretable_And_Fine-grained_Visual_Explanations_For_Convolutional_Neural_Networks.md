@@ -17,7 +17,7 @@ We propose an optimization based visual explanation method, which highlights the
 <span style="color:gray">**#[A]#**</span> Defend against adversarial evidence (i.e. faulty evidence due to artifacts).  
 <span style="color:gray">**#[B]#**</span> Provide the explanations which are both fine-grained and preserve the characteristics of images, such as edges and colors.
 
-![1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/1.png){: .mx-auto.d-block :}
+![1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/1.png){: .mx-auto.d-block width="90%" :}
 
 
 ## 2. Method
@@ -150,7 +150,7 @@ However, since this method changes the architecture of the model which we explai
 where <span style="color:DodgerBlue">$\[ \cdot \]$</span> is the indicator function and <span style="color:DodgerBlue">$bl$</span>, <span style="color:DodgerBlue">$bu$</span> the bounds computed in Eq. (5). This clipping only affects the gradients of the similarity metric <span style="color:DodgerBlue">$\varphi ( \cdot , \cdot )$</span> which are propagated through the network. The result examples of our adversarial defense are shown in Fig 4.
 
 
-![4](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/4.png){: .mx-auto.d-block :}
+![4](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/4.png){: .mx-auto.d-block width="90%" :}
 
 
 
