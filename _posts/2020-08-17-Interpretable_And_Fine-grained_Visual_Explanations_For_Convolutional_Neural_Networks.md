@@ -77,7 +77,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
 				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \] . 
-\\end{array}. \quad \cdots Eq .(2)
+\\end{array} \quad \cdots Eq .(2)
 \\]
 </span>
 
@@ -90,7 +90,7 @@ We can compute a *deleting explanation* using:
 \\[
 \\begin{array}{l} e^\ast_\{ c_T \} = m^\ast_\{ c_T \} \cdot x, \cr
 				  m^\ast_\{ c_T \}= argmax_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \]. 
-\\end{array}. \quad \cdots Eq .(3)
+\\end{array} \quad \cdots Eq .(3)
 \\]
 </span>
 
@@ -131,7 +131,7 @@ To solve the optimization with subject to Eq. (4), one could incorporate the con
 \overline{h}^l_i ( e_{c_T} ) = min (bu, max(bl, h^l_i (e_\{ c_T \}))), \cr
 bu =max(0,h^l_i (x)), \cr
 bl= min (0, h^l_i (x)),
-\\end{array}. \quad \cdots Eq. (6)
+\\end{array} \quad \cdots Eq. (6)
 \\]
 </span>
 
