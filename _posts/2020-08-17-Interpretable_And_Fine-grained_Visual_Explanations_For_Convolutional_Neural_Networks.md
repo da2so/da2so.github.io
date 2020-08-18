@@ -77,7 +77,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 
 <span style="color:DodgerBlue">
 \\[
-e^\ast_\{ c_T \} = m^\ast_\{ c_T \} = argmin_\{ m_\{ c_T \} \} \{ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot \Vert m_\{ c_T \} \Vert_1 \}. \quad \cdots Eq .(2)
+e^\ast_\{ c_T \} = m^\ast_\{ c_T \} = 
 
 \\]
 </span>
@@ -112,8 +112,7 @@ If we regard neurons as indicators for the existence of features (*e.g.* edges, 
 
 <span style="color:DodgerBlue">
 \\[ 
-\\left\\{ \\begin{array}{ll} m(u)x_0(u)+(1-m(u))u_0, & \text{constant}, \cr
-											 m(u)x_0(u)+(1-m(u))\eta(u), & \text{noise}, \cr 
-											 \int g_{\sigma_0 m(u)} (v-u)x_0(v)dv, & \text{blur} 
+\\left\\{ \\begin{array}{ll} 0 \leq h^l_i (e_{c_T}) \leq h^l_i (x), & if h^l_i (x) \geq 0, \cr
+							 0 \geq h^l_i (e_{c_T}) \geq h^l_i (x), & otherwise, 
 							\\end{array} \\right. 
 \\]</span>
