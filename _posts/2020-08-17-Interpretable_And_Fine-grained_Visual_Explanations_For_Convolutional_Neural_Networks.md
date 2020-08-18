@@ -84,7 +84,7 @@ Using the mask based definition of an explanation with a reference (<span style=
 where <span style="color:DodgerBlue">$R_m=\Vert m_{c_T} \Vert$</span> and <span style="color:DodgerBlue">$\lambda$</span> encourages the mask to be sparse (*i.e.* many pixels are zero / appear black).
 
 <span style="color:#5256BC">**(2) Deletion game**</span>  
-we can compute a *deleting explanation* using:
+We can compute a *deleting explanation* using:
 
 <span style="color:DodgerBlue">
 \\[
@@ -131,7 +131,7 @@ To solve the optimization with subject to Eq. (4), one could incorporate the con
 \overline{h}_i^l (e_{c_T})= min (bu, max(bl, h^l_i (e_{c_T}))), \cr
 bu =max(0,h^l_i (x)), \cr
 bl= min (0, h^l_i (x)),
-\\end{array}. \quad \cdots Eq. (5)
+\\end{array}. 
 \\]
 </span>
 
@@ -142,7 +142,7 @@ However, since this method changes the architecture of the model which we explai
 
 <span style="color:DodgerBlue">
 \\[
-\gamma_i^l=\overline{\gamma}_i^l \cdot \[ h^l_i (e_{c_T}) \leq bu \] \cdot \[  h^l_i ( e_{c_T }) \geq bl \] , \quad \cdots Eq. (6)
+\gamma_i^l=\overline{\gamma}_i^l \cdot \[ h^l_i (e_{c_T}) \leq bu \] \cdot \[  h^l_i ( e_{c_T }) \geq bl \] , 
 \\]
 </span>
 
