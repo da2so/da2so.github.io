@@ -102,7 +102,7 @@ We refer to this model inversion method as *DeepInversion*. <span style="color:D
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_{DI} (\widehat{x}) = \mathcal{R}_p ( \widehat{x}) +\alpha_f \mathcal{R}_F (\widehat{x}). \quad \cdots Eq. (7)
+\mathcal{R}_D (\widehat{x}) = \mathcal{R}_p ( \widehat{x}) +\alpha_f \mathcal{R}_F (\widehat{x}). \quad \cdots Eq. (7)
 \\]
 </span>
 
@@ -130,7 +130,7 @@ During optimization, this new term leads to new images the student cannot easily
 
 <span style="color:DodgerBlue">
 \\[
-<span style="color:DodgerBlue">$\mathcal{R}_{ADI} (\widehat{x})= \mathcal{R}_\{DI\}(\widehat{x}) +\mathcal{R}_c(\widehat{x})$</span> 
+<span style="color:DodgerBlue">$\mathcal{R}_A (\widehat{x})= \mathcal{R}_D(\widehat{x}) +\mathcal{R}_c(\widehat{x})$</span> 
 \\]
 </span>
 
