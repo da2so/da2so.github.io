@@ -130,7 +130,7 @@ During optimization, this new term leads to new images the student cannot easily
 
 <span style="color:DodgerBlue">
 \\[
-<span style="color:DodgerBlue">$\mathcal{R}_A (\widehat{x})= \mathcal{R}_D(\widehat{x}) +\mathcal{R}_c(\widehat{x})$</span> 
+\mathcal{R}_A (\widehat{x})= \mathcal{R}_D(\widehat{x}) +\alpha_c \mathcal{R}_c(\widehat{x})$ \quad \cdots Eq. (9)
 \\]
 </span>
 
