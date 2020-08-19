@@ -135,4 +135,4 @@ During optimization, this new term leads to new images the student cannot easily
 </span>
 
 
-![2](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/2.png){: .mx-auto.d-block :}
+![2](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/2.png){: .mx-auto.d-block width="80%" :}
