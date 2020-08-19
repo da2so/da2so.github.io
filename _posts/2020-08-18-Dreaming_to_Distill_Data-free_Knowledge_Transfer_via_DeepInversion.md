@@ -61,7 +61,7 @@ where <span style="color:DodgerBlue">$L(\cdot)$</span> is a classification loss 
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_\{ prior \} ( \widehat{x} ) = \alpha_\{ tv \} 
+\mathcal{R}_\{ prior \} ( \\widehat{x} ) = 
 \\]
 </span>
 
@@ -123,4 +123,4 @@ JS(p_T(\widehat{x}), p_S (\widehat{x}))= \frac{1}{2} ( KL (p_T (\widehat{x}),M)+
 where <span style="color:DodgerBlue">$M=\frac{1}{2} \cdot ( p_T (\widehat{x} )+p_S (\widehat{x})) $</span> is the average of the teacher and student distributions.
 
 
-| **If** 
+| **If** $\mathcal{R}_{compete} (\widehat{x})$
