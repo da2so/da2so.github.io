@@ -21,13 +21,16 @@ To tackle this problem, it is a necessary to reconstruct a dataset for training 
 ## 2. Method
 
 * Proposing *DeepInversion*, a new method for synthesizing class-conditional images from a CNN trained for iamge classification.
-	* Introducing a regularization term for intermediate layer activations of synthesized images based on just the two layer-wise statistics: mean and variance from teacher network.  
+	* Introducing a regularization term for intermediate layer activations of synthesized images based on just the two layer-wise statistics: mean and variance from teacher network.
+
+
 * Improving synthesis diversity via application-specific extension of *DeepInversion*, called *Adaptive DeepInversion*.
 	* Exploiting disagreements between the pretrained teacher and the in-training student network to expand the coverage of the training set.
 
 
 ### <span style="color:gray">2.1 Background </span>
 
+<br />
 
 #### <span style="color:gray">2.1.1 Knowledge distillation </span>
 
@@ -36,7 +39,7 @@ Given a trained model <span style="color:DodgerBlue">$p_T$</span> and a dataset 
 
 <span style="color:DodgerBlue">
 \\[
-min_{W_S} \sum_\{ x \in \mathcal{X} \} KL( p_T(x), p_S(x) ), \quad \cdots Eq. (1)
+min_{\, W_S} \sum_\{ x \in \mathcal{X} \} KL( p_T(x), p_S(x) ), \quad \cdots Eq. (1)
 \\]
 </span>
 
@@ -58,7 +61,7 @@ where <span style="color:DodgerBlue">$L(\cdot)$</span> is a classification loss 
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_{prior} (\widehat{x}) = \alpha_\{ tv \} \mathcal{R}_\{ TV \} (\widehat{x}) + \alpha_\{ l2 \} \mathcal{R}_\{ l2 \} (\widehat{x}), \quad \cdots Eq. (3)
+\mathcal{R}_\{ prior \} (\widehat{x}) = \alpha_\{ tv \} \mathcal{R}_\{ TV \} (\widehat{x}) + \alpha_\{ l2 \} \mathcal{R}_\{ l2 \} (\widehat{x}), \quad \cdots Eq. (3)
 \\]
 </span>
 
@@ -118,3 +121,6 @@ JS(p_T(\widehat{x}), p_S (\widehat{x}))= \frac{1}{2} ( KL (p_T (\widehat{x}),M)+
 </span>
 
 where <span style="color:DodgerBlue">$M=\frac{1}{2} \cdot ( p_T (\widehat{x} )+p_S (\widehat{x})) $</span> is the average of the teacher and student distributions.
+
+
+| **If** 
