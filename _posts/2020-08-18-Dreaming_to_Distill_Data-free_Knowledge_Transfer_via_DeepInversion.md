@@ -61,7 +61,7 @@ where <span style="color:DodgerBlue">$L(\cdot)$</span> is a classification loss 
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_{ prior } \( \\widehat{x} \) = \alpha \mathcal{R}_\{ TV \}
+\mathcal{R}_p \( \\widehat{x} \) = \alpha_\{ tv \} \mathcal{R}_\{ TV \}
 \\]
 </span>
 
