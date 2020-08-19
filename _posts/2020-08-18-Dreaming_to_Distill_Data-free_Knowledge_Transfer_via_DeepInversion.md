@@ -23,15 +23,14 @@ To tackle this problem, it is a necessary to reconstruct a dataset for training 
 * Proposing *DeepInversion*, a new method for synthesizing class-conditional images from a CNN trained for iamge classification.
 	* Introducing a regularization term for intermediate layer activations of synthesized images based on just the two layer-wise statistics: mean and variance from teacher network.
 
-
-
+<br />
 * Improving synthesis diversity via application-specific extension of *DeepInversion*, called *Adaptive DeepInversion*.
 	* Exploiting disagreements between the pretrained teacher and the in-training student network to expand the coverage of the training set.
 
 
 The overall procedure of our method is described in Fig. 1.
 
-![2](https://da2so.github.io/assets/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/1.png){: .mx-auto.d-block :}
+![2](https://da2so.github.io/assets/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/1.PNG){: .mx-auto.d-block :}
 
 ### <span style="color:gray">2.1 Background </span>
 
