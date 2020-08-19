@@ -61,11 +61,11 @@ where <span style="color:DodgerBlue">$L(\cdot)$</span> is a classification loss 
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_p \( \\widehat{x} \) = \alpha_\{ tv \} \mathcal{R}_\{ TV \}
+\mathcal{R}_p \( \widehat{x} \) = \alpha_T \mathcal{R}_T (\widehat{x}) + \alpha_\{ L \} \mathcal{R}_\{ L \} (\widehat{x}), \quad \cdots Eq. (3)
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$\mathcal{R}_{TV}$</span> and <span style="color:DodgerBlue">$\mathcal{R}_{l2}$</span> penalize the total variance and $l_2$ norm of <span style="color:DodgerBlue">$\widehat{x}$</span>.
+where <span style="color:DodgerBlue">$\mathcal{R}_T$</span> and <span style="color:DodgerBlue">$\mathcal{R}_L$</span> penalize the total variance and $l_2$ norm of <span style="color:DodgerBlue">$\widehat{x}$</span>.
 
 
 
@@ -98,7 +98,7 @@ We refer to this model inversion method as *DeepInversion*. <span style="color:D
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_{DI} (\widehat{x}) = \mathcal{R}_\{ prior \} ( \widehat{x}) +\alpha_f \mathcal{R}_\{ feature \} (\widehat{x}). \quad \cdots Eq. (7)
+\mathcal{R}_{DI} (\widehat{x}) = \mathcal{R}_p ( \widehat{x}) +\alpha_f \mathcal{R}_F` (\widehat{x}). \quad \cdots Eq. (7)
 \\]
 </span>
 
@@ -108,13 +108,13 @@ We refer to this model inversion method as *DeepInversion*. <span style="color:D
 
 Diversity also plays a crucial role in avoiding repeated and redundant synthetic images. For this, we propose *Adaptive DeepInversion*, an enhanced image generation scheme based on a iterative competition scheme between the image generation process and the student network. The main idea is to encourage the synthesized images to cause student-teacher disagreement.
 
-Then, we introduce an additional loss <span style="color:DodgerBlue">$\mathcal{R}_{compete}$</span> for image generation based on the Jensen-Shannon divergenece that penalizes output distribution similarities,
+Then, we introduce an additional loss <span style="color:DodgerBlue">$\mathcal{R}_{c}$</span> for image generation based on the Jensen-Shannon divergenece that penalizes output distribution similarities,
 
 
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-\mathcal{R}_{compete} (\widehat{x}) = 1- JS(p_T(\widehat{x}), p_S (\widehat{x})), \cr
+\mathcal{R}_{c} (\widehat{x}) = 1- JS(p_T(\widehat{x}), p_S (\widehat{x})), \cr
 JS(p_T(\widehat{x}), p_S (\widehat{x}))= \frac{1}{2} ( KL (p_T (\widehat{x}),M)+KL (p_S (\widehat{x}),M)), 
 \\end{array} \quad \cdots Eq. (8)
 \\]
@@ -122,5 +122,10 @@ JS(p_T(\widehat{x}), p_S (\widehat{x}))= \frac{1}{2} ( KL (p_T (\widehat{x}),M)+
 
 where <span style="color:DodgerBlue">$M=\frac{1}{2} \cdot ( p_T (\widehat{x} )+p_S (\widehat{x})) $</span> is the average of the teacher and student distributions.
 
+During optimization, this new term leads to new images the student cannot easily classify whereas the teacher can. As illustrated in Fig 2. our proposal iteratively expands the distributional coverage of the image distribution during the learning process. The regularization <span style="color:DodgerBlue">$\mathcal{R} ( \cdot )$</span> from Eq.(7) is updated with an additional loss scaled by <span style="color:DodgerBlue">$\alpha_c$</span> as
 
-| **If** $\mathcal{R}_{compete} (\widehat{x})$
+<span style="color:DodgerBlue">
+\\[
+<span style="color:DodgerBlue">$\mathcal{R}_{ADI} (\widehat{x})= \mathcal{R}_{DI}(\widehat{x}) +\mathcal{R}_c(\widehat{x})$</span> 
+\\]
+</span>
