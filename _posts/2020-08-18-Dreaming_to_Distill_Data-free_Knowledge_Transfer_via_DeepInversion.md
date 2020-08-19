@@ -30,7 +30,7 @@ To tackle this problem, it is a necessary to reconstruct a dataset for training 
 
 The overall procedure of our method is described in Fig. 1.
 
-![2](https://da2so.github.io/assets/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/1.PNG){: .mx-auto.d-block :}
+![2](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/1.png){: .mx-auto.d-block :}
 
 ### <span style="color:gray">2.1 Background </span>
 
@@ -135,4 +135,4 @@ During optimization, this new term leads to new images the student cannot easily
 </span>
 
 
-![2](https://da2so.github.io/assets/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/2.png){: .mx-auto.d-block :}
+![2](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/2.png){: .mx-auto.d-block :}
