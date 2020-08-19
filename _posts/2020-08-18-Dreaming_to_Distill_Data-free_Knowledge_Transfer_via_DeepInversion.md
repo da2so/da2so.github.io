@@ -88,8 +88,8 @@ where <span style="color:DodgerBlue">$\mu_l (\widehat{x}) $</span> and <span sty
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-\mathbb{E} (\mu_l (x) \| \mathcal{X}) \simeq BN_l (running\_mean), \quad \cdots Eq. (5) \cr
-\mathbb{E} (\sigma^2_l (x) \| \mathcal{X}) \simeq BN_l (running\_variance). \quad \cdots Eq. (6)
+\mathbb{E} (\mu_l (x) \| \mathcal{X}) \simeq BN_l (running\\_mean), \quad \cdots Eq. (5) \cr
+\mathbb{E} (\sigma^2_l (x) \| \mathcal{X}) \simeq BN_l (running\\_variance). \quad \cdots Eq. (6)
 \\end{array}
 \\]
 </span>
