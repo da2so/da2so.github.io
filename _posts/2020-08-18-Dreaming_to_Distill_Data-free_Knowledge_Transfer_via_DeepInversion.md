@@ -61,11 +61,11 @@ where <span style="color:DodgerBlue">$L(\cdot)$</span> is a classification loss 
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_\{ prior \} ( \widehat{x} ) = \alpha_\{ tv \} \mathcal{R}_\{ TV \}
+\mathcal{R}_\{ prior \} ( \widehat{x} ) = \mathcal{R}_\{ TV \}
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$\mathcal{R}_{TV}$</span> and <span style="color:DodgerBlue">$\mathcal{R}_{l2}$</span> penalize the total variance and $l_2$ norm of <span style="color:DodgerBlue">$\widehat{x}$</span>.'
+where <span style="color:DodgerBlue">$\mathcal{R}_{TV}$</span> and <span style="color:DodgerBlue">$\mathcal{R}_{l2}$</span> penalize the total variance and $l_2$ norm of <span style="color:DodgerBlue">$\widehat{x}$</span>.
 
 
 
