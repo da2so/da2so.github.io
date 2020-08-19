@@ -61,7 +61,7 @@ where <span style="color:DodgerBlue">$L(\cdot)$</span> is a classification loss 
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_\{ prior \} (\widehat{x}) = \alpha_\{ tv \} \mathcal{R}_\{ TV \} (\widehat{x}) + \alpha_\{ l2 \} \mathcal{R}_\{ l2 \} (\widehat{x}), \quad \cdots Eq. (3)
+\mathcal{R}_\{ prior \} ( \widehat{x} ) = \alpha_\{ tv \} 
 \\]
 </span>
 
@@ -74,7 +74,7 @@ where <span style="color:DodgerBlue">$\mathcal{R}_{TV}$</span> and <span style="
 
 We improve DeepDream's image quality by extending image regularization  <span style="color:DodgerBlue">$\mathcal{R} (\widehat{x}) $</span> with a new feature distribution regularization term.
 
-To effectively enforce feature similarities between <span style="color:DodgerBlue">$x$</span> and  <span style="color:DodgerBlue">$\widehat$</span> at all levels (layers), we propose to minimize the distance between feature map statistics for <span style="color:DodgerBlue">$x$</span> and  <span style="color:DodgerBlue">$\widehat$</span>. We assume that feature statistics follow the Gaussian distribution across batches and then can be defined by mean  <span style="color:DodgerBlue">$\mu$</span> and variance  <span style="color:DodgerBlue">$\sigma^2$</span>. Therefore , the *feature distribution regularization* term can be formulated as:
+To effectively enforce feature similarities between <span style="color:DodgerBlue">$x$</span> and  <span style="color:DodgerBlue">$\widehat{x}$</span> at all levels (layers), we propose to minimize the distance between feature map statistics for <span style="color:DodgerBlue">$x$</span> and  <span style="color:DodgerBlue">$\widehat{x}$</span>. We assume that feature statistics follow the Gaussian distribution across batches and then can be defined by mean  <span style="color:DodgerBlue">$\mu$</span> and variance  <span style="color:DodgerBlue">$\sigma^2$</span>. Therefore , the *feature distribution regularization* term can be formulated as:
 
 <span style="color:DodgerBlue">
 \\[
@@ -88,13 +88,13 @@ where <span style="color:DodgerBlue">$\mu_l (\widehat{x}) $</span> and <span sty
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-\mathbb{E} (\mu_l (x) \| \mathcal{X}) \simeq BN_l (running_mean), \quad \cdots Eq. (5) \cr
-\mathbb{E} (\sigma^2_l (x) \| \mathcal{X}) \simeq BN_l (running_variance). \quad \cdots Eq. (6)
+\mathbb{E} (\mu_l (x) \| \mathcal{X}) \simeq BN_l (running\_mean), \quad \cdots Eq. (5) \cr
+\mathbb{E} (\sigma^2_l (x) \| \mathcal{X}) \simeq BN_l (running\_variance). \quad \cdots Eq. (6)
 \\end{array}
 \\]
 </span>
 
-We refer to this model inversion method as *DeepInversion*. <span style="color:DodgerBlue">$R(\codt)$</span> can thus be expressed as 
+We refer to this model inversion method as *DeepInversion*. <span style="color:DodgerBlue">$R(\cdot)$</span> can thus be expressed as 
 
 <span style="color:DodgerBlue">
 \\[
