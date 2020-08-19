@@ -61,7 +61,7 @@ where <span style="color:DodgerBlue">$L(\cdot)$</span> is a classification loss 
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{R}_p \( \widehat{x} \) = \alpha_T \mathcal{R}_T (\widehat{x}) + \alpha_\{ L \} \mathcal{R}_\{ L \} (\widehat{x}), \quad \cdots Eq. (3)
+\mathcal{R}_p \( \widehat{x} \) = \alpha_T \mathcal{R}_T (\widehat{x}) + \alpha_L \mathcal{R}_L (\widehat{x}), \quad \cdots Eq. (3)
 \\]
 </span>
 
@@ -126,6 +126,6 @@ During optimization, this new term leads to new images the student cannot easily
 
 <span style="color:DodgerBlue">
 \\[
-<span style="color:DodgerBlue">$\mathcal{R}_{ADI} (\widehat{x})= \mathcal{R}_{DI}(\widehat{x}) +\mathcal{R}_c(\widehat{x})$</span> 
+<span style="color:DodgerBlue">$\mathcal{R}_{ADI} (\widehat{x})= \mathcal{R}_\{DI\}(\widehat{x}) +\mathcal{R}_c(\widehat{x})$</span> 
 \\]
 </span>
