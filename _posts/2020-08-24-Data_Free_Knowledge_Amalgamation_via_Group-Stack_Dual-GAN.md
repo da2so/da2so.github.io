@@ -16,7 +16,7 @@ The goal is to peform **Data-free Knowledge distillation**.
 
 As the word itself, We perform knowledge distillation when there are no original dataset on which the Teacher network has been trained. It is because, in real world, most datasets are proprietary and not shared publicly due to privacy or confidentiality concerns. 
 
-To tackle this problem, it is a necessary to reconstruct a dataset for training Student network. Thus, in this paper, <ul> the authors propose a data free knowledge amalgamate strategy to craft a well-behaved multi-task student network from multiple singl/multi-task teachers. </ul>
+To tackle this problem, it is a necessary to reconstruct a dataset for training Student network. Thus, in this paper, <u> the authors propose a data free knowledge amalgamate strategy to craft a well-behaved multi-task student network from multiple single/multi-task teachers. </u>
 
 
 For this, the main idea is to construct the group-stack generative adversarial networks (GANs) which have two dual generators. **First** one generator is trained to collect the knwoledge by reconstructing the images approximating the original dataset. Then, a **dual generator (** is trained by taking the output from the former generator as input. Finally, we treat the dual part generator as the **TargetNet (Student network)** and regroup it.
@@ -24,16 +24,20 @@ For this, the main idea is to construct the group-stack generative adversarial n
 The architecture of Dual-GAN is shown in Fig 1.
 
 
-![1](https://da2so.github.io/assets/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block :}
+![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block :}
 
 
 ## 2. Problem Definiton
 
 The authors aim to explore a more effective approach to train the student network (TargetNet), only utilizing the knowledge amalgamated from the pre-trained teachers. The TargetNet is designed to deal with multiple tasks and learns a customized multi-branch network that can recognize all labels selected from separate teachers.
 
-* The number of the customized categories  <span style="color:DodgerBlue">$C$</span>
-* Label vector  <span style="color:DodgerBlue">$Y_{cst}= \\{ y_1, \cdots , y_C \\}  \subsete \\{ 0 , 1 \\}^C$</span>
-
+* The number of the customized categories:  <span style="color:DodgerBlue">$C$</span>
+* Label vector:  <span style="color:DodgerBlue">$Y_{cst}= \\{ y_1, \cdots , y_C \\}  \subseteq \\{ 0 , 1 \\}^C$</span>
+* TargetNet: <span style="color:DodgerBlue">$\mathcal{T}$</span>
+	* Handling multiple tasks on the <span style="color:DodgerBlue">$Y_{cst}$</span>
+* Pre-trained teachers: <span style="color:DodgerBlue">$\mathcal{A} = \\{ \mathcal{A}_1, \cdots, \mathcal{A}_M \\}$</span>
+* For each teacher <span style="color:DodgerBlue">$m$</span>, a <span style="color:DodgerBlue">$T_m$</span>-label classification task :<span style="color:DodgerBlue">$Y_m= \\{ y^1_m, \cdots , y^{T_m}_m \\}$</span>
+* Feature maps in the <span style="color:DodgerBlue">$b$</span>-th block of the <span style="color:DodgerBlue">$m$</span>-th pre-trained teacher: <span style="color:DodgerBlue">$F^b_m$</span>
 
 Given a trained model <span style="color:DodgerBlue">$p_T$</span> and a dataset <span style="color:DodgerBlue">$\mathcal{X}$</span>, the parameters of the student model, <span style="color:DodgerBlue">$W_S$</span>, can be learned by 
 
