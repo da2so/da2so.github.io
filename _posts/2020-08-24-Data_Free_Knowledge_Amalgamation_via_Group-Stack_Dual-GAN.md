@@ -24,7 +24,7 @@ For this, the main idea is to construct the group-stack generative adversarial n
 The architecture of Dual-GAN is shown in Fig 1.
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="70%" height="70%" :}
+![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="70%" height="60%" :}
 
 
 ## 2. Problem Definiton
@@ -161,13 +161,13 @@ F^{f,m}_g=f^j_m (F^j_g), \quad \cdots Eq. (9)
 where the filtering function <span style="color:DodgerBlue">$f^j_m$</span> is realized by a light learnable module consisting of a global pooling layer and two fully connected layers. <span style="color:DodgerBlue">$F^{j,m}_g$</span> is the filtered generated features that approaches the output feature distribution of <span style="color:DodgerBlue">$\mathcal{A}^{B-j}_m$</span>. The output of discriminator is donated as  <span style="color:DodgerBlue">$\mathcal{O}_m (F^j_g) = D^j_m (F^{j,m}_g$</span>.
 
 
-![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/3.png){: .mx-auto.d-block width="80%" :}
+![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/4.png){: .mx-auto.d-block width="90%" :}
 
 The for the generated features  <span style="color:DodgerBlue">$F^j_g$</span> from  <span style="color:DodgerBlue">$G^j$</span>, we collect from the multi-discriminator the  <span style="color:DodgerBlue">$M$</span> prediction sets  <span style="color:DodgerBlue">$\\{ \mathcal{O}_1(F^j_g), \cdots , \mathcal{O}_M (F^j_g) \\}$</span>, which are:
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{O}_g (F^j_g) = \bigcup^M_{m=1} \mathcal{O}_m ( F^j_g ), \quad \cdots Eq. (10)
+\mathcal{O}_g (F^j_g) = \bigcup^M_\{m=1\} \mathcal{O}_m ( F^j_g ), \quad \cdots Eq. (10)
 \\]
 </span>
 
@@ -181,7 +181,7 @@ L_{joint}= L^B_\{gan\} + \frac{1}{B-1} \sum^{B-1}_\{ j=1 \} l(\mathcal{O}_g (F^j
 \\]
 </span>
 
-where the adversarial loss <span style="color:DodgerBlue">$L_{gan}$</span> only calculates from the last group <span style="color:DodgerBlue">$\\{ G^B, D^B \\}$</span>. The rest part of the loss is the cross-entropy loss that restrains the intermediate features generated from <span style="color:DodgerBlue">$G^1$</span> to <span style="color:DodgerBlue">$G^{B-1}$</span> to make the same prediction as <span style="color:DodgerBlue">$\mathcal{I}_g$</span>, which offsets the adversarial loss <span style="color:DodgerBlue">$\\{ L^1_{gan}, \cdots , L^{B-1}_\{ gan \} \\}$</span>.
+where the adversarial loss <span style="color:DodgerBlue">$L_{gan}$</span> only calculates from the last group <span style="color:DodgerBlue">$\\{ G^B, D^B \\}$</span>. The rest part of the loss is the cross-entropy loss that restrains the intermediate features generated from <span style="color:DodgerBlue">$G^1$</span> to <span style="color:DodgerBlue">$G^{B-1}$</span> to make the same prediction as <span style="color:DodgerBlue">$\mathcal{I}_g$</span>, which offsets the adversarial loss <span style="color:DodgerBlue">$\\{ L^1_{gan}, \cdots$</span><span style="color:DodgerBlue">$, L^{B-1}_\{ gan \} \\}$</span>.
 
 
 By minimizing <span style="color:DodgerBlue">$L_{joint}$</span>, the optimal generator <span style="color:DodgerBlue">$G$</span> can synthesis the images that have the similar activations as the real data fed to the teacher.
