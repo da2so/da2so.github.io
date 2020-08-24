@@ -21,7 +21,7 @@ In order to perform data-free knowledge distillation, it is a necessary to recon
 
 ## 2. Method
 
-### 2.1 Knowledge Distillation
+### <span style="color:gray"> 2.1 Knowledge Distillation </span>
 
 Transferring the generalization ability of a large, complex _Teacher_ (<span style="color:DodgerBlue">$T$</span>) deep neural network to a less complex _Student_ (<span style="color:DodgerBlue">$S$</span>) network can be achieved using the class probabilities produced by a _Teacher_ as "soft targets" for training the _Student_.
 
