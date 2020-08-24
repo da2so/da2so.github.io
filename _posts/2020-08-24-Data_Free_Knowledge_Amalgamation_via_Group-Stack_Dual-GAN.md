@@ -165,11 +165,13 @@ where the filtering function <span style="color:DodgerBlue">$f^j_m$</span> is re
 
 The for the generated features  <span style="color:DodgerBlue">$F^j_g$</span> from  <span style="color:DodgerBlue">$G^j$</span>, we collect from the multi-discriminator the  <span style="color:DodgerBlue">$M$</span> prediction sets  <span style="color:DodgerBlue">$\\{ \mathcal{O}_1(F^j_g), \cdots , \mathcal{O}_M (F^j_g) \\}$</span>, which are:
 
+
 <span style="color:DodgerBlue">
 \\[
 \mathcal{O}_g (F^j_g) = \bigcup^M_\{m=1\} \mathcal{O}_m ( F^j_g ), \quad \cdots Eq. (10)
 \\]
 </span>
+
 
 which is treated as new input to the loss Eq. 8, then <span style="color:DodgerBlue">$L^i_{gan}$</span> is the adversarial loss for each <span style="color:DodgerBlue">$G^j$</span>. Despite the fact that the generated features should appear like the ones extracted
 from the real data, they should also lead to the same predictions from the same input span style="color:DodgerBlue">$z$</span>. Thus, the stack-generator <span style="color:DodgerBlue">$\\{ G^1, \cdots, G^B \\}$</span> can be jointly optimized by the final loss:
