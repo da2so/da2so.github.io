@@ -82,4 +82,69 @@ F^j_g=G^j(F^\{ j-1 \}_g) \; 1 < j \leq B,
 \\]
 </span>
 
+![2](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/2.png){: .mx-auto.d-block width="50%" height="80%" :}
+
+
+when <span style="color:DodgerBlue">$j=B$</span>, the output of the <span style="color:DodgerBlue">$B$</span>-th group <span style="color:DodgerBlue">$G^B$</span> is <span style="color:DodgerBlue">$F^B_g$</span>, which is also thought as the final generated image <span style="color:DodgerBlue">$\mathcal{I}_g$</span>.
+
+
+Since both the architecture of generator <span style="color:DodgerBlue">$G^j$</span> and discriminator <span style="color:DodgerBlue">$D^jj$</span> are symmetrical, the group adversarial pair is presented as <span style="color:DodgerBlue">$[ \\{ G^1,D^1\\}, \cdots ,\\{ G^B,D^B\\} ]$</span>. In this way, the satisfying <span style="color:DodgerBlue">$G^{j \ast}$</span> can be acquired by:
+
+<span style="color:DodgerBlue">
+\\[
+G^{j \ast }=argmin_\{ G^j \} \mathbb{E}_z [log(1-D^{j*} (G^j (F^{j-1}_g)))] \quad \cdots Eq. (3)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$1 \leq j \leq B$</span> and <span style="color:DodgerBlue">$D^{j*}$</span> is the optimal <span style="color:DodgerBlue">$j$</span>-group discriminator. We transfer the discriminator to designing a plausible loss function to calculate the difference between the generated samples and the real ones. Thus, we take the teacher network <span style="color:DodgerBlue">$\mathcal{A}$</span> to constitute each <span style="color:DodgerBlue">$D^j$</span>:
+
+<span style="color:DodgerBlue">
+\\[
+D^j \leftarrow \cup^j_{i=1} \\{ \mathcal{A}^{B-j+i} \\} \quad \cdots Eq. (4)
+\\]
+</span>
+
+![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/3.png){: .mx-auto.d-block width="50%" :}
+
+During the training for the group pair <span style="color:DodgerBlue">$\\{ G^j, D^j \\}$</span>, only <span style="color:DodgerBlue">$G^j$</span> is optimized with discriminator <span style="color:DodgerBlue">$D^j$</span> is fixed, whose output is for classifying multiple labels. We make use of several losses to constraint the output of <span style="color:DodgerBlue">$D^j$</span> to motivate the real data's response. 
+
+The output for <span style="color:DodgerBlue">$D$</span> is <span style="color:DodgerBlue">$\mathcal{O} ( F_g) = \\{ y^1, \cdots , y^C \\} $</span>, with the predict label as <span style="color:DodgerBlue">$t^i$</span>:
+
+<span style="color:DodgerBlue">
+\\[ 
+t^i= \\left\\{ \\begin{array}{ll} 1  & y^i \geq \epsilon, \cr
+								  0  & y^i < \epsilon, 
+\\end{array} \\right. \quad \cdots Eq. (5)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$1 \leq i \leq C$</span> and <span style="color:DodgerBlue">$\epsilon$</span> is set to be 0.5 in the experiment. Then the one-hot loss function can be defined as:
+
+<span style="color:DodgerBlue">
+\\[
+L_{oh}= \frac{1}{C}\sum_i l(y^i, t^i), \quad \cdots Eq. (6)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$l$</span> is the cross-entropy and <span style="color:DodgerBlue">$L_{oh}$</span> enforces the outputs of the generated samples to be close to one-hot vectors.
+
+In addition, the outputs need to be sparse, since an image in the real world can't be tagged with dense labels which are the descriptions for different situations. So, an extra discrete loss function is proposed:
+
+<span style="color:DodgerBlue">
+\\[
+L_{dis}= \frac{1}{C} \sum_i \vert y^i \vert, \quad \cdots Eq. (7)
+\\]
+</span>
+
+which is known as L1-norm loss function. Finally, combining all the losses, the final objective function can be obtained:
+
+<span style="color:DodgerBlue">
+\\[
+L_{gan}= L_\{oh\} + \alpha L_a + \beta L_\{ie\} + \gamma L_\{dis \}, \quad \cdots Eq. (8)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$\alpha, \beta $</span> and <span style="color:DodgerBlue">$\gamma $</span> are the hyperparameters for balancing different loss items. <span style="color:DodgerBlue">$L_a$</span> and <span style="color:DodgerBlue">$L_{ie}$</span> are the activation loss and infromation entropy loss functions and described in [here](https://da2so.github.io/2020-08-13-Data_Free_Learning_of_Student_Networks/).
+
+#### <span style="color:gray"> 3.1.2 Multiple Targets </span>
 
