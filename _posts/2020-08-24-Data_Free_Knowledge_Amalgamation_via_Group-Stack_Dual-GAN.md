@@ -71,13 +71,13 @@ However, since the absence of the real data, we can not perfrom training by Eq. 
 
 The first modification is the group-stack architecture. The generator is designed to generate not only synthesized images but also the intermediated activations aligned with the teachers. 
 
-Thus, we set <span style="color:DodgerBlue">$B$</span> as the total group number of generator, which is the same as the block numbers of the teacher and the student networks. In this way, the generator can be denoted as a stack of <span style="color:DodgerBlue">$B$</span> groups <span style="color:DodgerBlue">$\\{G^1, \cdots, G^B \\}$</span>, from which both the image <span style="color:DodgerBlue">$\mathcal{I}_{gan}$</span> and the consequent activation <span style="color:DodgerBlue">$F^j_{gan}$</span> at group <span style="color:DodgerBlue">$j$</span> are synthesized from a random noise <span style="color:DodgerBlue">$z$</span>:
+Thus, we set <span style="color:DodgerBlue">$B$</span> as the total group number of generator, which is the same as the block numbers of the teacher and the student networks. In this way, the generator can be denoted as a stack of <span style="color:DodgerBlue">$B$</span> groups <span style="color:DodgerBlue">$\\{G^1, \cdots, G^B \\}$</span>, from which both the image <span style="color:DodgerBlue">$\mathcal{I}_g$</span> and the consequent activation <span style="color:DodgerBlue">$F^j_g$</span> at group <span style="color:DodgerBlue">$j$</span> are synthesized from a random noise <span style="color:DodgerBlue">$z$</span>:
 
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-F^1_{gan}=G^1(z) \cr
-F^j_\{gan\}=G^j(F^\{ j-1 \}_\{gan\}) \; 1 < j \leq B,
+F^1_g=G^1(z) \cr
+F^j_g=G^j(F^\{ j-1 \}_g) \; 1 < j \leq B,
 \\end{array} \quad \cdots Eq .(2)
 \\]
 </span>
