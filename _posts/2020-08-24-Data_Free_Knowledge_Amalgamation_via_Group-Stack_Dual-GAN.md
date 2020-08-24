@@ -24,7 +24,7 @@ For this, the main idea is to construct the group-stack generative adversarial n
 The architecture of Dual-GAN is shown in Fig 1.
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="70%" height="60%" :}
+![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="60%", height="60%" :}
 
 
 ## 2. Problem Definiton
@@ -168,7 +168,7 @@ The for the generated features  <span style="color:DodgerBlue">$F^j_g$</span> fr
 
 <span style="color:DodgerBlue">
 \\[
-\mathcal{O}_g (F^j_g) = \bigcup^M_\{m=1\} \mathcal{O}_m ( F^j_g ), \quad \cdots Eq. (10)
+\mathcal{O}_g (F^j_g) = \bigcup^M_m \mathcal{O}_m ( F^j_g ), \quad \cdots Eq. (10)
 \\]
 </span>
 
