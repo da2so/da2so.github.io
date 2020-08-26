@@ -227,3 +227,31 @@ L^{b,m}_{dual}=l(g_m (\mathcal{O}_m(F^b_u) ,gm(\mathcal{O}_m(\mathcal{I}_g))  , 
 \\]
 </span>
 
+
+So, the block-wise loss for updating dual-generator <span style="color:DodgerBlue">$\mathcal{T}^b$</span> from multiple branches can be defined as:
+
+<span style="color:DodgerBlue">
+\\[
+L^{b}_{dual}=sum_m \lambda_m \cdot L^{b,m}_{dual}  , \quad \cdots Eq. (14)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$\lambda=1$</span> for <span style="color:DodgerBlue">$m \in \\{ 1, \cdots , M \\}$</span>. Since the existence of the links between the generators <span style="color:DodgerBlue">$G$</span> and <span style="color:DodgerBlue">$\matcal{T}$</span>, the input has two streams:
+
+<span style="color:DodgerBlue">
+\\[ 
+ \\begin{array}{l} F^1_{in}=\matcal{T}^{b-1}\matcal{T}^{b-2} \cdots \matcal{T}^1 (\mathcal{I}_g ), \cr
+								  F^2_{in}= G^{B+1-b} G^{B-b} \cdots G^1 (z). 
+\\end{array} \quad \cdots Eq. (15)
+\\]
+</span>
+
+
+Then according to the different inputs to <span style="color:DodgerBlue">$\mathcal{T]^b$</span>, **the final loss** can be rewritten from Eq. (14) as:
+
+<span style="color:DodgerBlue">
+\\[
+L^{b}_u=\lambda^1_{in} L^{b,m}_\{dual \} (F^1_\{in\}) + \lambda^2_{in} L^{b,m}_\{dual \} (F^2_\{in\}), \quad \cdots Eq. (14)
+\\]
+</span>
+
