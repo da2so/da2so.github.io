@@ -251,7 +251,7 @@ Then according to the different inputs to <span style="color:DodgerBlue">$\mathc
 
 <span style="color:DodgerBlue">
 \\[
-L^{b}_u=\lambda^1_{i} L^{b,m}_\{dual \} (F^1_\{ in\}) + \lambda^2_i L^{b,m}_\{ dual \} (F^2_\{ in \}), \quad \cdots Eq. (14)
+L^{b}_u=\lambda^1_i L^{b,m}_\{ dual \} (F^1_i) + \lambda^2_i L^{b,m}_\{ dual \} (F^2_i), \quad \cdots Eq. (14)
 \\]
 </span>
 
