@@ -223,7 +223,7 @@ And, the authors feed the generated features <span style="color:DodgerBlue">$F^b
 
 <span style="color:DodgerBlue">
 \\[
-L^{b,m}_{dual}=l(g_m (\mathcal{O}_m(F^b_u) ,\; g_m(\mathcal{O}_m(\mathcal{I}_g))  , \quad \cdots Eq. (13)
+L^{b,m}_{d}=l(g_m (\mathcal{O}_m(F^b_u) ,\; g_m(\mathcal{O}_m(\mathcal{I}_g))  , \quad \cdots Eq. (13)
 \\]
 </span>
 
@@ -232,7 +232,7 @@ So, the block-wise loss for updating dual-generator <span style="color:DodgerBlu
 
 <span style="color:DodgerBlue">
 \\[
-L^b_{dual}=\sum_m \lambda_m \cdot L^{b,m}_\{dual\}  , \quad \cdots Eq. (14)
+L^b_{d}=\sum_m \lambda_m \cdot L^{b,m}_\{d\}  , \quad \cdots Eq. (14)
 \\]
 </span>
 
@@ -251,7 +251,7 @@ Then according to the different inputs to <span style="color:DodgerBlue">$\mathc
 
 <span style="color:DodgerBlue">
 \\[
-L^{b}_u=\lambda^1_i L^{b,m}_\{ dual \} (F^1_i) + \lambda^2_i L^{b,m}_\{ dual \} (F^2_i), \quad \cdots Eq. (14)
+L^{b}_u=\lambda^1_i L^{b,m}_d (F^1_i) + \lambda^2_i L^{b,m}_d (F^2_i), \quad \cdots Eq. (14)
 \\]
 </span>
 
