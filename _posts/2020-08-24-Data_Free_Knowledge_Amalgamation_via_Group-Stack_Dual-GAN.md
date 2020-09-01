@@ -232,7 +232,7 @@ So, the block-wise loss for updating dual-generator <span style="color:DodgerBlu
 
 <span style="color:DodgerBlue">
 \\[
-L^{b}_{dual}=sum_m \lambda_m \cdot L^{b,m}_\{dual\}  , \quad \cdots Eq. (14)
+L^b_{dual}=sum_m \lambda_m \cdot L^{b,m}_\{dual\}  , \quad \cdots Eq. (14)
 \\]
 </span>
 
