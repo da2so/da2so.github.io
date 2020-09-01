@@ -232,7 +232,7 @@ So, the block-wise loss for updating dual-generator <span style="color:DodgerBlu
 
 <span style="color:DodgerBlue">
 \\[
-L^b_{dual}=sum_m \lambda_m \cdot L^{b,m}_\{dual\}  , \quad \cdots Eq. (14)
+L^b_{dual}=\sum_m \lambda_m \cdot L^{b,m}_\{dual\}  , \quad \cdots Eq. (14)
 \\]
 </span>
 
@@ -240,8 +240,8 @@ where <span style="color:DodgerBlue">$\lambda=1$</span> for <span style="color:D
 
 <span style="color:DodgerBlue">
 \\[ 
- \\begin{array}{l} F^1_{in}=\mathcal{T}^{b-1} \mathcal{T}^{b-2} \cdots \mathcal{T}^1 (\mathcal{I}_g ), \cr
-								  F^2_\{in \}= G^{B+1-b} G^{B-b} \cdots G^1 (z). 
+ \\begin{array}{l} F^1_i=\mathcal{T}^{b-1} \mathcal{T}^{b-2} \cdots \mathcal{T}^1 (\mathcal{I}_g ), \cr
+								  F^2_i = G^{B+1-b} G^{B-b} \cdots G^1 (z). 
 \\end{array} \quad \cdots Eq. (15)
 \\]
 </span>
@@ -251,7 +251,7 @@ Then according to the different inputs to <span style="color:DodgerBlue">$\mathc
 
 <span style="color:DodgerBlue">
 \\[
-L^{b}_u=\lambda^1_{i} L^{b,m}_\{dual \} (F^1_\{in\}) + \lambda^2_{i} L^{b,m}_\{dual \} (F^2_\{in\}), \quad \cdots Eq. (14)
+L^{b}_u=\lambda^1_{i} L^{b,m}_\{dual \} (F^1_\{ in\}) + \lambda^2_i L^{b,m}_\{ dual \} (F^2_\{ in \}), \quad \cdots Eq. (14)
 \\]
 </span>
 
