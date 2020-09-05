@@ -14,11 +14,11 @@ thumbnail-img: /assets/thumbnail_img/2020-08-11-Meaningful_Perturbation/post.png
 Given the left figure, we wonder that why the deep network predicts the image as "dog".
 
 
-To gratify this curiosity, we aim to find <span style="background-color: #A4FF21">the important regions of an input image</span> to classify it as "dog" class.
+To gratify this curiosity, we aim to find <span style="background-color: #B1FF8C">the important regions of an input image</span> to classify it as "dog" class.
 
 <span style="color: red">\\[\downarrow \text{The idea}\\] </span>
 
-If we find and remove <span style="background-color: #A4FF21">the regions</span>, the probability of the prediction significantly gets lower.
+If we find and remove <span style="background-color: #B1FF8C">THE REGIONS</span>, the probability of the prediction significantly gets lower.
 
 
 {: .box-note}
@@ -61,13 +61,13 @@ Then, the perturbation operator is defined as follows:
 
 
 | If <span style="color:DodgerBlue">$m(u)=1 \quad $</span> $\rightarrow$ Preserve the original pixel |
-| elif <span style="color:DodgerBlue">$m(u)=0 \quad $</span> $\rightarrow$ Replace the original pixel with a pixel of reference data|
+| Elif <span style="color:DodgerBlue">$m(u)=0 \quad $</span> $\rightarrow$ Replace the original pixel with a pixel of reference data|
 
 {: .box-note}
 **Note:** I will define constant, noise and blur as reference data <span style="color:DodgerBlue">$R$</span>.
 
 #### <span style="color:gray"> 2.2.1 The objective function </span>
-Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that causes the score <span style="color:DodgerBlue">$f_c(\Phi (x_0:m)) \ll f_c(x_0)$</span> to drop significantly, where <span style="color:DodgerBlue">$c$</span> is the target class. This represents that masked regions (pixels) were important to classifiy <span style="color:DodgerBlue">$x_0$</span> as <span style="color:DodgerBlue">$c$</span>.
+Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that causes the score <span style="color:DodgerBlue">$f_c(\Phi (x_0:m)) \ll f_c(x_0)$</span> to drop significantly, where <span style="color:DodgerBlue">$c$</span> is the target class. This represents that masked regions (pixels) were important to classify <span style="color:DodgerBlue">$x_0$</span> as <span style="color:DodgerBlue">$c$</span>.
 
 <span style="color:DodgerBlue">\\[ m^*= argmin_{m \in [0,1]^\Lambda} \lambda \Vert 1-m\Vert_1+ f_c(\Phi(x_0:m))\\] </span>
 
@@ -93,7 +93,7 @@ This means not relying on the details of a singly-learned mask <span style="colo
 
 
 <span style="color:#5256BC"><b>Second, Total Variation (TV) regularization and upsampling</b></span>  
-By uisng TV regularization and upsampling mask, we can encourage the result to have a simple, regular structure which can not be co-adapted to artifacts.
+By using TV regularization and upsampling mask, we can encourage the result to have a simple, regular structure which can not be co-adapted to artifacts.
 
 With these two modifications, the final objective function is follows:
 
@@ -120,3 +120,15 @@ With these two modifications, the final objective function is follows:
 
 
 ![3](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/5.png){: .mx-auto.d-block :}
+
+
+<br />
+<br />
+
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Fong, Ruth C., and Andrea Vedaldi. "Interpretable explanations of black boxes by meaningful perturbation." Proceedings of the IEEE International Conference on Computer Vision. 2017.*
+
+
+**Github Code: [Here](https://github.com/da2so/Interpretable-Explanations-of-Black-Boxes-by-Meaningful-Perturbation)**
