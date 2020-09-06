@@ -131,7 +131,7 @@ We ignore the cross-entropy loss <span style="color:DodgerBlue">$L_C$</span> fro
 
 
 
-![4](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/4.PNG){: .mx-auto.d-block :}
+![4](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/4.PNG){: .mx-auto.d-block width='70%':}
 
 
 ## 3. Experiment Setting & Result
@@ -143,8 +143,8 @@ We ignore the cross-entropy loss <span style="color:DodgerBlue">$L_C$</span> fro
 <br />
 <br />
 
-
 ### <span style="color:#C70039 ">Reference </span>
 *Nayak, Gaurav Kumar, et al. "Zero-Shot Knowledge Distillation in Deep Networks." International Conference on Machine Learning. 2019.*
 
 
+**Github Code: [Here](https://github.com/da2so/Zero-shot_Knowledge_Distillation)**
