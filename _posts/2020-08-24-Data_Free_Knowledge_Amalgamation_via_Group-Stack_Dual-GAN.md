@@ -24,7 +24,7 @@ For this, the main idea is to construct the group-stack generative adversarial n
 The architecture of Dual-GAN is shown in Fig 1.
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="60%", height="60%" :}
+![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="60%", height="50%" :}
 
 
 ## 2. Problem Definiton
@@ -223,7 +223,7 @@ And, the authors feed the generated features <span style="color:DodgerBlue">$F^b
 
 <span style="color:DodgerBlue">
 \\[
-L^{b,m}_{dual}=l(g_m (\mathcal{O}_m(F^b_u) ,\; g_m(\mathcal{O}_m(\mathcal{I}_g))  , \quad \cdots Eq. (13)
+L^{b,m}_{d}=l(g_m (\mathcal{O}_m(F^b_u) ,\; g_m(\mathcal{O}_m(\mathcal{I}_g))  , \quad \cdots Eq. (13)
 \\]
 </span>
 
@@ -232,7 +232,7 @@ So, the block-wise loss for updating dual-generator <span style="color:DodgerBlu
 
 <span style="color:DodgerBlue">
 \\[
-L^{b}_{dual}=sum_m \lambda_m \cdot L^{b,m}_\{dual\}  , \quad \cdots Eq. (14)
+L^b_{d}=\sum_m \lambda_m \cdot L^{b,m}_\{d\}  , \quad \cdots Eq. (14)
 \\]
 </span>
 
@@ -240,8 +240,8 @@ where <span style="color:DodgerBlue">$\lambda=1$</span> for <span style="color:D
 
 <span style="color:DodgerBlue">
 \\[ 
- \\begin{array}{l} F^1_{in}=\mathcal{T}^{b-1} \mathcal{T}^{b-2} \cdots \mathcal{T}^1 (\mathcal{I}_g ), \cr
-								  F^2_\{in \}= G^{B+1-b} G^{B-b} \cdots G^1 (z). 
+ \\begin{array}{l} F^1_i=\mathcal{T}^{b-1} \mathcal{T}^{b-2} \cdots \mathcal{T}^1 (\mathcal{I}_g ), \cr
+								  F^2_i = G^{B+1-b} G^{B-b} \cdots G^1 (z). 
 \\end{array} \quad \cdots Eq. (15)
 \\]
 </span>
@@ -251,7 +251,7 @@ Then according to the different inputs to <span style="color:DodgerBlue">$\mathc
 
 <span style="color:DodgerBlue">
 \\[
-L^{b}_u=\lambda^1_{i} L^{b,m}_\{dual \} (F^1_\{in\}) + \lambda^2_{i} L^{b,m}_\{dual \} (F^2_\{in\}), \quad \cdots Eq. (14)
+L^{b}_u=\lambda^1_i L^{b,m}_d (F^1_i) + \lambda^2_i L^{b,m}_d (F^2_i), \quad \cdots Eq. (16)
 \\]
 </span>
 

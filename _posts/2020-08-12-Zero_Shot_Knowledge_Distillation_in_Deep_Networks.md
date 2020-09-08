@@ -35,7 +35,7 @@ Knowledge distillation methods train the _Student_ by minimizing the following o
 L=\sum_{(x,y) \in \mathbb{D}} L_K (S(x,\theta_S,\tau), T(x,\theta_T, \tau))+\lambda L_C( \widehat{y}_S,y)
 \\] </span>
 
-,where <span style="color:DodgerBlue">$D$</span> is training dataset, <span style="color:DodgerBlue">$L_C$</span> is the cross-entropy loss computed on the labels <span style="color:DodgerBlue">$ \widehat{y}_S $</span> predicited by the *Student* and ground truth <span style="color:DodgerBlue">$y$</span>. <span style="color:DodgerBlue">$L_K$</span> is the distillation loss (e.g. cross-entropy or MSE), <span style="color:DodgerBlue">$ (T(x,\theta_T,\tau)$</span> indicates the softmax output of the *Teacher* and <span style="color:DodgerBlue">$S(x,\theta_S, \tau)$</span> denotes the softmax output of the *Student*. Note that, unless it is mentioned, we use a temperature (<span style="color:DodgerBlue">$\tau$</span>) of 1.
+,where <span style="color:DodgerBlue">$D$</span> is training dataset, <span style="color:DodgerBlue">$L_C$</span> is the cross-entropy loss computed on the labels <span style="color:DodgerBlue">$ \widehat{y}_S $</span> predicted by the *Student* and ground truth <span style="color:DodgerBlue">$y$</span>. <span style="color:DodgerBlue">$L_K$</span> is the distillation loss (e.g. cross-entropy or MSE), <span style="color:DodgerBlue">$ (T(x,\theta_T,\tau)$</span> indicates the softmax output of the *Teacher* and <span style="color:DodgerBlue">$S(x,\theta_S, \tau)$</span> denotes the softmax output of the *Student*. Note that, unless it is mentioned, we use a temperature (<span style="color:DodgerBlue">$\tau$</span>) of 1.
 
 
 
@@ -58,13 +58,13 @@ The distribution to represent the softmax output <span style="color:DodgerBlue">
 
 #### <span style="color:gray"> 2.2.1 Concentration Parameter ($\alpha$)</span>
 
-Concentration parameter <span style="color:DodgerBlue">$\alpha$</span> can be thought of as determining how "concentrated" the porbability mass of a sample from a Dirichlet distribution is likely to be.
+Concentration parameter <span style="color:DodgerBlue">$\alpha$</span> can be thought of as determining how "concentrated" the probability mass of a sample from a Dirichlet distribution is likely to be.
 
 
 | <b>If</b> <span style="color:DodgerBlue">$\alpha \ll 1$</span> <b>$\rightarrow$</b> the mass is highly concentrated in only a few components|
 | <b>Elif</b> <span style="color:DodgerBlue">$\alpha \gg 1 $</span> <b>$\rightarrow$</b> the mass is dispersed almost equally among all the components|
 
-So, it is important to determine right <span style="color:DodgerBlue">$\alpha$</span>. We make its values to reflect the similarties across the components in the softmax vector. Since these components denote the underlying categories in the recognition problem, <span style="color:DodgerBlue">$\alpha$</span> should reflect the visual similarities among them.
+So, it is important to determine right <span style="color:DodgerBlue">$\alpha$</span>. We make its values to reflect the similarities across the components in the softmax vector. Since these components denote the underlying categories in the recognition problem, <span style="color:DodgerBlue">$\alpha$</span> should reflect the visual similarities among them.
 
 
 Thus, we resort to the *Teacher* network for extracting this information. We compute a normalized class similarity matrix (<span style="color:DodgerBlue">$C$</span>) using the weights <span style="color:DodgerBlue">$W$</span> connecting the final (softmax) and the pre-final layers. The element <span style="color:DodgerBlue">$C(i,j)$</span> of this matrix denotes the visual similarity between the categories <span style="color:DodgerBlue">$i$</span> and <span style="color:DodgerBlue">$j$</span> in [0,1].
@@ -77,7 +77,7 @@ Thus, we resort to the *Teacher* network for extracting this information. We com
 The weights <span style="color:DodgerBlue">$w_k$</span> can be considered as the template of the class <span style="color:DodgerBlue">$k$</span> learned by the *Teacher* network. This is because the predicted class probability is proportional to the alignment of the pre-final layer’s output with the template <span style="color:DodgerBlue">$w_k$</span>.
 
 |<b>If</b> pre-final layer's output is positive scaled version of <span style="color:DodgerBlue">$w_k$</span> <b>$\rightarrow$</b> predicted probability for class <span style="color:DodgerBlue">$k$</span>peaks|
-|<b>Elif</b> pre-final layer's ouput is misaligned with the <span style="color:DodgerBlue">$w_k$</span> <b>$\rightarrow$</b> predicted probability for class <span style="color:DodgerBlue">$k$</span> is reduced|
+|<b>Elif</b> pre-final layer's output is misaligned with the <span style="color:DodgerBlue">$w_k$</span> <b>$\rightarrow$</b> predicted probability for class <span style="color:DodgerBlue">$k$</span> is reduced|
 
 Therefor, , wetreat the weights wk as the class template for class <span style="color:DodgerBlue">$k$</span> and compute the similarity between classes <span style="color:DodgerBlue">$i$</span> and <span style="color:DodgerBlue">$j$</span> as:
 
@@ -99,7 +99,7 @@ Once the parameters <span style="color:DodgerBlue">$K$</span> and <span style="c
 \\]
 </span>
 
-<span style="color:DodgerBlue">$Y^k=\[ y^k_1,y^k_2, \cdots ,y^k_N \] \in \mathbb{R}^{K \times N}$</span> is the <span style="color:DodgerBlue">$N$</span> softmax vectors correspoding to class <span style="color:DodgerBlue">$k$</span>, sampled from <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> distribution. Correspoding to each sampled sofmax vector <span style="color:DodgerBlue">$y^k_i$</span>, we can craft a *Data Impression* <span style="color:DodgerBlue">$\overline{x}^k_i$</span>, for which the *Teacher* predicts a similar softmax 
+<span style="color:DodgerBlue">$Y^k=\[ y^k_1,y^k_2, \cdots ,y^k_N \] \in \mathbb{R}^{K \times N}$</span> is the <span style="color:DodgerBlue">$N$</span> softmax vectors corresponding to class <span style="color:DodgerBlue">$k$</span>, sampled from <span style="color:DodgerBlue">$Dir(K,\alpha^k)$</span> distribution. Corresponding to each sampled sofmax vector <span style="color:DodgerBlue">$y^k_i$</span>, we can craft a *Data Impression* <span style="color:DodgerBlue">$\overline{x}^k_i$</span>, for which the *Teacher* predicts a similar softmax 
  
 
 We initialize <span style="color:DodgerBlue">$\overline{x}^k_i$</span> as a random noisy image and update it over multiple iterations till the cross-entropy loss between the sampled softmax vector <span style="color:DodgerBlue">$y^k_i$</span> and the softmax output predicted by the *Teacher* is minimized. And the process is repeated for each of the <span style="color:DodgerBlue">$N$</span> sampled softmax probability vectors in <span style="color:DodgerBlue">$Y^k$</span>, <span style="color:DodgerBlue">$y \in {1, \cdots,K}$</span>
@@ -107,7 +107,7 @@ We initialize <span style="color:DodgerBlue">$\overline{x}^k_i$</span> as a rand
 
 #### <span style="color:gray"> 2.3.1 Scaling Factor ($\beta$)</span>
 
-The probaiblity density function of the Dirichlet distribution for <span style="color:DodgerBlue">$K$</span> random vairables is a <span style="color:DodgerBlue">$K-1$</span> dimensional probability simplex that exists on a <span style="color:DodgerBlue">$K$</span> diemensional space. Since we treat Dirichlet distribution, it is important to discuss the significance of the range of <span style="color:DodgerBlue">$\alpha_i \in \alpha$</span>, in controlling the density of the distribution.
+The probability density function of the Dirichlet distribution for <span style="color:DodgerBlue">$K$</span> random variables is a <span style="color:DodgerBlue">$K-1$</span> dimensional probability simplex that exists on a <span style="color:DodgerBlue">$K$</span> dimensional space. Since we treat Dirichlet distribution, it is important to discuss the significance of the range of <span style="color:DodgerBlue">$\alpha_i \in \alpha$</span>, in controlling the density of the distribution.
 
 ![3](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/3.png){: .mx-auto.d-block :}
 
@@ -131,10 +131,20 @@ We ignore the cross-entropy loss <span style="color:DodgerBlue">$L_C$</span> fro
 
 
 
-![4](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/4.PNG){: .mx-auto.d-block :}
+![4](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/4.PNG){: .mx-auto.d-block width='70%':}
 
 
 ## 3. Experiment Setting & Result
 
 
 ![5](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/5.png){: .mx-auto.d-block :}
+
+
+<br />
+<br />
+
+### <span style="color:#C70039 ">Reference </span>
+*Nayak, Gaurav Kumar, et al. "Zero-Shot Knowledge Distillation in Deep Networks." International Conference on Machine Learning. 2019.*
+
+
+**Github Code: [Here](https://github.com/da2so/Zero-shot_Knowledge_Distillation)**
