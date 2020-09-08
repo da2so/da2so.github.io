@@ -4,7 +4,7 @@ title: A Disentangling Invertible Interpretation Network for Explaining Latent R
 tags: [Explainable AI, Interpretability]
 comments: true
 use_math: true
-thumbnail-img: /assets/thumbnail_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/post.png
+thumbnail-img: /assets/thumbnail_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/post.PNG
 ---
 
 ## 1. Interpreting hidden representations
