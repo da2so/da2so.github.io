@@ -45,7 +45,14 @@ So, what can we obtain from interpretable representations??
 
 What properties of <span style="color:DodgerBlue">$\widetilde{z}_k$</span> we should satisfy??
 
-<span style="color:#BBAE31">**A.**</span> It must represent a specific interpretable concepts (ex: color, class ...)  
+<span style="color:#BBAE31">**A.**</span> It must represent a specific interpretable concepts. (ex: color, class ...)  
 <span style="color:#BBAE31">**B.**</span> It is independent to each other.  
-     <span style="color:DodgerBlue">$P(\widetilde{z})=\Pi^K P(\widetilde{z}_k) $</span>  
-<span style="color:#BBAE31">**C.**</span> 
+     <span style="color:DodgerBlue">$\quad \Rightarrow P(\widetilde{z})=\Pi^K P(\widetilde{z}_k) $</span>  
+<span style="color:#BBAE31">**C.**</span> Distribution <span style="color:DodgerBlue">$P(z_k)$</span> of each factor must be easy to sample from to gain insights into variability of a factor.  
+<span style="color:#BBAE31">**D.**</span> Interpolation between two samples of a factor must be valid samples to analyze changes along a path
+
+
+Satisfy <span style="color:#BBAE31">**C.**</span> and <span style="color:#BBAE31">**D.**</span> <span style="color:black">$\Rightarrow$</span> <span style="color:DodgerBlue">$P(\widetilde{z})=\Pi^K N(P(\widetilde{z}_k | 0,1) \quad \cdots Eq. (1)$</span>
+
+
+
