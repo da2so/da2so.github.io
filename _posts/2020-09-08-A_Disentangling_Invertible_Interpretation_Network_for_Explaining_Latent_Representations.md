@@ -56,3 +56,21 @@ Satisfy <span style="color:#BBAE31">**C.**</span> and <span style="color:#BBAE31
 
 
 
+**The way to supply additional constraints for Eq. (1).**
+
+Let there be training image pairs <span style="color:DodgerBlue">$(x^a x^b)$</span> which specify semantics through their similarity.  
+Each semantic concept <span style="color:DodgerBlue">$F \in \\{ 1, \cdots , K \\}$</span> defined by such pairs is represented by corresponding factor <span style="color:DodgerBlue">$\widetilde{z}_F$</span> and we write <span style="color:DodgerBlue">$(x^a, x^b) ~ P(x^a,x^b|F)$</span> to emphasize that <span style="color:DodgerBlue">$(x^a,x^b)$</span> is a training pair for factor <span style="color:DodgerBlue">$\widetilde{z}_F$</span>.
+
+
+However, we cannot expect to have examples of image pairs for every semantic concept relevant in <span style="color:DodgerBlue">$z$</span>.
+<span style="color:gray">$\quad \Rightarrow $</span> So, let introduce <span style="color:DodgerBlue">$z_0$</span> to act as a residual concept
+
+
+For a given training pair <span style="color:DodgerBlue">$(x^a, x^b)$</span> factorized representation <span style="color:DodgerBlue">$\widetilde{z}^a=T(X(x^a))$</span> and <span style="color:DodgerBlue">$\widetilde{z}^b=T(X(x^b))$</span> must <span style="color:#95F056">$(i)$</span> mirror the semantic similarity of <span style="color:DodgerBlue">$(x^a, x^b)$</span> in its  <span style="color:DodgerBlue">$F$</span>-th factor and <span style="color:#95F056">$(ii)$</span> be invariant in the remaining factors.
+
+
+<span style="color:#95F056">$\quad (i)$</span> a positive correlation factor <span style="color:DodgerBlue">$\sigma_{ab} \in (0,1)$</span> for the <span style="color:DodgerBlue">$F$</span>-th factors between pairs  
+<span style="color:gray">$\quad \quad \Rightarrow$</span> <span style="color:DodgerBlue">$widetilde{z}^b_F ~ N (widetilde{z}^b_F | \sigma_{ab} widetilde{z}^a_F , (1- \sigma_\{ab\} ) \mathbf{1} ) \quad \cdots Eq. (2)$</span>
+
+<span style="color:#95F056">$\quad (ii)$</span> no correlation for the remaining factors between pairs  
+<span style="color:gray">$\quad \quad \Rightarrow$</span> <span style="color:DodgerBlue">$widetilde{z}^b_k ~ N (widetilde{z}^b_k | 0,1  ) \; k \in \\{ 0, \cdots , K \\} \\\ \\{ F \\} \quad \cdots Eq. (3)$</span>
