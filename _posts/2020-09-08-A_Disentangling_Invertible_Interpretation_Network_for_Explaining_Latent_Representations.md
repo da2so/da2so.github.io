@@ -75,7 +75,7 @@ For a given training pair <span style="color:DodgerBlue">$(x^a, x^b)$</span> fac
 <span style="color:gray">$\quad \quad \Rightarrow$</span> <span style="color:DodgerBlue">$\widetilde{z}^b_F \sim N (\widetilde{z}^b_F | \sigma_{ab} \widetilde{z}^a_F , (1- \sigma_\{ab\} ) \mathbf{1} ) \quad \cdots Eq. (2)$</span>
 
 <span style="color:#84BD5D">$\quad (ii)$</span> no correlation for the remaining factors between pairs  
-<span style="color:gray">$\quad \quad \Rightarrow$</span> <span style="color:DodgerBlue">$\widetilde{z}^b_k \sim N (\widetilde{z}^b_k | 0,1  ) \; k \in \\{ 0, \cdots , K \\} \\ \\{ F \\} \quad \cdots Eq. (3)$</span>
+<span style="color:gray">$\quad \quad \Rightarrow$</span><span style="color:DodgerBlue">$\widetilde{z}^b_k \sim N (\widetilde{z}^b_k | 0,1  ) \; k \in \\{ 0, \cdots , K \\} \backslash \\{ F \\} \quad \cdots Eq. (3)$</span>
 
 
 ![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/5.png){: .mx-auto.d-block width="90%" :}
