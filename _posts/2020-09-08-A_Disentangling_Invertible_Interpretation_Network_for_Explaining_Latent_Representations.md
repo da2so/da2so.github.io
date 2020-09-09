@@ -137,7 +137,7 @@ s_F=\sum_i \frac{Cov (E(x^a)_i, E(x^b)_i)}{\sqrt{Var(E(x^a)_i Var(E(x^b)_i))}}. 
 
 Since, correlation is in $[-1,1]$, scores <span style="color:DodgerBlue">$s_F$</span> are in <span style="color:DodgerBlue">$[-1 \times N, 1 \times N] = [-N, N]$</span> for <span style="color:DodgerBlue">$N$</span> dimensional latent representations of <span style="color:DodgerBlue">$E$</span>.
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/8.png){: .mx-auto.d-block width="90%" :}
+![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/8.png){: .mx-auto.d-block width="100%" :}
 
 
 ### <span style="color:gray"> 2.2 Sketch-based description of semantic concepts </span>
