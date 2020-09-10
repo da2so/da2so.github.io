@@ -21,10 +21,10 @@ To tackle this problem, it is a necessary to reconstruct a dataset for training 
 
 For this, the main idea is to construct the group-stack generative adversarial networks (GANs) which have two dual generators. First, **one generator** is trained to collect the knwoledge by reconstructing the images approximating the original dataset. Then, a **dual generator (** is trained by taking the output from the former generator as input. Finally, we treat the dual part generator as the **TargetNet (Student network)** and regroup it.
 
-The architecture of Dual-GAN is shown in Fig 1.
+The architecture of Dual-GAN is shown in Fig 0.
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="60%", height="50%" :}
+![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="50%", height="50%" :}
 
 
 ## 2. Problem Definiton
@@ -52,6 +52,12 @@ The process of obtaining the well-behaved TargetNet with the proposed data-free 
 2. The dual generator <span style="color:DodgerBlue">$\mathcal{T} (\mathcal{I}): \mathcal{I} \rightarrow Y_{cst}$</span> is trained with generated samples from <span style="color:DodgerBlue">$G$</span> in the block-wise way to produce multiple predict labels. Note tha <span style="color:DodgerBlue">$Y_{cst}$</span> is the predicted labels.
 
 3. After training the whole dual-GAN, The dual-generator is modified as TargetNet for classifying the customized label sete <span style="color:DodgerBlue">$Y_{cst}$</span>
+
+
+The overall training procedure of group-stack GAN is depicted in Fig 1. 
+
+
+![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/5.png){: .mx-auto.d-block width="100%":}
 
 ### <span style="color:gray"> 3.1 Amalgamating GAN </span>
 
@@ -104,7 +110,7 @@ D^j \leftarrow \bigcup^j_{i=1} \\{ \mathcal{A}^{B-j+i} \\} \quad \cdots Eq. (4)
 \\]
 </span>
 
-![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/3.png){: .mx-auto.d-block width="60%" :}
+![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/3.png){: .mx-auto.d-block width="80%" :}
 
 During the training for the group pair <span style="color:DodgerBlue">$\\{ G^j, D^j \\}$</span>, only <span style="color:DodgerBlue">$G^j$</span> is optimized with discriminator <span style="color:DodgerBlue">$D^j$</span> is fixed, whose output is for classifying multiple labels. We make use of several losses to constraint the output of <span style="color:DodgerBlue">$D^j$</span> to motivate the real data's response. 
 
@@ -161,7 +167,7 @@ F^{f,m}_g=f^j_m (F^j_g), \quad \cdots Eq. (9)
 where the filtering function <span style="color:DodgerBlue">$f^j_m$</span> is realized by a light learnable module consisting of a global pooling layer and two fully connected layers. <span style="color:DodgerBlue">$F^{j,m}_g$</span> is the filtered generated features that approaches the output feature distribution of <span style="color:DodgerBlue">$\mathcal{A}^{B-j}_m$</span>. The output of discriminator is donated as  <span style="color:DodgerBlue">$\mathcal{O}_m (F^j_g) = D^j_m (F^{j,m}_g$</span>.
 
 
-![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/4.png){: .mx-auto.d-block width="90%" :}
+![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/4.png){: .mx-auto.d-block width="100%" :}
 
 The for the generated features  <span style="color:DodgerBlue">$F^j_g$</span> from  <span style="color:DodgerBlue">$G^j$</span>, we collect from the multi-discriminator the  <span style="color:DodgerBlue">$M$</span> prediction sets  <span style="color:DodgerBlue">$\\{ \mathcal{O}_1(F^j_g), \cdots , \mathcal{O}_M (F^j_g) \\}$</span>, which are:
 
