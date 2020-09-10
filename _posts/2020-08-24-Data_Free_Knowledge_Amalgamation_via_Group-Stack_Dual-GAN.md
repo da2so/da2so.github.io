@@ -57,7 +57,7 @@ The process of obtaining the well-behaved TargetNet with the proposed data-free 
 The overall training procedure of group-stack GAN is depicted in Fig 1. 
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/5.png){: .mx-auto.d-block width="100%":}
+![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/5.PNG){: .mx-auto.d-block width="100%":}
 
 ### <span style="color:gray"> 3.1 Amalgamating GAN </span>
 
