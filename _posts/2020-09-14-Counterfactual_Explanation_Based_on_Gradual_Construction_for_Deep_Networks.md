@@ -19,7 +19,7 @@ The Framework for counterfactual explanation is described in Fig 1.
 
 From perturbed data, we can **interpret** that the pre-trained model thinks the the perturbed parts(regions) as the discriminative features between the original and target classes, such as Fig 2. 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/2.png){: .mx-auto.d-block width="80%":}
+![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/2.png){: .mx-auto.d-block width="80%" :}
 
 
 For this, the perturbed data for counterfactual explanation should satisfy two desirable properties.
@@ -39,13 +39,18 @@ To generate counterfactual explanations, we propose a counterfactual explanation
 
 ### <span style="color:gray"> 2.1 Problem definition </span>
 
-* Input (original) data: <span style="color:DodgerBlue">$X \cin \mathbb{R}^d$</span>
+
+* Input (original) data: <span style="color:DodgerBlue">$X \in \mathbb{R}^d$</span>
 	* Its predicted class : <span style="color:DodgerBlue">$c_0$</span> under a pre-trained model <span style="color:DodgerBlue">$f$</span>
 * Perturbed data <span style="color:DodgerBlue">$X'=(1-M) \circ X + M \circ C$</span>
-	* Binary mask <span style="color:DodgerBlue">$M = \\{ 0,1 \\}^d$</span>
-	* Composite <span style="color:DodgerBlue">$C$</span>
+	* Binary mask: <span style="color:DodgerBlue">$M = \\{ 0,1 \\}^d$</span>
+	* Composite: <span style="color:DodgerBlue">$C$</span>
 * Target class: <span style="color:DodgerBlue">$c_t$</span>
+* Desired classification score for the target class: <span style="color:DodgerBlue">$\tau$</span>
 
 The mask <span style="color:DodgerBlue">$M$</span> indicates wheter to replace subset features of <span style="color:DodgerBlue">$X$</span> with the composite <span style="color:DodgerBlue">$C$</span> or to preserve the features of <span style="color:DodgerBlue">$X$</span>. The <span style="color:DodgerBlue">$C$</span> represents newly generated feature values that will be replaced into a perturbed data <span style="color:DodgerBlue">$X'$</span>.
+
+
+To prduce a perturbed data <span style="color:DodgerBlue">$X'$</span> whose prediction will be a target class <span style="color:DodgerBlue">$c_t$</span>, we progressively search for an optimal mask and a composite. To this end, our method builds gradual construction that iterates over the maskingand composition steps until the desired classification score <span style="color:DodgerBlue">$\tau$</span> is obtained.
 
 
