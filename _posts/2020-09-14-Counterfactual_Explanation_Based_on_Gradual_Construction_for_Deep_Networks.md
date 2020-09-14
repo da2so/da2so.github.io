@@ -19,7 +19,7 @@ The Framework for counterfactual explanation is described in Fig 1.
 
 From perturbed data, we can **interpret** that the pre-trained model thinks the the perturbed parts(regions) as the discriminative features between the original and target classes, such as Fig 2. 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/2.png){: .mx-auto.d-block width="80%" :}
+![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/2.png){: .mx-auto.d-block width="90%" :}
 
 
 For this, the perturbed data for counterfactual explanation should satisfy two desirable properties.
@@ -52,5 +52,11 @@ The mask <span style="color:DodgerBlue">$M$</span> indicates wheter to replace s
 
 
 To prduce a perturbed data <span style="color:DodgerBlue">$X'$</span> whose prediction will be a target class <span style="color:DodgerBlue">$c_t$</span>, we progressively search for an optimal mask and a composite. To this end, our method builds gradual construction that iterates over the maskingand composition steps until the desired classification score <span style="color:DodgerBlue">$\tau$</span> is obtained.
+
+
+### <span style="color:gray"> 2.2 Masking step </span>
+
+The goal of the masking step is to select the most influential feature to
+produce a target class from a pre-trained network as follows:
 
 
