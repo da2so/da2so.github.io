@@ -16,6 +16,6 @@ thumbnail-img: /assets/thumbnail_img/2020-09-14-Counterfactual_Explanation_Based
 forced to predict the perturbed data as a target class.
 
 The Framework for counterfactual explanation is described in Fig 1. 
-![2](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/2.pdf){: .mx-auto.d-block :}
+![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/2.pdf){: .mx-auto.d-block :}
 
-From perturbed data, we can identify crucial features required for pre-trained networks to classify input into the target class.
+From perturbed data, we can **interpret** that the pre-trained model thinks the the perturbed parts(regions) as the discriminative features between the original and target classes, such as Fig 2. 
