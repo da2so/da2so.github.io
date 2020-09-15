@@ -75,10 +75,10 @@ Suppose <span style="color:DodgerBlue">$\delta = \bar{\delta} h $</span> where <
 \\[
 \\begin{array}{l}
 f_\{c_t\} (X+\delta e_i) = f_\{c_t\} (X+\delta e_i) - f_\{c_t\} (X)+f_\{c_t\} (X) \cr
-\quad \quad \quad \quad \quad \;= f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X)+f_\{c_t\} (X) \cr
-\quad \quad \quad \quad \quad \;= \frac{ f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X) }{h}h+ f_\{c_t\} (X) \cr
-\quad \quad \quad \quad \quad \; \approx \bigtriangledown f_\{c_t\} (X) \bar{\delta}  e_i h + f_\{c_t\} (X) \cr
-\quad \quad \quad \quad \quad \; = \bigtriangledown f_\{c_t\} (X) \delta e_i  + R.
+\quad \quad \quad \quad \quad \; \;= f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X)+f_\{c_t\} (X) \cr
+\quad \quad \quad \quad \quad \; \;= \frac{ f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X) }{h}h+ f_\{c_t\} (X) \cr
+\quad \quad \quad \quad \quad \; \; \approx \bigtriangledown f_\{c_t\} (X) \bar{\delta}  e_i h + f_\{c_t\} (X) \cr
+\quad \quad \quad \quad \quad \; \; = \bigtriangledown f_\{c_t\} (X) \delta e_i  + R.
 \\end{array} \quad \cdots Eq .(2)
 \\]
 </span>
@@ -86,8 +86,8 @@ f_\{c_t\} (X+\delta e_i) = f_\{c_t\} (X+\delta e_i) - f_\{c_t\} (X)+f_\{c_t\} (X
 Since the  <span style="color:DodgerBlue">$\delta$</span> is a real value, we separately consider positive and negative cases in order to find an optimal  <span style="color:DodgerBlue">$i^\ast$</span>.
 
 <span style="color:DodgerBlue">\\[ 
-i^\ast= \\left\\{ \\begin{array}{ll} max( \bigtriangledown  (X))_i, & if \delta >0, \cr
-											 min( \bigtriangledown  (X))_i, & otherwise.
+i^\ast= \\left\\{ \\begin{array}{ll} max( \bigtriangledown f_\{c_t\} (X))_\{i\}, & if \; \delta >0, \cr
+											 min( \bigtriangledown f_\{c_t\} (X))_i, & otherwise.
 \\end{array} \quad \cdots Eq .(3) \\right. 
 \\]</span>
 
@@ -131,7 +131,7 @@ argmax_\epsilon f_\{ c_t \} (X+\epsilon) +R_\epsilon , \quad \cdots Eq. (6)
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$K$</span> is the number of classes, <span style="color:DodgerBlue">$f'_k$</span> represents a logit score for a class <span style="color:DodgerBlue">$k$</span>, <span style="color:DodgerBlue">$X_\{i, c_t \}$</span> denotes $i$-th training data that is classified into a target classes <span style="color:DodgerBlue">$c_t$</span>. <span style="color:DodgerBlue">$N$</span> denotes the number of randomly sampled training data. In additon, we add a regularizer <span style="color:DodgerBlue">$\lambda$</span> to encourage the values of <span style="color:DodgerBlue">$X'$</span> to close to the unput data <span style="color:DodgerBlue">$X$</span>.  
+where <span style="color:DodgerBlue">$K$</span> is the number of classes, <span style="color:DodgerBlue">$f'_k$</span> represents a logit score for a class <span style="color:DodgerBlue">$k$</span>, <span style="color:DodgerBlue">$X_\{i, c_t \}$</span> denotes $i$-th training data that is classified into a target classes <span style="color:DodgerBlue">$c_t$</span>. <span style="color:DodgerBlue">$N$</span> denotes the number of randomly sampled training data. In additon, we add a regularizer <span style="color:DodgerBlue">$\lambda$</span> to encourage the values of <span style="color:DodgerBlue">$X'$</span> to close to the input data <span style="color:DodgerBlue">$X$</span>.  
 As a result, Eq. (6) makes the composite <span style="color:DodgerBlue">$C$</span> to improve the probability of <span style="color:DodgerBlue">$c_t$</span> and also pushes the perturbed data towards belonging to the logit score distribution of a training data.
 
 
@@ -139,7 +139,7 @@ Overall, gradual construction iterates over the masking and composition steps un
 We present a pseudo-code in Algorithm 1.
 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/5.png){: .mx-auto.d-block width='70%' :}
+![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/5.png){: .mx-auto.d-block width='60%' :}
 
 
 
