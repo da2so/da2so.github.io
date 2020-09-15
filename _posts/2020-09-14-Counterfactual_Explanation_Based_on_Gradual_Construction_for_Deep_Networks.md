@@ -75,10 +75,10 @@ Suppose <span style="color:DodgerBlue">$\delta = \bar{\delta} h $</span> where <
 \\[
 \\begin{array}{l}
 f_\{c_t\} (X+\delta e_i) = f_\{c_t\} (X+\delta e_i) - f_\{c_t\} (X)+f_\{c_t\} (X) \cr
-\quad \quad \quad \quad \quad= f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X)+f_\{c_t\} (X) \cr
-\quad \quad \quad \quad \quad= \frac{ f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X) }{h}h+ f_\{c_t\} (X) \cr
-\quad \quad \quad \quad \quad \approx \bigtriangledown f_\{c_t\} (X) \bar{\delta}  e_i h + f_\{c_t\} (X) \cr
-\quad \quad \quad \quad \quad = \bigtriangledown f_\{c_t\} (X) \delta e_i  + R.
+\quad \quad \quad \quad \quad \;= f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X)+f_\{c_t\} (X) \cr
+\quad \quad \quad \quad \quad \;= \frac{ f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X) }{h}h+ f_\{c_t\} (X) \cr
+\quad \quad \quad \quad \quad \; \approx \bigtriangledown f_\{c_t\} (X) \bar{\delta}  e_i h + f_\{c_t\} (X) \cr
+\quad \quad \quad \quad \quad \; = \bigtriangledown f_\{c_t\} (X) \delta e_i  + R.
 \\end{array} \quad \cdots Eq .(2)
 \\]
 </span>
@@ -86,8 +86,8 @@ f_\{c_t\} (X+\delta e_i) = f_\{c_t\} (X+\delta e_i) - f_\{c_t\} (X)+f_\{c_t\} (X
 Since the  <span style="color:DodgerBlue">$\delta$</span> is a real value, we separately consider positive and negative cases in order to find an optimal  <span style="color:DodgerBlue">$i^\ast$</span>.
 
 <span style="color:DodgerBlue">\\[ 
-i^\ast= \\left\\{ \\begin{array}{ll} max( \bigtriangledown f_{c_t} (X))_i, & if \delta >0, \cr
-											 min( \bigtriangledown f_\{c_t\} (X))_i, & otherwise.
+i^\ast= \\left\\{ \\begin{array}{ll} max( \bigtriangledown  (X))_i, & if \delta >0, \cr
+											 min( \bigtriangledown  (X))_i, & otherwise.
 \\end{array} \quad \cdots Eq .(3) \\right. 
 \\]</span>
 
