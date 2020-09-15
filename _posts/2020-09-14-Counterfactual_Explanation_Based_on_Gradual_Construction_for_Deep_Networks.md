@@ -60,3 +60,81 @@ The goal of the masking step is to select the most influential feature to
 produce a target class from a pre-trained network as follows:
 
 
+<span style="color:DodgerBlue">
+\\[
+i^\ast = argmax_i f_\{c_t\} (X+\delta e_i), \quad \cdots Eq. (1)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$e_i$</span> is a one-hot vector whose value is 1 only for the $i$-th element, <span style="color:DodgerBlue">$\delta$</span> is a non-zero real value and <span style="color:DodgerBlue">$f_{c_t}$</span> is the classification score for the target class <span style="color:DodgerBlue">$c_t$</span>.
+
+
+Suppose <span style="color:DodgerBlue">$\delta = \bar{\delta} h $</span> where <span style="color:DodgerBlue">$h$</span> is a non-zero and infinitesimal value and <span style="color:DodgerBlue">$\bar{\delta}$</span> is a proper scalr to match the equality. Then, the Eq. (2) is approximated as the directional derivative with respect to  <span style="color:DodgerBlue">$X$</span>.
+
+<span style="color:DodgerBlue">
+\\[
+\\begin{array}{l}
+f_\{c_t\} (X+\delta e_i) = f_\{c_t\} (X+\delta e_i) - f_\{c_t\} (X)+f_\{c_t\} (X)
+\quad \quad = f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X)+f_\{c_t\} (X)
+\quad \quad = \frac{ f_\{c_t\} (X+ \bar{\delta} h e_i) - f_\{c_t\} (X) }{h}h+ f_\{c_t\} (X)
+\quad \quad \approx \bigtriangledown f_\{c_t\} (X) \bar{\delta}  e_i h + f_\{c_t\} (X)
+\quad \quad = \bigtriangledown f_\{c_t\} (X) \delta e_i  + R.
+\\end{array} \quad \cdots Eq .(2)
+\\]
+</span>
+
+Since the  <span style="color:DodgerBlue">$\delta$</span> is a real value, we separately consider positive and negative cases in order to find an optimal  <span style="color:DodgerBlue">$i^\ast$</span>.
+
+<span style="color:DodgerBlue">\\[ 
+i^\ast= \\left\\{ \\begin{array}{ll} max( \bigtriangledown f_\{c_t\} (X))_i, & if \delta >0, \cr
+											 min( \bigtriangledown f_\{c_t\} (X))_i), & otherwise.
+\\end{array} \\right.  \quad \cdots Eq .(3)
+\\]</span>
+
+
+The <span style="color:DodgerBlue">$max(\cdot)_i$</span> function returns an index that has a maximum value in the input vector and <span style="color:DodgerBlue">$min(\cdot)_i$</span> is similarly defined.
+
+
+Thus, we choose a sub-optimal idndex as 
+
+
+<span style="color:DodgerBlue">
+\\[
+\hat{i}^\ast = max ( | \bigtriangledown f_\{c_t\} (X) | )_i. \quad \cdots Eq. (4)
+\\]
+</span>
+
+In summary, each masking step selects an index in the descending order by calculating Eq. (5) and changes the zero value of mask <span style="color:DodgerBlue">$M$</span> into one.
+
+
+### <span style="color:gray"> 2.3 Composite step </span>
+
+After selecting the input feature to be modified, the composition step otpimizes the feature value to ensure that the deep network classifies the perturbed data <span style="color:DodgerBlue">$X'$</span> as the target class <span style="color:DodgerBlue">$c_t$</span>. To achieve this, the conventional approaches have proposed an objective function to improce the output score of <span style="color:DodgerBlue">$c_t$</span> as follow:
+
+<span style="color:DodgerBlue">
+\\[
+argmax_\epsilon f_\{ c_t \} (X+\epsilon) +R_\epsilon , \quad \cdots Eq. (5)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$\epsilon= \\{ \epsilon_1, \cdots , \epsilon_d \\}$</span> is a perturbation variable and <span style="color:DodgerBlue">$R_\epsilon$</span> is a regularization term.
+
+However, this obejctive function causes an adversarial attack such as Failure images in Fig. 3. Then, we compared the tributions of logit scores (before the softmax layer) for each failure case and the training images that are classified as <span style="color:DodgerBlue">$c_t$</span> from a pre-trained network. And, we discovered that there exist a notable difference between the two distributions as depicted in Fig 3. 
+
+![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/4.png){: .mx-auto.d-block :}
+
+Thus, we regard failure cases as the result of an n inappropriate objective function that maps the perturbed data onto a different logit space from the training data. To solve this problem, we instead force the logit space of <span style="color:DodgerBlue">$X'$</span> to belong to the space of training data as follows:
+
+<span style="color:DodgerBlue">
+\\[
+argmax_\epsilon f_\{ c_t \} (X+\epsilon) +R_\epsilon , \quad \cdots Eq. (6)
+\\]
+</span>
+
+where <span style="color:DodgerBlue">$K$</span> is the number of classes, <span style="color:DodgerBlue">$f'_k$</span> represents a logit score for a class <span style="color:DodgerBlue">$k$</span>, <span style="color:DodgerBlue">$X_\{i, c_t \}$</span> denotes $i$-th training data that is classified into a target classes <span style="color:DodgerBlue">$c_t$</span>. <span style="color:DodgerBlue">$N$</span> denotes the number of randomly sampled training data. In additon, we add a regularizer <span style="color:DodgerBlue">$\lambda$</span> to encourage the values of <span style="color:DodgerBlue">$X'$</span> to close to the unput data <span style="color:DodgerBlue">$X$</span>. 
+
+As a result, Eq. (6) makes the composite <span style="color:DodgerBlue">$C$</span> to improve the probability of <span style="color:DodgerBlue">$c_t$</span> and also pushes the perturbed data towards belonging to the logit score distribution of a training data.  
+Overall, gradual construction iterates over the masking and composition steps until the classification probability of a target class is reached to a hyperparameter <span style="color:DodgerBlue">$\tau$</span>we present a pseudo-code in Algorithm 1.
+
+
+![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/5.png){: .mx-auto.d-block width='70%' :}
