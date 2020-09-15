@@ -86,13 +86,13 @@ f_\{c_t\} (X+\delta e_i) = f_\{c_t\} (X+\delta e_i) - f_\{c_t\} (X)+f_\{c_t\} (X
 Since the  <span style="color:DodgerBlue">$\delta$</span> is a real value, we separately consider positive and negative cases in order to find an optimal  <span style="color:DodgerBlue">$i^\ast$</span>.
 
 <span style="color:DodgerBlue">\\[ 
-i^\ast= \\left\\{ \\begin{array}{ll} max( \bigtriangledown f_c_\{t\} (X))_\{i\}, & if \; \delta >0, \cr
-											 min( \bigtriangledown  (X))_i, & otherwise.
+i^\ast= \\left\\{ \\begin{array}{ll} max( \bigtriangledown f_t (X))_\{i\}, & if \; \delta >0, \cr
+											 min( \bigtriangledown f_t  (X))_i, & otherwise.
 \\end{array} \quad \cdots Eq .(3) \\right. 
 \\]</span>
 
 
-The <span style="color:DodgerBlue">$max(\cdot)_i$</span> function returns an index that has a maximum value in the input vector and <span style="color:DodgerBlue">$min(\cdot)_i$</span> is similarly defined.
+The <span style="color:DodgerBlue">$t$</span> means <span style="color:DodgerBlue">$c_t$</span>. The <span style="color:DodgerBlue">$max(\cdot)_i$</span> function returns an index that has a maximum value in the input vector and <span style="color:DodgerBlue">$min(\cdot)_i$</span> is similarly defined.
 
 
 Thus, we choose a sub-optimal idndex as 
