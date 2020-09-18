@@ -149,3 +149,13 @@ We present a pseudo-code in Algorithm 1.
 
 
 ![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/7.png){: .mx-auto.d-block width='100%' :}
+
+
+
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Kang, Sin-Han, et al. "Counterfactual Explanation Based on Gradual Construction for Deep Networks." arXiv preprint arXiv:2008.01897 (2020).*
+
+
+**Github Code: [Here](https://github.com/da2so/Counterfactual-Explanation-Based-on-Gradual-Construction-for-Deep-Networks)**
