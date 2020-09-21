@@ -7,8 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-11-Meaningful_Perturbation/post.png
 ---
 
-## 1. How to explain the decision of black-box model??
-
+## 1. How to explain the decision of black-box model??  
 <img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="370" height="230" style="float: left">
 
 Given the left figure, we wonder that why the deep network predicts the image as "dog".
@@ -42,7 +41,7 @@ If we find and remove <span style="background-color: #B1FF8C">THE REGIONS</span>
 
 
 ### <span style="color:gray">2.2 Methods </span>  
-The goal is to find deletion (perturbation) regions that are maximally informative to the decision.
+In Interpretable Explanations of Black Boxes by Meaningful Perturbation, the goal is to find deletion (perturbation) regions that are maximally informative to the decision.
 
 
 Let <span style="color:DodgerBlue">$m:\lambda \rightarrow [0,1]$</span> be a mask, associating each pixel <span style="color:DodgerBlue">$u \in \lambda$</span> with a scalar value <span style="color:DodgerBlue">$m(u)$</span>.

@@ -21,7 +21,7 @@ thumbnail-img: /assets/thumbnail_img/2020-09-08-A_Disentangling_Invertible_Inter
 	- <span style="color:DodgerBlue">$f(x)=G \cdot E(x)$</span>
 
 
-The goal is to translate an original representation <span style="color:DodgerBlue">$z$</span> to an equivalent yet interpretable one. 
+In A Disentangling Invertible Interpretation Network for Explaining Latent Representations, the goal is to translate an original representation <span style="color:DodgerBlue">$z$</span> to an equivalent yet interpretable one. 
 
 In order to <span style="color:DodgerBlue">$z$</span> into an interpretable representation, the following is introduced.
 

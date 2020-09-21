@@ -29,7 +29,7 @@ The architecture of Dual-GAN is shown in Fig 0.
 
 ## 2. Problem Definiton
 
-The authors aim to explore a more effective approach to train the student network (TargetNet), only utilizing the knowledge amalgamated from the pre-trained teachers. The TargetNet is designed to deal with multiple tasks and learns a customized multi-branch network that can recognize all labels selected from separate teachers.
+In Data-Free Knowledge Amalgamation via Group-Stack Dual-GAN, The authors aim to explore a more effective approach to train the student network (TargetNet), only utilizing the knowledge amalgamated from the pre-trained teachers. The TargetNet is designed to deal with multiple tasks and learns a customized multi-branch network that can recognize all labels selected from separate teachers.
 
 * The number of the customized categories:  <span style="color:DodgerBlue">$C$</span>
 * Label vector:  <span style="color:DodgerBlue">$Y_{cst}= \\{ y_1, \cdots , y_C \\}  \subseteq \\{ 0 , 1 \\}^C$</span>

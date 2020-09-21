@@ -16,7 +16,7 @@ thumbnail-img: /assets/thumbnail_img/2020-08-13-Data-Free_Learning_of_Student_Ne
 As the word itself, We perform knowledge distillation when there are no original dataset on which the Teacher network has been trained. It is because, in real world, most datasets are proprietary and not shared publicly due to privacy or confidentiality concerns. 
 
 
-In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in this paper, we prospose a novel framework, named as *Data-Free Learning* (DAFL), for trainging efficient deep neural networks by exploiting generative adversarial networks (GANs).
+In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in Data-Free Learning of Student Networks, we prospose a novel framework, named as *Data-Free Learning* (DAFL), for trainging efficient deep neural networks by exploiting generative adversarial networks (GANs).
 
 
 ![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/1.png){: .mx-auto.d-block :}

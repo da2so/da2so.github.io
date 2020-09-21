@@ -41,7 +41,7 @@ L=\sum_{(x,y) \in \mathbb{D}} L_K (S(x,\theta_S,\tau), T(x,\theta_T, \tau))+\lam
 
 ### <span style="color:gray"> 2.2 Modelling the Data in Softmax Space</span>
 
-In this paper, we deal with the scenario where we have no access to **(i)** any training data samples (either from the target distribution or different) **(ii)** meta-data extracted from it.
+In Zero-Shot Knowledge Distillation in Deep Networks, we deal with the scenario where we have no access to **(i)** any training data samples (either from the target distribution or different) **(ii)** meta-data extracted from it.
 
 To tackle this, our approach taps the learned parameters of the *Teacher* and produce synthesized input representations, named as *Data Impressions* (DIs),from the underlying data distribution on which it is trained. These can be used as a transfer set in order to perform knowledge distillation to a *Student* model.
 

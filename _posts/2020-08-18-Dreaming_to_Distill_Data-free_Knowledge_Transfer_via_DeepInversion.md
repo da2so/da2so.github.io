@@ -16,7 +16,7 @@ The goal is to peform **Data-free Knowledge distillation**.
 
 As the word itself, We perform knowledge distillation when there are no original dataset on which the Teacher network has been trained. It is because, in real world, most datasets are proprietary and not shared publicly due to privacy or confidentiality concerns. 
 
-To tackle this problem, it is a necessary to reconstruct a dataset for training Student network. Thus, in this paper, we propose a new method, which synthesizes images from the image distribution used to train a deep neural network. Further, we aim to improve the diversity of synthesized images.
+To tackle this problem, it is a necessary to reconstruct a dataset for training Student network. Thus, in Dreaming to Distill Data-free Knowledge Transfer via DeepInversion, we propose a new method, which synthesizes images from the image distribution used to train a deep neural network. Further, we aim to improve the diversity of synthesized images.
 
 ## 2. Method
 
