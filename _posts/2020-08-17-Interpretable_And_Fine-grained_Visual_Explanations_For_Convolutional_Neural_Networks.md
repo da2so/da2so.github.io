@@ -7,6 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/post.png
 ---
 
+#  <span style="color:#C70039"> Interpretable And Fine-grained Visual Explanations For Convolutional Neural Networks </span>
 ## 1. Goal
 
 We propose an optimization based visual explanation method, which highlights the evidence in the input images for a specific prediction.
