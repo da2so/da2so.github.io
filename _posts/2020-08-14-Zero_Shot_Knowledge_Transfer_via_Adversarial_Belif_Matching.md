@@ -16,7 +16,7 @@ thumbnail-img: /assets/thumbnail_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via
 As the word itself, We perform knowledge distillation when there are no original dataset on which the Teacher network has been trained. It is because, in real world, most datasets are proprietary and not shared publicly due to privacy or confidentiality concerns. 
 
 
-In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in Zero-Shot Knowledge Transfer via Aversarial Belif Matching, we train an adversarial generator to search for iamges on which the student poorly mathces the teacher, and then using them to train the student.
+In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in Zero-Shot Knowledge Transfer via Aversarial Belif Matching, we train an adversarial generator to search for iamges on which the student poorly matches the teacher, and then using them to train the student.
 
 
 ## 2. Zero-shot knowledge transfer
@@ -37,15 +37,15 @@ In order to perform data-free knowledge distillation, it is a necessary to recon
 
 The goal is to produce pseudo data from generator and use them to train student network by knowledge distillation.
 
-To do this, Our zero-shot training algorithm is described in Algorithm 1. For <span style="color:DodgerBlue">$N$</span> iterations we sample one batch of <span style="color:DodgerBlue">$z$</span>, and take <span style="color:DodgerBlue">$n_G$</span> gradient updates on the generator whi learning rate <span style="color:DodgerBlue">$\eta$</span>, such that it produces pseudo samples <span style="color:DodgerBlue">$x_p$</span> that maximize <span style="color:DodgerBlue">$D_{KL} (T(x_p) || S(X_p))$</span>.
+To do this, Our zero-shot training algorithm is described in Algorithm 1. For <span style="color:DodgerBlue">$N$</span> iterations we sample one batch of <span style="color:DodgerBlue">$z$</span>, and take <span style="color:DodgerBlue">$n_G$</span> gradient updates on the generator whi learning rate <span style="color:DodgerBlue">$\eta$</span>, such that it produces pseudo samples <span style="color:DodgerBlue">$x_p$</span> that maximize <span style="color:DodgerBlue">$D_{KL} (T(x_p) || S(x_p))$</span>.
 
 {: .box-note}
-**$D_{KL} (T(x_p) \| \| S(X_p))= \sum_i t_p^{(i)} log (t^{(i)}_p / s^{(i)}_p)$:** Kullback-Leibler (KL) divergence between outputs of the teacher and student netowkrs on pseudo data ($i$ is image classes)
+**$D_{KL} (T(x_p) \| \| S(x_p))= \sum_i t_p^{(i)} log (t^{(i)}_p / s^{(i)}_p)$:** Kullback-Leibler (KL) divergence between outputs of the teacher and student netowkrs on pseudo data ($i$ is image classes)
 
 
 
-| **If** maximize <span style="color:DodgerBlue">$D_{KL} (T(x_p) \| \| S(X_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\uparrow$, <span style="color:DodgerBlue">$\; s^{(i)}_p$</span> $\downarrow$|
-| **Elif** minimize <span style="color:DodgerBlue">$D_{KL} (T(x_p) \| \| S(X_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\downarrow$, <span style="color:DodgerBlue">$\; s^{(i)}_p$</span> $\uparrow$|
+| **If** maximize <span style="color:DodgerBlue">$D_{KL} (T(x_p) \| \| S(x_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\uparrow$, <span style="color:DodgerBlue">$\; s^{(i)}_p$</span> $\downarrow$|
+| **Elif** minimize <span style="color:DodgerBlue">$D_{KL} (T(x_p) \| \| S(x_p))$</span> $\rightarrow$ <span style="color:DodgerBlue">$ t_p^{(i)}$</span> $\downarrow$, <span style="color:DodgerBlue">$\; s^{(i)}_p$</span> $\uparrow$|
 
 
 We then take <span style="color:DodgerBlue">$n_S$</span> gradient steps on the student with <span style="color:DodgerBlue">$x_p$</span> fixed, such that it matches the teacher's predictions on <span style="color:DodgerBlue">$x_p$</span>. In practice, we use <span style="color:DodgerBlue">$n_S > n_G$</span>, which gives more time to the student to match the teacher on <span style="color:DodgerBlue">$x_p$</span> and encourages the generator to explore other regions of the input space at the next iteration.
@@ -58,7 +58,7 @@ The high student entropy is a vital component to our method since it makes it ha
 
 <span style="color:DodgerBlue">
 \\[
-L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_I} \Vert \frac{f (A^{(t)}_l}{ \Vert f (A^{(t)}_l \Vert_2} - \frac{f (A^{(s)}_l}{ \Vert f (A^{(s)}_l \Vert_2}\Vert_2. \quad \cdots Eq. (1)
+L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_I} \Vert \frac{f (A^{(t)}_l)}{ \Vert f (A^{(t)}_l) \Vert_2} - \frac{f (A^{(s)}_l)}{ \Vert f (A^{(s)}_l) \Vert_2}\Vert_2. \quad \cdots Eq. (1)
 \\]
 </span>
 
@@ -80,7 +80,7 @@ L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_I} \Vert \frac{f (A^{(t)}_l}{ \V
 
 The dynamics of our algorithm is illustrated in Fig. 2, where we use two layer MLPs for both teacher and student, and learn the pseudo points directly. These are initialized away from the real data manifold. 
 
-During training, pseudo points can be seen to explore the input space, typically running along decision boundaries where the student is most likely to mathc the teacher poorly. At the same time, the student is trained to match the teacher on the pseudo points, and so they must keep changing locations. When the decision boundaries between student and teacher are well aligned, some pseudo points will naturally depart from them and search for new high teacher mismatch regions, which allows disconnected decision boundaries to be explored as well.
+During training, pseudo points can be seen to explore the input space, typically running along decision boundaries where the student is most likely to match the teacher poorly. At the same time, the student is trained to match the teacher on the pseudo points, and so they must keep changing locations. When the decision boundaries between student and teacher are well aligned, some pseudo points will naturally depart from them and search for new high teacher mismatch regions, which allows disconnected decision boundaries to be explored as well.
 
 
 ![1](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/2.png){: .mx-auto.d-block :}
