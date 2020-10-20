@@ -58,15 +58,15 @@ The high student entropy is a vital component to our method since it makes it ha
 
 <span style="color:DodgerBlue">
 \\[
-L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_I} \Vert \frac{f (A^{(t)}_l)}{ \Vert f (A^{(t)}_l) \Vert_2} - \frac{f (A^{(s)}_l)}{ \Vert f (A^{(s)}_l) \Vert_2}\Vert_2. \quad \cdots Eq. (1)
+L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_I} \Vert \frac{f (A^{(t)}_l)}{ \Vert f (A^{(t)}_l) \Vert_2} - \frac{f (A^{(s)}_L)}{ \Vert f (A^{(s)}_l) \Vert_2}\Vert_2. \quad \cdots Eq. (1)
 \\]
 </span>
 
 
 * Hyperparameter: <span style="color:DodgerBlue">$\beta$</span>
-* Layers: <span style="color:DodgerBlue">$N_L$</span>
+* Total layers: <span style="color:DodgerBlue">$N_L$</span>
 * Teacher and student activation blocks: <span style="color:DodgerBlue">$A^{(t)}_l$</span> and <span style="color:DodgerBlue">$A^{(s)}_l$</span> for layer <span style="color:DodgerBlue">$l$</span>
-	* Channels: <span style="color:DodgerBlue">$N_{A_l}$</span>
+	* Total channels of l-th layer: <span style="color:DodgerBlue">$N_{A_l}$</span>
 * Spatial attention map: <span style="color:DodgerBlue">$f(A_l)= \frac{1}{N_{A_l}} \sum_c a^2_\{lc \}$</span>
 
  We take the sum over some subet of <span style="color:DodgerBlue">$N_L$</span> layers. The second term encourages both spatial attention maps between teacher and student networks to be similar. We don't use attention for the generator loss because it makes it too easy to fool the student. The training procdure is described in Fig. 1.
