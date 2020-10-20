@@ -58,7 +58,7 @@ The high student entropy is a vital component to our method since it makes it ha
 
 <span style="color:DodgerBlue">
 \\[
-L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_I} \Vert \frac{f (A^{(t)}_l)}{ \Vert f (A^{(t)}_l) \Vert_2} - \frac{f (A^{(s)}_L)}{ \Vert f (A^{(s)}_l) \Vert_2}\Vert_2. \quad \cdots Eq. (1)
+L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_L} \Vert \frac{f (A^{(t)}_l)}{ \Vert f (A^{(t)}_l) \Vert_2} - \frac{f (A^{(s)}_L)}{ \Vert f (A^{(s)}_l) \Vert_2}\Vert_2. \quad \cdots Eq. (1)
 \\]
 </span>
 
