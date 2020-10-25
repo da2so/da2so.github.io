@@ -73,7 +73,7 @@ where <span style="color:DodgerBlue">$\beta$</span> and <span style="color:Dodge
 
 <span style="color:DodgerBlue">
 \\[
-\mu_{\matcal{B}\}= E[ x_\{\matcal{B}\}] = \frac{1}{N} \sum^N_i x_i, \quad \sigma^2_\{\mathcal{B}\}= Var[ x_\{\mathcal{B}\}]= \frac{1}{N-1} \sum^N_i (x_i- \mu_\{\mathcal{B}\})^2. \quad \cdots Eq. (3)
+\mu_B= E[ x_B] = \frac{1}{N} \sum^N_i x_i, \quad \sigma^2_B= Var[ x_B]= \frac{1}{N-1} \sum^N_i (x_i- \mu_B)^2. \quad \cdots Eq. (3)
 \\]
 </span>
 
@@ -81,7 +81,7 @@ During training, <span style="color:DodgerBlue">$\mu$</span> and <span style="co
 
 <span style="color:DodgerBlue">
 \\[
-\mu_t= m \mu_\{ t-1 \}+ (1-m) \mu_B, \quad \sigma^2_t= m \sigma_\{ t-1 \}+ (1-m) \sigma_B, \quad \cdots Eq. (4)
+\mu_t= m u_\{ t-1 \}+ (1-m) \mu_B, \quad \sigma^2_t= m \sigma_\{ t-1 \}+ (1-m) \sigma_B, \quad \cdots Eq. (4)
 \\]
 </span>
 
