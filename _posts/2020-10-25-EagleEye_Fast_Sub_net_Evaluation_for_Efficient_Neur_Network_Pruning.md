@@ -81,11 +81,11 @@ During training, <span style="color:DodgerBlue">$\mu$</span> and <span style="co
 
 <span style="color:DodgerBlue">
 \\[
-\mu_t= m u_\{ t-1 \}+ (1-m) \mu_B, \quad \sigma^2_t= m \sigma^2_{ t-1 }+ (1-m) \sigma_B, \quad \cdots Eq. (4)
+\mu_t= m \mu_z+ (1-m) \mu_B, \quad \sigma^2_t= m \sigma^2_z+ (1-m) \sigma_B, \quad \cdots Eq. (4)
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$m$</span> is the momentum coeffcient and subscript <span style="color:DodgerBlue">$t$</span> refers to the number of training iterations. And if the total number of training iteration is <span style="color:DodgerBlue">$T$</span>,  <span style="color:DodgerBlue">$\mu_T$</span> and <span style="color:DodgerBlue">$\sigma^2_T$</span> are used in testing phase.
+where <span style="color:DodgerBlue">$z=t-1$</span>, <span style="color:DodgerBlue">$m$</span> is the momentum coeffcient and subscript <span style="color:DodgerBlue">$t$</span> refers to the number of training iterations. And if the total number of training iteration is <span style="color:DodgerBlue">$T$</span>,  <span style="color:DodgerBlue">$\mu_T$</span> and <span style="color:DodgerBlue">$\sigma^2_T$</span> are used in testing phase.
 
 These two items are called global BN statistics, where "global" referes to the full-size model.
 
