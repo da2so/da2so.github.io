@@ -1,6 +1,6 @@
 ---
 layout: post
-title: EagleEye: Fast Sub-net Evaluation for Efficient Neural Network Pruning
+title: EagleEye Fast Sub-net Evaluation for Efficient Neural Network Pruning
 tags: [Pruning]
 comments: true
 use_math: true
