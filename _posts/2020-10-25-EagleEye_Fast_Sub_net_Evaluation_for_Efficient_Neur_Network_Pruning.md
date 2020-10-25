@@ -81,7 +81,7 @@ During training, <span style="color:DodgerBlue">$\mu$</span> and <span style="co
 
 <span style="color:DodgerBlue">
 \\[
-\mu_t= m u_\{ t-1 \}+ (1-m) \mu_B, \quad \sigma^2_t= m \sigma_{ t-1 }+ (1-m) \sigma_B, \quad \cdots Eq. (4)
+\mu_t= m u_\{ t-1 \}+ (1-m) \mu_B, \quad \sigma^2_t= m \sigma^2_{ t-1 }+ (1-m) \sigma_B, \quad \cdots Eq. (4)
 \\]
 </span>
 
