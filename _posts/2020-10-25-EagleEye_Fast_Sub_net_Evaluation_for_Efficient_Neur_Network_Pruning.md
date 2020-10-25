@@ -17,7 +17,7 @@ thumbnail-img: /assets/thumbnail_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation
 
 The important thing to prune a trained DNN is to obtain the sub-net with highest accuracy swith reasonably small searching efforts. Existing methods to solve this problem mainly focus on evaulation process. **Evaluation process** aims to unveil the potential of sub-nets so that best pruning candidate can be selected to deliver the final pruning startegy such as Fig 1.
 
-![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/1.png){: .mx-auto.d-block width="80%" :}
+![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/1.png){: .mx-auto.d-block width="90%" :}
 
 
 However, the existing methods for evaluation process are either **(i)** inaccurate or **(ii)** complicated.
@@ -81,7 +81,7 @@ During training, <span style="color:DodgerBlue">$\mu$</span> and <span style="co
 
 <span style="color:DodgerBlue">
 \\[
-\mu_t= m u_\{ t-1 \}+ (1-m) \mu_B, \quad \sigma^2_t= m \sigma_\{ t-1 \}+ (1-m) \sigma_B, \quad \cdots Eq. (4)
+\mu_t= m u_\{ t-1 \}+ (1-m) \mu_B, \quad \sigma^2_t= m \sigma_{ t-1 }+ (1-m) \sigma_B, \quad \cdots Eq. (4)
 \\]
 </span>
 
