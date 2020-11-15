@@ -136,3 +136,12 @@ During optimization, this new term leads to new images the student cannot easily
 
 
 ![2](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/2.png){: .mx-auto.d-block width="80%" :}
+
+
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Yin, Hongxu, et al. "Dreaming to distill: Data-free knowledge transfer via DeepInversion." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.*
+
+
+**Github Code: [HERE](https://github.com/da2so/Dreaming-to-Distill-Data-free-Knowledge-Transfer-via-DeepInversion-Tensorflow)**
