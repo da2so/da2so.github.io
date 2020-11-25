@@ -119,8 +119,10 @@ Generation randomly samples <span style="color:DodgerBlue">$L$</span> real numbe
 Similar to a normal filter pruning method, the filters are firstly ranked according to their $L1$-norm and the <span style="color:DodgerBlue">$r_l$</span> of the least important filters are trimmed off.
 
 **3. The adaptive-BN based candidate evaluation module**  
-Given a pruned network, it freezes all learnable parameters and traverses through a small amount of data in the training set to calculate the adaptive BN statistics. In practice, authors sampled 1/30 of the total training set for 100 iterations in ImageNet dataset.
+Given a pruned network, it freezes all learnable parameters and traverses through a small amount of data in the training set to calculate the adaptive BN statistics. In practice, authors sampled 1/30 of the total training set for 100 iterations in ImageNet dataset. Next, the module evaluate the performance of the candidate networks on a small part of training set data, called sub-validation set, and picks the top ones in the accuracy ranking as a winner candidate.
 
+**4. Fine tuning**  
+The fine-tuning will be applied to the winner candidate network.
 
 
 ## Experiments
