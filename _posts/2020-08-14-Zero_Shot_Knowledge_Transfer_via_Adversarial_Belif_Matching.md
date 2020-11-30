@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Zero-Shot Knowledge Transfer via Aversarial Belif Matching
+title: Zero-Shot Knowledge Transfer via Aversarial Belief Matching
 tags: [Model Compression, Knowledge Distillation, Data-free, GAN]
 comments: true
 use_math: true
@@ -16,7 +16,7 @@ thumbnail-img: /assets/thumbnail_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via
 As the word itself, We perform knowledge distillation when there are no original dataset on which the Teacher network has been trained. It is because, in real world, most datasets are proprietary and not shared publicly due to privacy or confidentiality concerns. 
 
 
-In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in Zero-Shot Knowledge Transfer via Aversarial Belif Matching, we train an adversarial generator to search for iamges on which the student poorly matches the teacher, and then using them to train the student.
+In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in Zero-Shot Knowledge Transfer via Aversarial Belief Matching, we train an adversarial generator to search for iamges on which the student poorly matches the teacher, and then using them to train the student.
 
 
 ## 2. Zero-shot knowledge transfer
@@ -111,9 +111,9 @@ Samples from generator during training are shown in Fig. 3 (d). We notice that e
 ![3](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/3.png){: .mx-auto.d-block :}
 
 
-### <span style="color:gray"> 3.4 Measuring belif match near decision boundaries </span>
+### <span style="color:gray"> 3.4 Measuring belief match near decision boundaries </span>
 
-We would like to verify that the student is implicitly trainied to match the teacher's predictions close to decision boundaries. For this, in Algorithm 2, we propose a way to probe the difference between belifs of network <span style="color:DodgerBlue">$A$</span> and <span style="color:DodgerBlue">$B$</span> near the decision boundaries of <span style="color:DodgerBlue">$A$</span>. The procedure of Algorithm 2 is follows.
+We would like to verify that the student is implicitly trainied to match the teacher's predictions close to decision boundaries. For this, in Algorithm 2, we propose a way to probe the difference between beliefs of network <span style="color:DodgerBlue">$A$</span> and <span style="color:DodgerBlue">$B$</span> near the decision boundaries of <span style="color:DodgerBlue">$A$</span>. The procedure of Algorithm 2 is follows.
 
 1. Sampling a real image: <span style="color:DodgerBlue">$x$</span> from the test set <span style="color:DodgerBlue">$X_{test}$</span> such that network network <span style="color:DodgerBlue">$A$</span> and <span style="color:DodgerBlue">$B$</span> both give the same class prediction <span style="color:DodgerBlue">$i$</span>.
 
