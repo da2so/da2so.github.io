@@ -12,7 +12,7 @@ Enjoy my site.
 - Company: NOTA
 - Nationality: Korean
 - Birth: June, 23, 1995
-- Github: [da2so](www.github.com/da2so)
+- Github: [da2so](https://github.com/da2so)
 
 *****
 
