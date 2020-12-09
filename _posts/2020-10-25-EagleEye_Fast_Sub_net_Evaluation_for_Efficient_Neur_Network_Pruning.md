@@ -43,7 +43,7 @@ A typical pruning pipeline is shown in Fig 2. In this pipeline, the authors aim 
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$\mathcal{L}$</span> is the loss function and <span style="color:DodgerBlue">$\mathcal{A}$</span> is the neural network model. <span style="color:DodgerBlue">$r_l$</span> is the pruning ratio applied to the $l^th$ layer. Given some constraints <span style="color:DodgerBlue">$\mathcal{C}$</span>, (e.g. latency, total parameters) a combination of pruning ratios <span style="color:DodgerBlue">$(r_1, \cdots , r_L)$</span> is applied. the authors consider pruning task as finding the optimal pruning strategy , denoted as  <span style="color:DodgerBlue">$(r_1, \cdots , r_L)^*$</span>, that achieves the higest accuracy of the pruned model.
+where <span style="color:DodgerBlue">$\mathcal{L}$</span> is the loss function and <span style="color:DodgerBlue">$\mathcal{A}$</span> is the neural network model. <span style="color:DodgerBlue">$r_l$</span> is the pruning ratio applied to the $l^th$ layer. Given some constraints <span style="color:DodgerBlue">$\mathcal{C}$</span>, (e.g. latency, total parameters) a combination of pruning ratios <span style="color:DodgerBlue">$(r_1, \cdots , r_L)$</span> is applied. the authors consider pruning task as finding the optimal pruning strategy, denoted as  <span style="color:DodgerBlue">$(r_1, \cdots , r_L)^*$</span>, that achieves the higest accuracy of the pruned model.
 
 
 
@@ -52,7 +52,7 @@ where <span style="color:DodgerBlue">$\mathcal{L}$</span> is the loss function a
 
 
 
-The authors found that the existing evaluation processes, called vanilla evaluation, do not satisfy that the sub-nets with higher evaluation accuracy are expected to also deliver high accuracy after fine-tuning as shown in Fig 3. In Fig 3 (a). left, the red bars form the histogram of accuracy collected from doing vanilla evaluation with the 50 pruned candiates. And the gray bars shows the situation after fine-tuning these 50 pruned networks.
+The authors found that the existing evaluation processes, called vanilla evaluation, do not satisfy that the sub-nets with higher evaluation accuracy are expected to also deliver high accuracy after fine-tuning as shown in Fig 3. In Fig 3 (a). left, the red bars form the histogram of accuracy collected from doing vanilla evaluation with the 50 pruned candiates. And the gray bars show the situation after fine-tuning these 50 pruned networks.
 
 However, there is a huge difference in accuracy distribution between two results. In addition, Fig 3 (b) indicates that it might not be the weights that mess up the accuracy at the evaluation stage as only a gentle shift in weight distribution is observed during fine-tuning for the 50 networks.
 
@@ -119,7 +119,7 @@ Generation randomly samples <span style="color:DodgerBlue">$L$</span> real numbe
 Similar to a normal filter pruning method, the filters are firstly ranked according to their $L1$-norm and the <span style="color:DodgerBlue">$r_l$</span> of the least important filters are trimmed off.
 
 **3. The adaptive-BN based candidate evaluation module**  
-Given a pruned network, it freezes all learnable parameters and traverses through a small amount of data in the training set to calculate the adaptive BN statistics. In practice, authors sampled 1/30 of the total training set for 100 iterations in ImageNet dataset. Next, the module evaluate the performance of the candidate networks on a small part of training set data, called sub-validation set, and picks the top ones in the accuracy ranking as a winner candidate.
+Given a pruned network, it freezes all learnable parameters and traverses through a small amount of data in the training set to calculate the adaptive BN statistics. In practice, authors sampled 1/30 of the total training set for 100 iterations in ImageNet dataset. Next, the module evaluates the performance of the candidate networks on a small part of training set data, called sub-validation set, and picks the top ones in the accuracy ranking as a winner candidate.
 
 **4. Fine tuning**  
 The fine-tuning will be applied to the winner candidate network.
@@ -131,3 +131,9 @@ The fine-tuning will be applied to the winner candidate network.
 ![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/7.png){: .mx-auto.d-block width="100%" :}
 
 
+
+### <span style="color:#C70039 ">Reference </span>
+*Huang, Lei, et al. "Normalization Techniques in Training DNNs: Methodology, Analysis and Application." arXiv preprint arXiv:2009.12836 (2020).*
+
+
+**Github Code: [Here](https://github.com/da2so/Eagleeye_Tensorflow)**
