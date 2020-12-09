@@ -132,7 +132,7 @@ The fine-tuning will be applied to the winner candidate network.
 
 
 
-### <span style="color:#C70039 ">Reference </span>
+## <span style="color:#C70039 ">Reference </span>
 *Huang, Lei, et al. "Normalization Techniques in Training DNNs: Methodology, Analysis and Application." arXiv preprint arXiv:2009.12836 (2020).*
 
 
