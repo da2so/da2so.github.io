@@ -42,7 +42,7 @@ In order to increase the similarity of between two images, minimize the followin
 <span style="color:DodgerBlue">
 \\[
 \\begin{array}{l}
-L^l_c (p) = \Vert \phi^l (p) - \phi^l (s) \Vert^2_2 \quad \cdots Eq .(1)
+L^l_c (p) = \Vert \phi^l (p) - \phi^l (s) \Vert^2_2 \quad \cdots Eq .(1) \cr
 L^l_c (p) = \Vert G(\phi^l (p)) - G(\phi^l (s)) \Vert^2_F \quad \cdots Eq .(2)
 \\end{array}
 \\]
@@ -104,7 +104,7 @@ p = \Phi (c,s,\alpha_c \alpha_s)
 
 <span style="color:DodgerBlue">
 \\[
-L_c (p)= \sum_\{l \in C \} \alpha^l_c L^l_c (p), \; L_s (p) = \sum_\{l \in S \} \alpha^l_s L^l_s(p) \quad \cdots Eq .(6)
+L_c (p)= \sum_\{ l \in C \} \alpha^l_c L^l_c (p), \; L_s (p) = \sum_\{ l \in S \} \alpha^l_s L^l_s (p) \quad \cdots Eq .(6)
 
 \\] </span>
 
