@@ -7,8 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/post.png
 ---
 
-## 1. Goal
-
+## 1. Goal  
 The goal is to peform **Data-free Knowledge distillation**.
 
 {: .box-note}
