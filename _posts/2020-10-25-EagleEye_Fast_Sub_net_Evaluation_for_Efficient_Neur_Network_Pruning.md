@@ -8,8 +8,9 @@ thumbnail-img: /assets/thumbnail_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation
 ---
 
 ## 1. Introduction  
+**Pruning:** Eliminating the computational redundant part of a trained DNN and then getting a smaller and more efficient pruned DNN.  
 {: .box-note}
-**Pruning:** Eliminating the computational redundant part of a trained DNN and then getting a smaller and more efficient pruned DNN.
+
 
 ### <span style="color:gray"> 1.1 Motivation </span>
 

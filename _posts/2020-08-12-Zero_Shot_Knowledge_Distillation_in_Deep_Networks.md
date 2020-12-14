@@ -8,8 +8,9 @@ thumbnail-img: /assets/thumbnail_img/2020-08-12-Zero-Shot_Knowledge_Distillation
 ---
 
 ## 1. What is data-free knowledge distillation??  
+**Knowledge distillation:** Dealing with the problem of training a smaller model (Student) from a high capacity source model (Teacher) so as to retain most of its performance.  
 {: .box-note}
-**Knowledge distillation:** Dealing with the problem of training a smaller model (Student) from a high capacity source model (Teacher) so as to retain most of its performance.
+
 
 As the word itself, We perform knowledge distillation when there are no original dataset on which the Teacher network has been trained. It is because, in real world, most datasets are proprietary and not shared publicly due to privacy or confidentiality concerns. 
 
