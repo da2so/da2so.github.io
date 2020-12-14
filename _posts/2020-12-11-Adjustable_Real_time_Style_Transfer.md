@@ -15,7 +15,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-11-Adjustable_Real_time_Style_Trans
 
 ### <span style="color:gray"> 1.1 Motivation </span>
 
-There are two main problems in style transfer on the existing methods. <span style="color:#6495ED">(i)</span> The first weak point is that they generate only one stylization for a given content/style pair. <span style="color:#6495ED">(ii)</span>One other issue of them is their high-sensitivity to the hyper-parameters.
+There are two main problems in style transfer on the existing methods. <span style="color:#6495ED">(i)</span> The first weak point is that they generate only one stylization for a given content/style pair. <span style="color:#6495ED">(ii)</span> One other issue of them is their high-sensitivity to the hyper-parameters.
 
 ### <span style="color:gray"> 1.2 Goal </span>
 
@@ -34,9 +34,9 @@ p= \Psi (c,s)
 \\] </span>
 
 The similarity in **style** can be vaguely defined as sharing the same spatial statistics in low-level features of a network (use VGG-16 in this paper), while similarity in **content** is roughly having a close Eculidean distance in high-level features.  
-The main idea is that the features obtained by the network contain information about the content of the input image while the corrleation between these features represents its style.
+The main idea is that the features obtained by the network contain information about the content of the input image while the correlation between these features represents its style.
 
-In order to increase the similarity of between two images, minimize the following distnaces between their extracted features:
+In order to increase the similarity of between two images, minimize the following distances between their extracted features:
 
 <span style="color:DodgerBlue">
 \\[
@@ -63,7 +63,7 @@ The total loss is calculated as a weighted sum of losses a set of *content layer
 L_c (p)= \sum_\{l \in C \} w^l_c L^l_c (p), \; L_s (p) = \sum_\{l \in S \} w^l_s L^l_s(p) \quad \cdots Eq .(3)
 \\] </span>
 
-where  <span style="color:DodgerBlue">$w^l_c, w^l_s$</span> are hyper-parameters to adjust the contribution of each layer to the loss. The problem is that these hyper-paremeters have to be manually fine-tuned through try and error.  
+where  <span style="color:DodgerBlue">$w^l_c, w^l_s$</span> are hyper-parameters to adjust the contribution of each layer to the loss. The problem is that these hyper-parameters have to be manually fine-tuned through try and error.  
 Finally, the objective of style transfer can be defined as:
 
 <span style="color:DodgerBlue">
