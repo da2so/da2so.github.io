@@ -9,7 +9,6 @@ thumbnail-img: /assets/thumbnail_img/2020-08-11-Meaningful_Perturbation/post.png
 
 ## 1. How to explain the decision of black-box model??  
 <img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/1.png" width="370" height="230" style="float: left">
-
 Given the left figure, we wonder that why the deep network predicts the image as "dog".
 
 
