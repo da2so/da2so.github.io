@@ -8,8 +8,9 @@ thumbnail-img: /assets/thumbnail_img/2020-12-11-Adjustable_Real_time_Style_Trans
 ---
 
 ## 1. Introduction  
+**Style transfer:** Synthesizing an image with content similar to a given image and style similar to another.  
 {: .box-note}
-**Style transfer:** Synthesizing an image with content similar to a given image and style similar to another.
+
 
 ![2](https://da2so.github.io/assets/post_img/2020-12-11-Adjustable_Real_time_Style_Transfer/1.PNG){: .mx-auto.d-block width="60%" :}
 
