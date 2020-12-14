@@ -7,9 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/post.png
 ---
 
-## 1. Introduction
-
-
+## 1. Introduction  
 {: .box-note}
 **Pruning:** Eliminating the computational redundant part of a trained DNN and then getting a smaller and more efficient pruned DNN.
 
