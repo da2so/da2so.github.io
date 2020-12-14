@@ -7,8 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-12-11-Adjustable_Real_time_Style_Transfer/post.PNG
 ---
 
-## 1. Introduction
-
+## 1. Introduction  
 {: .box-note}
 **Style transfer:** Synthesizing an image with content similar to a given image and style similar to another.
 
