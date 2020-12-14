@@ -51,7 +51,7 @@ L^l_c (p) = \Vert G(\phi^l (p)) - G(\phi^l (s)) \Vert^2_F \quad \cdots Eq .(2)
 where
 - <span style="color:DodgerBlue">$\phi^l (x) $</span>: Activation of a pre-trained network at layer <span style="color:DodgerBlue">$l$</span>.
 	- <span style="color:DodgerBlue">$x$</span>: Given the input image. 
-- <span style="color:DodgerBlue">$L^l_c (p) and L^l_c (p) $</span>: Content and style loss at layer <span style="color:DodgerBlue">$l $</span> respectively.
+- <span style="color:DodgerBlue">$L^l_c (p), \; L^l_c (p) $</span>: Content and style loss at layer <span style="color:DodgerBlue">$l $</span> respectively.
 - <span style="color:DodgerBlue">$ G(\phi^l (s)) $</span>: Gram matrix associated with <span style="color:DodgerBlue">$ \phi^l (p) $</span>.
 	- Gram matrix <span style="color:DodgerBlue">$G^l_\{ij\} = \sum_k \phi^l_\{ik\}\phi^l_\{jk\} $</span>: Variance of RGB between image textures.
 
