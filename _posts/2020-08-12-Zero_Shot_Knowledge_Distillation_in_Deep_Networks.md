@@ -7,8 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/post.PNG
 ---
 
-## 1. What is data-free knowledge distillation??
-
+## 1. What is data-free knowledge distillation??  
 {: .box-note}
 **Knowledge distillation:** Dealing with the problem of training a smaller model (Student) from a high capacity source model (Teacher) so as to retain most of its performance.
 

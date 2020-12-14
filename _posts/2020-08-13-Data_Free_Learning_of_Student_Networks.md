@@ -7,9 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-13-Data-Free_Learning_of_Student_Networks/post.png
 ---
 
-## 1. Data-free Knowledge distillation
-
-
+## 1. Data-free Knowledge distillation  
 {: .box-note}
 **Knowledge distillation:** Dealing with the problem of training a smaller model (Student) from a high capacity source model (Teacher) so as to retain most of its performance.
 
