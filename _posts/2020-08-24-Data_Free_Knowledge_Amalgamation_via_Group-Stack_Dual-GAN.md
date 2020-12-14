@@ -7,8 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/post.png
 ---
 
-## 1. Goal
-
+## 1. Goal  
 The goal is to peform **Data-free Knowledge distillation**.
 
 {: .box-note}
