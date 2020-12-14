@@ -104,7 +104,7 @@ p = \Phi (c,s,\alpha_c \alpha_s)
 
 <span style="color:DodgerBlue">
 \\[
-L_c (p)= \sum_\{ l \in C \} R_c  L^l_c (p), \; L_s (p) = \sum_\{ l \in S \} R_s L^l_s(p)    \quad \cdots Eq .(6)
+L_c (p)= \sum_\{ l \in C \} \alpha^l_c  L^l_c (p), \; L_s (p) = \sum_\{ l \in S \} R_s L^l_s(p)    \quad \cdots Eq .(6)
 \\] </span>
 
 where <span style="color:DodgerBlue">$ R_c= \alpha^l_c $</span>  and <span style="color:DodgerBlue">$ R_s= \alpha^l_s $</span>  .To learn the effect of <span style="color:DodgerBlue">$ \alpha_c $</span> and <span style="color:DodgerBlue">$ \alpha_s $</span> on the objective, the authors use a technique called **conditional instance normalization**.  
