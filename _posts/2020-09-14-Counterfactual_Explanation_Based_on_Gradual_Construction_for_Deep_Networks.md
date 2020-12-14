@@ -7,9 +7,7 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/post.PNG
 ---
 
-## 1. Counterfactual Explanation
-
-
+## 1. Counterfactual Explanation   
 **Counterfactual Explanation:** Given an input data that are classified as a class from a deep network, it is to perturb the subset of features in the input data such that the model is
 forced to predict the perturbed data as a target class.  
 The Framework for counterfactual explanation is described in Fig 1. 
