@@ -104,11 +104,12 @@ p = \Phi (c,s,\alpha_c \alpha_s)
 
 <span style="color:DodgerBlue">
 \\[
-L_c (p)= \sum_\{ l \in C \} \alpha^l_c  \quad \cdots Eq .(6)
+
+L_c (p)= \sum_\{ l \in C \} R_c  L^l_c (p), \; L_s (p) = \sum_\{l \in S \} R_s L^l_s(p)    \quad \cdots Eq .(6)
 
 \\] </span>
 
-To learn the effect of <span style="color:DodgerBlue">$ \alpha_c $</span> and <span style="color:DodgerBlue">$ \alpha_s $</span> on the objective, the authors use a technique called **conditional instance normalization**.  
+where <span style="color:DodgerBlue">$ R_c= \alpha^l_c $</span>  and <span style="color:DodgerBlue">$ R_s= \alpha^l_s $</span>  .To learn the effect of <span style="color:DodgerBlue">$ \alpha_c $</span> and <span style="color:DodgerBlue">$ \alpha_s $</span> on the objective, the authors use a technique called **conditional instance normalization**.  
 This method transforms the activations of a layer <span style="color:DodgerBlue">$ x $</span> in the <span style="color:DodgerBlue">$T$</span> to a normalized activation <span style="color:DodgerBlue">$ z $</span> which is conditioned on additional inputs <span style="color:DodgerBlue">$ \alpha_= [ \alpha_c , \alpha_s] $</span>:
 
 
