@@ -134,7 +134,7 @@ where <span style="color:DodgerBlue">$ \bar{L^l} (p) $</span> is the exponential
 
 ## 4. Experiment setting
 
-They trained <span style="color:DodgerBlue">$ T$</span> and  <span style="color:DodgerBlue">$ \Lambda $</span> jointly by sampling random values for  <span style="color:DodgerBlue">$ \alpha $</span> from  <span style="color:DodgerBlue">$U(0,1) $</span>. And they used ImageNet as content iamges while using paintings from Kaggle Painter by Numbers and textures from Descibable Texture Dataset as style images for training.  
+They trained <span style="color:DodgerBlue">$ T$</span> and  <span style="color:DodgerBlue">$ \Lambda $</span> jointly by sampling random values for  <span style="color:DodgerBlue">$ \alpha $</span> from  <span style="color:DodgerBlue">$U(0,1) $</span>. And they used **ImageNet** as content iamges while using paintings from **Kaggle Painter by Numbers** and textures from **Descibable Texture Dataset** as style images for training.  
 Similar to previous approaches, they used the last feature set of *conv3* as content layer  <span style="color:DodgerBlue">$C$</span> and used last feature set of *conv2*, *conv3*, *conv4* layers from VGG-19 network as style layers <span style="color:DodgerBlue">$S$</span>. Since there is only one content layer, they fix <span style="color:DodgerBlue">$ \alpha_c =1 $</span>.
 
 ## 5. Experiment
