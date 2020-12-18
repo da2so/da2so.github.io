@@ -132,6 +132,11 @@ L^l (p) = \frac{ \sum_\{ i \in C \cup S \} \bar{L^i} (p) }{\bar{L^l} (p)} \quad 
 
 where <span style="color:DodgerBlue">$ \bar{L^l} (p) $</span> is the exponential moving average of <span style="color:DodgerBlue">$ L^l (p) $</span>.
 
-## 4. Experiment
+## 4. Experiment setting
+
+They trained <span style="color:DodgerBlue">$ T$</span> and  <span style="color:DodgerBlue">$ \Lambda $</span> jointly by sampling random values for  <span style="color:DodgerBlue">$ \alpha $</span> from  <span style="color:DodgerBlue">$U(0,1) $</span>. And they used ImageNet as content iamges while using paintings from Kaggle Painter by Numbers and textures from Descibable Texture Dataset as style images for training.  
+Similar to previous approaches, they used the last feature set of *conv3* as content layer  <span style="color:DodgerBlue">$C$</span> and used last feature set of *conv2*, *conv3*, *conv4* layers from VGG-19 network as style layers <span style="color:DodgerBlue">$S$</span>. Since there is only one content layer, they fix <span style="color:DodgerBlue">$ \alpha_c =1 $</span>.
+
+## 5. Experiment
 
 ![2](https://da2so.github.io/assets/post_img/2020-12-11-Adjustable_Real_time_Style_Transfer/3.png){: .mx-auto.d-block width="100%" :}
