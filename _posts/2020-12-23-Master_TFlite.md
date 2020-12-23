@@ -59,5 +59,23 @@ def keras2TFlite(model_path):
         f.write(tflite_model)
 ```
 
-|Model|File size ||
-|pruned
+
+조금 설명드리면 예제 모델은 제가 resnet18모델을 pruning시킨 모델이에요. Test acc는 85%정도인데 parameter는 8만개만 쓰였습니다!  
+어떻게 pruning시킨지 알고싶으면 여기로 [HERE](https://github.com/da2so/Eagleeye_Tensorflow)
+
+|Model|File size|Download|
+|-----|--------|---------|
+|pruned_resnet18|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
+|tflite_resnet18|329KB|[tflite.h5](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+
+왜 TFLite model로 변환했는데 model size가 줄었는 지 위의 attribute를 잘 보셨다면 이해가실겁니다.  
+**target_spec** attribute가 default로 float16으로 되있기 때문입니다. 원래 keras model의 weight들은 모두 float32표현되어 있었지만 tflite로 되면서 float16으로 표현된 것이죠.
+이렇게 간단하게 모델의 크기를 줄엿네요;;
+
+이번 장의 마지막으로 keras model와 tflite model을 netron을 이용해서 visualization한 모습을 비교해 드릴게요.
+
+![2](https://da2so.github.io/assets/post_img/2020-12-23-Master_TFlite/2.png){: .mx-auto.d-block width="60%" :}
+
+
+다음 장에서는 TFLite 모델로 inference하는 방식과 여유가 된다면 mobile로 작동하는 것을 보여드리도록 하는 게 목표입니다.  
+BYE!
