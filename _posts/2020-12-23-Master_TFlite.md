@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TFLite 뽀개기 (1)
+title: TFLite 뽀개기 (1) - TFLite 기본 이해 및 사용하기
 tags: [TFLite, Mobile, Tensorflow]
 comments: true
 use_math: true
