@@ -7,10 +7,9 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-12-23-Master_TFlite/post.png
 ---
 
-## TFLite 란?
-
+## TFLite 란?  
+제가 다룰 내용은 python, Tensorflow-gpu 2.x, keras model, mobile 에 한정되 있음을 알려드립니다.  
 {: .box-note}
-**Setting:** 제가 다룰 내용은 python (api), Tensorflow-gpu 2.x, keras model, mobile 에 한정되 있음을 알려드립니다. :hand_over_mouth:
 
 *Tensorflow Lite (TFLite)*는 mobile, embedding, IoT device에서 모델을 사용할 수 있도록 Tensorflow(keras) 모델을 변환해주는 tool입니다.
 뿐만 아니라 모델의 크기와 성능을 최적화하는 도구를 제공하기도 합니다. (이건 다음에 할게요..ㅎ)
