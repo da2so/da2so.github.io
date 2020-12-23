@@ -7,14 +7,14 @@ use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-12-23-Master_TFlite/post.png
 ---
 
-## TFLite 란?  
+## 1. TFLite 란?  
 내용은 python, Tensorflow-gpu 2.x, keras model, mobile 에 한정되어 있음을 알려드립니다.  
 {: .box-note}
 
 *Tensorflow Lite (TFLite)*는 mobile, embedding, IoT device에서 모델을 사용할 수 있도록 Tensorflow(keras) 모델을 변환해주는 tool입니다.
 
 
-### Tensorflow Lite convert
+### 1.1 Tensorflow Lite convert
 
 본격적으로 Keras model을 TFLite model을 변경하는 tool인 <span style="color:#C70039">**Tensorflow Lite convert**</span> 소개할게요.
 
@@ -77,7 +77,7 @@ def keras2TFlite(model_path):
 ![2](https://da2so.github.io/assets/post_img/2020-12-23-Master_TFlite/2.png){: .mx-auto.d-block width="60%" :}
 
 
-### Tensorflow Lite and Tensorflow operator compatibility
+### 1.2 Operator compatibility
 
 Tensorflow 에서는 지원하지만 Tensorflow Lite에서는 지원하지 않는 operator가 있습니다.  
 
@@ -89,6 +89,6 @@ Tensorflow 에서는 지원하지만 Tensorflow Lite에서는 지원하지 않�
 BYE!
 
 
-## Reference
+## <span style="color:#C70039 "> Reference </span>
 
-TFLite document[https://www.tensorflow.org/lite/guide]
+[TFLite document](https://www.tensorflow.org/lite/guide)
