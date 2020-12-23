@@ -72,10 +72,23 @@ def keras2TFlite(model_path):
 **target_spec** attribute가 default로 float16으로 되있기 때문입니다. 원래 keras model의 weight들은 모두 float32표현되어 있었지만 tflite로 되면서 float16으로 표현된 것이죠.
 이렇게 간단하게 모델의 크기를 줄엿네요;;
 
-이번 장의 마지막으로 keras model와 tflite model을 netron을 이용해서 visualization한 모습을 비교해 드릴게요.
+그리고 keras model와 tflite model을 netron을 이용해서 visualization한 모습을 비교해 드릴게요.
 
 ![2](https://da2so.github.io/assets/post_img/2020-12-23-Master_TFlite/2.png){: .mx-auto.d-block width="60%" :}
 
 
+### Tensorflow Lite and Tensorflow operator compatibility
+
+Tensorflow 에서는 지원하지만 Tensorflow Lite에서는 지원하지 않는 operator가 있습니다.  
+
+**type측면으로 보면** 대부분의 TFLite의 operator들은 float32, uint8, int8 을 대상으로 한다고 합니다. 그래서 float16또는 string위한 많은 operator들은 아직이라네요..ㅠ  
+**document상으로 보면** 해당 [site](https://www.tensorflow.org/mlir/tfl_ops)에서 지원하는 operator를 보실수 있습니다.
+
+
 다음 장에서는 TFLite 모델로 inference하는 방식과 여유가 된다면 mobile로 작동하는 것을 보여드리도록 하는 게 목표입니다.  
 BYE!
+
+
+## Reference
+
+TFLite document[https://www.tensorflow.org/lite/guide]
