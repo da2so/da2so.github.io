@@ -80,14 +80,19 @@ code와 Inference단계를 매칭시켜보면서 설명드릴게요.
 
 1. **Loading a model**
     -  ```tf.lite.Interpreter()```: TFLite model을 memory에 올림.
-    -  ```interpreter.allocate_tensors()```: tensor initialization
+    -  ```interpreter.allocate_tensors()```: tensor initialization.
 
 2. **Transforming data**
     - ```interpreter.get_input_details()```: input에 대한 다양한 정보 호출.
         - code내의 *index* element는 input layer에 대한 순서(index)를 GET함.
         - 뿐만 아니라, input의 shape, data type등 다양한 정보를 호출 가능.
-    - ```interpreter.set_tensor(input_index,image)```: 
+    - ```interpreter.set_tensor(input_index,image)```: TFLite model이 예측 가능하도록 image를 input layer의 위치(index)에 넣어주어 processing.
 
+3. **Running Inference**
+    - ```interpreter.invoke()```: forward GOGO!
+
+4. **Interpreting output**
+    - ```interpreter.get_tensor(output_index)```: index에 해당하는 layer 즉, output layer의 index에 해당하는 output를 GET함.
 
 
 
