@@ -36,7 +36,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-24-Master_TFlite2/post.png
 
 
 예제를 통해 실행 및 분석해봐요.
-(모델은 [전의 글](https://da2so.github.io/2020-12-23-Master_TFlite/)에서 생성한 tflite_resnet18을 사용)
+(모델은 [이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)에서 생성한 tflite_resnet18을 사용)
 
 ```python
 def TFLiteInference(model_path,x_test,y_test):
@@ -61,7 +61,7 @@ def TFLiteInference(model_path,x_test,y_test):
         interpreter.set_tensor(input_index,image)
         #Step 3. Run inference
         interpreter.invoke()
-        #Step 4. Interpret ouput
+        #Step 4. Interpret output
         pred=interpreter.get_tensor(output_index)
         
         sum_time+=time.time()-s_time
@@ -92,12 +92,24 @@ code와 Inference단계를 매칭시켜보면서 설명드릴게요.
     - ```interpreter.invoke()```: forward GOGO!
 
 4. **Interpreting output**
+    - ```interpreter.get_output_details()[0]['index']```: 위와 같이 output layer의 index를 GET함.
     - ```interpreter.get_tensor(output_index)```: index에 해당하는 layer 즉, output layer의 index에 해당하는 output를 GET함.
 
 
 
+[이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)에서는 모델 크기만 비교했는데 이제는 Inference가 가능하니 keras model과 TFLite의 Test Accuracy와 Inference Time을 비교해봅시다!!
+
+|Model|Test Acc|Inference Time(seconds)|File size|Download|
+|-----|--------|-----------------------|---------|--------|
+|pruned_resnet18|85.65%|0.013s|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
+|tflite_resnet18|85.65%|0.002s|329KB|[tflite.h5](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+
+놀랍게도(역시.. 구글...) 똑같은 linux서버환경이었지만 Test Accuracy는 동일하지만 Inference Time은 약 1/6 줄었네요!
+(위 결과는 batch size를 1로 진행하였습니다.)
+
+Accuracy와 Inference Time비교하는 코드 및 위의 예제 코드는 여기서 [Here](https://github.com/da2so/Conquer_TFLite/blob/main/2_TFLiteInference.py) 사용가능합니다.
 
 
+## <span style="color:#C70039 "> Reference </span>
 
-
-
+[TFLite document](https://www.tensorflow.org/lite/guide)

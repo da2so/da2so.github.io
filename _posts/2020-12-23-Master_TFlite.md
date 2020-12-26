@@ -85,6 +85,7 @@ Tensorflow 에서는 지원하지만 Tensorflow Lite에서는 지원하지 않�
 **document상으로 보면** 해당 [site](https://www.tensorflow.org/mlir/tfl_ops)에서 지원하는 operator를 보실수 있습니다.
 
 
+오늘 보여드린 예제 코드는 여기서 [Here](https://github.com/da2so/Conquer_TFLite/blob/main/1_keras2TFLite.py) 사용가능합니다.
 다음 장에서는 TFLite 모델로 inference하는 방식과 여유가 된다면 mobile로 작동하는 것을 보여드리도록 하는 게 목표입니다.  
 BYE!
 
