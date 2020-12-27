@@ -57,7 +57,7 @@ TF Lite에서는 **[이전 글](https://da2so.github.io/2020-12-23-Master_TFlite
 
 PTQ방법론에서는 위의 표와 같이 3가지의 option과 그에 대한 장점이 있어요.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/2.png){: .mx-auto.d-block width="80%" :}
+![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/3.png){: .mx-auto.d-block width="80%" :}
 
 
 하나하나 example code도 돌려보며 자세히 알아봐요.
