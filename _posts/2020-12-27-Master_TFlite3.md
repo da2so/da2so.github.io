@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TFLite 뽀개기 (2) - Quantization
+title: TFLite 뽀개기 (3) - Quantization
 tags: [TFLite, Mobile, Tensorflow]
 comments: true
 use_math: true
@@ -11,7 +11,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-27-Master_TFlite3/post.png
 내용은 python, Tensorflow-gpu 2.x, keras model, mobile 에 한정되어 있음을 알려드립니다.  
 {: .box-note}
 
-[이전 글](https://da2so.github.io/2020-12-24-Master_TFlite2/)에서 TFLite model로 Inference까지 해봤습니다. 이번에는 TFLite model을 경량화 시키는 방법을 알려드릴게요. 
+**[이전 글](https://da2so.github.io/2020-12-24-Master_TFlite2/)**에서 TFLite model로 Inference까지 해봤습니다. 이번에는 TFLite model을 경량화 시키는 방법을 알려드릴게요. 
 
 경량화 방법은 TFLite에서 제공하는 Quantization이며 경량화의 효과는 다음과 같습니다.
 
@@ -41,7 +41,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-27-Master_TFlite3/post.png
 2번에 대해 좀더 설명하자면 아래 그림을 참고하십시오.  
 해당 그림은 uint8로 Quantization하는 과정을 보여줍니다.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/1.png){: .mx-auto.d-block width="70%" :}
+![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/1.png){: .mx-auto.d-block width="90%" :}
 
 그래서 TFLite에서는 다음과 같은 Quantization 방법론을 제공합니다.
 
