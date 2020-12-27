@@ -64,7 +64,8 @@ PTQ방법론에서는 위의 표와 같이 3가지의 option과 그에 대한 �
 
 ### 2.1 Dynamic range quantization
 
-
+PTQ의 가장 기본적인 방법은 model의 weights들만 float32에서 int8로 바꾼 다음 inference시에만 floating-point kernel을 이용하여 다시 8bit에서 float32로 바꾸어 계산하는 것입니다.
+여기서 latency을 더 줄이기 위해 **dynamic-range** operators은 latency
 
 
 
