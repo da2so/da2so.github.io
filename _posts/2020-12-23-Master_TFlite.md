@@ -65,7 +65,7 @@ def keras2TFlite(model_path):
 |Model|File size|Download|
 |-----|--------|---------|
 |pruned_resnet18|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|tflite_resnet18|329KB|[tflite.h5](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|tflite_resnet18|329KB|[tflite.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
 
 TFLite model로 변환했는데 model size가 줄었네요! 역시 TFLite model이 더 최적화되어 있는 듯하네요.
 그리고 keras model와 tflite model을 netron을 이용해서 visualization한 모습을 비교해 드릴게요.

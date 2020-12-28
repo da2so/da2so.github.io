@@ -64,8 +64,163 @@ PTQ방법론에서는 위의 표와 같이 3가지의 option과 그에 대한 �
 
 ### 2.1 Dynamic range quantization
 
-PTQ의 가장 기본적인 방법은 model의 weights들만 float32에서 int8로 바꾼 다음 inference시에만 floating-point kernel을 이용하여 다시 8bit에서 float32로 바꾸어 계산하는 것입니다.
-여기서 latency을 더 줄이기 위해 **dynamic-range** operators은 latency
+해당 technique은 **quantized kernels**을 이용해서 model의 weights들만 float32에서 int8로 바꾸게 됩니다. 그리고, inference시에만 **floating-point kernel**를 이용해여 weights를 int8을 float32로 convert됩니다.
+Activation은 항상 floating point로 저장되어져 있습니다. 그래서 quantized kernels processing을 지원하는 operator의 경우에는 activation을 processing전에 **dynamic**하게 8bit로 quantized하고 processing후에 다시 dequantization하게 됩니다.
+
+정리하자면, weights들은 training 후에 quantized되는 것이고 activations은 inference time에 dynamic하게 quantized되는 것입니다.
+
+Example code는 다음과 같습니다.
+
+```python
+def keras2TFlite(model_path):
+    #load a pre-trained model
+    keras_model =tf.keras.models.load_model(model_path) #model_path is 'cifar10_resnet18_pruned.h5'
+
+    #convert to tflite model
+    converter = tf.lite.TFLiteConverter.from_keras_model(keras_model)
+    converter.optimizations = [tf.lite.Optimize.DEFAULT] #dynamic range PTQ
+    tflite_model = converter.convert()
+
+    #save tflite model
+    ext_idx=model_path.rfind('.')
+    save_path=model_path[:ext_idx]+'_dynamic.tflite'
+    with open(save_path, "wb") as f:
+        f.write(tflite_model)
+
+```
+
+TFLite의 Converter를 통해서 quantization을 진행하게 되는데 ```converter.optimizations = [tf.lite.Optimize.DEFAULT]``` 를 추가하면 dynamic range quantization을 하도록 한뒤 TFLite model을 출력하게 됩니다.
+
+이제 결과를 **[이전 글](https://da2so.github.io/2020-12-24-Master_TFlite2/)**에서 진행했던 keras model과 float32로 operation되는 tflite와 비교해 보죠.
+
+|Model|Test Acc|Inference Time(seconds)|File size|Download|
+|-----|--------|-----------------------|---------|--------|
+|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
+|tflite_resnet18|85.65%|0.0023s [CPU]|329KB|[tflite.h5](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.h5](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
+
+TFLite파일을 기준으로 dynamic range quantization은 weights들을 모두 float32에서 int8로 줄이므로 File size는 1/4 (329KB-> 107KB)정도 줄어드는 정상입니다.
+하지만, 위에서 설명드린 activation연산을 위한 내부 kernels을 쓰므로 Inference time은 늘어나는 것이라 추축하고 있습니다. (저의 지극한 개인 의견)
+
+그리고 netron으로 network를 visualization했을 때 재밌는 발견이 있네요.
+
+![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/4.png){: .mx-auto.d-block width="60%" :}
+
+어떤 conv layer는 float32로 표현되지만 어떤 conv layer의 weights는 int8로 표현되네요... (머지?)
+
+Example code는 [여기서](https://github.com/da2so/Conquer_TFLite/blob/main/3_dynamicPTQ.py) 사용가능 합니다.
+
+
+### 2.2 Post-training integer quantization
+
+위의 dynamic range quantization과 다르게 이 방법론은 static하게 activation까지 int8로 표현합니다. 하지만, activation까지 quantization하려면 위에서 설명드린 quantization과정과 같이 rmin/rmax를 구해야합니다. rmin/rmax를 구하려면 activation values가 어느 range에 속해있는 지 알아야하고 이는 모델을 통과시킬 data를 필요로 하게 됩니다. 그래서 integer quantization은 **representative dataset**이 필요합니다.
+
+Example code로 자세히 알아보죠. 먼저 Converter 부분입니다.
+
+```python
+def keras2TFlite(model_path,x_train):
+    #load a pre-trained model
+    keras_model =tf.keras.models.load_model(model_path) #model_path is 'cifar10_resnet18_pruned.h5'
+
+    #define a representative_dataset
+    def representative_data_gen():
+        for image in tf.data.Dataset.from_tensor_slices(x_train).batch(1).take(100):
+            yield [image]
+
+    
+    #convert to tflite model
+    converter = tf.lite.TFLiteConverter.from_keras_model(keras_model)
+    
+    converter.optimizations = [tf.lite.Optimize.DEFAULT]
+    converter.representative_dataset = representative_data_gen
+    converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+    converter.inference_input_type = tf.int8
+    converter.inference_output_type = tf.int8
+    
+    tflite_model = converter.convert()
+
+    #save tflite model
+    ext_idx=model_path.rfind('.')
+    save_path=model_path[:ext_idx]+'_int8.tflite'
+    with open(save_path, "wb") as f:
+        f.write(tflite_model)
+
+```
+
+Representative dataset을 function으로 정의한뒤 converter의 attribute인 ```representative_dataset```에 변수할당을 하였으며, **converter.target_spec.supported_ops**을 통해 support operator를 int8로 지정하였습니다. 마지막으로는 input과 output의 data type을 uint8 로 할당하였습니다.  
+하지만 original float model처럼 input, output을 float32로 받고 출력하기 위해서는 다음의 code를 제외시키면 됩니다.
+
+```python
+    converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8] #remove
+    converter.inference_input_type = tf.uint8 #remove
+    converter.inference_output_type = tf.uint8 #remove
+```
+
+Input,output이 int8인 경우를 <span style="color:#C70039">**int8_all.tflite**</span>라고 지칭하고 float32인 경우를 <span style="color:#C70039">**int8_notall.tflite**</span>로 명칭하고 다음과 같은 inference를 진행하였습니다.
+
+
+```python
+def TFLiteInference(model_path,x_test,y_test):
+
+    #Step 1. Load TFLite model and allocate tensors.
+    interpreter=tf.lite.Interpreter(model_path=model_path)
+    interpreter.allocate_tensors()
+    
+    input_details=interpreter.get_input_details()[0]
+    output_details=interpreter.get_output_details()[0]
+    
+    # Get indexes of input and output layers
+    input_index= input_details['index']
+    output_index= output_details['index']
+
+    sum_correct=0.0
+    sum_time=0.0
+    for idx, data in enumerate(zip(x_test,y_test)):
+        image=data[0]
+        label=data[1]
+
+        # set for tranforming input data
+        if input_details['dtype'] == np.uint8:
+            input_scale, input_zero_point = input_details["quantization"]
+            image = image / input_scale + input_zero_point
+        image=np.expand_dims(image, axis=0).astype(input_details['dtype'])
+        
+        s_time=time.time()
+        #Step 2. Transform input data
+        interpreter.set_tensor(input_index,image)
+        #Step 3. Run inference
+        interpreter.invoke()
+        #Step 4. Interpret output
+        pred=interpreter.get_tensor(output_index)
+        
+        sum_time+=time.time()-s_time
+        if np.argmax(pred)== np.argmax(label):
+            sum_correct+=1.0
+    
+    mean_acc=sum_correct / float(idx+1)
+    mean_time=sum_time / float(idx+1)
+
+    print(f'Accuracy of TFLite model: {mean_acc}')
+    print(f'Inference time of TFLite model: {mean_time}')
+```
+
+Int8_all.tflite인 경우에는 ```input_details['dtype'] == np.uint8```이므로 input data를 int8로 바꾸는 작업을 하게됩니다.  
+위의 결과표에 더하여 int8_all.tflite 와 int8_notall.tflite를 추가한 결과를 보여드립니다.
+
+|Model|Test Acc|Inference Time(seconds)|File size|Download|
+|-----|--------|-----------------------|---------|--------|
+|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
+|tflite_resnet18|85.65%|0.0023s [CPU]|329KB|[tflite.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.tflite](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
+|int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|[int8_all.tflite](https://drive.google.com/file/d/1tglks42aur_4y4q8PPv8Z7h4Ec81Y8mp/view?usp=sharing)|
+|int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|[int8_notall.tflite](https://drive.google.com/file/d/1QQjqHt5jihdnHTi0q3i_-k0M9Kv3oZmU/view?usp=sharing)|
+
+Int8로 quantization하고 linux서버 환경에서 run하게되면 file size는 4배정도 줄지만 inference time이 엄청 많이 높아지네요...ㅠ 
+그리고 int8_all.tflite과 int8_notall.tflite을 netron으로 visualization하면 다음과 같습니다.
+
+![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="60%" :}
+
+### 2.3 Post-training float16 quantization
 
 
 
