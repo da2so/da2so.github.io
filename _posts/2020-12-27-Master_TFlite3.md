@@ -96,8 +96,8 @@ TFLite의 Converter를 통해서 quantization을 진행하게 되는데 ```conve
 |Model|Test Acc|Inference Time(seconds)|File size|Download|
 |-----|--------|-----------------------|---------|--------|
 |pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|tflite_resnet18|85.65%|0.0023s [CPU]|329KB|[tflite.h5](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
-|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.h5](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
+|float32_resnet18|85.65%|0.0023s [CPU]|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.tflite](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
 
 TFLite파일을 기준으로 dynamic range quantization은 weights들을 모두 float32에서 int8로 줄이므로 File size는 1/4 (329KB-> 107KB)정도 줄어드는 정상입니다.
 하지만, 위에서 설명드린 activation연산을 위한 내부 kernels을 쓰므로 Inference time은 늘어나는 것이라 추축하고 있습니다. (저의 지극한 개인 의견)
@@ -108,7 +108,7 @@ TFLite파일을 기준으로 dynamic range quantization은 weights들을 모두 
 
 어떤 conv layer는 float32로 표현되지만 어떤 conv layer의 weights는 int8로 표현되네요... (머지?)
 
-Example code는 [여기서](https://github.com/da2so/Conquer_TFLite/blob/main/3_dynamicPTQ.py) 사용가능 합니다.
+Dynamic PTQ의 Example code는 [여기서](https://github.com/da2so/Conquer_TFLite/blob/main/3_dynamicPTQ.py) 사용가능 합니다.
 
 
 ### 2.2 Post-training integer quantization
@@ -210,7 +210,7 @@ Int8_all.tflite인 경우에는 ```input_details['dtype'] == np.uint8```이므�
 |Model|Test Acc|Inference Time(seconds)|File size|Download|
 |-----|--------|-----------------------|---------|--------|
 |pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|tflite_resnet18|85.65%|0.0023s [CPU]|329KB|[tflite.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|float32_resnet18|85.65%|0.0023s [CPU]|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
 |dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.tflite](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
 |int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|[int8_all.tflite](https://drive.google.com/file/d/1H7Lwg4Rbna4hX9025-9_jW7nmppXFpfu/view?usp=sharing)|
 |int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|[int8_notall.tflite](https://drive.google.com/file/d/1tglks42aur_4y4q8PPv8Z7h4Ec81Y8mp/view?usp=sharing)|
@@ -223,8 +223,46 @@ Int8로 quantization하고 linux서버 환경에서 run하게되면 file size는
 
 ### 2.3 Post-training float16 quantization
 
+Weights들을 float16을 quantization하는 방법론이다. Tensorflow Lite GPU deletegate가 기존보다 2배 빠르게 진행될 수 있도록 float16 operation을 한다.  
+하지만, 추가적인 modification이 없으며 CPU에서 run될 경우, float16 weights들은 infernece되기 전에 float32으로 upsampling되어 계산된다고 한다.
 
 
+```python
+def keras2TFlite(model_path):
+    #load a pre-trained model
+    keras_model =tf.keras.models.load_model(model_path) #model_path is 'cifar10_resnet18_pruned.h5'
+
+    #convert to tflite model
+    converter = tf.lite.TFLiteConverter.from_keras_model(keras_model)
+    converter.optimizations = [tf.lite.Optimize.DEFAULT] 
+    converter.target_spec.supported_types = [tf.float16] # float16 PTQ
+
+    tflite_model = converter.convert()
+
+    #save tflite model
+    ext_idx=model_path.rfind('.')
+    save_path=model_path[:ext_idx]+'_float16.tflite'
+    with open(save_path, "wb") as f:
+        f.write(tflite_model)
+```
+
+dynamic range quantization과 다른점은 ```converter.target_spec.supported_types = [tf.float16]```이 추가된것 이외에는 없습니다. 
+
+
+|Model|Test Acc|Inference Time(seconds)|File size|Download|
+|-----|--------|-----------------------|---------|--------|
+|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
+|float32_resnet18|85.65%|0.0023s [CPU]|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.tflite](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
+|int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|[int8_all.tflite](https://drive.google.com/file/d/1H7Lwg4Rbna4hX9025-9_jW7nmppXFpfu/view?usp=sharing)|
+|int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|[int8_notall.tflite](https://drive.google.com/file/d/1tglks42aur_4y4q8PPv8Z7h4Ec81Y8mp/view?usp=sharing)|
+|float16_resnet18|85.64%|0.0022 [CPU]|181KB|[float16.tflite](https://drive.google.com/file/d/1s_o57wM7Yl33Gn1regO58MKYCtg3kf0W/view?usp=sharing)|
+
+예상과 같이 float32_resnet18보다 float16_resnet18이 2배정도 File size는 줄었네요. Inference time은 비슷하고요. 
+
+float16_resnet18의 visualization은 다음과 같습니다.
+
+![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="80%" :}
 
 ## <span style="color:#C70039 "> Reference </span>
 

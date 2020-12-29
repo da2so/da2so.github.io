@@ -65,7 +65,7 @@ def keras2TFlite(model_path):
 |Model|File size|Download|
 |-----|--------|---------|
 |pruned_resnet18|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|tflite_resnet18|329KB|[tflite.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|float32_resnet18|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
 
 TFLite model로 변환했는데 model size가 줄었네요! 역시 TFLite model이 더 최적화되어 있는 듯하네요.
 그리고 keras model와 tflite model을 netron을 이용해서 visualization한 모습을 비교해 드릴게요.
@@ -81,9 +81,9 @@ Tensorflow 에서는 지원하지만 Tensorflow Lite에서는 지원하지 않�
 **document상으로 보면** 해당 [site](https://www.tensorflow.org/mlir/tfl_ops)에서 지원하는 operator를 보실수 있습니다.
 
 
-오늘 보여드린 예제 코드는 여기서 [Here](https://github.com/da2so/Conquer_TFLite/blob/main/1_keras2TFLite.py) 사용가능합니다.
+오늘 보여드린 예제 코드는 여기서 [Here](https://github.com/da2so/Conquer_TFLite/blob/main/1_keras2TFLite.py) 사용가능합니다.  
 다음 장에서는 TFLite 모델로 inference하는 방식과 여유가 된다면 mobile로 작동하는 것을 보여드리도록 하는 게 목표입니다.  
-BYE!
+**BYE!**
 
 
 ## <span style="color:#C70039 "> Reference </span>

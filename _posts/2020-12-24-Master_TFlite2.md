@@ -102,13 +102,15 @@ code와 Inference단계를 매칭시켜보면서 설명드릴게요.
 |Model|Test Acc|Inference Time(seconds)|File size|Download|
 |-----|--------|-----------------------|---------|--------|
 |pruned_resnet18|85.65%|0.013s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|tflite_resnet18|85.65%|0.002s [CPU]|329KB|[tflite.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|float32_resnet18|85.65%|0.002s [CPU]|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
 
 놀랍게도(역시.. 구글...) 똑같은 linux서버환경이었지만 Test Accuracy는 동일하지만 Inference Time은 약 1/6 줄었네요! 심지어 tflite 모델은 CPU로 연산 되었지만 keras model을 GPU연산되었는데도 말이죠.
 (위 결과는 batch size를 1로 진행하였습니다.)
 
 Accuracy와 Inference Time비교하는 코드 및 위의 예제 코드는 여기서 [Here](https://github.com/da2so/Conquer_TFLite/blob/main/2_TFLiteInference.py) 사용가능합니다.
 
+오늘은 여기까지 하고 다음 글에서는 quantization이라는 주제부터 설명드리고 그 다음으로 mobile에 deploy하는 글을 쓰도록 하겠습니다.
+**BYE!**
 
 ## <span style="color:#C70039 "> Reference </span>
 
