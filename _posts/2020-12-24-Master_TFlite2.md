@@ -109,7 +109,43 @@ code와 Inference단계를 매칭시켜보면서 설명드릴게요.
 
 Accuracy와 Inference Time비교하는 코드 및 위의 예제 코드는 여기서 [Here](https://github.com/da2so/Conquer_TFLite/blob/main/2_TFLiteInference.py) 사용가능합니다.
 
-오늘은 여기까지 하고 다음 글에서는 quantization이라는 주제부터 설명드리고 그 다음으로 mobile에 deploy하는 글을 쓰도록 하겠습니다.
+
+## 2. TensorFlow Lite Delegates
+
+<span style="color:#C70039">**Delegates**</span>은 on-device accelerators(i.e. GPU, Digial Signal Processer (DSP))을 leveraging해서 TFLite model의 hardware acceleration을 해줍니다.  
+Default로 TFLite model은 **ARM Neon** instruction set에 최적화 되어있는 CPU kernel을 이용하게 됩니다. 하지만 multi-purpose인 CPU는 ML model이 가지는 heavy한 arithmetic을 모두 감당못합니다. 
+
+그래서, 요즘 대부분의 mobile chips들은 accelerator를 탑재하게 되는 데 이를 통해 ML model이 가지고 있는 heavy한 operations들을 cover할 수 있습니다. Speicific하게는 OpenCL 또는 OpenGL ES (for mobile)과 Qualcomm Hexagon SDK (for DSP)와 같은 accelerators들이 ML coding하면서 쓰는 custom한 computations을 가능하게 하는 API를 가지게 됩니다.
+
+하지만, 각 accelerator는 장,단점을 가지며 모든 custom한 operations을 모두 cover하지는 못하게 되므로 process를 복잡하게 만듭니다. **TFLite's Delegate API**가 TFLite runtime과 lower-level APIs의 bridge역할을 하여 해당 문제를 해결하게 됩니다.  
+
+![2](https://da2so.github.io/assets/post_img/2020-12-24-Master_TFlite2/1.png){: .mx-auto.d-block width="70%" :}
+
+### 2.1 Choosing a Delegate
+
+TFLite에서는 다양한 delegates를 제공하는 데 Platform에 따라 Delegate선택 기준은 다음과 같습니다.
+
+
+- Cross-platform (Android & iOS)
+    - <span style="color:##2E86C1">**GPU Delegate**</span>
+        - float32,float16에 최적화 되어 있으며 int8 quantized model도 GPU performance을 제공합니다.
+        - Quantization-aware training도 제공합니다.
+- Android
+    - <span style="color:##2E86C1">**NNAPI Delegate**</span>
+        - GPU, DSP and NPU과 함께 Android device(version 8.1 이상)에서 model을 accelerate하기위해 사용됩니다.
+        - float16 model은 제공하지 않아요.
+    - <span style="color:##2E86C1">**Hexago Delegate**</span>
+        - Qualcomm Hexagon DSP함께 Android device에서 model을 accelerate하게 됩니다.
+        - int8과 Quantization-aware training만 가능합니다.
+
+- iOS
+    - <span style="color:##2E86C1">**Core ML Delegate**</span>
+        - iPhone과 iPads에 사용가능합니다.
+        - float32, float16만 가능해요.
+
+Delegate에 대한 자세한 code나 분석은 추후에 해볼게요. 
+
+오늘은 여기까지 하고 다음 글에서는 quantization이라는 주제로 설명드리고 그 다음으로 mobile에 deploy하는 글을 쓰도록 하겠습니다.
 **BYE!**
 
 ## <span style="color:#C70039 "> Reference </span>
