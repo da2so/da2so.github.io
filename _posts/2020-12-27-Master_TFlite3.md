@@ -108,7 +108,7 @@ TFLite파일을 기준으로 dynamic range quantization은 weights들을 모두 
 
 어떤 conv layer는 float32로 표현되지만 어떤 conv layer의 weights는 int8로 표현되네요... (머지?)
 
-Dynamic PTQ의 Example code는 [여기서](https://github.com/da2so/Conquer_TFLite/blob/main/3_dynamicPTQ.py) 사용가능 합니다.
+Dynamic PTQ의 Example code는 **[여기서](https://github.com/da2so/Conquer_TFLite/blob/main/3_dynamicPTQ.py)** 사용가능 합니다.
 
 
 ### 2.2 Post-training integer quantization
@@ -221,6 +221,8 @@ Int8로 quantization하고 linux서버 환경에서 run하게되면 file size는
 
 ![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="90%" :}
 
+int8 PTQ의 Example code는 **[여기서](https://github.com/da2so/Conquer_TFLite/blob/main/4_int8PTQ.py)** 사용가능 합니다.
+
 ### 2.3 Post-training float16 quantization
 
 Weights들을 float16을 quantization하는 방법론이다. Tensorflow Lite GPU deletegate가 기존보다 2배 빠르게 진행될 수 있도록 float16 operation을 한다.  
@@ -263,6 +265,8 @@ dynamic range quantization과 다른점은 ```converter.target_spec.supported_ty
 float16_resnet18의 visualization은 다음과 같습니다.
 
 ![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="80%" :}
+
+float16 PTQ의 Example code는 **[여기서](https://github.com/da2so/Conquer_TFLite/blob/main/5_float16PTQ.py)** 사용가능 합니다.
 
 ## <span style="color:#C70039 "> Reference </span>
 
