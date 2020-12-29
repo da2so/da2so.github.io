@@ -104,7 +104,7 @@ TFLite파일을 기준으로 dynamic range quantization은 weights들을 모두 
 
 그리고 netron으로 network를 visualization했을 때 재밌는 발견이 있네요.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/4.png){: .mx-auto.d-block width="60%" :}
+![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/4.png){: .mx-auto.d-block width="90%" :}
 
 어떤 conv layer는 float32로 표현되지만 어떤 conv layer의 weights는 int8로 표현되네요... (머지?)
 
@@ -212,13 +212,14 @@ Int8_all.tflite인 경우에는 ```input_details['dtype'] == np.uint8```이므�
 |pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
 |tflite_resnet18|85.65%|0.0023s [CPU]|329KB|[tflite.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
 |dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.tflite](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
-|int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|[int8_all.tflite](https://drive.google.com/file/d/1tglks42aur_4y4q8PPv8Z7h4Ec81Y8mp/view?usp=sharing)|
-|int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|[int8_notall.tflite](https://drive.google.com/file/d/1QQjqHt5jihdnHTi0q3i_-k0M9Kv3oZmU/view?usp=sharing)|
+|int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|[int8_all.tflite](https://drive.google.com/file/d/1H7Lwg4Rbna4hX9025-9_jW7nmppXFpfu/view?usp=sharing)|
+|int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|[int8_notall.tflite](https://drive.google.com/file/d/1tglks42aur_4y4q8PPv8Z7h4Ec81Y8mp/view?usp=sharing)|
+
 
 Int8로 quantization하고 linux서버 환경에서 run하게되면 file size는 4배정도 줄지만 inference time이 엄청 많이 높아지네요...ㅠ 
 그리고 int8_all.tflite과 int8_notall.tflite을 netron으로 visualization하면 다음과 같습니다.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="60%" :}
+![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="90%" :}
 
 ### 2.3 Post-training float16 quantization
 
