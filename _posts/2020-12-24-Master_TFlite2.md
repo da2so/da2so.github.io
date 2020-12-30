@@ -11,7 +11,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-24-Master_TFlite2/post.png
 내용은 python, Tensorflow-gpu 2.x, keras model, mobile 에 한정되어 있음을 알려드립니다.  
 {: .box-note}
 
-이전 글로부터 만들어진 TFLite model로 이제 Inference을 해볼려고 합니다.  
+**[이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)**로부터 만들어진 TFLite model로 이제 Inference을 해볼려고 합니다.  
 
 그 전에, Inference를 어디서 할 수 있는 지 알아야겠죠?
 
@@ -36,7 +36,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-24-Master_TFlite2/post.png
 
 
 예제를 통해 실행 및 분석해봐요.
-(모델은 [이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)에서 생성한 tflite_resnet18을 사용)
+(모델은 **[이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)**에서 생성한 tflite_resnet18을 사용)
 
 ```python
 def TFLiteInference(model_path,x_test,y_test):
@@ -107,7 +107,7 @@ code와 Inference단계를 매칭시켜보면서 설명드릴게요.
 놀랍게도(역시.. 구글...) 똑같은 linux서버환경이었지만 Test Accuracy는 동일하지만 Inference Time은 약 1/6 줄었네요! 심지어 tflite 모델은 CPU로 연산 되었지만 keras model을 GPU연산되었는데도 말이죠.
 (위 결과는 batch size를 1로 진행하였습니다.)
 
-Accuracy와 Inference Time비교하는 코드 및 위의 예제 코드는 여기서 [Here](https://github.com/da2so/Conquer_TFLite/blob/main/2_TFLiteInference.py) 사용가능합니다.
+Accuracy와 Inference Time비교하는 코드 및 위의 예제 코드는 여기서 **[Here](https://github.com/da2so/Conquer_TFLite/blob/main/2_TFLiteInference.py)** 사용가능합니다.
 
 
 ## 2. TensorFlow Lite Delegates
