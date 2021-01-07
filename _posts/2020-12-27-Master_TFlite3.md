@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TFLite 뽀개기 (3) - Quantization
+title: TFLite 뽀개기 (3) - Quantization [1]
 tags: [TFLite, Mobile, Tensorflow]
 comments: true
 use_math: true
@@ -59,6 +59,7 @@ PTQ방법론에서는 위의 표와 같이 3가지의 option과 그에 대한 �
 
 ![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/3.png){: .mx-auto.d-block width="80%" :}
 
+하지만, PTQ는 training후에 quantization을 하므로 model이 작을 수록 information loss가 크며, 이는 accuracy loss로 이어진다고 합니다.
 
 하나하나 example code도 돌려보며 자세히 알아봐요.
 
