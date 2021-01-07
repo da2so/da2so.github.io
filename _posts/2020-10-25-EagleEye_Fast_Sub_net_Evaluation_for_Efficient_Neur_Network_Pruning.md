@@ -132,7 +132,7 @@ The fine-tuning will be applied to the winner candidate network.
 
 
 ## <span style="color:#C70039 ">Reference </span>
-*Huang, Lei, et al. "Normalization Techniques in Training DNNs: Methodology, Analysis and Application." arXiv preprint arXiv:2009.12836 (2020).*
+*Li, Bailin, et al. "Eagleeye: Fast sub-net evaluation for efficient neural network pruning." European Conference on Computer Vision. Springer, Cham, 2020.*
 
 
 **Github Code: [Here](https://github.com/da2so/Eagleeye_Tensorflow)**
