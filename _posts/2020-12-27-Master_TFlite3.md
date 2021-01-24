@@ -1,6 +1,6 @@
 ---
 layout: post
-title: TFLite 뽀개기 (3) - Quantization [1]
+title: TFLite 뽀개기 (3) - Quantization 
 tags: [TFLite, Mobile, Tensorflow]
 comments: true
 use_math: true
