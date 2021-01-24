@@ -34,7 +34,7 @@ The **first thing** is a direct feature matching approach which focuses on optim
 - <span style="color:DodgerBlue">$ F^\{ Net \}_{i} \in R^\{ C_i \times H_i \times W_i \}$</span>: The output feature of i-th layer
     - <span style="color:DodgerBlue">$C_i$</span>: the output feature dimensionality
     - <span style="color:DodgerBlue">$H_i, \, W_i$</span>: the output spatial dimensions
-- <span style="color:DodgerBlue">$h_\{ Net \} = \sum^\{  H_L\}_\{h\} \sum^\{ W_L\}_\{w\} F^\{ Net \}_\{L\} \in R^\{ C_L \}$</span>: the last layer feature learned by <span style="color:DodgerBlue">$f^\{ Net \}$</span>
+- <span style="color:DodgerBlue">$h_\{ Net \} =  F^\{ Net \}_\{L\} \in R^\{ C_L \}$</span>: the last layer feature learned by <span style="color:DodgerBlue">$f^\{ Net \}$</span>
 - <span style="color:DodgerBlue">$W^\{ Net \} \in R^\{ C_L \times K \}$</span>: Projects the feature representation <span style="color:DodgerBlue">$h^\{Net\}$</span>into <span style="color:DodgerBlue">$K$</span> class 
     - Class logits <span style="color:DodgerBlue">$ z^\{Net\}_i, \,\, i=1, \cdots, K $</span> followed by softmax function <span style="color:DodgerBlue">$s(z_i) =  \frac{exp(z_i / \tau)}{\sum_j exp(z_j / \tau)}$</span> with temperature <span style="color:DodgerBlue">$\tau$</span>
 
