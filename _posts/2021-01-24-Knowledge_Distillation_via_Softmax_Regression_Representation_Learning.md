@@ -4,7 +4,7 @@ title: Knowledge Distillation via Softmax Regression Representation Learning
 tags: [Knowlege Distillation]
 comments: true
 use_math: true
-thumbnail-img: /assets/thumbnail_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/post.PNG
+thumbnail-img: /assets/thumbnail_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/post.png
 ---
 
 ## 1. Introduction  
