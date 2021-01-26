@@ -59,32 +59,32 @@ L_\{ FM \} = \Vert h^T - r(h^S) \Vert^2, \quad \cdots Eq .(1)
 where <span style="color:DodgerBlue">$r(.)$</span> is a function for matching the feature tensor dimensions. The intuition for this is that this feature is directly connected to the classifier and hence imposing the student's feature to be similar to that of the teacher could have more impact on classification accuracy. The reason why they use only feature of the last layer will be explained by ablation studies.
 
 
-They found <span style="color:DodgerBlue">$L_\{FM\}$</span> to be effective but only to limited extent. Its drawback is that it treats each channel dimension in the feature space independently, and ignores the inter-channel dependencies of the feature representations <span style="color:DodgerBlue">$h_S$</span> and <span style="color:DodgerBlue">$h_T$</span> for the final classification. Therefore, they propose a second loss for optimizing <span style="color:DodgerBlue">$h_S$</span> which is directly linked with classification accuracy. To this end, they use the teacher's pre-trained **Softmax Regression (SR)** classifier.
+They found <span style="color:DodgerBlue">$L_\{FM\}$</span> to be effective but only to limited extent. Its drawback is that it treats each channel dimension in the feature space independently, and ignores the inter-channel dependencies of the feature representations <span style="color:DodgerBlue">$h^S$</span> and <span style="color:DodgerBlue">$h^T$</span> for the final classification. (for notational simplicity they dropped the dependency on <span style="color:DodgerBlue">$r(.)</span>). Therefore, they propose a second loss for optimizing <span style="color:DodgerBlue">$h^S$</span> which is directly linked with classification accuracy. To this end, they use the teacher's pre-trained **Softmax Regression (SR)** classifier.
 
 
-Let us denote by <span style="color:DodgerBlue">$p$</span> the output of the teacher network when given some input image <span style="color:DodgerBlue">$x$</span>. And <span style="color:DodgerBlue">$h_s(x)$</span> represents the feature that is obtained from feeding the same image through the student network. Finally, let us pass <span style="color:DodgerBlue">$h_S(x)$</span> through the teacher's SR classifier to obtain output <span style="color:DodgerBlue">$q$</span>. The loss is defined as:
+Let us denote by <span style="color:DodgerBlue">$p$</span> the output of the teacher network when given some input image <span style="color:DodgerBlue">$x$</span>. And <span style="color:DodgerBlue">$h^S(x)$</span> represents the feature that is obtained from feeding the same image through the student network. Finally, let us pass <span style="color:DodgerBlue">$h^S(x)$</span> through the teacher's SR classifier to obtain output <span style="color:DodgerBlue">$q$</span>. The loss is defined as:
 
 <span style="color:DodgerBlue">
 \\[
 L_\{ SR \} = - p \log q.  \quad \cdots Eq .(2)
 \\] </span>
 
-At this point, the following two obeservations is: **(1)** If <span style="color:DodgerBlue">$p=q$</span>, then this implies that <span style="color:DodgerBlue">$h_S(x) = h_T(x)$</span> which shows that Eq. (2) optimizes the student's feature reprsentation <span style="color:DodgerBlue">$h_S$</span>. **(2)** The loss of Eq. (2) can be written as:
+At this point, the following two obeservations is: **(1)** If <span style="color:DodgerBlue">$p=q$</span>, then this implies that <span style="color:DodgerBlue">$h^S(x) = h^T(x)$</span> which shows that Eq. (2) optimizes the student's feature reprsentation <span style="color:DodgerBlue">$h^S$</span>. **(2)** The loss of Eq. (2) can be written as:
 
 <span style="color:DodgerBlue">
 \\[
-L_\{ SR \} = - s ( W'_T h_T) \log s(W'_T h_S).  \quad \cdots Eq .(3)
+L_\{ SR \} = - s ( W'_T h^T) \log s(W'_T h^S).  \quad \cdots Eq .(3)
 \\] </span>
 
 Now write Hinton KD loss in a similar way:
 
 <span style="color:DodgerBlue">
 \\[
-L_\{ KD \} = - s ( W'_T h_T) \log s(W'_S h_S).  \quad \cdots Eq .(4)
+L_\{ KD \} = - s ( W'_T h^T) \log s(W'_S h^S).  \quad \cdots Eq .(4)
 \\] </span>
 
 
-When comparing Eq. (3) and Eq. (4), because <span style="color:DodgerBlue">$W_S$</span> is also optimized in Eq. (4), this gives more degrees of freedom to the optimization algorithm. This has an impact on the learning of the student's feature representation <span style="color:DodgerBlue">$h_S$</span> that hinders the generalization capability of the student on the test set.
+When comparing Eq. (3) and Eq. (4), because <span style="color:DodgerBlue">$W_S$</span> is also optimized in Eq. (4), this gives more degrees of freedom to the optimization algorithm. This has an impact on the learning of the student's feature representation <span style="color:DodgerBlue">$h^S$</span> that hinders the generalization capability of the student on the test set.
 
 Overall, in this method, they train the student network using three losses:
 
