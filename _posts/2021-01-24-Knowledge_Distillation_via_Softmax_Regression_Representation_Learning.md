@@ -106,4 +106,4 @@ The algorithm of this method is described on below.
 
 
 
-**Github Code: [HERE](https://github.com/da2so/https://github.com/da2so/Knowledge-Distillation-via-Softmax-Regression-Representation-Learning)**
+**Github Code: [HERE](https://github.com/da2so/Knowledge-Distillation-via-Softmax-Regression-Representation-Learning)**
