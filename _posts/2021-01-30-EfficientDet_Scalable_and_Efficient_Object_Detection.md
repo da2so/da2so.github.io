@@ -11,7 +11,8 @@ thumbnail-img: /assets/thumbnail_img/2021-01-30-EfficientDet_Scalable_and_Effici
 ### <span style="color:gray"> 1.1 Motivation </span>
 
 The existing methods for object detection mainly have two problems.  
-**(i)** Most previous works have developed network structures for cross-scale feature fusion. However, they usally contribute to the fused output feature unequally.  **(ii)** While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
+**(i)** Most previous works have developed network structures for cross-scale feature fusion. However, they usally contribute to the fused output feature unequally.  
+**(ii)** While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
 
 ### <span style="color:gray"> 1.2 Goal </span>
 
@@ -23,7 +24,7 @@ Then, they call object detector that have these optimization methods as **Effici
 
 ### <span style="color:gray"> 2.1 Problem Formulation </span>
 
-- <span style="color:DodgerBlue">$\vec{P}^\{ in \} = \( P^\{in\}_\{l_1\} ,  P^\{in\}_\{l_2\} , \dots \)$</span>: A list of multi-scale features
+- <span style="color:DodgerBlue">$\vec{P}^\{ in \} = \( P^\{in\}_\{l1\} ,  P^\{in\}_\{l2\} , \dots \)$</span>: A list of multi-scale features
 	- <span style="color:DodgerBlue">$ P^\{ in \}_\{ l_i \}$</span>: The feature at level $l_i$
 - <span style="color:DodgerBlue">$ f $</span>: Transformation
 	- (1) which is effectively aggregates different features
