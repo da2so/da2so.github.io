@@ -21,7 +21,7 @@ To tackle these problems, authors of this paper try to find several key optimiza
 
 ### <span style="color:gray"> 2.1 Problem Formulation </span>
 
-- <span style="color:DodgerBlue">$\vec{P}^\{ in \} = ( P^\{ in \}_\{ l_1 \}, P^\{ in \}_\{ l_2 \} , \cdots )$</span>: A list of multi-scale features
+- <span style="color:DodgerBlue">$\vec{P}^\{ in \} = ( P^\{ in \}_\{ l1 \}, P^\{ in \}_\{ l2 \} , \cdots )$</span>: A list of multi-scale features
 	- <span style="color:DodgerBlue">$ P^\{ in \}_\{ l_i \}$</span>: The feature at level $l_i$
 - <span style="color:DodgerBlue">$ f $</span>: Transformation
 	- (1) which is effectively aggregates different features
