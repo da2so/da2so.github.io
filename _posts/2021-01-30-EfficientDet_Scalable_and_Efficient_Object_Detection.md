@@ -24,8 +24,11 @@ Then, they call object detector that have these optimization methods as **Effici
 
 ### <span style="color:gray"> 2.1 Problem Formulation </span>
 
-- <span style="color:DodgerBlue">$\vec{P}^\{ in \} = \( P^\{in\}_\{l1\} ,  P^\{in\}_\{l2\} , \dots \)$</span>: A list of multi-scale features
+- <span style="color:DodgerBlue">$\vec{P}^\{ in \} = \( P^\{in\}_\{l_1\}$</span><span style="color:DodgerBlue">$,  P^\{in\}_\{l_2\} , \dots \)$</span>: A list of multi-scale features
 	- <span style="color:DodgerBlue">$ P^\{ in \}_\{ l_i \}$</span>: The feature at level $l_i$
 - <span style="color:DodgerBlue">$ f $</span>: Transformation
 	- (1) which is effectively aggregates different features
 	- (2) which outputs a list of new features <span style="color:DodgerBlue">$ \vec{P}^\{ out \} = f(\vec{P}^\{ in \}) $</span>
+
+
+For example
