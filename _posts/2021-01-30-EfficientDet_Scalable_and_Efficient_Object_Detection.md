@@ -4,13 +4,13 @@ title: EfficientDet Scalable and Efficient Object Detection
 tags: [Detection, EfficientNet]
 comments: true
 use_math: true
-thumbnail-img: /assets/thumbnail_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/post.png
+thumbnail-img: /assets/thumbnail_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/post.PNG
 ---
 
 ## 1. Introduction   
 ### <span style="color:gray"> 1.1 Motivation </span>
 
-The existing methods for object detection mainly have two problems. (i) Most previous works have developed network structures for cross-scale feature fusion. However, they usally contribute to the fused output feature unequally. (ii) While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, they observe that scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
+The existing methods for object detection mainly have two problems. **(i)** Most previous works have developed network structures for cross-scale feature fusion. However, they usally contribute to the fused output feature unequally. **(ii)** While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
 
 ### <span style="color:gray"> 1.2 Goal </span>
 
