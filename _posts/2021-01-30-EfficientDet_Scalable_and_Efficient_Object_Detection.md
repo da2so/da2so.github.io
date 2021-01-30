@@ -10,11 +10,13 @@ thumbnail-img: /assets/thumbnail_img/2021-01-30-EfficientDet_Scalable_and_Effici
 ## 1. Introduction   
 ### <span style="color:gray"> 1.1 Motivation </span>
 
-The existing methods for object detection mainly have two problems. **(i)** Most previous works have developed network structures for cross-scale feature fusion. However, they usally contribute to the fused output feature unequally. **(ii)** While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
+The existing methods for object detection mainly have two problems.  
+**(i)** Most previous works have developed network structures for cross-scale feature fusion. However, they usally contribute to the fused output feature unequally.  **(ii)** While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
 
 ### <span style="color:gray"> 1.2 Goal </span>
 
-To tackle these problems, authors of this paper try to find several key optimizations to improve efficiency for object detection. For (i), they propose **a weighted bi-directional feature pyramid network (BiFPN)**, which allows easy and fast multi-scale feature fusion. And, in order to solve (ii), they propose a **compound scaling method** that uniformly scales the resolution, depth, and width for all backbone, feature network, and box/class prediction networks at the same time. Then, they call object detector that have these optimization methods as **EfficientDet**.
+For (i), they propose **a weighted bi-directional feature pyramid network (BiFPN)**, which allows easy and fast multi-scale feature fusion. And, in order to solve (ii), they propose a **compound scaling method** that uniformly scales the resolution, depth, and width for all backbone, feature network, and box/class prediction networks at the same time.  
+Then, they call object detector that have these optimization methods as **EfficientDet**.
 
 
 ## 2. BiFPN
