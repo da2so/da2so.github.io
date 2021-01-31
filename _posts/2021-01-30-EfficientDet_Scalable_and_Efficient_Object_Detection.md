@@ -120,7 +120,7 @@ They reuse the same width/depth scaling coefficients of EfficientNet-B0 to B6.
 
 ####  <span style="color:gray"> BiFPN network </span>
 
-They linearly increase BiFPN depth <span style="color:DodgerBlue">$D_\{ bifpn \}$</span> (#layer) since depth needs to be rounded to small integers. For BiFPN width <span style="color:DodgerBlue">$\W_\{bifpn\}$</span> (#channels), exponentially grow BiFPN width <span style="color:DodgerBlue">$\W_\{bifpn\}$</span> (#channels).
+They linearly increase BiFPN depth <span style="color:DodgerBlue">$D_\{ bifpn \}$</span> (#layer) since depth needs to be rounded to small integers. For BiFPN width <span style="color:DodgerBlue">$W_\{bifpn\}$</span> (#channels), exponentially grow BiFPN width <span style="color:DodgerBlue">$W_\{bifpn\}$</span> (#channels).
 
 Specially, they perform a grid-search on a list of values {1.2, 1.25, 1.3, 1.35, 1.4, 1.45}, and pick the best value 1.35 as the BiFPN width scaling factor. Formally, BiFPN width and depth are scaled with the following equation:
 
