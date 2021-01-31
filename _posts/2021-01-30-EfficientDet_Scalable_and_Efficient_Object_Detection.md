@@ -22,7 +22,7 @@ Then, they call object detector that have these optimization methods as **Effici
 
 ## 2. BiFPN
 
-First, I formulate the multi-scale feature fusion problem that aims to aggregate features at different resolutions. And then, introduce ideas of BiFPN.
+First, they formulate the multi-scale feature fusion problem that aims to aggregate features at different resolutions. And then, introduce ideas of BiFPN.
 
 
 ### <span style="color:gray"> 2.1 Problem Formulation </span>
@@ -36,7 +36,7 @@ First, I formulate the multi-scale feature fusion problem that aims to aggregate
 
 For example of a muti-scale feature fusion, FPN [*T. Y. Lin et al, 2017*] has the conventional top-down pathway. The way of fusion describes the below figure.
 
-![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/1.png){: .mx-auto.d-block width="90%" :}
+![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/1.PNG){: .mx-auto.d-block width="90%" :}
 
 $Resize$ is usually a upsampling or downsampling op for resolution matching, and $Conv$ is a convolutional op for feature processing.
 
@@ -67,16 +67,37 @@ To improve model efficiency, this paper propose several optimizations for cross-
 		- ...
 
 
+### <span style="color:gray"> 3.2 Weighted Feature Fusion </span>
+
+When fusing features with different resolutions, a common way is to first resize them to the same resolution and then sum them up. At this point,
+all previous methods treat all input features equally without distinction. 
+
+In this paper, in order to contribute to the ouput feature unequally from the input feature, the authors add an additional weight for each input and let the network to learn the importance of each input feature.
+
+####  <span style="color:gray"> Fast normalized fusion </span>
 
 
+<span style="color:DodgerBlue">
+\\[
+O = \sum_i \frac{w_i}{\epsilon + \sum_j w_j } \cdot I_i
+\\] 
+</span>
 
 
+,where <span style="color:DodgerBlue">$ w_i $</span> is a learnable weight and <span style="color:DodgerBlue">$ w_i \geq 0 $</span> is ensured by appling a Relu after each <span style="color:DodgerBlue">$ w_i $</span>, and <span style="color:DodgerBlue">$ \epsilon = 0.0001 $</span> is a small value to avoid numerical instability. And the value of each normalized weight falls between 0 and 1.
+
+The final BiFPN integrates both the bidirectional cross scale connections and the fast normalized fusion. As a concrete example, they describe the two fused features at level **6** for BiFPN shown in Fig 2 (d):
 
 
+<span style="color:DodgerBlue">
+\\[
+\\begin{array}{l} P^ = m^\ast_\{ c_T \} \cdot x, \cr
+				  m^\ast_\{ c_T \}= argmin_\{ m_\{ c_T \} \} \[ \varphi( y^{c_T}_x, y^{c_T}_e ) +\lambda \cdot R_m \] . 
+\\end{array} 
+</span>
 
 
-
-
+![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/3.png){: .mx-auto.d-block width="90%" :}
 
 
 
