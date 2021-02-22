@@ -11,7 +11,7 @@ thumbnail-img: /assets/thumbnail_img/2021-01-30-EfficientDet_Scalable_and_Effici
 ### <span style="color:gray"> 1.1 Motivation </span>
 
 The existing methods for object detection mainly have two problems.  
-**(i)** Most previous works have developed network structures for cross-scale feature fusion. However, they usally contribute to the fused output feature unequally.  
+**(i)** Most previous works have developed network structures for cross-scale feature fusion. However, they usually contribute to the fused output feature unequally.  
 **(ii)** While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
 
 ### <span style="color:gray"> 1.2 Goal </span>
@@ -34,7 +34,7 @@ First, they formulate the multi-scale feature fusion problem that aims to aggreg
 	- (2) which outputs a list of new features <span style="color:DodgerBlue">$ \vec{P}^\{ out \} = f(\vec{P}^\{ in \}) $</span>
 
 
-For example of a muti-scale feature fusion, FPN [*T. Y. Lin et al, 2017*] has the conventional top-down pathway. The way of fusion describes the below figure.
+For an example of a multi-scale feature fusion, FPN [*T. Y. Lin et al, 2017*] has the conventional top-down pathway. The way of fusion describes the below figure.
 
 ![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/1.PNG){: .mx-auto.d-block width="100%" :}
 
@@ -49,9 +49,9 @@ Above figure represents multi-scale feature fusion method of previous approaches
 The problem of existing methods for feature fusion is: 
 - **FPN**: one-way information flow
 - **PANet**: better accuracy, but high cost of more parameters and computations
-- **NAS-FPN**: requring thousands of GPU hours
+- **NAS-FPN**: requiring thousands of GPU hours
 
-To improve model efficiency, this paper propose several optimizations for cross-scale connections:
+To improve model efficiency, this paper proposes several optimizations for cross-scale connections:
 
 1. Remove those nodes that only have one input edge.
 	- Why?
@@ -72,7 +72,7 @@ To improve model efficiency, this paper propose several optimizations for cross-
 When fusing features with different resolutions, a common way is to first resize them to the same resolution and then sum them up. At this point,
 all previous methods treat all input features equally without distinction. 
 
-In this paper, in order to contribute to the ouput feature unequally from the input feature, the authors add an additional weight for each input and let the network to learn the importance of each input feature.
+In this paper, in order to contribute to the output feature unequally from the input feature, the authors add an additional weight for each input and let the network to learn the importance of each input feature.
 
 ####  <span style="color:gray"> Fast normalized fusion </span>
 
@@ -162,7 +162,7 @@ Following Eq. (1), (2), (3) with different <span style="color:DodgerBlue">$\phi$
 
 - **Dataset**: COCO 2017 detection datasets. 
 - **Optimizer**: SGD optimizer with momentum 0.9 and weight-decay 4e-5. 
-	- **Learning rate**: lineraly increased from 0 to 0.16 in the first training epoch then annealed down using cosine decay rule. 
+	- **Learning rate**: linearly increased from 0 to 0.16 in the first training epoch then annealed down using cosine decay rule. 
 	- **Epoch size**: 300 (D7/D7x is 600)
 	- **Batch size**: 128
 - **Batch norm**: Synchronized batch norm is added after every convolution with batch norm decay 0.99 and epsilon 1e-3. 
