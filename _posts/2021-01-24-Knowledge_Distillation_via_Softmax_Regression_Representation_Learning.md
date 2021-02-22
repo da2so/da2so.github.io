@@ -8,7 +8,7 @@ thumbnail-img: /assets/thumbnail_img/2021-01-24-Knowledge_Distillation_via_Softm
 ---
 
 ## 1. Introduction  
-**Knowlege Distillation:** Dealing with the problem of training a smaller model (Student) from a high capacity source model (Teacher) so as to retain most of its performance. 
+**Knowledge Distillation:** Dealing with the problem of training a smaller model (Student) from a high capacity source model (Teacher) so as to retain most of its performance. 
 {: .box-note}
 
 
@@ -17,12 +17,12 @@ thumbnail-img: /assets/thumbnail_img/2021-01-24-Knowledge_Distillation_via_Softm
 
 ### <span style="color:gray"> 1.1 Motivation </span>
 
-The authors of this paper try to make the outputs of student network be similar to the outputs of the teacher network. Then, they have advocate for a method that optimizes not only the output of softmax layer of the student network but also the output feature of its penultimate layer. Beacuse optimizing the output feature of the penultimate layer is related to representation learning, they propose two approaches.
+The authors of this paper try to make the outputs of student network be similar to the outputs of the teacher network. Then, they have advocate for a method that optimizes not only the output of softmax layer of the student network but also the output feature of its penultimate layer. Because optimizing the output feature of the penultimate layer is related to representation learning, they propose two approaches.
 
 
 ### <span style="color:gray"> 1.2 Goal </span>
 
-The **first thing** is a direct feature matching approach which focuses on optimizing the student penultimate layer. Because the first approach detached from the classification task, they propose the **second approach** that is to decouple representation learning and classification and utlize the teacher's pre-trained classifier to train the sutdent's penultimate layer feature.
+The **first thing** is a direct feature matching approach which focuses on optimizing the student penultimate layer. Because the first approach detached from the classification task, they propose the **second approach** that is to decouple representation learning and classification and utilize the teacher's pre-trained classifier to train the student's penultimate layer feature.
 
 
 ## 2. Definition
@@ -69,7 +69,7 @@ Let us denote by <span style="color:DodgerBlue">$p$</span> the output of the tea
 L_\{ SR \} = - p \log q.  \quad \cdots Eq .(2)
 \\] </span>
 
-At this point, the following two obeservations is: **(1)** If <span style="color:DodgerBlue">$p=q$</span>, then this implies that <span style="color:DodgerBlue">$h^S(x) = h^T(x)$</span> which shows that Eq. (2) optimizes the student's feature reprsentation <span style="color:DodgerBlue">$h^S$</span>. **(2)** The loss of Eq. (2) can be written as:
+At this point, the following two observations is: **(1)** If <span style="color:DodgerBlue">$p=q$</span>, then this implies that <span style="color:DodgerBlue">$h^S(x) = h^T(x)$</span> which shows that Eq. (2) optimizes the student's feature representation <span style="color:DodgerBlue">$h^S$</span>. **(2)** The loss of Eq. (2) can be written as:
 
 <span style="color:DodgerBlue">
 \\[
