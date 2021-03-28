@@ -129,9 +129,13 @@ A reshaped kernel matrix <span style="color:DodgerBlue">$ K \in \mathcal{R}^\{ T
 to be <span style="color:DodgerBlue">$ n/r $</span>. If such a skewed matrix is divided into four tiles as shown in Fig. 4 and the four tiles do not share much common chateracteristics, then tiling-based SVD can be a better approximator and rank <span style="color:DodgerBlue">$ r $</span> can be further reduced without increasing approximation error. Moreover, fast matrix multiplication is usually implemented by a tiling technique in hardware to improve the weight reuse rate. 
 
 
-To 
-
 ![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/5.png){: .mx-auto.d-block width="90%" :}
 
-## 4. Experiment Result
+They tested a (1024 × 1024) random weight matrix in which elements follow a Gaussian distribution. A weight matrix is divided by (1×1), (16×16), or (128×128)tiles (then, each tile is a submatrix of (1024×1024), (64×64), or (8×8) size). Each tile is compressed by SVD to achieve the same overall compression ratio of 4× for all of the three cases. As described in Fig. 4. (on the right side), increasing the number of tiles tends to increase the count of near-zero and large weights. 
+
+
+They applied the tiling technique and SVD to the 9 largest convolution layers of ResNet-32 using the CIFAR-10 dataset. Weights of selected layers are reshaped into 64 × (64 × 3 × 3) matrices with the tiling configurations described in Table 1. DeepTwist performs training with the same learning schedule and SD(=200) used in Section 3.
+
+![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/6.png){: .mx-auto.d-block width="90%" :}
+
 
