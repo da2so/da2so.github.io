@@ -23,7 +23,7 @@ That is, they retain the original model structure without considering low-rank a
 ## 2. Training Algorithm for Low-Rank Approximation
 
 
-Note that FD methods incur the accuracy drop from the original network because of an approximation error given a rank. If so, in terms of loss surface, which position of parameters is appropreatie before applying FD in below figure?
+Note that FD methods incur the accuracy drop from the original network because of an approximation error given a rank. If so, in terms of loss surface, which position of parameters is appropreatie before applying FD in a below figure?
 
 ![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/1.png){: .mx-auto.d-block width="90%" :}
 
@@ -81,7 +81,7 @@ First of all, Tucker decomposition is described as below:
 
 <span style="color:DodgerBlue">
 \\[
- K^'_\{ i, j, s, t \} = \sum^\{R_s\}_\{ r_s\} \sum^\{R_t\}_\{ r_t\} C_\{ i, j, r_s, r_t\} P^S_\{ s, r_s\} P^T_\{ t, r_t\}  \quad \cdots (3)
+ K'_\{ i, j, s, t \} = \sum^\{R_s\} \sum^\{R_t\} C_\{ i, j, r_s, r_t \} P^S_\{ s, r_s \} P^T_\{ t, r_t \}  \quad \cdots (3)
 \\] 
 </span>
 
@@ -92,13 +92,13 @@ First of all, Tucker decomposition is described as below:
 	- Kernel dimension: <span style="color:DodgerBlue">$ d \times d $</span>.
 	- Input feature map size: <span style="color:DodgerBlue">$ S $</span>.
 	- Output feature map size: <span style="color:DodgerBlue">$ T $</span>.
-- Approximated 4D kernel tensor: <span style="color:DodgerBlue">$ K^' = \mathcal{R}^\{ d \times d \times S \times T \}$</span>.
+- Approximated 4D kernel tensor: <span style="color:DodgerBlue">$ K' = \mathcal{R}^\{ d \times d \times S \times T \}$</span>.
 - Reduece kernel tensor: <span style="color:DodgerBlue">$ C_\{ i, j, r_s, r_t\} $</span>.
 - The rank for input feature map dimension: <span style="color:DodgerBlue">$ R_s $</span>.
 - The rank for output feature map dimension: <span style="color:DodgerBlue">$ R_t $</span>.
 - 2D filter matrices to map <span style="color:DodgerBlue">$ C_\{ i, j, r_s, r_t\} $</span> to  <span style="color:DodgerBlue">$ K_\{ i, j, r_s, r_t\} $</span>: <span style="color:DodgerBlue">$ P^S, P^T $</span>.
 
-Each component is obtained to minimize the Frobenius norm of <span style="color:DodgerBlue">$ K_\{ i, j, r_s, r_t\} K'_\{ i, j, r_s, r_t\} $</span>. As a result, one convolution layer is divided into three convolution layers, specifically, (1×1) convolution for <span style="color:DodgerBlue">$ P^S $</span>, (d × d) convolution for <span style="color:DodgerBlue">$ C_\{ i, j, r_s, r_t\} </span>, and (1 × 1) convolution for <span style="color:DodgerBlue">$ P^T $</span>.
+Each component is obtained to minimize the Frobenius norm of <span style="color:DodgerBlue">$ ( K_\{ i, j, r_s, r_t\} - K'_\{ i, j, r_s, r_t\} ) $</span>. As a result, one convolution layer is divided into three convolution layers, specifically, (1×1) convolution for <span style="color:DodgerBlue">$ P^S $</span>, (d × d) convolution for <span style="color:DodgerBlue">$ C_\{ i, j, r_s, r_t \} $</span>, and (1 × 1) convolution for <span style="color:DodgerBlue">$ P^T $</span>.
 
 
 DeepTwist training algorithm is conducted for Tucker decomposition as follows:
@@ -134,8 +134,4 @@ To
 ![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/5.png){: .mx-auto.d-block width="90%" :}
 
 ## 4. Experiment Result
-
-
-![3](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/4.png){: .mx-auto.d-block width="100%" :}
-![3](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/5.png){: .mx-auto.d-block width="100%" :}
 
