@@ -81,7 +81,7 @@ First of all, Tucker decomposition is described as below:
 
 <span style="color:DodgerBlue">
 \\[
- K'_\{i, j, s, t\} = \sum^\{R_s\} \sum^\{R_t\}  P^S P^T  \quad \cdots (3)
+ K'_\{i, j, s, t\} = \sum^\{R_s\} \sum^\{R_t\} C P^S P^T  \quad \cdots (3)
 \\] 
 </span>
 
@@ -93,7 +93,7 @@ First of all, Tucker decomposition is described as below:
 	- Input feature map size: <span style="color:DodgerBlue">$ S $</span>.
 	- Output feature map size: <span style="color:DodgerBlue">$ T $</span>.
 - Approximated 4D kernel tensor: <span style="color:DodgerBlue">$ K' = \mathcal{R}^\{ d \times d \times S \times T \}$</span>.
-- Reduece kernel tensor: <span style="color:DodgerBlue">$ C_\{ i, j, r_s, r_t\} $</span>.
+- Reduece kernel tensor: <span style="color:DodgerBlue">$ C = C_\{ i, j, r_s, r_t\} $</span>.
 - The rank for input feature map dimension: <span style="color:DodgerBlue">$ R_s $</span>.
 - The rank for output feature map dimension: <span style="color:DodgerBlue">$ R_t $</span>.
 - 2D filter matrices to map <span style="color:DodgerBlue">$ C_\{ i, j, r_s, r_t\} $</span> to  <span style="color:DodgerBlue">$ K_\{ i, j, r_s, r_t\} $</span>: <span style="color:DodgerBlue">$ P^S, P^T $</span>.
