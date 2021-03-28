@@ -81,7 +81,7 @@ First of all, Tucker decomposition is described as below:
 
 <span style="color:DodgerBlue">
 \\[
- K'_\{ i, j, s, t \} = \sum^\{R_s\} \sum^\{R_t\} C_\{ i, j, r_s, r_t \} P^S_\{ s, r_s \} P^T_\{ t, r_t \}  \quad \cdots (3)
+ K'_\{i, j, s, t\} = \sum^\{R_s\} \sum^\{R_t\}   \quad \cdots (3)
 \\] 
 </span>
 
