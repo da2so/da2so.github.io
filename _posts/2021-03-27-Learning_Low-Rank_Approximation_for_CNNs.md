@@ -81,11 +81,11 @@ First of all, Tucker decomposition is described as below:
 
 <span style="color:DodgerBlue">
 \\[
- K'_\{i, j, s, t\} = \sum^\{R_s\} \sum^\{R_t\}   \quad \cdots (3)
+ K'_\{i, j, s, t\} = \sum^\{R_s\} \sum^\{R_t\} C_\{ i, j, r_s, r_t\} P^S P^T  \quad \cdots (3)
 \\] 
 </span>
 
-![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/3.png){: .mx-auto.d-block width="90%" :}
+![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/3.png){: .mx-auto.d-block width="70%" :}
 
 
 - Original 4D kernel tensor: <span style="color:DodgerBlue">$ K = \mathcal{R}^\{ d \times d \times S \times T \}$</span>.
@@ -110,7 +110,7 @@ DeepTwist training algorithm is conducted for Tucker decomposition as follows:
 
 Using the pre-trained ResNet-32 model with CIFAR-10 dataset, compare two training methods for Tucker decomposition: 1) typical training with a decomposed model and 2) DeepTwist training (<span style="color:DodgerBlue">$ S_D $</span> = 200). The result is as follows.
 
-![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/4.png){: .mx-auto.d-block width="90%" :}
+![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/4.png){: .mx-auto.d-block width="70%" :}
 
 
 ## 4. 2-Dimensional SVD Enabled by DeepTwist
