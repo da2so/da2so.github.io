@@ -28,7 +28,7 @@ Note that FD methods incur the accuracy drop from the original network because o
 ![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/1.png){: .mx-auto.d-block width="90%" :}
 
 
-As you alreadly expect, the right position of parameters is less sensitive to accuracy drop (loss variacne). That is, the underlying principle of proposed training algorithm is to find a particular local minimum of flat loss surface, robust to parameter errors induced by low-rank approximation.
+As you already  expect, the right position of parameters is less sensitive to accuracy drop (loss variance). That is, the underlying principle of proposed training algorithm is to find a particular local minimum of flat loss surface, robust to parameter errors induced by low-rank approximation.
 
 
 The proposed scheme preserves the original model structure and searches for a local minimum well suited for low-rank approximation. The training procedure for low-rank approximation, called **DeepTwist**, is illustrated in Fig. 1.
@@ -93,7 +93,7 @@ First of all, Tucker decomposition is described as below:
 	- Input feature map size: <span style="color:DodgerBlue">$ S $</span>.
 	- Output feature map size: <span style="color:DodgerBlue">$ T $</span>.
 - Approximated 4D kernel tensor: <span style="color:DodgerBlue">$ K' = \mathcal{R}^\{ d \times d \times S \times T \}$</span>.
-- Reduece kernel tensor: <span style="color:DodgerBlue">$ C = C_\{ i, j, r_s, r_t\} $</span>.
+- Reduce kernel tensor: <span style="color:DodgerBlue">$ C = C_\{ i, j, r_s, r_t\} $</span>.
 - The rank for input feature map dimension: <span style="color:DodgerBlue">$ R_s $</span>.
 - The rank for output feature map dimension: <span style="color:DodgerBlue">$ R_t $</span>.
 - 2D filter matrices to map <span style="color:DodgerBlue">$ C_\{ i, j, r_s, r_t\} $</span> to  <span style="color:DodgerBlue">$ K_\{ i, j, r_s, r_t\} $</span>: <span style="color:DodgerBlue">$ P^S, P^T $</span>.
@@ -120,13 +120,13 @@ Using the pre-trained ResNet-32 model with CIFAR-10 dataset, compare two trainin
 
 Convolution can be performed by matrix multiplication if an input matrix is transformed into a Toeplitz matrix with redundancy and a weight kernel is reshaped into a T × (S × d × d) matrix (i.e., a lowered matrix). Then, commodity computing systems (such as CPUs and GPUs) can use libraries such as Basic Linear Algebra Subroutines (BLAS) without dedicated hardware resources for convolution.
 
-For BLAS-based CNN inference, reshaping a 4D tensor <span style="color:DodgerBlue">$ K $</span> and performing SVD is preferred for low-rank approximation rather than relatively inefficient Tucker decomposition. However, because of lowering steps, two decomposed matrices by SVD do not present corresponding (decomposed) convolution layers. As a result, The fine-tuning requiring a structurally modified model for training is not allowed. But, DeepTwist does not alter the model structure during training.
+For BLAS-based CNN inference, reshaping a 4D tensor <span style="color:DodgerBlue">$ K $</span> and performing SVD is preferred for low-rank approximation rather than relatively inefficient Tucker decomposition. However, because of lowering steps, two decomposed matrices by SVD do not present corresponding (decomposed) convolution layers. As a result, the fine-tuning requiring a structurally modified model for training is not allowed. But, DeepTwist does not alter the model structure during training.
 
 
 ### <span style="color:gray"> 4.2 Tiling-Based SVD for Skewed Weight Matrices </span>
 
 A reshaped kernel matrix <span style="color:DodgerBlue">$ K \in \mathcal{R}^\{ T \times (S \times d \times d)\} $</span> is usually a skewed matrix where row-wise dimension (<span style="color:DodgerBlue">$ n $</span>) is smaller than column-wise dimension (<span style="color:DodgerBlue">$ m $</span>) as shown in Fig. 4 (i.e., <span style="color:DodgerBlue">$ n \ll m $</span>). A range of available rank <span style="color:DodgerBlue">$ r $</span> for SVD, then, is constrained by small <span style="color:DodgerBlue">$ K $</span> and the compression ratio is approximated
-to be <span style="color:DodgerBlue">$ n/r $</span>. If such a skewed matrix is divided into four tiles as shown in Fig. 4 and the four tiles do not share much common chateracteristics, then tiling-based SVD can be a better approximator and rank <span style="color:DodgerBlue">$ r $</span> can be further reduced without increasing approximation error. Moreover, fast matrix multiplication is usually implemented by a tiling technique in hardware to improve the weight reuse rate. 
+to be <span style="color:DodgerBlue">$ n/r $</span>. If such a skewed matrix is divided into four tiles as shown in Fig. 4 and the four tiles do not share much common characteristics, then tiling-based SVD can be a better approximator and rank <span style="color:DodgerBlue">$ r $</span> can be further reduced without increasing approximation error. Moreover, fast matrix multiplication is usually implemented by a tiling technique in hardware to improve the weight reuse rate. 
 
 
 ![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/5.png){: .mx-auto.d-block width="90%" :}
