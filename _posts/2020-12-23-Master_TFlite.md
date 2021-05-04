@@ -20,7 +20,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-23-Master_TFlite/post.png
 
 - <span style="color:DodgerBlue">**converter=tf.lite.TFLiteConverter.from_keras_model('your keras model')**</span>
 
-위의 함수가 TFLite로 만드는 준비 compile과정이라고 생각하시면 될거예요. 그래서 compile setting을 onverter변수에 할당해 놓는 거죠.
+위의 함수가 TFLite로 만드는 준비 compile과정이라고 생각하시면 될거예요. 그래서 compile setting을 converter변수에 할당해 놓는 거죠.
 뿐만 아니라 위 함수의 중요한 attribute가 있어요.
 
 - Attributes
