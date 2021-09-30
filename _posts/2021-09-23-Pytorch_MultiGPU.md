@@ -4,7 +4,7 @@ title: PyTorch MultiGPU (1) - Single-GPU vs Multi-GPU (DataParallel)
 tags: [PyTorch, MultiGPU]
 comments: true
 use_math: true
-thumbnail-img: /assets/thumbnail_img/2021-09-23-Pytorch_MultiGPU/post.png
+thumbnail-img: /assets/thumbnail_img/2021-09-23-Pytorch_MultiGPU/post.PNG
 ---
 
 ## 1. Introduction
@@ -64,14 +64,14 @@ optimizer.step()
 Multi-GPU를 사용하기 위해 torch.nn.Dataparallel function인자에 Multi-GPU로 training하고 싶은 model만 넣어주면 됩니다.
 torch.nn.Dataparallel를 사용하였을 때 model의 forward와 backward는 다음과 같이 작동합니다.
 
- ![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/1.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/1.png){: .mx-auto.d-block width="100%" :}
 
-1. Forward process
+1. **Forward process**s
     1. GPU 1가 master GPU로써 batch를 사용하는 GPU 개수(4개)로 나누어 줍니다(scatter).
     2. Model를 GPU 수만큼 복제(replicate)합니다.
     3. 나누어진 batch를 각각 복제된 model에 forwarding해줍니다.
     4. forward된 outputs을 master GPU에 다시 모아줍니다. 
-2. Backward process
+2. **Backward process**
     1. Master GPU에서 loss를 compute합니다.
     2. 계산된 loss를 GPU 개수(4개)로 나누어 보내줍니다(scatter).
     3. loss로부터 각 GPU에서 backwarding를 통해 gradient를 구해줍니다.
@@ -99,7 +99,7 @@ torch.nn.Dataparallel를 사용하였을 때 model의 forward와 backward는 다
 
 **Out:**
 
- ![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/2.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/2.PNG){: .mx-auto.d-block width="60%" :}
 
 
 총 4개의 GPU를 사용하였고 Batch size가 256개 이므로 각 GPU에서 64개 batch단위로 forward하게 되는것을 확인가능합니다.
@@ -123,7 +123,7 @@ print(f'Output size: {outputs.size()}')
 
 **Out:**
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/4.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/4.PNG){: .mx-auto.d-block width="60%" :}
 
 각 GPU에서 forwards된 outputs이 master GPU(cuda:0)에 합쳐지는 것을 볼 수 있습니다.
 
