@@ -36,7 +36,7 @@ Single-GPU와 Multi-GPU의 차이에 대해 글로 설명을 드릴거지만 직
 - **Loss** : CrossEntropy
 - **Batch size** : 256
 
-fair한 비교를 위해 dataset, model, train configuration을 동일하게 설정하였습니다. 특이점은 실제 CIFAR-10의 image size가 32 -> 224로 변경되었습니다. 
+fair한 비교를 위해 dataset, model, train configuration을 동일하게 설정하였습니다. 특이점은 실제 CIFAR-10의 image size가 32 -> 112로 변경되었습니다. 
 변경 이유는 Multi-GPU를 사용하였을 때 극명한 차이를 보여드리기 위함이라고 이해하시면 됩니다.
 
 
@@ -75,7 +75,7 @@ torch.nn.DataParallel를 사용하였을 때 model의 forward와 backward는 다
     2. 계산된 loss를 GPU 개수(4개)로 나누어 보내줍니다(scatter).
     3. loss로부터 각 GPU에서 backwarding를 통해 gradient를 구해줍니다.
     4. 각 GPU에서 계산된 gradient를 master GPU에 모아줍니다(reduce).
-3. Master GPU에서 weight를 update해줍니다. 
+3. **Master GPU에서 weight를 update해줍니다.**
 
 
 실제로 위의 과정이 일어나는 지 확인하기 위해 다음과 같은 변수 value 및 size를 print 해보겠습니다.
@@ -129,7 +129,7 @@ print(f'Output size: {outputs.size()}')
 Mobilenetv2 model에서 총 10epoch을 돌려 Single-GPU와 Multi-GPU의 elapse time를 비교하겠습니다.
 
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/5.PNG){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/5.png){: .mx-auto.d-block width="80%" :}
 
 
 위의 그림에서 볼 수 있듯이 같은 batch일 경우는 Multi-GPU의 효과를 보기 힘드네요. 추측해본건데 같은 batch일경우
@@ -137,7 +137,7 @@ Dataparallel사용에 따른 scatter, replicate, gather 과정이 추가되므�
 
 MobileNetv2 모델하나로 판단하는 게 generality가 떨어진다고 생각되어 ResNet50으로도 돌려보았습니다.
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/6.PNG){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/6.png){: .mx-auto.d-block width="80%" :}
 
 분석하자면 다음과 같습니다.
 
@@ -151,12 +151,12 @@ MobileNetv2 모델하나로 판단하는 게 generality가 떨어진다고 생�
 이 Section에서는 Dataparallel을 썼을 때의 문제점을 정리해보고 그에 대한 해결방안이 무엇이 있는지 알아보겠습니다.
 먼저 Dataparallel의 문제점은 크게 2가지입니다.
 
-1. 추가적인 resource사용이 요구된다.
+1. **추가적인 resource사용이 요구된다.**
 
 위에서 언급드린 (a) 매 iteration마다 model를 replicate하고 forward시켜야 한다. (b) gather, reduce 작업이 추가로 요구된다.
 라는 process때문에 training time을 더 효율적으로 줄일 수 없다고 합니다.
 
-2. single-process multi-thread parallelism이 GIL contentions때문에 작동이 방해받는다.
+2. **single-process multi-thread parallelism이 GIL에 의한 방해를 받는다**
 
 먼저 GIL이란 **Global Interpreter Lock** 의 약자인데 여러개의 쓰레드간의 동기화를 위해 사용되는 기술인데 동시에 하나 이상의 쓰레드가 실행되지 않게 합니다.
 예를 들어 3개의 thread가 동시에 cpu를 점유할 수 없습니다. 즉, 멀티 쓰레드 프로그래밍해도 성능이 향상되지 않는다는 말이다.
