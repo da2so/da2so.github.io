@@ -25,16 +25,27 @@ thumbnail-img: /assets/thumbnail_img/2021-09-23-Pytorch_MultiGPU/post.PNG
 
 DataParallel(DP)과 비교했을 때 머가 다르냐!? 가 중요한데요. 일단 기본적으로 DDP는 <span style="color:#C70039">**multi-process parallelism**</span>을 사용합니다.
 이 차이점이 왜 중요하냐면 [이전 글](https://da2so.github.io/2021-09-23-Pytorch_MultiGPU/)에서도 말씀드렸듯이 GIL때문에 multi-thread가 성능효과를 못내자나요. 그래서 
-multi-process로 가버리자! 라는 마인드입니다. 뿐만 아니라 DDP는 performance optimization 기술도 들어가 있다고 하네요.(자세한건 이 [논문](http://www.vldb.org/pvldb/vol13/p3005-li.pdf)을 참고하라고 하네요.)
+multi-process로 가버리자! 라는 마인드입니다. 뿐만 아니라 DDP는 performance optimization 기술도 들어가 있다고 하네요. (자세한건 이 [논문](http://www.vldb.org/pvldb/vol13/p3005-li.pdf)을 참고하라고 하네요.)
 
 
-즉, DDP를 통해 Multi-GPU를 쓸 경우 각 GPU가 자신을 위한 하나의 process를 갖게됩니다(DP는 각 GPU가 thread를 가졋죠). 각 process가 어떤 과정을 거치는 지 설명하기 전에 process가 여러개라면 통신을 해야겠죠? 그래서 DP랑 다르게 통신을 위한 torch.distributed.
- 다음과 같은 과정을 거칩니다.
+즉, DDP를 통해 Multi-GPU를 쓸 경우 각 GPU가 자신을 위한 하나의 process를 갖게됩니다(DP는 각 GPU가 thread를 가졋죠). 각 process가 어떤 과정을 거치면 실행되는 지 알아보기 전에 만족해야 할 조건이 있습니다. Process가 여러개이므로 서로가 통신이 되어야 하는 건데요. 그래야 weight update 공유도 하고 model을 parallel하게 학습시킬 수 있겠죠. 그래서 Pytorch에서는 process간의 통신을 위해 torch.distributed.init_process_group() 함수를 사용하도록 요구합니다. 이 함수는 사용되는 process들을 grouping하여 초기화시켜준다고 생각하시면 됩니다.
 
-1. 각 process는 disk에서 자신만의 data를 불러오게 됩니다.
+그럼 이제 process간의 통신이 가능해졌으니 DDP가 어떻게 작동하는 지 보시죠.
+
+1. DDP constructor는 각기 다른 GPU를 가진 process에 model을 복제하고 rank 0의 process가 다른 process들에게 weight를 broadcast하여 같은 weight값을 갖게 한다.
+    - 기본적으로 각 processs는 고유한 숫자의 rank를 가지는 데 process의 고유 id라고 생각하면 편하다.
+2. 각 process는 disk에서 서로 다른 mini-batch data를 불러오게 됩니다.
     - Distributed data sampler를 사용함으로써 각 process에 data가 overlapping되지 않도록 해줍니다. (How는 좀 이따가...)
-2. 각 process의 GPU에서 forward pass와 loss의 계산이 이루어지게 됩니다.
-3. Backward동안에는 
+3. 각 process의 GPU에서 forward pass와 loss의 계산이 이루어지게 됩니다.
+4. 매 iterationd마다 Backward시에 각 GPU에서 gradient구하고 서로 all-reduced됩니다.
+    - All-reduced: 각 GPU에서 mini-batch에 대한 graident를 구하고 통신을 통해 gradient의 평균을 구하여 각 process에서 model이 동일하게 weight update하도록 함.
+
+
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/1.png){: .mx-auto.d-block width="100%" :}
+
+### 3. DistributedDataParallel 사용 방법
+
+이제부터 코드를 따라 하나씩 이해해가면서 사용방법을 익혀 보자.
 
 
 
