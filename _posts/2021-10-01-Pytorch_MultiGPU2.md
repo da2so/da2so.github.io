@@ -28,152 +28,107 @@ DataParallel(DP)과 비교했을 때 머가 다르냐!? 가 중요한데요. 일
 multi-process로 가버리자! 라는 마인드입니다. 뿐만 아니라 DDP는 performance optimization 기술도 들어가 있다고 하네요. (자세한건 이 [논문](http://www.vldb.org/pvldb/vol13/p3005-li.pdf)을 참고하라고 하네요.)
 
 
-즉, DDP를 통해 Multi-GPU를 쓸 경우 각 GPU가 자신을 위한 하나의 process를 갖게됩니다(DP는 각 GPU가 thread를 가졋죠). 각 process가 어떤 과정을 거치면 실행되는 지 알아보기 전에 만족해야 할 조건이 있습니다. Process가 여러개이므로 서로가 통신이 되어야 하는 건데요. 그래야 weight update 공유도 하고 model을 parallel하게 학습시킬 수 있겠죠. 그래서 Pytorch에서는 process간의 통신을 위해 torch.distributed.init_process_group() 함수를 사용하도록 요구합니다. 이 함수는 사용되는 process들을 grouping하여 초기화시켜준다고 생각하시면 됩니다.
+즉, DDP를 통해 Multi-GPU를 쓸 경우 각 GPU가 자신을 위한 하나의 process를 갖게됩니다(DP는 각 GPU가 thread를 가졋죠). 각 process가 어떤 과정을 거치면 실행되는 지 알아보기 전에 만족해야 할 조건이 있습니다. Process가 여러개이므로 서로가 통신이 되어야 하는 건데요. 그래야 weight update 공유도 하고 model을 parallel하게 학습시킬 수 있겠죠. 그래서 Pytorch에서는 process간의 통신을 위해 **torch.distributed.init_process_group()** 함수를 사용하도록 요구합니다. 이 함수는 사용되는 process들을 grouping하여 초기화시켜준다고 생각하시면 됩니다.
 
 그럼 이제 process간의 통신이 가능해졌으니 DDP가 어떻게 작동하는 지 보시죠.
 
-1. DDP constructor는 각기 다른 GPU를 가진 process에 model을 복제하고 rank 0의 process가 다른 process들에게 weight를 broadcast하여 같은 weight값을 갖게 한다.
-    - 기본적으로 각 processs는 고유한 숫자의 rank를 가지는 데 process의 고유 id라고 생각하면 편하다.
-2. 각 process는 disk에서 서로 다른 mini-batch data를 불러오게 됩니다.
-    - Distributed data sampler를 사용함으로써 각 process에 data가 overlapping되지 않도록 해줍니다. (How는 좀 이따가...)
-3. 각 process의 GPU에서 forward pass와 loss의 계산이 이루어지게 됩니다.
+1. DDP constructor는 각기 다른 GPU를 가진 process에 model을 복제하고 rank 0의 process가 다른 process들에게 weight를 broadcast하여 동일한 weight값을 전달.
+    - 각 processs는 고유한 숫자의 rank를 가지는 데 process의 고유 id.
+2. 각 process는 disk에서 서로 다른 mini-batch data를 load.
+    - **Distributed data sampler** 사용함으로써 각 process의 data가 overlapping되지 않게 함 (How는 좀 이따가...)
+3. 각 process의 GPU에서 forward pass와 loss의 계산.
 4. 매 iterationd마다 Backward시에 각 GPU에서 gradient구하고 서로 all-reduced됩니다.
-    - All-reduced: 각 GPU에서 mini-batch에 대한 graident를 구하고 통신을 통해 gradient의 평균을 구하여 각 process에서 model이 동일하게 weight update하도록 함.
+    - All-reduced란 각 GPU에서 mini-batch에 대한 graident를 계산하고 통신을 통해 gradient 평균을 구하여 각 process의 model이 동일한 값으로 weight update.
 
 
-![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/1.png){: .mx-auto.d-block width="100%" :}
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/1.png){: .mx-auto.d-block width="60%" :}
 
 ### 3. DistributedDataParallel 사용 방법
 
-이제부터 코드를 따라 하나씩 이해해가면서 사용방법을 익혀 보자.
+먼저 python script를 실행하는 방법부터 조금은 다릅니다.
+
+```python
+python -m torch.distributed.launch --nproc_per_node 4 3_trainer_DDP.py
+```
+
+실행하려는 python script는 *3_trainer_DDP.py* 이며 *--nproc_per_node*의 값은 몇 개의 GPU를 쓸 건지 정하는 것입니다.
+이제 코드안에서 DDP를 위해 필요한 중요한 code가 무엇인지 **순차적**으로 살펴보죠.
+
+```python
+LOCAL_RANK = int(os.getenv('LOCAL_RANK', -1))  
+WORLD_SIZE = int(os.getenv('WORLD_SIZE', 1))
+
+if __name__=="__main__":
+
+    parser = argparse.ArgumentParser(description='PyTorch DDP')
+    ...
+    parser.add_argument('--device', type = str, default = "1,2,3,4", help = 'cuda device, i.e. 0 or 0,1,2,3')
+    parser.add_argument('--local_rank', type=int, default=-1, help='DDP parameter, do not modify')
+```
+
+LOCAL_RANK는 위에서 말씀드린 RANK와 비슷한 개념으로 이해하시면 됩니다. 그래서 4개의 GPU를 사용하므로 process도 4개이며 각 process는 각기 다른 LOCAL_RANK값을 갖게 됩니다.
+
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/2.png){: .mx-auto.d-block width="100%" :}
 
 
-
-
-
-
+LOCAL_RANK값이 0번인 process가 master가 되고 WORLD_SIZE는 전체 프로세스의 수를 의미하고 master가 얼마나 많은 워커(process)들을 기다릴지 알 수 있습니다. 그리고 argparse 모듈을 통해
+local_rank라는 argument는 꼭 추가해주어야 작동합니다. 
 
 
 ```python
-os.environ['CUDA_VISIBLE_DEVICES'] = '1, 2, 3, 4'  # what GPUs you will use
-device = torch.device('cuda:0' if cuda else 'cpu') 
-
-model = torch.nn.DataParallel(model) # convert model to DataParallel (DP) model
-model.to(device)
-
+import torch.distributed as dist
 ...
-
-outputs = model(images)
-loss = nn.CrossEntropyLoss()(outputs, labels)
-loss.backward() 
-optimizer.step() 
+torch.cuda.set_device(LOCAL_RANK)
+dist.init_process_group(backend="nccl" if dist.is_nccl_available() else "gloo")
 ```
 
-Multi-GPU를 사용하기 위해 torch.nn.DataParallel function인자에 Multi-GPU로 training하고 싶은 model만 넣어주면 됩니다.
-torch.nn.DataParallel를 사용하였을 때 model의 forward와 backward는 다음과 같이 작동합니다.
-
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/1.png){: .mx-auto.d-block width="100%" :}
-
-1. **Forward process**s
-    1. GPU 1가 master GPU로써 batch를 사용하는 GPU 개수(4개)로 나누어 줍니다(scatter).
-    2. Model를 GPU 수만큼 복제(replicate)합니다.
-    3. 나누어진 batch를 각각 복제된 model에 forwarding해줍니다.
-    4. forward된 outputs을 master GPU에 다시 모아줍니다(gather). 
-2. **Backward process**
-    1. Master GPU에서 loss를 compute합니다.
-    2. 계산된 loss를 GPU 개수(4개)로 나누어 보내줍니다(scatter).
-    3. loss로부터 각 GPU에서 backwarding를 통해 gradient를 구해줍니다.
-    4. 각 GPU에서 계산된 gradient를 master GPU에 모아줍니다(reduce).
-3. **Master GPU에서 weight를 update해줍니다.**
+1번째 줄에 의해 각 process가 고유한 LOCAL_RANK를 가지므로 점유하는 GPU도 다르게 됩니다. <span style="color:#C70039">**dist.init_process_group**</span>은 
+distributed process group을 initialize하여 process간의 통신을 가능토록 합니다. 그리고 통신을 위한 backend를 nccl이나 gloo로 선택가능합니다. 어떤 backend를 쓸 지에 따라
+CPU또는 GPU device에서 사용가능한 통신관련 function이 다릅니다. 
 
 
-실제로 위의 과정이 일어나는 지 확인하기 위해 다음과 같은 변수 value 및 size를 print 해보겠습니다.
-먼저 mobilenetv2의 forward 함수에서 input과 output의 size를 출력해보겠습니다.
+기본적으로 nccl이 NVIDIA GPU에 최적화 된 다중 GPU 및 다중 노드 집단 통신 library이므로 CUDA사용 시 nccl를 쓰는 게 좋다라고 생각하시고 nccl쓰시면 됩니다. 
 
 ```python
-    def forward(self, x): # in mobilenetv2.py
-        input = x
-        print(f'Input size: {input.size()}')
-        x = self.features(x)
-        x = self.conv(x)
-        x = self.avgpool(x)
-        x = x.view(x.size(0), -1)
-        x = self.classifier(x)
-        output = x 
-        print(f'Output size: {output.size()}')
-        return output
+from torch.nn.parallel import DistributedDataParallel as DDP
+model = model.to(LOCAL_RANK)
+model = DDP(model, device_ids=[LOCAL_RANK])
 ```
 
-**Out:**
-
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/2.PNG){: .mx-auto.d-block width="60%" :}
-
-
-총 4개의 GPU를 사용하였고 Batch size가 256개 이므로 각 GPU에서 64개 batch단위로 forward하게 되는것을 확인가능합니다.
-그리고 다음과 같이 위 코드에서 output자체를 출력해볼경우에도 각 device에서 서로 다른 batch image를 처리하는 것을 알 수 있습니다.
-
-**Out:**
-
-
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/3.png){: .mx-auto.d-block width="80%" :}
-
-
-다음으로는 나누어진 outputs들이 합쳐지는 지 다음과 같은 코드로 확인해보면
+이제 process끼리 통신이 가능해 졋으니 각 model를 DDP로 wrapping시키고 각 process가 가지는 GPU를 model에 할당 해주는 것이 위의 코드입니다.
+<span style="color:#C70039">**DDP**</span> function을 통해서 model을 paralleize하게 되고 그로 인해 각 process에 model이 replicate됩니다. 
+각 process의 model의 input data을 dataloader가 다음과 같은 코드로 동일한 크기로 나누어 주게 됩니다. (단, 각 process에 할당하는 data는 모두 다르다.)
 
 ```python
-outputs = model(images) 
-print(f'Output: {outputs}')
-print(f'Output size: {outputs.size()}')
+train_dt = CIFAR10(self.data_dir, transform=self.train_trans, download=True)
+test_dt = CIFAR10(self.data_dir, train=False, transform=self.test_trans, download=True)
+
+tr_sampler = torch.utils.data.distributed.DistributedSampler(train_dt, num_replicas=WORLD_SIZE, rank=LOCAL_RANK) if LOCAL_RANK != -1 else None
+te_sampler = torch.utils.data.distributed.DistributedSampler(test_dt, num_replicas=WORLD_SIZE, rank=LOCAL_RANK) if LOCAL_RANK != -1 else None
+
+train_loader = DataLoader(train_dt, batch_size=bs // WORLD_SIZE, num_workers=nw, pin_memory=True, sampler=tr_sampler)
+test_loader = DataLoader(test_dt, batch_size=bs // WORLD_SIZE, num_workers=nw, pin_memory=True, sampler=te_sampler)
 ```
 
-**Out:**
+기존에 사용하던 부분과 크게 다른 점은 <span style="color:#C70039">**torch.utils.data.distributed.DistributedSampler**</span> 함수를 사용한다는 것입니다.
+즉, 이 함수를 통해서 각 process에게 서로 다른 data를 주게 됩니다. 하나 더 다른 점은 batch_size를 WORLD_SIZE로 나누어 주게 됩니다. 밑의 그림과 같이 사용하려 하는 batch size가 256이라면
+각 process에서는 64개의 batch로 나누어 계산하고 각기 다른 64개 batch에 대한 output을 내게 됩니다.
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/4.PNG){: .mx-auto.d-block width="75%" :}
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/3.png){: .mx-auto.d-block width="80%" :}
 
-각 GPU에서 forwards된 outputs이 master GPU(cuda:0)에 합쳐지는 것을 볼 수 있습니다.
+또한 각기 다른 input data를 받고 있다는 것을 보여드리기 위해 model의 output을 출력해보면 서로 다른 output값을 내는 것을 확인 가능합니다. (편의를 위해 64 batch 중 1번째만 출력)
 
-
-### 4. Single-GPU vs Multi-GPU (DataParallel) 결과 비교
-
-Mobilenetv2 model에서 총 10epoch을 돌려 Single-GPU와 Multi-GPU의 elapse time를 비교하겠습니다.
-
-
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/5.png){: .mx-auto.d-block width="100%" :}
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/4.png){: .mx-auto.d-block width="80%" :}
 
 
-위의 그림에서 볼 수 있듯이 같은 batch일 경우는 Multi-GPU의 효과를 보기 힘드네요. 추측해본건데 같은 batch일경우
-Dataparallel사용에 따른 scatter, replicate, gather 과정이 추가되므로 속도가 저하되는 것 같습니다.
+### 4. DistributedDataParallel 결과 비교 (with Single-GPU and DataParallel)
 
-MobileNetv2 모델하나로 판단하는 게 generality가 떨어진다고 생각되어 ResNet50으로도 돌려보았습니다.
+[이전글](https://da2so.github.io/2021-09-23-Pytorch_MultiGPU/)과 experiment setting은 동일하게 진행하였으며 한 epoch당 train/test 시간(Avg_train/test)을 batch단위로 나누어서 비교하였습니다.
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/6.png){: .mx-auto.d-block width="80%" :}
-
-분석하자면 다음과 같습니다.
-
-- 상대적으로 모델이 작은 MobileNetv2에서 Multi-GPU의 time computation효과를 보기 위해서는 batch size를 늘려야한다.
-- 반대로, 모델이 큰 ResNet50에서는 Single-GPU와 비교했을 때 같은 batch size이더라도 Multi-GPU로 나누어 training하는 게 더 빠르다.
-- Multi-GPU를 사용한 모델의 test inference time이 Single-GPU보다 높다.
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/5.png){: .mx-auto.d-block width="100%" :}
 
 
-### 5. Multi-GPU (DataParallel) 의 문제점
-
-이 Section에서는 Dataparallel을 썼을 때의 문제점을 정리해보고 그에 대한 해결방안이 무엇이 있는지 알아보겠습니다.
-먼저 Dataparallel의 문제점은 크게 2가지입니다.
-
-1. **추가적인 resource사용이 요구된다.**
-
-위에서 언급드린 (a) 매 iteration마다 model를 replicate하고 forward시켜야 한다. (b) gather, reduce 작업이 추가로 요구된다.
-라는 process때문에 training time을 더 효율적으로 줄일 수 없다고 합니다.
-
-2. **single-process multi-thread parallelism이 GIL에 의한 방해를 받는다**
-
-먼저 GIL이란 **Global Interpreter Lock** 의 약자인데 여러개의 쓰레드간의 동기화를 위해 사용되는 기술인데 동시에 하나 이상의 쓰레드가 실행되지 않게 합니다.
-예를 들어 3개의 thread가 동시에 cpu를 점유할 수 없습니다. 즉, 멀티 쓰레드 프로그래밍해도 성능이 향상되지 않는다는 말이다.
-이 기술을 쓰는 이유는 만약 parallel 한 multi-threads 구현체들을 사용할수 있도록 할 경우(GIL을 쓰지 않을 경우) single thread만 사용하는 경우의 성능 저하를 만들어낸다.
-
-그래서 정리하자면 GIL때문에 DataParallel사용 시 multi-thread paralleslism이 잘 작동하지 않는 것이다. 그렇다면 이를 해결하기 위해 Pytorch에서는 <span style="color:#C70039">**DistributedDataParallel**</span>을 사용하기를 
-권장하는데 이는 다음 글에서 만나보자.
-
+결과적으로 DDP를 쓰게되면 single-GPU와 다르게 batch size도 크게 setting할 수 있으며 batch size가 증가할 수록 singe-GPU나 DP에 비해 효과적으로 빠른 training을 할 수 있음을 보여준다.
 
 ### <span style="color:#C70039 "> Reference </span>
 
