@@ -162,8 +162,9 @@ MobileNetv2 모델하나로 판단하는 게 generality가 떨어진다고 생�
 예를 들어 3개의 thread가 동시에 cpu를 점유할 수 없습니다. 즉, 멀티 쓰레드 프로그래밍해도 성능이 향상되지 않는다는 말이다.
 이 기술을 쓰는 이유는 만약 parallel 한 multi-threads 구현체들을 사용할수 있도록 할 경우(GIL을 쓰지 않을 경우) single thread만 사용하는 경우의 성능 저하를 만들어낸다.
 
-그래서 정리하자면 GIL때문에 DataParallel사용 시 multi-thread paralleslism이 잘 작동하지 않는 것이다. 그렇다면 이를 해결하기 위해 Pytorch에서는 <span style="color:#C70039">**DistributedDataParallel**</span>을 사용하기를 
-권장하는데 이는 다음 글에서 만나보자.
+그래서 정리하자면 GIL때문에 DataParallel사용 시 multi-thread paralleslism이 잘 작동하지 않는 것이다. 그렇다면 이를 해결하기 위해 Pytorch에서는 <span style="color:#C70039">**DistributedDataParallel**</span>을 사용하기를 권장하는데 이는 다음 글에서 만나보자.
+
+해당 실험에 대한 코드는 [여기서](https://github.com/da2so/Pytorch_MultiGPU) 사용가능하다.
 
 
 ### <span style="color:#C70039 "> Reference </span>

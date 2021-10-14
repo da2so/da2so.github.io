@@ -41,7 +41,7 @@ multi-process로 가버리자! 라는 마인드입니다. 뿐만 아니라 DDP�
     - All-reduced란 각 GPU에서 mini-batch에 대한 graident를 계산하고 통신을 통해 gradient 평균을 구하여 각 process의 model이 동일한 값으로 weight update.
 
 
-![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/1.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/1.png){: .mx-auto.d-block width="100%" :}
 
 ### 3. DistributedDataParallel 사용 방법
 
@@ -68,7 +68,7 @@ if __name__=="__main__":
 
 LOCAL_RANK는 위에서 말씀드린 RANK와 비슷한 개념으로 이해하시면 됩니다. 그래서 4개의 GPU를 사용하므로 process도 4개이며 각 process는 각기 다른 LOCAL_RANK값을 갖게 됩니다.
 
-![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/2.png){: .mx-auto.d-block width="100%" :}
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/2.png){: .mx-auto.d-block width="60%" :}
 
 
 LOCAL_RANK값이 0번인 process가 master가 되고 WORLD_SIZE는 전체 프로세스의 수를 의미하고 master가 얼마나 많은 워커(process)들을 기다릴지 알 수 있습니다. 그리고 argparse 모듈을 통해
@@ -114,11 +114,11 @@ test_loader = DataLoader(test_dt, batch_size=bs // WORLD_SIZE, num_workers=nw, p
 즉, 이 함수를 통해서 각 process에게 서로 다른 data를 주게 됩니다. 하나 더 다른 점은 batch_size를 WORLD_SIZE로 나누어 주게 됩니다. 밑의 그림과 같이 사용하려 하는 batch size가 256이라면
 각 process에서는 64개의 batch로 나누어 계산하고 각기 다른 64개 batch에 대한 output을 내게 됩니다.
 
-![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/3.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/3.PNG){: .mx-auto.d-block width="80%" :}
 
 또한 각기 다른 input data를 받고 있다는 것을 보여드리기 위해 model의 output을 출력해보면 서로 다른 output값을 내는 것을 확인 가능합니다. (편의를 위해 64 batch 중 1번째만 출력)
 
-![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/4.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2021-10-01-Pytorch_MultiGPU2/4.PNG){: .mx-auto.d-block width="80%" :}
 
 
 ### 4. DistributedDataParallel 결과 비교 (with Single-GPU and DataParallel)
@@ -129,6 +129,8 @@ test_loader = DataLoader(test_dt, batch_size=bs // WORLD_SIZE, num_workers=nw, p
 
 
 결과적으로 DDP를 쓰게되면 single-GPU와 다르게 batch size도 크게 setting할 수 있으며 batch size가 증가할 수록 singe-GPU나 DP에 비해 효과적으로 빠른 training을 할 수 있음을 보여준다.
+
+해당 실험에 대한 코드는 [여기서](https://github.com/da2so/Pytorch_MultiGPU) 사용가능하다.
 
 ### <span style="color:#C70039 "> Reference </span>
 
