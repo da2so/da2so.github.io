@@ -4,7 +4,7 @@ title: Docker/Kubernetes - (1) Docker란?
 tags: [Docker, Kubernetes]
 comments: true
 use_math: true
-thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.PNG
+thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.png
 ---
 
 Enviroment: Ubuntu 18.04 
@@ -14,7 +14,7 @@ Enviroment: Ubuntu 18.04
 
 Docker는 GO 언어로 작성되어 있으며 linux container에 여러 기능을 추가하여 application을 컨테이너로서 쉽게 사용하게 하는 겁니다.
 
-![1](https://da2so.github.io/assets/2022-01-05-Docker_Kubernetes1/1.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-05-Docker_Kubernetes1/1.png){: .mx-auto.d-block width="80%" :}
 
 Docker의 필요성에 대한 예시로 AI개발자들은 겪어 봤을 예시를 하나 알려드립니다.
 
@@ -58,5 +58,5 @@ apt-get install docker-ce
 
 잘 설치 되었다면 다음과 같이 버전 확인이 가능합니다.
 
-![1](https://da2so.github.io/assets/2022-01-05-Docker_Kubernetes1/2.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-05-Docker_Kubernetes1/2.png){: .mx-auto.d-block width="60%" :}
 
