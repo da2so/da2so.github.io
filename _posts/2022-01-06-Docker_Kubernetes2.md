@@ -120,30 +120,28 @@ docker run -i -t -v /home/wordpress_db:/var/lib/mysql mysql:5.7
 </div>
 </details>
 
-## 2. Docker container관련 유용한 명령어
+
+## 3. Docker container관련 유용한 명령어
 
 
 docker engine의 유용한 명령어는 다음과 같습니다.
 
 1. **정지된 container 포함하여 모든 컨테이너 출력**
-
 ```
 docker ps -a
 ```
 
 2. **실행 중인 컨테이너 정지/삭제**
-
 ```
 docker stop/rm ${CONTAINER ID 또는 NAMES}
 ```
-추가로 *모든 컨테이너 삭제*는 다음과 같습니다.
 
+3. **실행 중인 모든 컨테이너 정삭제**
 ```
 docker container prune
 ```
 
 3. **정지된 컨테이너 시작/접속**
-
 ```
 docker start/attach ${CONTAINER ID 또는 NAMES}
 ```
