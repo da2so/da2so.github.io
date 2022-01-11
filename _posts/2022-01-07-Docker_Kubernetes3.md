@@ -29,7 +29,7 @@ Docker는 컨테이너에 내부 IP를 순차적으로 할당하며, IP는 컨�
 
 컨테이너 생성 시 자동으로 bridge를 선택하게 되는 것이고 위에서 docker0이 해당 브리지를 의미합니다.
 
-#### 브리지 네트워크
+__브리지 네트워크__
 해당 네트워크는 docker0이 아닌 사용자 정의 브리지를 새로 생성도 가능합니다.
 
 ```
@@ -48,7 +48,7 @@ docker run -i -t --net mybridge ubuntu:16.04
 ```
 
 
-#### 호스트 네트워크
+__호스트 네트워크__
 호스트 네트워크로 설정시 호스트의 네트워크 환경을 그대로 쓸 수 있습니다.
 
 ```
@@ -56,7 +56,7 @@ docker run -i -t --net host ubuntu:16.04
 ```
 
 
-#### 논 네트워크
+__논 네트워크__
 말 그대로 None으로 네트워크를 쓰지 않겠다는 것이고 이는 외부와 단절됩니다.
 
 ```
@@ -110,7 +110,7 @@ docker run -p 80:80 -d --log-driver=fluentd --log-opt fluentd-address=192.168.26
 ![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/8.png){: .mx-auto.d-block width="70%" :}
 
 
-**정리**
+__정리__
 - docker server host와 nginx container가 80번 포트로 서로 연결됨
 - 해당 host에서 nginx containerd안의 nginx 웹서비스 접속(127.0.0.1)
 - nginx에 대한 log를 fluentd로 logging 수집
