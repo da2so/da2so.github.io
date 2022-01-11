@@ -29,7 +29,7 @@ Docker는 컨테이너에 내부 IP를 순차적으로 할당하며, IP는 컨�
 
 컨테이너 생성 시 자동으로 bridge를 선택하게 되는 것이고 위에서 docker0이 해당 브리지를 의미합니다.
 
-__브리지 네트워크__
+#### 브리지 네트워크
 해당 네트워크는 docker0이 아닌 사용자 정의 브리지를 새로 생성도 가능합니다.
 
 ```
@@ -48,21 +48,21 @@ docker run -i -t --net mybridge ubuntu:16.04
 ```
 
 
-__호스트 네트워크__
-호스트 네트워크로 설정시 호스트의 네트워크 환경을 그대로 쓸 수 있습니다.
+#### 호스트 네트워크
 
 ```
 docker run -i -t --net host ubuntu:16.04
 ```
+호스트 네트워크로 설정시 호스트의 네트워크 환경을 그대로 쓸 수 있습니다.
 
 
-__논 네트워크__
-말 그대로 None으로 네트워크를 쓰지 않겠다는 것이고 이는 외부와 단절됩니다.
+#### 논 네트워크
 
 ```
 docker run -i -t --net none ubuntu:16.04
 ```
 
+말 그대로 None으로 네트워크를 쓰지 않겠다는 것이고 이는 외부와 단절됩니다.
 
 ## 2. Docker container 로깅
 
@@ -82,7 +82,7 @@ docker run --name mongoDB -d -p 27017:27017 mongo
 
 그리고 fluentd 서버의 호스트에서 다음과 같은 fluent.conf를 작성합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/6.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/6.png){: .mx-auto.d-block width="50%" :}
 
 
 해당 내용은 로그 데이터를 mongodb에 전송하고 mongodb의 access라는 collection에 로그를 저장하겟다는 것과 mongodb의 host, port를 지정한것입니다.
