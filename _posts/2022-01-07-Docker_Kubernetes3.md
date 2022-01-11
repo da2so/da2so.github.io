@@ -41,12 +41,10 @@ docker network create --driver bridge mybridge
 ![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/4.png){: .mx-auto.d-block width="80%" :}
 
 
-새로 만든 네트워크를 사용하여 container생성이 가능합니다.
-
 ```
 docker run -i -t --net mybridge ubuntu:16.04
 ```
-
+위와 같이 새로 만든 네트워크를 사용하여 container생성이 가능하고 생성된 container는 mybridge의 IP 대역폭을 사용하게 됩니다.
 
 #### 호스트 네트워크
 
