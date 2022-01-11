@@ -52,7 +52,7 @@ docker run -i -t --net mybridge ubuntu:16.04
 호스트 네트워크로 설정시 호스트의 네트워크 환경을 그대로 쓸 수 있습니다.
 
 ```
-docker run -i -t -net host ubuntu:16.04
+docker run -i -t --net host ubuntu:16.04
 ```
 
 
@@ -60,8 +60,9 @@ docker run -i -t -net host ubuntu:16.04
 말 그대로 None으로 네트워크를 쓰지 않겠다는 것이고 이는 외부와 단절됩니다.
 
 ```
-docker run -i -t -net none ubuntu:16.04
+docker run -i -t --net none ubuntu:16.04
 ```
+
 
 ## 2. Docker container 로깅
 
