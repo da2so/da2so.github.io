@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Docker/Kubernetes - (1) Docker cotainer/image
+title: Docker/Kubernetes - (2) Docker image/cotainer
 tags: [Docker, Kubernetes]
 comments: true
 use_math: true
@@ -23,7 +23,7 @@ Docker image 특성
 
 Docker image 구성은 다음과 같습니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-06-Docker_Kubernetes2/1.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-06-Docker_Kubernetes2/1.png){: .mx-auto.d-block width="50%" :}
 
 - 저장소
 	- 이미지가 저장된 장소를 의미하고 명시되지 않을경우 docker hub라는 공식 이미지 저장소에서 해당 이미지를 가져옵니다.
@@ -39,7 +39,7 @@ Docker image 구성은 다음과 같습니다.
 다음과 같이 한 image로 여러개의 docker container를 생성가능하며 생성된 각 container는 독립된 공간을 가지기 때문에 각 container안에서 새로 설치할 파일은
 다른 container에 영향을 주지 않습니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-06-Docker_Kubernetes2/2.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-06-Docker_Kubernetes2/2.png){: .mx-auto.d-block width="60%" :}
 
 ## 2. Docker image 다운로드 및 container 생성
 
@@ -63,32 +63,30 @@ docker run -i -t  ubuntu:16.04
 다음과 같이 container안으로 들어오게 되고 해당 container안에서 ubuntu 버전 확인시 16.04임을 확인가능합니다. 참고로 -i -t는 컨네이터 내부로 들어가게 하여 상호작용 가능한 셸환경을 설정하는 것입니다. 
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-06-Docker_Kubernetes2/4.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-06-Docker_Kubernetes2/4.png){: .mx-auto.d-block width="50%" :}
 
 
 docker run에 유용한 옵션은 다음과 같습니다.
 
 <details>
-<summary>--name</summary>
+<summary>--name [명칭]</summary>
 <div markdown="1">
 
 ```
 docker run -i -t  --name myubuntu ubuntu:16.04 
 ```
-
 name옵션은 container의 명칭을 정해주는 것입니다. 
 </div>
 </details>
 
 
 <details>
-<summary>-p </summary>
+<summary>-p [포트]</summary>
 <div markdown="1">
 
 ```
 docker run -i -t -p 88:80 ubuntu:16.04 
 ```
-
 -p 뒤의 88(호스트의 포트):80(컨테이너 포트)로 호스트와 컨테이너의 포트를 바인딩시킵니다. 
 컨테이너안의 apache 웹서비스가 설치되어 있고 해당 웹서비스가 80포트를 사용하게될 경우 다음과 같은 접근이 가능합니다.
 1. 외부에서 호스트의 IP의 88번 포트로 접근
@@ -99,42 +97,52 @@ docker run -i -t -p 88:80 ubuntu:16.04
 </details>
 
 <details>
-<summary>-e </summary>
+<summary>-e [환경설정]</summary>
 <div markdown="1">
 
 ```
 docker run -i -t -e MYSQL_ROOT_PASSWORD=password mysql 
 ```
-
 e옵션은 컨테이너 내부의 환경변수를 설정합니다. 컨테이너마다 e옵션을 통해 환경설정을 안해줄경우 실행이 되지않는 경우가 있으니 주의하세요
 
 </div>
 </details>
 
 
-## 2. Docker Engine 유용한 명령어
+<details>
+<summary>-v (볼륨)</summary>
+<div markdown="1">
+
+```
+docker run -i -t -v /home/wordpress_db:/var/lib/mysql mysql:5.7
+```
+-v옵션 뒤의 home/wordpress_db(호스트의 볼륨):/var/lib/mysql(컨테이너 볼륨)은 호스트의 디렉터리와 컨테이너의 디렉터리를 공유한다는 뜻입니다.
+</div>
+</details>
+
+## 2. Docker container관련 유용한 명령어
 
 
 docker engine의 유용한 명령어는 다음과 같습니다.
 
-1. 정지된 container 포함하여 모든 컨테이너 출력
+1. **정지된 container 포함하여 모든 컨테이너 출력**
+
 ```
 docker ps -a
 ```
 
-2. 실행 중인 컨테이너 정지/삭제
+2. **실행 중인 컨테이너 정지/삭제**
 
 ```
 docker stop/rm ${CONTAINER ID 또는 NAMES}
 ```
-
 추가로 *모든 컨테이너 삭제*는 다음과 같습니다.
 
 ```
 docker container prune
 ```
 
-3. 정지된 컨테이너 시작/접속
+3. **정지된 컨테이너 시작/접속**
 
 ```
 docker start/attach ${CONTAINER ID 또는 NAMES}
