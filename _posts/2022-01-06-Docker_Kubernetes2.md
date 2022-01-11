@@ -91,13 +91,25 @@ docker run -i -t -p 88:80 ubuntu:16.04
 
 -p 뒤의 88(호스트의 포트):80(컨테이너 포트)로 호스트와 컨테이너의 포트를 바인딩시킵니다. 
 컨테이너안의 apache 웹서비스가 설치되어 있고 해당 웹서비스가 80포트를 사용하게될 경우 다음과 같은 접근이 가능합니다.
-1. 외부에서 호스트의 IP의 80번 포트로 접근
-2. 80번 포트는 컨테이너의 80번 포트로 포워딩
+1. 외부에서 호스트의 IP의 88번 포트로 접근
+2. 88번 포트는 컨테이너의 80번 포트로 포워딩
 3. 컨테이너 안의 웹서버 접근 가능
 
 </div>
 </details>
 
+<details>
+<summary>-e </summary>
+<div markdown="1">
+
+```
+docker run -i -t -e MYSQL_ROOT_PASSWORD=password mysql 
+```
+
+e옵션은 컨테이너 내부의 환경변수를 설정합니다. 컨테이너마다 e옵션을 통해 환경설정을 안해줄경우 실행이 되지않는 경우가 있으니 주의하세요
+
+</div>
+</details>
 
 
 ## 2. Docker Engine 유용한 명령어
@@ -122,5 +134,8 @@ docker stop/rm ${CONTAINER ID 또는 NAMES}
 docker container prune
 ```
 
-2. 실행 중인 컨테이너 정지/삭제
+3. 정지된 컨테이너 시작/접속
 
+```
+docker start/attach ${CONTAINER ID 또는 NAMES}
+```
