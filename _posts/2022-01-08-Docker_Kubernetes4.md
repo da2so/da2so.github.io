@@ -14,7 +14,7 @@ Enviroment: Ubuntu 18.04
 
 Docker는 다음과 같이 docker hub라는 중앙 이미지 저장소에서 이미지를 다운받습니다. Docker계정만 있으면 누구든 이미지를 올리고 내려받을 수 있습니다. 이외에도 docker container로 구현되어 있는 docker private registry로 개인 서버에 이미지를 저장할 수 있는 저장소를 만들 수 있습니다만 여기서는 docker hub만을 이용하겠습니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-08-Docker_Kubernetes4/1.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-08-Docker_Kubernetes4/1.png){: .mx-auto.d-block width="30%" :}
 
 
 
