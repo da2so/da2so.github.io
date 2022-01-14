@@ -99,7 +99,21 @@ ADD와 COPY를 로컬디렉터리에서 읽어 들인 context로부터 이미지
 
 CMD는 아까 설명드렸듯이 docker run명령어에서 맨 뒤에 입력했던 커맨드와 같은 역할을 한다고 말씀드렸습니다. 이와 비슷하게 역할을 ENTRYPOINT하는데여. 다른 점은 커맨들르 인자로 받아 사용할 수 있는 스크립트의 역할을 할 수 있습니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-10-Docker_Kubernetes5/6.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-10-Docker_Kubernetes5/6.png){: .mx-auto.d-block width="80%" :}
 
 
 위에서 Dockerfile에서는 entrypoint.sh을 container안에 add, 실행을 위한 권한해제를 합니다. 그리고 ENTRYPOINT를 통해 컨테이너 시작시 /bin/bash entrypoint.sh을 실행시키게 되는데 entrypoint.sh파일 내용을 볼 수 있듯이 두개의 arugment를 받아 출력(echo)하고 아파치 웹 서버를 실행시킵니다. 그래서 docker run시에 맨뒤에 arugment인 first와 second를 준것입니다.
+
+#### JSON 형태와 일반 형식의 차이점
+
+CMD와 ENTRYPOINT에 설정하려는 명령어를 /bin/sh로 사용할 수 없다면 JSON형태로 명령어를 설정해야합니다. 즉, JSON형태가 아닌 경우 image생성 시에 CMD와 ENTRYPOINT에 /bin/sh -c가 앞에 추가되기 때문입니다. 다음 예제를 보시면 일반 형식과 JSON형식의 차이점을 아실 수 있습니다. 
+
+```
+CMD echo test
+# -> /bin/sh -c echo test
+
+CMD ["echo", "test"]
+# -> echo test
+```
+
+
