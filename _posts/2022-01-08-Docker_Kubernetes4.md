@@ -37,7 +37,7 @@ Docker는 다음과 같이 docker hub라는 중앙 이미지 저장소에서 이
 docker commit -a 'da2so' -m 'writing test' myubuntu  myubuntu:first
 ``` 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes4/3.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-08-Docker_Kubernetes4/3.png){: .mx-auto.d-block width="70%" :}
 
 <span style="color:DodgerBlue">'docker images'</span>를 통해 실제로 image가 생성된 것을 확인가능하며 옵션 -a는 author의미이고 -m은 commit message이며 myubuntu:first는 생성할 이미지의 tag입니다. 이 상황에서 docker image는 기존의 docker image엿던 ubuntu:16.04와는 아래와 같은 차이를 보입니다.(캡처된 Layers 및 sha는 docker **inspect** ubuntu:16.04(or myubuntu:first)로 확인가능합니다.)
 
