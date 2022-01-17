@@ -250,7 +250,7 @@ pip3 install docker
 
 라이브러리가 정상적으로 설치되어있는 지 확인하기위해 unix socket에 연결해 docker engine의 정보를 출력해봅니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/19.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/19.png){: .mx-auto.d-block width="90%" :}
 
 
 좀더 심화 과정으로 다음과 같은 시나리오를 진행해보죠.
@@ -271,5 +271,5 @@ client= docker.DockerClient(base_url='tcp://192.168.26.129:2376', tls=tls_config
 container = client.containers.run('ubuntu:16.04', name='python_ubuntu', detach=True)
 print(f'Created container is : {container.name}, {container.id}')
 ```
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/20.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/20.png){: .mx-auto.d-block width="90%" :}
 
