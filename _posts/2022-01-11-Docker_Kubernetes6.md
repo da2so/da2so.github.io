@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Docker/Kubernetes - (5) Docker daemon
+title: Docker/Kubernetes - (6) Docker daemon
 tags: [Docker, Kubernetes]
 comments: true
 use_math: true
