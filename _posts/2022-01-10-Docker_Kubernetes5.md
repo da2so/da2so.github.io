@@ -9,9 +9,7 @@ thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.png
 
 Enviroment: Ubuntu 18.04 
 {: .box-note}
-
 ## 1. Dockerfile
-
 이전 글과 같이 container에서 애플리케이션이 동작하는 환경을 만들면 일일이 container안에 들어가서 설치를 위한 수작업을 해서 image로 commit해야합니다.(위의 그림) 하지만 dockerfile를 사용한다면 추가해야하는 패키지, 명령어, 코드 등을 dockerfile에 저장해놓고 build를 통해 위의 작업을 간소화할 수 있습니다. (아래 그림)
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-10-Docker_Kubernetes5/1.png){: .mx-auto.d-block width="90%" :}

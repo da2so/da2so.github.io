@@ -9,9 +9,7 @@ thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.png
 
 Enviroment: Ubuntu 18.04 
 {: .box-note}
-
 ## 1. Docker란?
-
 Docker는 GO 언어로 작성되어 있으며 linux container에 여러 기능을 추가하여 application을 컨테이너로서 쉽게 사용하게 하는 겁니다.
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-05-Docker_Kubernetes1/1.png){: .mx-auto.d-block width="80%" :}

@@ -9,9 +9,7 @@ thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.png
 
 Enviroment: Ubuntu 18.04 
 {: .box-note}
-
 ## 1. Docker container 네트워크
-
 Docker는 컨테이너에 내부 IP를 순차적으로 할당하며, IP는 컨테이터 재시작마다 변경될 수 있습니다. 컨테이너 내부의 IP는 외부와 연결될 수 있도록 Host에 veth(virtual eth)라는 네트워크 인터페이스를 자동으로 만들게 됩니다. 그렇다면 각 컨테이너 마다 veth를 생성하게 되고 docker0이라는 브리지를 통해 veth인터페이스와 바인딩되어 호스트의 eth0과 연결시켜줍니다.
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/1.png){: .mx-auto.d-block width="70%" :}

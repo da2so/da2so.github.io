@@ -8,11 +8,8 @@ thumbnail-img: /assets/thumbnail_img/2021-09-23-Pytorch_MultiGPU/post.PNG
 ---
 
 ## 1. Introduction
-
 게재된 모든 실험은 python 3.6, Pytorch 1.7.0 에서 진행되었음을 알려드립니다. 
 {: .box-note}
-
-
 해당 글은 Pytorch에서 [이전 글](https://da2so.github.io/2021-09-23-Pytorch_MultiGPU/)에서 말씀드린 Pytorch의 DistributedDataParallel에 대해 설명드립니다.
 **이전 글과 Experiment setting은 동일하니 궁금하시면 이전 글에서 참고 하십시오!**
 오늘 설명드릴 목차는 다음과 같습니다.

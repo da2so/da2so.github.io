@@ -8,11 +8,8 @@ thumbnail-img: /assets/thumbnail_img/2021-09-23-Pytorch_MultiGPU/post.PNG
 ---
 
 ## 1. Introduction
-
 게재된 모든 실험은 python 3.6, Pytorch 1.7.0 에서 진행되었음을 알려드립니다. 
 {: .box-note}
-
-
 해당 글은 Pytorch에서 Single-GPU와 Multi-GPU의 차이를 이해하고 직접 실험해 볼 수 있는 환경을 제공하기 위함을 알려드립니다.
 오늘 설명드릴 목차는 다음과 같습니다.
  

@@ -9,9 +9,7 @@ thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.png
 
 Enviroment: Ubuntu 18.04 
 {: .box-note}
-
 ## 1. Docker image/container
-
 Docker Engine에서 사용하는 기본 단위가 container와 image이고 image는 container를 생성할때 필요한 요소입니다.
 
 ### 1.1 Docker image 
