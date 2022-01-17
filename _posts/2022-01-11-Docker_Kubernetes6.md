@@ -202,7 +202,7 @@ docker stats
 docker system df
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/17.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/17.png){: .mx-auto.d-block width="70%" :}
 
 
 #### CAdvisor
