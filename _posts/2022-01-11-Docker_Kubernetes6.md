@@ -82,33 +82,33 @@ Docker는 기본적으로 보안 연결 설정이 안되어있기 때문에 dock
 
 #### 서버 측 파일 생성
 
-1.  인증서에 사용할 key 생성 **<span style="color:Crimson">(ca-key.pem)</span>**
+-  인증서에 사용할 key 생성 **<span style="color:Crimson">(ca-key.pem)</span>**
 
 RSA 4096 키 생성 및 개인키를 AES256 으로 암호화하여 ca-key.pem 파일을 만듭니다. 
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/6.png){: .mx-auto.d-block width="90%" :}
 
-2. Public key를 생성 **<span style="color:Crimson">(ca.pem)</span>**
+- Public key를 생성 **<span style="color:Crimson">(ca.pem)</span>**
 
 입력하는 모든 항목은 공백으로 둬도 상관없으므로 공백으로 둔다.
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/7.png){: .mx-auto.d-block width="90%" :}
 
 
-3. 서버에서 사용할 key 생성 **<span style="color:Crimson">(server-key.pem)</span>**
+- 서버에서 사용할 key 생성 **<span style="color:Crimson">(server-key.pem)</span>**
 
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/8.png){: .mx-auto.d-block width="90%" :}
 
 
-4. 서버에서 사용될 인증서를 위한 인증 요청서 파일 생성 **<span style="color:Crimson">(server.csr)</span>**
+- 서버에서 사용될 인증서를 위한 인증 요청서 파일 생성 **<span style="color:Crimson">(server.csr)</span>**
 
 192.168.29.129은 docker host의 IP주소 또는 domain이름이고 이는 외부에서 접근가능해야합니다.
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/9.png){: .mx-auto.d-block width="90%" :}
 
 
-5. 서버 측의 인증서 파일을 생성합니다. **<span style="color:Crimson">(server-cert.pem)</span>**
+- 서버 측의 인증서 파일을 생성합니다. **<span style="color:Crimson">(server-cert.pem)</span>**
 
 접속에 사용될 IP주소를 extfile.cnf로 저장하고 192.168.29.129으로 연결이 사용되도록 인증서 파일을 생성한다.
 
@@ -118,17 +118,17 @@ RSA 4096 키 생성 및 개인키를 AES256 으로 암호화하여 ca-key.pem �
 #### 클라이언트 측 파일 생성
 
 
-1. 클라이언트 측의 key 파일 **<span style="color:Crimson">(key.pem)</span>**과 인증 요청파일을 생성 **<span style="color:Crimson">(client.csr)</span>** , extfile.cnt파일에 extendedKeyUsage항목 추가
+- 클라이언트 측의 key 파일 **<span style="color:Crimson">(key.pem)</span>**과 인증 요청파일을 생성 **<span style="color:Crimson">(client.csr)</span>** , extfile.cnt파일에 extendedKeyUsage항목 추가
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/11.png){: .mx-auto.d-block width="90%" :}
 
 
-2. 클라이언트 측의 인증서 생성 **<span style="color:Crimson">(cert.pem)</span>**
+- 클라이언트 측의 인증서 생성 **<span style="color:Crimson">(cert.pem)</span>**
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/12.png){: .mx-auto.d-block width="90%" :}
 
 
-3. 서버, 클라이언트 측에서 사용할 인증서들에 대한 쓰기 권한 삭제
+- 서버, 클라이언트 측에서 사용할 인증서들에 대한 쓰기 권한 삭제
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/13.png){: .mx-auto.d-block width="90%" :}
 
@@ -144,9 +144,9 @@ dockerd --tlsverify --tlscacert=ca.pem --tlscert=server-cert.pem --tlskey=server
 그리고 client측에서 TLS 연결 설정을 하지 않고 Remote API로 접근했을 때와(Middle 그림) TLS 연결 설정을 하고 접근했을때의 원격 제어시(Bottom 그림)의 결과 차이를 볼 수 있다
 
 ```
-#No TLS
+# No TLS
 docker -H 192.168.26.129:2376 version
-#TLS
+# TLS
 docker -H 192.168.26.129:2376 --tlscacert=ca.pem --tlscert=cert.pem --tlskey=key.pem --tlsverify version
 ```
 
