@@ -9,9 +9,7 @@ thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.png
 
 Enviroment: Ubuntu 18.04 
 {: .box-note}
-
 ## 1. Docker daemon
-
 docker 그 자체에 대해서 알아보는 시간입니다. Docker의 구조는 크게 2가지로 나뉩니다. 
 
 - **<span style="color:Crimson">Docker server</span>**
