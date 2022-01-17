@@ -30,9 +30,12 @@ docker 그 자체에 대해서 알아보는 시간입니다. Docker의 구조는
 
 ## 2. Docker daemon 실행 및 설정
 
-docker daemon은 다음 명령어로 시작, 정지가 가능합니다. 
+docker daemon은 다음 명령어로 시작, 정지가 가능합니다. (start는 둘 중 아무 명령어를 사용해도 됩니다.)
 ```
+#start
 service docker start
+dockerd
+#stop
 service docker stop
 ```
 
