@@ -14,12 +14,12 @@ Enviroment: Ubuntu 18.04
 
 docker 그 자체에 대해서 알아보는 시간입니다. Docker의 구조는 크게 2가지로 나뉩니다. 
 
-- Docker server
+- **<span style="color:Crimson">Docker server</span>**
 	- */usr/bin/dockerd* 파일로 실행
 	- container 생성 및 실행과 image관리하는 주체
 	- 외부에서 API 입력을 받아 도커 엔진의 기능을 수행
 	- docker process가 실행되어 서버로서 API 입력을 받을 준비가 된 상태를 <span style="color:DodgerBlue">docker daemon</span>
-- Docker client
+- **<span style="color:Crimson">Docker client</span>**
 	- */usr/bin/docker* 에서 실행
 	- 외부에서 API를 사용할 수 있도록 CLI제공
 		- 외부에서 API요청을 해당 clinet가 사용되며 client는 docker daemon에게 API 전달
@@ -54,7 +54,7 @@ dockerd -H unix:///var/run/docker.sock
 dockerd -H tcp://0.0.0.0:2375
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/2.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/2.png){: .mx-auto.d-block width="90%" :}
 
 하지만 이렇게 할경우 Remote API만을 위한 바인딩 주소를 입력했으므로 unix scoket은 비활성화 되고 docker client를 사용못하게 됩니다. 즉, 위와 같이 **docker ps**와 같이 docker로 시작하는 명령어 사용 이 불가합니다. 그러므로 이를 해결하기 위해 Remote API를 위한 바인딩 주소와 unix scoket을 같이 설정해 줍니다.
 
@@ -82,55 +82,55 @@ Docker는 기본적으로 보안 연결 설정이 안되어있기 때문에 dock
 
 #### 서버 측 파일 생성
 
-1.  인증서에 사용할 key 생성
+1.  인증서에 사용할 key 생성 **<span style="color:Crimson">(ca-key.pem)</span>**
 
 RSA 4096 키 생성 및 개인키를 AES256 으로 암호화하여 ca-key.pem 파일을 만듭니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/6.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/6.png){: .mx-auto.d-block width="90%" :}
 
-2. Public key를 생성
+2. Public key를 생성 **<span style="color:Crimson">(ca.pem)</span>**
 
 입력하는 모든 항목은 공백으로 둬도 상관없으므로 공백으로 둔다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/7.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/7.png){: .mx-auto.d-block width="90%" :}
 
 
-3. 서버에서 사용할 key 생성
+3. 서버에서 사용할 key 생성 **<span style="color:Crimson">(server-key.pem)</span>**
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/8.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/8.png){: .mx-auto.d-block width="90%" :}
 
 
-4. 서버에서 사용될 인증서를 위한 인증 요청서 파일 생성
+4. 서버에서 사용될 인증서를 위한 인증 요청서 파일 생성 **<span style="color:Crimson">(server.csr)</span>**
 
 192.168.29.129은 docker host의 IP주소 또는 domain이름이고 이는 외부에서 접근가능해야합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/9.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/9.png){: .mx-auto.d-block width="90%" :}
 
 
-5. 서버 측의 인증서 파일을 생성합니다.
+5. 서버 측의 인증서 파일을 생성합니다. **<span style="color:Crimson">(server-cert.pem)</span>**
 
 접속에 사용될 IP주소를 extfile.cnf로 저장하고 192.168.29.129으로 연결이 사용되도록 인증서 파일을 생성한다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/10.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/10.png){: .mx-auto.d-block width="90%" :}
 
 
 #### 클라이언트 측 파일 생성
 
 
-1. 클라이언트 측의 key 파일과 인증 요청파일을 생성, extfile.cnt파일에 extendedKeyUsage항목 추가
+1. 클라이언트 측의 key 파일 **<span style="color:Crimson">(key.pem)</span>**과 인증 요청파일을 생성 **<span style="color:Crimson">(client.csr)</span>** , extfile.cnt파일에 extendedKeyUsage항목 추가
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/11.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/11.png){: .mx-auto.d-block width="90%" :}
 
 
-2. 클라이언트 측의 인증서 생성
+2. 클라이언트 측의 인증서 생성 **<span style="color:Crimson">(cert.pem)</span>**
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/12.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/12.png){: .mx-auto.d-block width="90%" :}
 
 
 3. 서버, 클라이언트 측에서 사용할 인증서들에 대한 쓰기 권한 삭제
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/13.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/13.png){: .mx-auto.d-block width="90%" :}
 
 
 #### TLS 보안 적용
