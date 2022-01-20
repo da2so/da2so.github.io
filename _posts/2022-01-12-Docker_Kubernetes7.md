@@ -54,7 +54,7 @@ Swarm mode는 여러 대의 docker server를 하나의 클러스터로 만들어
 ```
 docker swarm init --advertise-addr 192.168.26.129
 ```
-![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/2.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/2.png){: .mx-auto.d-block width="100%" :}
 
 
 **--advertise-addr**은 다른 docker server가 매니저 노드에 접근하기 위한 해당 host의 IP주소를 입력합니다. 출력 결과 중 <span style="color:DodgerBlue">docker swarm join</span>명령어는 새로운 워커 노드를 swarm cluster에 추가할때 사용되고 **--token**옵션에 사용된 토큰 값은 새로운 노드를 해당 swarm cluster에 추가하기 위한 private key입니다.
@@ -70,11 +70,11 @@ ID옆에 별표(\*)는 현재 노드인 매니저를 말합니다. 그리고 새
 ```
 docker swarm join-token manager
 ```
-![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/4.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/4.png){: .mx-auto.d-block width="100%" :}
 
 해당 token은 외부에 노출되면 누구든지 해당 swarm cluster에 추가될 수 있기때문에 주기적으로 token을 변경해주는게 좋습니다. token 갱신을 위해서는 **--rotate**옵션을 넣어 아래와 같이 입력하면 새로운 token을 발급받을 수 있습니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/5.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/5.png){: .mx-auto.d-block width="100%" :}
 
 
 워커 노드를 삭제하려고 할때는 먼저 워커 노드에서 <span style="color:DodgerBlue">docker swarm leave</span>를 해주고 매니저 노드에서 down된 워커를  다음과 같은 명령어로 제거해줍니다. 
@@ -141,7 +141,7 @@ docker service ps myweb
 
 서비스내의 Nginx container를 늘리고 줄이기 위해서는 <span style="color:DodgerBlue">docker service scale</span>명령어를 사용합니다. 다음과 같이 워커, 매니저 노드를 합한 수가 3이고 replica수를 4 replica수로 설정했다면 4 replica를 만족시켜야 하기때문에 한 노드(manager)에서 2개의 container가 실행됨을 확인가능합니다. 여기서 각각의 container들이 호스트의 80번 포트에 연결된 것이 아니고 실제로는 각 노의 80번 포트로 들어온 요청을 아래의 4개의 container중 1개로 redirect하게 됩니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/11.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/11.png){: .mx-auto.d-block width="100%" :}
 
 서비스를 삭제 명령어는 다음과 같습니다.
 
@@ -156,18 +156,18 @@ docker service rm myweb
 docker service create --name global_web --mode global nginx
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/12.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/12.png){: .mx-auto.d-block width="100%" :}
 
 
 ### 3.3 swarm mode의 서비스 장애 복구
 
 위에서 생성한 container가 정지되거나 특정 노드가 다운되면 swarm manager는 새로운 container를 생성해 자동으로 이를 복구합니다. 실제로 그러한지 확인하기 위해 myweb 서비스 중 container하나를 삭제(<span style="color:DodgerBlue">docker rm -f [container name]</span>)해봅니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/13.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/13.png){: .mx-auto.d-block width="100%" :}
 
 그럼 manager가 스스로 다시 replica수를 3개를 맞추기 위해 새로운 container를 manager노드에 만든것을 확인가능합니다. 이번에는 worker1 Host에서 daemon 프로세스를 종료(<span style="color:DodgerBlue">service docker stop</span>)하고 시스템 복구를 자동으로 하는 지 확인합니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/14.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/14.png){: .mx-auto.d-block width="100%" :}
 
 
 {: .box-note}
@@ -243,7 +243,7 @@ mysql:5.7
 --secret 옵션을 통해 container로 공유된 값은 기본적으로 container내부의 */run/secrets/* 에 마운트 되기때문에 환경변수에 대한 path가 */run/secrets/*하위 폴더를 가르키도록 옵션을 주는 것입니다. 그리고 다음과 같이 */run/secrets/mysql_password*에 secret값(da2so)이 잘 저장된 것을 확인가능합니다.
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/20.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/20.png){: .mx-auto.d-block width="100%" :}
 
 #### config
 
@@ -268,12 +268,106 @@ swarm mode는 같은 container를 분산해서 할당하기 때문에 각 docker
 
 #### ingress 네트워크 
 
-로드밸런싱과 라우팅 메시(routing mesh)에 사용되는 네트워크로 swarm cluster생성시 자동으로 등록되는 네트워크입니다. 매니저 노드뿐 아니라 swarm cluster에 등록된 네트워크라면 ingress 네트워크가 생성되고 구조는 다음과 같습니다.
+로드밸런싱과 라우팅 메시(routing mesh)에 사용되는 네트워크로 swarm cluster생성시 자동으로 등록되는 네트워크입니다. 매니저 노드뿐 아니라 swarm cluster에 등록된 네트워크라면 ingress 네트워크가 생성되고 구조는 다음과 같습니다. 해당 구조는 구체적으로 swarm cluster로 nginx 웹 서비스를 했을때의 예시이며 위에서 말씀드렸듯이 어느 노드에 해당 container가 있느냐에 상관없이 swarm cluster안의 어떤 노드에서도 웹서비스에 접속가능한 이유입니다.
+
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/23.png){: .mx-auto.d-block width="90%" :}
 
 
-이 네트워크는 어떤 swarm 노드에 접근하더라도 서비스 내의 container에 접근할 수 있게 설정하는 라우팅 메시를 구성하고 서비스 내의 container에 대한 접근을 라운드 로빈 방식으로 분산하는 로드 밸런싱을 담당합니다.
-
+이 네트워크는 어떤 swarm 노드에 접근하더라도 서비스 내의 container에 접근할 수 있게 설정하는 라우팅 메시를 구성하고 서비스 내의 container에 대한 접근을 라운드 로빈 방식으로 분산하는 로드 밸런싱을 담당합니다. 
 
 {: .box-note}
-라운드로빈 방식(Round Robin Method)
-서버에 들어온 요청을 순서대로 돌아가며 배정하는 방식입니다. 클라이언트의 요청을 순서대로 분배하기 때문에 여러 대의 서버가 동일한 스펙을 갖고 있고, 서버와의 연결(세션)이 오래 지속되지 않는 경우에 활용하기 적합합니다.
+**라운드로빈 방식**이란?? 서버에 들어온 요청을 순서대로 돌아가며 배정하는 방식입니다. 클라이언트의 요청을 순서대로 분배하기 때문에 여러 대의 서버가 동일한 스펙을 갖고 있고, 서버와의 연결(세션)이 오래 지속되지 않는 경우에 활용하기 적합
+
+
+#### 오버레이 네트워크 
+
+ingress 네트워크는 오버레이 네트워크 드라이버를 사용합니다. 오버레이 네트워크는 여러 개의 docker daemon을 하나의 네트워크 풀로 만드는 **네트워크 가상화** 기술의 하나이며 여러 docker daemon에 존재하는 container가 서로 통신할 수 있도록 해줍니다. 그래서 manager노드의 container는 별도의 포트 포워딩을 설정하지 않아도 worker1의 컨테이너의 ping을 전송가능합니다.
+
+
+#### docker_gwbridge 네트워크
+
+swarm에서 오버레이 네트워크를 사용할 때 사용되는 네트워크입니다. 오버레이 네트워크를 사용하지 않는 container는 기본적으로 존재하는 bridge를 사용해 외부와 연결합니다. 그러나 ingress를 포함한 모든 오버레이 네트워크는 다른 bridge 네트워크인 docker_gwbridge와 함께 사용됩니다. docker_gwbridge는 외부로 나가는 통신 및 오버레이 네트워크의 트래픽 종단점(VTEP)역할을 담당하고 container내부의 네트워크 interfacewnd eth1과 연결됩니다. 
+
+
+### 3.7 swarm mode volume
+
+daemon명령어 중 run명령어에서 -v옵션을 통해 host와 디렉터리를 공유하는데 이와 비슷하게 swarm cluster에서는 **--mount**옵션을 통해 volume타입, bind타입으로 호스토와 디렉토리를 공유하게됩니다.
+
+#### volume type 볼륨 
+
+**--mount**옵션에서 type=volume이며 source는 사용할 볼륨이며(해당 볼륨이 존재하지 않을경우 임의의 16진수로 이름을 구성) target은 컨테이너 내부에 마운트될 디렉터리 위치입니다.
+
+```
+docker service create --name volume_nginx --mount type=volume,source=volume_test,target=/root -p 80:80 nginx
+```
+
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/24.png){: .mx-auto.d-block width="100%" :}
+
+
+#### bind type 볼륨
+
+bind타입은 host와 디렉터리를 공유할때 사용되므로 공유될 호스트의 디렉터리가 존재해야하며 이를 source 옵션에 반드시 명시해야합니다. type=bind을 사용합니다.
+
+```
+docker service create --name bind_nginx --mount type=bind,source=/home/kangsinhan/bind_test,target=/root -p 80:80 nginx
+```
+
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/25.png){: .mx-auto.d-block width="100%" :}
+
+
+#### swarm mode에서 volume 한계점
+
+swarm cluster에서 서비스를 할당받을 수 있는 모든 노드가 volume data를 가지고 있어야하는 문제점이 있습니다. 특히나 PaaS같은 시스템에서는 어느 노드에 container을 할당해도 volume을 사용할수 있는 방버비 모든 노드에 같은 데이터 volume을 구성하는 것이므로 좋은 방법은 아닙니다. 
+
+그래서 해결하기위해 persisent stroage을 쓰는 것이 방법인데 이는 외부에 존재해 네트워크로 Mount할수 있습니다. 이렇게 되면 노드에 volume을 굳이 생성하지 않아도 되고 container가 어느 노드에 할당되든 container에 필요한 파일을 읽고 쓸수 있습니다.
+
+
+### 3.8 노드 AVAILABILITY 변경
+
+<span style="color:DodgerBlue">docker node ls</span>을 통해 노드의 AVAILABILITY항목을 볼 수 있는데여. 이를 변경시킴으로써 특정 노드에 문제가 발생해 유지보수 작업을 수행할때 해당 노드에 container에 해당 작업이 할당안되게 할 수 있습니다.
+
+#### Active
+
+새로운 노드가 swarm clutser에 추가되면 기본적으로 설정되는 상태이며 노드가 서비스의 container를 할당 받을 수 있습니다. Active상태가 아닌 노드를 Active 상태로 바꾸고 싶으면 다음과 같다
+
+```
+docker node update --availability active worker1
+```
+
+#### Drain
+
+해당 상태로 설정되면 scheduler는 container를 해당 노드에 할당하지 않습니다. 노드에 문제가 있을경우 Drain상태로 만듭니다.
+
+```
+docker node update --availability drain worker1
+```
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/26.png){: .mx-auto.d-block width="90%" :}
+
+
+실행 중인 노드를 Drain상태로 변환시 서비스의 container는 모두 중지되고 active 상태인 노드로 재할당 됩니다.
+
+
+#### Pause
+
+해당 상태는 서비스의 container를 더는 할당받지 않는다는 점에서 drain과 동일하지만 실행 중인 container가 중지되지 않는다는 점에서 다릅니다.
+
+```
+docker node update --availability pause worker1
+```
+
+### 3.9 노드 label 추가
+
+노드에 Label을 추가하는 것은 노드를 분류하는 것입니다. label은 key-value 형태를 가지고 있으며 key값으로 노드를 구별합니다. label추가는 <span style="color:DodgerBlue">docker node update</span>명령어의 **--label-add**옵션을 통해 key, value를 넣어줍니다. 
+
+```
+docker node update --label-add worker=1 worker1
+```
+
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/27.png){: .mx-auto.d-block width="80%" :}
+
+
+위에서 key는 worker, value는 1로 label을 설정해주었고 해당 노드에만 service의 container을 만들어낼 수 있습니다.
+
+![1](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/28.png){: .mx-auto.d-block width="100%" :}
+
+
