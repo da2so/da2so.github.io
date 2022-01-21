@@ -97,7 +97,9 @@ docker-compose up -d
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/2.png){: .mx-auto.d-block width="100%" :}
 
-기본적으로 dokcer-compose up -d는 명령어를 실행한 디렉터리의 docker-compse.yml파일이름을 가진 yml에 대해 docker compose를 실행하게됩니다. 그리고 위와 같이 web, fluentd, mongo서비스를 정의하였고 각 서비스별로 container하나씩 생성되었으며 이름은 **[프로젝트 이름]_[서비스 이름]_[서비스 내의 container번호]**로 정해집니다. 프로젝트 이름은 지정해주지 않으면 위의 그림과 같이 현재 디렉토리 이름으로 지정하게 됩니다.
+기본적으로 dokcer-compose up -d는 명령어를 실행한 디렉터리의 docker-compse.yml파일이름을 가진 yml에 대해 docker compose를 실행하게됩니다. 그리고 위와 같이 web, fluentd, mongo서비스를 정의하였고 각 서비스별로 container하나씩 생성되었으며 이름은 **[프로젝트 이름]_[서비스 이름]_[서비스 내의 container번호]**로 정해집니다. 프로젝트 이름은 지정해주지 않으면 위의 그림과 같이 현재 디렉토리 이름으로 지정하게 됩니다. docker-compose로 로깅이 잘되는지 확인도 가능합니다.
+
+![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/7.png){: .mx-auto.d-block width="90%" :}
 
 
 swarm moded에서의 서비스와 마찬가지로, 하나의 서비스에는 여러 개의 container가 존재할 수 있으므로 차례대로 증가하는 container의 번호를 붙여 서비스 내의 container를 구별합니다. 생성된 프로젝트는 <span style="color:DodgerBlue">docker-compose down</span>으로 삭제할 수 있으며 이 명령어는 서비스의 container모두 정지시킨 뒤 삭제합니다. 
