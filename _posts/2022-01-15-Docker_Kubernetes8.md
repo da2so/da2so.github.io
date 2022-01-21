@@ -102,7 +102,7 @@ docker-compose up -d
 
 swarm moded에서의 서비스와 마찬가지로, 하나의 서비스에는 여러 개의 container가 존재할 수 있으므로 차례대로 증가하는 container의 번호를 붙여 서비스 내의 container를 구별합니다. 생성된 프로젝트는 <span style="color:DodgerBlue">docker-compose down</span>으로 삭제할 수 있으며 이 명령어는 서비스의 container모두 정지시킨 뒤 삭제합니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/3.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/3.png){: .mx-auto.d-block width="60%" :}
 
 그리고 ubuntu이미지로 docker-compose.yml을 만들고 **-p**옵션을 사용해서 프로젝트 이름을 설정하여 프로젝트를 생성합니다. 그럼 projectname이 옵션을 준값대로 설정된 것을 확인가능합니다.
 
@@ -110,7 +110,7 @@ swarm moded에서의 서비스와 마찬가지로, 하나의 서비스에는 여
 docker-compose -p myubuntu up -d
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/4.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/4.png){: .mx-auto.d-block width="70%" :}
 
 ### 1.3 docker swarm mode와 연동
 
@@ -136,7 +136,7 @@ docker stack deploy -c docker-compose.yml stack_test
 docker stack rm stack_test
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/6.png){: .mx-auto.d-block width="80%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/6.png){: .mx-auto.d-block width="60%" :}
 
 
 
