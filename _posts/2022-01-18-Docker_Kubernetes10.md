@@ -84,7 +84,7 @@ spec:
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/4.png){: .mx-auto.d-block width="60%" :}
 
-위에서 주목해야할 부분은 2개인데요. 하나는 IP주소입니다. 저희가 (이전 글)[https://da2so.github.io/2022-01-17-Docker_Kubernetes9/]에서 설치했을때 설정한 k8s container의 네트워크 대역폭(172.31.0.0/16)대로 IP주소가 할당된 것을 확인가능하며 2번째는 마스터 노드에서 kubectl명령어를 사용했지만 할당된 노드는 워커 노드(worker2)인것을 확인할 수 있습니다. 
+위에서 주목해야할 부분은 2개인데요. 하나는 IP주소입니다. 저희가 [이전 글](https://da2so.github.io/2022-01-17-Docker_Kubernetes9)에서 설치했을때 설정한 k8s container의 네트워크 대역폭(172.31.0.0/16)대로 IP주소가 할당된 것을 확인가능하며 2번째는 마스터 노드에서 kubectl명령어를 사용했지만 할당된 노드는 워커 노드(worker2)인것을 확인할 수 있습니다. 
 
 본론으로 돌아와서 위의 IP주소는 172.31.189.65인데요 이는 외부에서 접근가능한 IP가 아니기때문에 cluster 내부에서만 접근가능합니다. 외부, 내부 모두에서 pod에 접근하려면 service라고 하는 object를 생성해야하지만 지금은 IP만으로 nginx pod에 접근해보죠. worker3에서 nginx pod의 ip로 http 요청을 전송해보고 잘 다음과 같이 잘되는 지 확인합니다.
 
