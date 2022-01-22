@@ -10,7 +10,6 @@ thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.png
 Enviroment: Ubuntu 18.04 
 {: .box-note}
 ## 1. Kubernetes(k8s)란?
-
 Kubernetes(k8s)는 docker swarm mode처럼 여러 대의 docker host를 하나의 cluster로 만들어 준다는 것은 같지만 세부적으로 폭넓은 기능을 제공한다는 점이 다릅니다. 구체적으로 특징은 다음과 같습니다. (K8s라는 표기는 "K"와 "s"와 그 사이에 있는 8글자를 나타내는 약식 표기)
 
 - 서버 자원 clustering, 마이크로서비스 구조의 container 배포, 서비스 장애 복구 등 container기반의 서비스 운영에 필요한 폭넓은 오케스트레이션 기능을제공
@@ -116,15 +115,30 @@ kubeadm init --apiserver-advertise-address 192.168.26.148 --pod-network-cidr=172
 
 #### container 네트워크 애드온 설치 
 
-네트워크 에드온은 CNI(Container Network Interface)라고도 합니다. k8s Cluster 내부는 마스터 노드에 의해 여러 container가 생성 삭제 복구를 반복하고 있는데 그에 따라 각 container의 고정적이지 않고 재할당이 빈번함 이러한 특징을 해결하기 위해 k8s Cluster는 가상 네트워크가 구성되어 있는데 기본적으로는 Worker Node의 kube-proxy 가 네트워크를 관리하지만 보다 효율적인 네트워크 환경을 구성하기 위해 사용되는 것이 <span style="color:Crimson">네트워크 에드온</span>입니다.
+네트워크 에드온은 CNI(Container Network Interface)라고도 합니다. k8s Cluster 내부는 마스터 노드에 의해 여러 container가 생성 삭제 복구를 반복하고 있는데 그에 따라 각 container의 고정적이지 않고 재할당이 빈번함 이러한 특징을 해결하기 위해 k8s Cluster는 가상 네트워크가 구성되어 있는데 기본적으로는 Worker Node의 kube-proxy 가 네트워크를 관리하지만 보다 효율적인 네트워크 환경을 구성하기 위해 사용되는 것이 <span style="color:Crimson">네트워크 에드온</span>입니다. 
 
 
-k8s의 container 간 통신을 위해 여러 오버레이 네트워크를 사용할 수 있지만 여기서는 calico를 사용합니다. 마스터 노드에서 다음 명령어들로 calico.yaml을 kubeadm init의 **--pod-network-cidr**에 사용된 대역폭에 맞춰 바꿔 주고 플러그인을 설치합니다. 
+k8s의 container 간 통신을 위해 여러 오버레이 네트워크를 사용할 수 있지만 여기서는 calico를 사용합니다. 마스터 노드에서 calico.yaml을 다운받아 줍니다.
 
 ```
+# version 3.21 calico.yaml 다운로드 (2022.1월 기준)
 wget https://docs.projectcalico.org/v3.21/manifests/calico.yaml
+```
 
-sed -i -e 's?192.168.0.0/16?172.31.0.0/16?g' calico.yaml
+그리고 vi(vim)을 이용해 **CALICO_IPV4POOL_CIDR**을 찾아 아래와 같이 주석처리를 풀어주고 내용을 추가합니다.
+
+![1](https://da2so.github.io/assets/post_img/2022-01-17-Docker_Kubernetes9/6.png){: .mx-auto.d-block width="100%" :}
+
+
+위의 192.168.126.2는 마스터 노드의 게이트 웨이로 다음 명령어로 확인가능합니다. 
+
+```
+route -n | grep 'UG[ \t]' | awk '{print $2}'
+```
+
+이제 calicp.yaml을 통해 플러그인을 설치합니다.
+
+```
 kubectl apply -f calico.yaml
 ```
 
@@ -132,9 +146,13 @@ kubectl apply -f calico.yaml
 **Calico란?** container 및 기본 host 기반 워크로드를 위한 오픈 소스 네트워킹 및 네트워크 보안 솔루션이며 캡슐화 또는 오버레이없이 구축되어 고성능의 대규모 데이터 센터 네트워킹을 제공 할 수 있다. 또한 Calico는 분산 방화벽을 통해 k8s 포드에 대해 세분화 된 의도 기반 네트워크 보안 정책을 제공함
 
 
-설치가 정상적으로 완료되었는지 확인하기 위해 다음 명령어로 k8s 핵심 컴포넌트들이 모두 running상태인지 확인합니다. 또한 <span style="color:DodgerBlue">kubectl get nodes</span>를 통해 등록된 모든 노드도 확인가능합니다.
+설치가 정상적으로 완료되었는지 확인하기 위해 다음 명령어로 k8s 핵심 컴포넌트들이 모두 running상태인지 확인합니다. 또한 <span style="color:DodgerBlue">kubectl get nodes</span>를 통해 등록된 모든 노드도 확인가능합니다. 
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-17-Docker_Kubernetes9/5.png){: .mx-auto.d-block width="100%" :}
+
+calico가 설치 유무에 따라 노드간의 통신이 가능해지냐 마느냐를 결정합니다. 다음은 calico 플러그인 설치에 따라 마스터 노드에서 워커노드에 ping이 잘 되는지 아닌지에 대한 비교입니다. 
+
+![1](https://da2so.github.io/assets/post_img/2022-01-17-Docker_Kubernetes9/7.png){: .mx-auto.d-block width="100%" :}
 
 
 마지막으로 kubeadm으로 설치된 k8s는 각 노드에서 다음 명령어로 삭제 가능하다. k8s설치 도중 오류 발생했거나 테스트용 k8s 클러스터를 삭제할때 사용합니다.
