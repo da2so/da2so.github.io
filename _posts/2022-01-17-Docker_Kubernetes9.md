@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Docker/Kubernetes - (8) Kubernetes
+title: Docker/Kubernetes - (9) Kubernetes란?
 tags: [Docker, Kubernetes]
 comments: true
 use_math: true
@@ -137,5 +137,10 @@ kubectl apply -f calico.yaml
 ![1](https://da2so.github.io/assets/post_img/2022-01-17-Docker_Kubernetes9/5.png){: .mx-auto.d-block width="100%" :}
 
 
+마지막으로 kubeadm으로 설치된 k8s는 각 노드에서 다음 명령어로 삭제 가능하다. k8s설치 도중 오류 발생했거나 테스트용 k8s 클러스터를 삭제할때 사용합니다.
+
+```
+kubeadm reset
+```
 
 
