@@ -535,7 +535,7 @@ spec:
 
 위의 yaml로 service을 실행시키면 다음과 같은 차이점을 보이게 됩니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/37.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/37.png){: .mx-auto.d-block width="85%" :}
 
 
 #### ExternalName: 요청을 외부로 redirect하는 service
