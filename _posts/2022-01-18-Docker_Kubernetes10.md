@@ -223,9 +223,9 @@ spec:
 ![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/15.png){: .mx-auto.d-block width="70%" :}
 
 
-### replicaset 동작원리
+### 3.3 replicaset 동작원리
 
-pod와 replicaset은 느슨한 연결(loosely coupled)을 유지하며 이러한 느슨한 연결은 pod와 replicaset의 정의 중 <span style="color:Crimson">Label Selector)</span>를 이용해 이뤄집니다. 위에서 만든 YAML을 봐봅시다.
+pod와 replicaset은 느슨한 연결(loosely coupled)을 유지하며 이러한 느슨한 연결은 pod와 replicaset의 정의 중 <span style="color:Crimson">Label Selector</span>를 이용해 이뤄집니다. 위에서 만든 YAML을 봐봅시다.
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/16.png){: .mx-auto.d-block width="70%" :}
 
@@ -278,6 +278,225 @@ kubectl edit pods replicaset-nginx-vmnrz
 edit한 부분을 저장하면 다시 pod의 목록을 보면 새로운 하나의 pod가 생성되었고 label의 정보를 삭제한 pod는 label 정보가 사라졌음을 알 수 있습니다. 그리고 label이 없는 pod는 <span style="color:DodgerBlue">kubectl delete rs</span>명령어로부터 삭제되지 않으므로 직접 삭제해주어야 합니다.
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/23.png){: .mx-auto.d-block width="70%" :}
+
+
+그리고 중요한 특징 중 하나로 replicaset은 다음과 같은 YAML파일에서 표현식(matchExpressions)으로 정의가능합니다.
+
+```
+# nginx-expression-pod.yaml
+...
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - key: app
+        values:
+          - my-nginx-pods-label
+          - your-nginx-pods-label
+        operator: In
+```
+
+위의 예시는 key가 appd인 label을 가지고 있는 pod들 중에서 values항목에 정의된 값들이 존재(In)하는 pod들 대상으로하겠다는 말으로 **my-nginx-pods-label**뿐만 아니라 **your-nginx-pods-label**이라는 label을 가진 pod또한 replicaset 관리하에 놓이게 됩니다.
+
+
+## 4. Deployment: replicaset, pod의 배포를 관리
+
+
+### 4.1 Deployment 사용
+실제 k8s 운영환경에서 replicaset을 YAML파일에서 사용하는 경우는 없습니다. 대부분은 replicaset과 pod의 정보를 정의하는 **Deployment**라는 object를 YAML파일에 정의해 사용합니다.
+Deployment는 replicaset의 상위 object이기 때문에 deployment생성시 자동으로 대응되는 replicaset도 생성됩니다. 다음과 같은 **deployment-nginx.yaml**로 deployment를 생성해봅니다. 
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/24.png){: .mx-auto.d-block width="70%" :}
+
+
+```   
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-nginx
+  template:
+    metadata:
+      name: my-nginx-pod
+      labels:
+        app: my-nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.10
+        ports:
+        - containerPort: 80
+```
+
+보시면 아시겠지만 replicaset과 비교했을 때 kind부분만 *Deployement*로 바뀌었지 다른변화는 거의 없습니다. 일단 deployment을 생성해보죠. 
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/25.png){: .mx-auto.d-block width="70%" :}
+
+
+<span style="color:DodgerBlue">kubectl get deploy</span>로 deployment의 실행을 확인하고 replicaset셋 또한 생성됨을 확인하자.
+
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/26.png){: .mx-auto.d-block width="70%" :}
+
+deployement로 생성하였지만 replicaset과 크게 다르지 않는 데 차이점이라고는 NAME항목에서 중간에 해시값(**6b4b7f7cdc**)이 포함되어있는데 이는 pod를 정의하는 template으로부터 생성된 것인데 자세히는 뒤에서 설명할것이므로 기억해두자. deployment삭제는 다음 명령어로 진행한다.
+
+```
+kubectl delete deploy my-nginx-deployment
+```
+
+### 4.2 Deployment 사용 이유
+
+Deployment를 사용하는 큰 이유 중 하나는 application의 업데이트와 배포 및 관리를 해준다. 예로 application을 업데이트할 때 replicaset의 변경사항을 저장하는 revision을 남겨 rollback를 가능하게 해주고 무중단 서비스를 위해 Pod의 롤링 업데이트 전략을 지정가능하다.
+
+Deployment을 이용해 application의 버전을 업데이트해 배포하는 예시를 알아보자. 위의 deployment-nginx.yaml을 이용해 다시 deployment을 실행하자. **--record**옵션을 통해 deployment의 변경사항을 저장하도록 한다.
+
+```
+kubectl apply -f deployment-nginx.yaml --record
+```
+
+이제 만약 당신이 nginx:1.10 을 nginx:1.11로 업데이트하고 싶다고 할때 deployment에서 생성된 pod의 image을 <span style="color:DodgerBlue">kubectl set image</span>명령어로 업데이트 가능하다.
+
+```
+kubectl set image deployment my-nginx-deployment nginx=nginx:1.11 --record
+```
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/27.png){: .mx-auto.d-block width="70%" :}
+
+
+위에서 알 수 있듯이 기존의 사용되었던 nginx:1.10이미지를 가지는 replicaset의 해시값은 (6b4b7f7cdc)이며 기존의 replicaset의 값이 0으로 설정된 것을 보아 정지된 것을 알 수 있고 새로 nginx:1.11로 실행되는 replicaset과 그에 대한 해시값(55bbf495bd)을 확인가능하다. 그리고 이는 이전 버전의 replicaset을 삭제하지 않고 남겨두고 있는것을 말하고 이전의 정보를 리비전으로서 보존하는 것입니다. <span style="color:DodgerBlue">kubectl rollout history deploy</span>명령어로 리비전 정보를 확인하자.
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/28.png){: .mx-auto.d-block width="70%" :}
+
+CHANCE-CAUSE에 나오는 명령어들은 **--record**에 의해 저장된 것이며 이제 nginx:1.10으로 다시 롤백을 해보자. **--to-revision**옵션의 값으로 되돌리고자하는 revision번호의 값을 설정하면 된다.
+
+```
+kubectl rollout undo deploy my-nginx-deployment --to-revision 1
+```
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/29.png){: .mx-auto.d-block width="70%" :}
+
+롤백이 잘된것을 확인가능하다. 생성된 모든 리소스를 삭제하려면 <span style="color:DodgerBlue">kubectl delete deploy,po,rs --all</span>를 사용한다.. 정리하자면 deployment를 통해 replicaset의 리비전 관리뿐만 아니라 다양한 pod의 롤링 업데이트 정책을 사용할수 있으므로 deployment를 통해 application을 서비스하자.
+
+## 5. Service: pod를 연결하고 외부에 노출
+
+deployment을 실행시키기 위해 사용한 YAML에서 pod를 외부로 노출하지 않았으므로 외부에서 접근이 불가하다. Ngnix의 containerPort항목은 80번 port로 웹서버로 제공하기 때문에 설정한 값일뿐이기 때문에 해당 Nginx pod가 외부로 노출되는 것은 아닙니다. 그래서 외부에서 pod에 접근하기 위해 <span style="color:Crimson">서비스(service)</span> object를 생성해야 합니다. service의 핵심 역할은 다음과 같습니다. 
+
+- 여러 개의 pod에 쉽게 접근할수 있도록 고유한 domain 이름을 부여
+- 여러 개의 pod에 접근할 때 요청을 분산하는 로드 밸런서 기능을 수행
+- 클라우드 플랫폼의 로드 밸런서, 클러스터 노드의 Port등을 통해 포드를 외부로 노출
+
+
+### 5.1 service 종류
+
+k8s 서비스는 pod에 어떻게 접근할 것이냐에 따라 종류가 여러개로 세분화 되어있는데 다음과 같은 특징을 고려하여 서비스 종류를 고르셔야합니다.
+
+- **Clutser IP**
+  - k8s 내부에서만 pod들에 접근할 때 사용함, 외부로 pod가 노출되지 않음
+- **NodePoint**
+  - pod에 접근할 수 있는 port를 클러스터의 모든 노드에 동일하게 개방함 외부에서 접근 가능
+  - 접근 가능한 port는 랜덤으로 정해지지만 특정 Port로 접근하도록 정할 수 있음
+- **LoadBalancer**
+  - 클라우드 플랫폼(AWS, GCP)에서 제공하는 로드 밸런서를 동적으로 프로비저닝하여 pod에 연결, 외부에서 접근 가능
+  - 실제 운영 환경에 많이 사용
+
+#### Clutser IP
+
+먼저 지금부터 deployment를 설명할때 사용했던 deployment-nginx.yaml과 함께 예제를 진행할 것입니다. 다음과 같이 svc-clusterip.yaml을 생성해봅시다.
+
+```
+# svc-clusterip.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-clusterip
+spec:
+  ports:
+    - name: web-port
+      port: 8080
+      targetPort: 80
+  selector:
+    app: my-nginx
+  type: ClusterIP
+```
+
+- **spec.selector:** 해당 label을 가지는 pod에 접근하게 함
+  - my-nginx는 deployment설명 때 사용한 deployment-nginx.yaml의 nginx container의 label이름
+- **spec.ports.port:** k8s 내부에서만 사용할 수 있는 고유한 IP(ClusterIP)를 할당 받음
+  - 서비스의 IP에 접근할 때 사용하는 port설정 값
+- **spec.ports.targetPort:** selector항모게서 정의된 label에 의해 접근 대상이 된 pod들이 사용하는 내부 port번호
+  - deployment-nginx.yaml의 containerPort항목의 값을 입력해야 함.
+- **spec.type:** 서비스의 타입을 입력
+
+deployment-nginx.yaml을 통해 deployment를 실행시키고 svc-clusterip.yaml로 service를 생성해보자. 그리고 <span style="color:DodgerBlue">kubectl get svc</span>명령어로 생성된 service의 목록을 확인한다.
+
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/30.png){: .mx-auto.d-block width="70%" :}
+
+
+svc-clutserip라는 이름으로 service를 생성하였습니다. <span style="color:DodgerBlue">kubectl run</span>명령어를 통해 임시 ubuntu pod를 만들고 출력된 CLUSTER-IP와 PORT(S)로 curl를 통한 http 요청을 보내면 응답받을 수 있습니다. 또한 service이름 자체로도 접근가능한데 이는 k8s가 application이 service나 pod를 쉽게 찾을 수 있도록 내부 DNS를 구동하고 있고 pod들은 자동으로 이 DNS을 사용된다. 
+
+```
+# run ubuntu pod and connect to it
+kubectl run -i --tty --rm debug --image=ubuntu:16.04 --restart=Never -- bash
+
+#install curl
+sudo apt-get update
+sudo apt-get install curl
+
+# http request using cluster ip + port
+curl 10.99.228.48:8080
+# http request using inner DNS
+curl svc-clusterip:8080
+```
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/31.png){: .mx-auto.d-block width="70%" :}
+
+서비스를 삭제하기 위한 명령어는 다음과 같습니다.
+
+```
+kubectl delete svc svc-clusterip
+```
+#### NodePort 
+
+다음과 같은 svc-nodeport.yaml을 작성(ClusterIP와 비교했을 때 type만 다릅니다.)하고 apply시켜 service를 생성해봅니다.
+
+```
+# svc-nodeport.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-clusterip
+spec:
+  ports:
+    - name: web-port
+      port: 8080
+      targetPort: 80
+  selector:
+    app: my-nginx
+  type: NodePort
+```
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/32.png){: .mx-auto.d-block width="70%" :}
+
+Cluster IP와 다르게 PORT(S)항목에서 **32453**라는 숫자가 생겼고 이는 모든 노드에서 동일하게 접근 가능한 port를 의미합니다. 즉, 클러스터의 모든 노드에 내부 IP또는 외부 IP를 통해 32453 port로 접근하면 동일한 service에 연결가능합니다. 또한 가상머신을 아닌 제 맥북에서도 응답을 받을 수 있습니다. 당연히 nodeport를 삭제하면 연결은 끊기고 response를 받을 수 없을 것입니다.
+
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/33.png){: .mx-auto.d-block width="90%" :}
+
+추가로 NodePort는 ClusterIP를 가지고 있음을 알 수 있는데 이는 NodePort는 ClusterIP의 기능을 포함하고 있기 때문이다. 다음은 NodePort의 정리 그림이다.
+
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/34.png){: .mx-auto.d-block width="100%" :}
+
+- 외부에서 pod에 접근하기 위해 각 노드에 개방된 port로 요청을 전송함. 위 그림에서 32453 port로 들어온 요청은 service와 연결된 pod 중 하나로 라우팅됩니다.
+- 클러스터 내부에는 ClusterIP의 service와 동일하게 접근할 수 있다. 
+
+실제 운영에서는 NodePort service 그 자체를 통해 service를 외부로 제공하기 보다는 **인그레스(ingress)**라고 부르느 object에서 간접적으로 사용을 많이 합니다.
+
+
 
 
 
