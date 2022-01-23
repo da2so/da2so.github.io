@@ -481,7 +481,7 @@ spec:
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/32.png){: .mx-auto.d-block width="70%" :}
 
-Cluster IP와 다르게 PORT(S)항목에서 **32453**라는 숫자가 생겼고 이는 모든 노드에서 동일하게 접근 가능한 port를 의미합니다. 즉, 클러스터의 모든 노드에 내부 IP또는 외부 IP를 통해 32453 port로 접근하면 동일한 service에 연결가능합니다. 또한 가상머신을 아닌 제 맥북에서도 응답을 받을 수 있습니다. 당연히 nodeport를 삭제하면 연결은 끊기고 response를 받을 수 없을 것입니다.
+Cluster IP와 다르게 PORT(S)항목에서 **32453**라는 숫자가 생겼고 이는 모든 노드에서 동일하게 접근 가능한 port를 의미합니다. (해당 Port는 랜덤으로 정해집니다.) 즉, 클러스터의 모든 노드에 내부 IP또는 외부 IP를 통해 32453 port로 접근하면 동일한 service에 연결가능합니다. 또한 가상머신을 아닌 제 맥북에서도 응답을 받을 수 있습니다. 당연히 nodeport를 삭제하면 연결은 끊기고 response를 받을 수 없을 것입니다.
 
 
 ![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/33.png){: .mx-auto.d-block width="90%" :}
@@ -496,8 +496,62 @@ Cluster IP와 다르게 PORT(S)항목에서 **32453**라는 숫자가 생겼고 
 
 실제 운영에서는 NodePort service 그 자체를 통해 service를 외부로 제공하기 보다는 **인그레스(ingress)**라고 부르느 object에서 간접적으로 사용을 많이 합니다.
 
+#### LoadBalancer
+
+해당 type의 service는 로드밸러서를 동적으로 생성하는 기능을 제공하는 환경(AWS, GCP)에서만 사용가능하다. 지금 제가 하는 진행하는 가상 환경이나 on-premise에서는 사용이 힘들 수 있습니다. 개념만 알아두자면 nodeport와 유사하지만 External IP가 클라우드 플랫폼에 맞춰 설정된다는 점이 다릅니다.
 
 
+#### externalTrafficPolicy: 트래픽 분배를 결정하는 service 속성
+
+LoadBalanacer service를 사용하면 외부로부터 들어온 요청은 각 노드 중 하나로 보내지며 그 노드에서 다시 pod 중 하나로 전달됩니다. NodePort 타입을 사용했을 때도 각 노드로 들어오는 요청은 다시 pod 중 하나로 전달됩니다. 그렇지만 이러한 요청 전달 원리는 경우에 따라 효율적이지 않은데 해당 예시를 위해 다음과 같은 상황을 가정합니다.
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/35.png){: .mx-auto.d-block width="70%" :}
+
+모든 노드에서 31000번 port가 개방되어 pod에 접근할수 있으며, 워커 노드 A, B에 pod가 각각 생성되어 있다고 가정해봅시다. 이때 워커 노드 A로 들어오는 요청은 (1) A에 위치한 a pod 또는 (2) B에 위치한 b pod중 하나로 전달됩니다. 이 때 A 노드로 들어오는 요청이 굳이 a pod로 전달되지 않고 b pod로 전달된다면 네트워크 hob이 한단 계 더 발생합니다. 그리고 노드 간의 redirect가 발생하게 되어 트래픽이 출발지 주소가 바뀌는 SNAT현상이 발생하게 되고 이로 인해 client IP주소 또한 보존되지 않습니다. 
 
 
+이러한 요청 전달 메커니즘은 service 속성 중 **exeternalTrafficPolicy** 항목에 정의되어있습니다. <span style="color:DodgerBlue">kubectl get -o yaml</span> 명령어로 service의 모든 속성을 출력해 보면 externalTrafficPolicy가 **Cluster**로 설정되어있는 것을 알 수 있습니다. 
 
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/36.png){: .mx-auto.d-block width="70%" :}
+
+Cluster값은 default설정값으로 클러스터의 모든 노드에 랜덤한 port를 개방하는 기존 방식입니다. 다음 service YAML 파일처럼 externalTrafficPolicy를 **Local**로 설정하면 pod가 생성한 노드에서만 pod로 접근할 수 있게하며 이는 추가적인 네트워크 hob이 발생하지 않으며 전달되는 요청의 client IP또한 보존됩니다. 
+
+```
+# svc-local-nodeport.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-local-nodeport
+spec:
+  externalTrafficPilicy: Local
+  ports:
+    - name: web-port
+      port: 8080
+      targetPort: 80
+  selector:
+    app: my-nginx
+  type: NodePort
+```
+
+위의 yaml로 service을 실행시키면 다음과 같은 차이점을 보이게 됩니다. 
+
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/37.png){: .mx-auto.d-block width="70%" :}
+
+
+#### ExternalName: 요청을 외부로 redirect하는 service
+
+k8s를 외부 시스템과 연동해야할 때 사용하는 타입의 service입니다. External타입을 사용해 service를 생성하면 service가 외부 도메인을 가리키도록 설정가능하다. 예를 들어 아래의 설정대로 한다면 k8s 내부의 pod들이 externalname-svc라는 이름으로 요청을 보낼 경우, k8s의 DNS는 my.database.com으로 접근할 수 있도록 CNAME 레코드를 반환합니다. 즉, externalname-svc로 요청을 보내면 my.database.com에 접근하게 되는 것이다. 해당 service는 k8s와 별개로 레거시 시스템에 연동하는 경우에 사용된다.
+
+CNAME은 Canonical Name의 약자로 도메인 주소를 또 다른 도메인 주소로 매핑 시키는 형태의 DNS 레코드 타입
+{: .box-note}
+
+```
+# svc-external.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: svc-externalname
+spec:
+  type: ExternalName
+  externalName: my.database.com
+```
