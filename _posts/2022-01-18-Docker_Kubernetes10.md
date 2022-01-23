@@ -156,7 +156,7 @@ curl localhost
 
 위와 같이 localhost로 http 요청을 했는데도 응답이 도착합니다. ubuntu container가 nginx 서버를 실행하고 있지 않는데도 말이죠. 이는 pod내의 container들이 namespace등과 같은 linux namespace을 공유하기 때문입니다. container 네트워크 타입은 네트워크 namespace를 container간에 공유해 사용할 수 있도록 설정하기 때문에 여러개의 container가 동일한 네트워크 환경을 가지게 됩니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/11.png){: .mx-auto.d-block width="60%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/11.png){: .mx-auto.d-block width="50%" :}
 
 ### 2.3 완전한 application로서의 pod
 
@@ -363,12 +363,12 @@ kubectl apply -f deployment-nginx.yaml --record
 ```
 kubectl set image deployment my-nginx-deployment nginx=nginx:1.11 --record
 ```
-![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/27.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/27.png){: .mx-auto.d-block width="85%" :}
 
 
 위에서 알 수 있듯이 기존의 사용되었던 nginx:1.10이미지를 가지는 replicaset의 해시값은 (6b4b7f7cdc)이며 기존의 replicaset의 값이 0으로 설정된 것을 보아 정지된 것을 알 수 있고 새로 nginx:1.11로 실행되는 replicaset과 그에 대한 해시값(55bbf495bd)을 확인가능하다. 그리고 이는 이전 버전의 replicaset을 삭제하지 않고 남겨두고 있는것을 말하고 이전의 정보를 리비전으로서 보존하는 것입니다. <span style="color:DodgerBlue">kubectl rollout history deploy</span>명령어로 리비전 정보를 확인하자.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/28.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/28.png){: .mx-auto.d-block width="75%" :}
 
 CHANCE-CAUSE에 나오는 명령어들은 **--record**에 의해 저장된 것이며 이제 nginx:1.10으로 다시 롤백을 해보자. **--to-revision**옵션의 값으로 되돌리고자하는 revision번호의 값을 설정하면 된다.
 
@@ -376,7 +376,7 @@ CHANCE-CAUSE에 나오는 명령어들은 **--record**에 의해 저장된 것�
 kubectl rollout undo deploy my-nginx-deployment --to-revision 1
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/29.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/29.png){: .mx-auto.d-block width="75%" :}
 
 롤백이 잘된것을 확인가능하다. 생성된 모든 리소스를 삭제하려면 <span style="color:DodgerBlue">kubectl delete deploy,po,rs --all</span>를 사용한다.. 정리하자면 deployment를 통해 replicaset의 리비전 관리뿐만 아니라 다양한 pod의 롤링 업데이트 정책을 사용할수 있으므로 deployment를 통해 application을 서비스하자.
 
@@ -452,7 +452,7 @@ curl 10.99.228.48:8080
 curl svc-clusterip:8080
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/31.png){: .mx-auto.d-block width="70%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/31.png){: .mx-auto.d-block width="50%" :}
 
 서비스를 삭제하기 위한 명령어는 다음과 같습니다.
 
