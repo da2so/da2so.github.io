@@ -355,7 +355,7 @@ kubectl create secret docker-registry registry-auth --docker-username=das2o --do
 
 위와 같이 <span style="color:DodgerBlue">kubectl get secret [secret 이름] -o yaml</span>로 .dockerconfigjson이라는 데이터를 확인가능하고 해당 데이터는 base64로 인코딩되어있으므로 다음과 같이 디코딩가능하다. 디코딩해보면 secret을 만들때의 정보들을 볼 수 있다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-20-Docker_Kubernetes11/21.png){: .mx-auto.d-block width="100%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-20-Docker_Kubernetes11/23.png){: .mx-auto.d-block width="100%" :}
 
 그리고 다음은 deployment를 생성하는 yaml이다. 해당 object에서는 private image를 pull하기위해서 secret object를 지정해줘야만 한다. 다음과 같이 정의해주면 secret object의 key-value값을 통하여 계정 인증을 하고난뒤 private image pull이 가능해지는 것이다. 
 
@@ -382,6 +382,8 @@ spec:
       imagePullSecrets:
       - name: registry-auth
 ```
+
+![1](https://da2so.github.io/assets/post_img/2022-01-20-Docker_Kubernetes11/24.png){: .mx-auto.d-block width="70%" :}
 
 ## 4. 리소스 정리
 
