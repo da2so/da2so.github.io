@@ -154,16 +154,16 @@ spec:
 위와 같이 도메인과 IP를 연결해주는 내용을 추가해주면 ingress의 address에 ingress controller service clusterIP로 연결이 되었다. nginx ingress controller는 항상 ingress 리소스의 상태를 지켜보고 있으며 기본적으로 모든 namespace의 ingress리소스를 읽어와 규칙을 적용하게 되는 것입니다. 위의 모든 설정을 그림으로 나타내면 아래와 같고 외부에서 da2so.com:30172/hostname에 접속하는 것은 다음과 같은 프로세스를 거친다.
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/9.png){: .mx-auto.d-block width="100%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/10.png){: .mx-auto.d-block width="100%" :}
 
 
 1. 외부에서 da2so.com:30172/hostname로 request
   1. 일반적으로 외부에서 request가 들어오지만 저는 예시를 위해 마스터노드에서 request를 진행
-  2. 마스터노드의 /etc/hosts 에 da2so.com을 worker node ip와 연결시켜놨기 때문에 연결가능
+  2. 마스터노드의 /etc/hosts 에 da2so.com을 worker node ip와 연결시켜놓은 상태
   3. 그래서 외부에서 접속되는 경우에는 일반적으로 router에다가 ingress에서 설정한 domain과 ip를 연결시켜줘야함 
 2. da2so.com:30172는 ingress controller service로 보내짐 
   1. nodeport 타입의 service를 가지는 ingress controller이기 때문에 port(30172)를 지정하였음
-3. ingress controller의 ingress규칙에 따라 da2so.com:30172/hostname은 hostname-svc:8080라는 service로 전달됨
+3. ingress controller의 ingress규칙에 따라 da2so.com:30172/hostname은 da2so.com은 worker node ip에 연결되고 해당 request는 hostname-svc:8080라는 service로 전달됨
 4. hostname-svc는 nginx:1.10 image기반인 pod와 연결되므로 해당 pod의 80번 Port에 접근하여 웹서비스 request를 받음
 
 
