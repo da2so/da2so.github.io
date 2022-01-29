@@ -167,3 +167,99 @@ spec:
 4. hostname-svc는 nginx:1.10 image기반인 pod와 연결되므로 해당 pod의 80번 Port에 접근하여 웹서비스 request를 받음
 
 
+### 1.3 Ingress 세부 기능: annotation을 이용한 설정 
+
+
+위의 **ingress-example.yaml**에서 annotation부분에 대해 설명하지 않았는데 여기서 설명하겠다. 다음은 위에서 작성한 anntotation부분을 가져온 것이다.
+
+
+```
+#ingress-example.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-example
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+...
+      paths:
+      - path: /hostname
+...
+```
+
+- **kubernetes.io/ingress.class**
+  - ingress 규칙을 어떤 ingress controller에 적용할것인지 정함 (Ex: Nginx, Kong, GKE, ...)
+- **nginx.ingress.kubernetes.io/rewirte-target**
+  - nginx ingress controller에서만 사용가능하며 ingress에 정의된 경로로 들어오는 요청을 rewrite-target에 설정된 경로로 전달합니다.
+  - 위에서는 path에 적힌 /hostname으로 접근하면 hostname-svc에는 / 경로로 전달됩니다. 
+
+그리고 다음(yaml)과 같이 정규식으로 설정할 경우 ingress에 요청온 path는 hostname-svc으 다음(밑의 그림)경로로 전달됩니다. 
+
+```
+#ingress-example.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-example
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2 # path의 (.*)에서 전달받은 경로로 전달합니다.
+    kubernetes.io/ingress.class: "nginx"
+...
+      paths:
+      - path: /hostname(/|$)(.*) # (.*)을 통해 경로를 얻습니다.
+...
+```
+
+
+![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/11.png){: .mx-auto.d-block width="100%" :}
+
+
+### 1.4 Nginx ingress controller에 SSL/TLS보안 연결 적용
+
+Ingress의 장점은 ingress controller에서 편리하게 SSL/TLS 보안 연결을 설정할 수 있다는 것입니다. 즉, Ingress controlller지점에서 인증서를 적용해 두면 요청이 전달되는 application에 대해 모두 인증서 처리가능하다. 이번 글에서는 직접 서명한 루트 인증서를 통해 nginx ingress controller에 적용해보자. 
+
+보안 연결에 사용할 인증서와 비밀키를 생성해보자.
+
+```
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=da2so.com/O=da2so"
+```
+
+tls.key라는 비밀키와 tls.crt라는 인증서가 생성되었습니다. 그리고 secret object를 다음과 같이 만든다.
+
+
+```
+ kubectl create secret tls tls-secret --key tls.key --cert tls.crt
+```
+
+그리고 이제 tls가 적용될 ingress yaml을 다음과 같이 작성한다. 그리고 해당 ingress을 생성하고 nginx ingress controller에게 요청을 보내보죠.
+
+```
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-example
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  tls:
+  - hosts:
+    - da2so.com
+    secretName: tls-secret
+  rules:
+  - host: da2so.com
+    http:
+      paths:
+      - path: /hostname
+        pathType: Prefix
+        backend:
+          service:
+            name: hostname-svc
+            port:
+              number: 8080
+```
+
+- spec.tls.hosts: 보안 연결을 적용할 도메인 이름
+- spec.tls.secretName: 위에서 생성하였던 tls 타입의 secret 이름
+
