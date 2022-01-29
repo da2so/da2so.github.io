@@ -212,7 +212,10 @@ metadata:
 ```
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/11.png){: .mx-auto.d-block width="100%" :}
+![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/11.png){: .mx-auto.d-block width="60%" :}
+
+참고! Nginx Ingress Controller는 bypassing이라는 기능을 통하여 application pod에 트래픽을 직접 전달합니다. 해당 Pod의 Service를 경유해야 하는 네트워크 홉을 줄이게 됩니다.
+{: .box-note}
 
 
 ### 1.4 Nginx ingress controller에 SSL/TLS보안 연결 적용
@@ -225,14 +228,23 @@ Ingress의 장점은 ingress controller에서 편리하게 SSL/TLS 보안 연결
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=da2so.com/O=da2so"
 ```
 
+![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/12.png){: .mx-auto.d-block width="100%" :}
+
 tls.key라는 비밀키와 tls.crt라는 인증서가 생성되었습니다. 그리고 secret object를 다음과 같이 만든다.
 
 
 ```
  kubectl create secret tls tls-secret --key tls.key --cert tls.crt
 ```
+![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/13.png){: .mx-auto.d-block width="80%" :}
 
-그리고 이제 tls가 적용될 ingress yaml을 다음과 같이 작성한다. 그리고 해당 ingress을 생성하고 nginx ingress controller에게 요청을 보내보죠.
+
+tls을 적용한 ingress를 작성하기 전에 위에서 사용한 **ingress-deployment-service.yaml**을 통해 service와 deployment를 실행시키자.
+
+![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/14.png){: .mx-auto.d-block width="80%" :}
+
+
+이제 tls가 적용될 ingress yaml을 다음과 같이 작성한다. 그리고 해당 ingress을 생성하고 생성한 ingress의 정보와 nginx ingress controller의 https(443port)의 정보를 확인한다.
 
 ```
 apiVersion: networking.k8s.io/v1
@@ -262,4 +274,15 @@ spec:
 
 - spec.tls.hosts: 보안 연결을 적용할 도메인 이름
 - spec.tls.secretName: 위에서 생성하였던 tls 타입의 secret 이름
+
+![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/15.png){: .mx-auto.d-block width="100%" :}
+
+위의 그림에서 알 수 있듯이 ingress의 정보에 tls연결 정보가 새로 생긴것을 확인가능하며 tls보안이 있기때문에 https로 접속해야하는데 https로 접속하기 위한 ingress controller의 https포트는 31355인것을 알 수 있다. 즉, **$https$://da2so.com:31355**는 https와 31355와 맵핑되는 443포트(https)를 통해 ingress controller의 https로 접근을 명시하는 것이고 그다음은 위에서 설명한것과 같이 ingress controller에게 da2so.com과 연결되는 ip주소에 접속하도록 요청하는것이다. 다음 명령어를 통해 https연결을 통해 web service에 접속해보자.
+
+```
+curl https://da2so.com:31355/hostname -k
+# -k 옵션은 신뢰할 수 없는 인증서로 보안연결을 위함이다.
+```
+
+![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/16.png){: .mx-auto.d-block width="80%" :}
 
