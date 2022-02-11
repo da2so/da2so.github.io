@@ -18,7 +18,7 @@ As the word itself, We perform knowledge distillation when there are no original
 In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Thus, in Data-Free Learning of Student Networks, we prospose a novel framework, named as *Data-Free Learning* (DAFL), for trainging efficient deep neural networks by exploiting generative adversarial networks (GANs).
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/1.png){: .mx-auto.d-block :}
+![diagram](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/1.png){: .mx-auto.d-block :}
 
 ## 2. Method
 
@@ -117,10 +117,19 @@ L_\{Total\}=L_\{oh\}+\alpha L_\{a\}+\beta L_\{ie\}, \quad \cdots Eq. (6)
 where <span style="color:DodgerBlue">$\alpha$</span> and <span style="color:DodgerBlue">$\beta$</span> are hyper paramertes for balancing three different terms. The algorithm of DAFL is described in Algorithm 1.
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/2.png){: .mx-auto.d-block width="60%" height="50% :}
+![algorithm](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/2.png){: .mx-auto.d-block width="60%" height="50% :}
 
 
 ## 3. Experiment Settting & Result
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/3.png){: .mx-auto.d-block :}
+![experiment_result](https://da2so.github.io/assets/post_img/2020-08-13-Data-Free_Learning_of_Student_Networks/3.png){: .mx-auto.d-block :}
+
+
+<br />
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Chen, Hanting, et al. "Data-free learning of student networks." Proceedings of the IEEE/CVF International Conference on Computer Vision. 2019.*
+
+

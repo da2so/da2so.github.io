@@ -25,7 +25,7 @@ That is, they retain the original model structure without considering low-rank a
 
 Note that FD methods incur the accuracy drop from the original network because of an approximation error given a rank. If so, in terms of loss surface, which position of parameters is appropreatie before applying FD in a below figure?
 
-![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/1.png){: .mx-auto.d-block width="90%" :}
+![optimal_point_for_FD](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/1.png){: .mx-auto.d-block width="90%" :}
 
 
 As you already  expect, the right position of parameters is less sensitive to accuracy drop (loss variance). That is, the underlying principle of proposed training algorithm is to find a particular local minimum of flat loss surface, robust to parameter errors induced by low-rank approximation.
@@ -33,7 +33,7 @@ As you already  expect, the right position of parameters is less sensitive to ac
 
 The proposed scheme preserves the original model structure and searches for a local minimum well suited for low-rank approximation. The training procedure for low-rank approximation, called **DeepTwist**, is illustrated in Fig. 1.
 
-![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/2.png){: .mx-auto.d-block width="90%" :}
+![DeepTwist_procedure](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/2.png){: .mx-auto.d-block width="90%" :}
 
 
 - Step by Step
@@ -85,7 +85,7 @@ First of all, Tucker decomposition is described as below:
 \\] 
 </span>
 
-![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/3.png){: .mx-auto.d-block width="70%" :}
+![tucker_decomposition](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/3.png){: .mx-auto.d-block width="70%" :}
 
 
 - Original 4D kernel tensor: <span style="color:DodgerBlue">$ K = \mathcal{R}^\{ d \times d \times S \times T \}$</span>.
@@ -110,7 +110,7 @@ DeepTwist training algorithm is conducted for Tucker decomposition as follows:
 
 Using the pre-trained ResNet-32 model with CIFAR-10 dataset, compare two training methods for Tucker decomposition: 1) typical training with a decomposed model and 2) DeepTwist training (<span style="color:DodgerBlue">$ S_D $</span> = 200). The result is as follows.
 
-![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/4.png){: .mx-auto.d-block width="70%" :}
+![DeepTwist_test](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/4.png){: .mx-auto.d-block width="70%" :}
 
 
 ## 4. 2-Dimensional SVD Enabled by DeepTwist
@@ -129,13 +129,17 @@ A reshaped kernel matrix <span style="color:DodgerBlue">$ K \in \mathcal{R}^\{ T
 to be <span style="color:DodgerBlue">$ n/r $</span>. If such a skewed matrix is divided into four tiles as shown in Fig. 4 and the four tiles do not share much common characteristics, then tiling-based SVD can be a better approximator and rank <span style="color:DodgerBlue">$ r $</span> can be further reduced without increasing approximation error. Moreover, fast matrix multiplication is usually implemented by a tiling technique in hardware to improve the weight reuse rate. 
 
 
-![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/5.png){: .mx-auto.d-block width="90%" :}
+![experiment_setting](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/5.png){: .mx-auto.d-block width="90%" :}
 
 They tested a (1024 × 1024) random weight matrix in which elements follow a Gaussian distribution. A weight matrix is divided by (1×1), (16×16), or (128×128)tiles (then, each tile is a submatrix of (1024×1024), (64×64), or (8×8) size). Each tile is compressed by SVD to achieve the same overall compression ratio of 4× for all of the three cases. As described in Fig. 4. (on the right side), increasing the number of tiles tends to increase the count of near-zero and large weights. 
 
 
 They applied the tiling technique and SVD to the 9 largest convolution layers of ResNet-32 using the CIFAR-10 dataset. Weights of selected layers are reshaped into 64 × (64 × 3 × 3) matrices with the tiling configurations described in Table 1. DeepTwist performs training with the same learning schedule and SD(=200) used in Section 3.
 
-![2](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/6.png){: .mx-auto.d-block width="90%" :}
+![experiment_result](https://da2so.github.io/assets/post_img/2021-03-27-Learning_Low-Rank_Approximation_for_CNNs/6.png){: .mx-auto.d-block width="90%" :}
 
+<br />
+
+### <span style="color:#C70039 ">Reference </span>
+*Lee, Dongsoo, et al. "Learning low-rank approximation for cnns." arXiv preprint arXiv:1905.10145 (2019).*
 

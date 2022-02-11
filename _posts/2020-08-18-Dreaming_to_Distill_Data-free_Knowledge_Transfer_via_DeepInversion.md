@@ -22,18 +22,17 @@ To tackle this problem, it is a necessary to reconstruct a dataset for training 
 * Proposing *DeepInversion*, a new method for synthesizing class-conditional images from a CNN trained for image classification.
 	* Introducing a regularization term for intermediate layer activations of synthesized images based on just the two layer-wise statistics: mean and variance from teacher network.
 
-<br />
+
 * Improving synthesis diversity via application-specific extension of *DeepInversion*, called *Adaptive DeepInversion*.
 	* Exploiting disagreements between the pretrained teacher and the in-training student network to expand the coverage of the training set.
 
 
 The overall procedure of our method is described in Fig. 1.
 
-![2](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/1.png){: .mx-auto.d-block :}
+![framework](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/1.png){: .mx-auto.d-block :}
 
 ### <span style="color:gray">2.1 Background </span>
 
-<br />
 
 #### <span style="color:gray">2.1.1 Knowledge distillation </span>
 
@@ -134,7 +133,7 @@ During optimization, this new term leads to new images the student cannot easily
 </span>
 
 
-![2](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/2.png){: .mx-auto.d-block width="80%" :}
+![adaptive_deepinversion](https://da2so.github.io/assets/post_img/2020-08-18-Dreaming_to_Distill_Data-free_Knowledge_Transfer_via_DeepInversion/2.png){: .mx-auto.d-block width="80%" :}
 
 
 
@@ -143,4 +142,4 @@ During optimization, this new term leads to new images the student cannot easily
 *Yin, Hongxu, et al. "Dreaming to distill: Data-free knowledge transfer via DeepInversion." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.*
 
 
-**Github Code: [HERE](https://github.com/da2so/Dreaming-to-Distill-Data-free-Knowledge-Transfer-via-DeepInversion-Tensorflow)**
+**Github Code: [Dreaming to Distill](https://github.com/da2so/Dreaming-to-Distill-Data-free-Knowledge-Transfer-via-DeepInversion-Tensorflow)**

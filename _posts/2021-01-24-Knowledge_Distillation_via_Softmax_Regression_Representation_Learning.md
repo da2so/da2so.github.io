@@ -12,7 +12,7 @@ thumbnail-img: /assets/thumbnail_img/2021-01-24-Knowledge_Distillation_via_Softm
 {: .box-note}
 
 
-![2](https://da2so.github.io/assets/post_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/1.png){: .mx-auto.d-block width="70%" :}
+![conventional_knowledge_distillation](https://da2so.github.io/assets/post_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/1.png){: .mx-auto.d-block width="70%" :}
 
 
 ### <span style="color:gray"> 1.1 Motivation </span>
@@ -43,7 +43,7 @@ The **first thing** is a direct feature matching approach which focuses on optim
 
 ## 3. Method
 
-![2](https://da2so.github.io/assets/post_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/2.png){: .mx-auto.d-block width="90%" :}
+![method](https://da2so.github.io/assets/post_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/2.png){: .mx-auto.d-block width="90%" :}
 
 
 In this work, the authors aim to minimize the discrepancy between the representations <span style="color:DodgerBlue">$h^T$</span> and <span style="color:DodgerBlue">$h^S$</span>. To do this, they propose to use two losses. 
@@ -97,13 +97,18 @@ where <span style="color:DodgerBlue">$\alpha$</span> and  <span style="color:Dod
 
 The algorithm of this method is described on below.
 
-![2](https://da2so.github.io/assets/post_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/3.png){: .mx-auto.d-block width="90%" :}
+![algorithm](https://da2so.github.io/assets/post_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/3.png){: .mx-auto.d-block width="90%" :}
 
 
 ## 4. Experiment Results
 
-![2](https://da2so.github.io/assets/post_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/4.png){: .mx-auto.d-block width="100%" :}
+![experiment_results](https://da2so.github.io/assets/post_img/2021-01-24-Knowledge_Distillation_via_Softmax_Regression_Representation_Learning/4.png){: .mx-auto.d-block width="100%" :}
 
 
+<br />
 
-**Github Code: [HERE](https://github.com/da2so/Knowledge-Distillation-via-Softmax-Regression-Representation-Learning)**
+
+### <span style="color:#C70039 ">Reference </span>
+*Yang, Jing, et al. "Knowledge distillation via softmax regression representation learning." International Conference on Learning Representations. 2020.*
+
+**Github Code: [Knowledge Distillation via Softmax Regression Representation Learning](https://github.com/da2so/Knowledge-Distillation-via-Softmax-Regression-Representation-Learning)**

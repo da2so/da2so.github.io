@@ -11,7 +11,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-24-Master_TFlite2/post.png
 내용은 python, Tensorflow-gpu 2.x, keras model, mobile 에 한정되어 있음을 알려드립니다.  
 {: .box-note}
 
-**[이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)**로부터 만들어진 TFLite model로 이제 Inference을 해볼려고 합니다.  
+이전 글로부터 만들어진 TFLite model로 이제 Inference을 해볼려고 합니다.  
 
 그 전에, Inference를 어디서 할 수 있는 지 알아야겠죠?
 
@@ -36,7 +36,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-24-Master_TFlite2/post.png
 
 
 예제를 통해 실행 및 분석해봐요.
-(모델은 **[이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)**에서 생성한 tflite_resnet18을 사용)
+(모델은 이전 글에서 생성한 tflite_resnet18을 사용)
 
 ```python
 def TFLiteInference(model_path,x_test,y_test):
@@ -97,7 +97,7 @@ code와 Inference단계를 매칭시켜보면서 설명드릴게요.
 
 
 
-[이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)에서는 모델 크기만 비교했는데 이제는 Inference가 가능하니 keras model과 TFLite의 Test Accuracy와 Inference Time을 비교해봅시다!!
+이전 글에서는 모델 크기만 비교했는데 이제는 Inference가 가능하니 keras model과 TFLite의 Test Accuracy와 Inference Time을 비교해봅시다!!
 
 |Model|Test Acc|Inference Time(seconds)|File size|Download|
 |-----|--------|-----------------------|---------|--------|
@@ -107,7 +107,7 @@ code와 Inference단계를 매칭시켜보면서 설명드릴게요.
 놀랍게도(역시.. 구글...) 똑같은 linux서버환경이었지만 Test Accuracy는 동일하지만 Inference Time은 약 1/6 줄었네요! 심지어 tflite 모델은 CPU로 연산 되었지만 keras model을 GPU연산되었는데도 말이죠.
 (위 결과는 batch size를 1로 진행하였습니다.)
 
-Accuracy와 Inference Time비교하는 코드 및 위의 예제 코드는 여기서 **[Here](https://github.com/da2so/Conquer_TFLite/blob/main/2_TFLiteInference.py)** 사용가능합니다.
+Accuracy와 Inference Time비교하는 코드 및 위의 예제 코드는 **[TFLiteInference](https://github.com/da2so/Conquer_TFLite/blob/main/2_TFLiteInference.py)**에서 사용가능합니다.
 
 
 ## 2. TensorFlow Lite Delegates
@@ -119,7 +119,7 @@ Default로 TFLite model은 **ARM Neon** instruction set에 최적화 되어있�
 
 하지만, 각 accelerator는 장,단점을 가지며 모든 custom한 operations을 모두 cover하지는 못하게 되므로 process를 복잡하게 만듭니다. **TFLite's Delegate API**가 TFLite runtime과 lower-level APIs의 bridge역할을 하여 해당 문제를 해결하게 됩니다.  
 
-![2](https://da2so.github.io/assets/post_img/2020-12-24-Master_TFlite2/1.png){: .mx-auto.d-block width="70%" :}
+![delegate](https://da2so.github.io/assets/post_img/2020-12-24-Master_TFlite2/1.png){: .mx-auto.d-block width="70%" :}
 
 ### 2.1 Choosing a Delegate
 
@@ -148,6 +148,3 @@ Delegate에 대한 자세한 code나 분석은 추후에 해볼게요.
 오늘은 여기까지 하고 다음 글에서는 quantization이라는 주제로 설명드리고 그 다음으로 mobile에 deploy하는 글을 쓰도록 하겠습니다.
 **BYE!**
 
-## <span style="color:#C70039 "> Reference </span>
-
-[TFLite document](https://www.tensorflow.org/lite/guide)

@@ -16,7 +16,7 @@ thumbnail-img: /assets/thumbnail_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation
 
 The important thing to prune a trained DNN is to obtain the sub-net with highest accuracy swith reasonably small searching efforts. Existing methods to solve this problem mainly focus on evaulation process. **Evaluation process** aims to unveil the potential of sub-nets so that best pruning candidate can be selected to deliver the final pruning startegy such as Fig 1.
 
-![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/1.png){: .mx-auto.d-block width="90%" :}
+![general_pruning](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/1.png){: .mx-auto.d-block width="90%" :}
 
 
 However, the existing methods for evaluation process are either **(i)** inaccurate or **(ii)** complicated.
@@ -32,7 +32,7 @@ To solve these problems, the authors propose a pruning algorithm called EagleEye
 
 ## 2. Method
 
-![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/2.png){: .mx-auto.d-block width="80%" :}
+![pipeline](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/2.png){: .mx-auto.d-block width="80%" :}
 
 A typical pruning pipeline is shown in Fig 2. In this pipeline, the authors aim to structured filter prining approaches:
 
@@ -55,7 +55,7 @@ The authors found that the existing evaluation processes, called vanilla evaluat
 
 However, there is a huge difference in accuracy distribution between two results. In addition, Fig 3 (b) indicates that it might not be the weights that mess up the accuracy at the evaluation stage as only a gentle shift in weight distribution is observed during fine-tuning for the 50 networks.
 
-![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/3.png){: .mx-auto.d-block width="100%" :}
+![histogram_distribution](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/3.png){: .mx-auto.d-block width="100%" :}
 
 
 Interestinly, the authors found that it is the batch normalization layer that largely affects the evaluation. More specifically, the sub-networks use moving mean and moving variance of Batch Normlaization (BN) inherited from the full-size model. The outdated statistical values of BN layers eventually drag down the evaluation accuracy and then break the correlation between evaluation accuracy and the final converged accuracy of the pruning candidates.
@@ -96,18 +96,18 @@ Because the global BN statistics are out-dated to the sub-nets from vanilla eval
 
 To validate the effectiveness of proposed method, Fig 4. shows that adaptive BN delivers evaluation accuracy with a stronger correlation, compared to the vailla evaluation. The correlation measurement is conducted by Pearson Correlation Coefficient (PCC).
 
-![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/4.png){: .mx-auto.d-block width="100%" :}
+![correlation](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/4.png){: .mx-auto.d-block width="100%" :}
 
  As another evidence, the authors compare the distance of BN statistical values between true statistics. They consider the true statistics as <span style="color:DodgerBlue">$\mu_{val}$</span>,  <span style="color:DodgerBlue">$\sigma_{val}$</span> sampled from validation data. As you expect, the adaptive BN provides closer statistical values to the true values while global BN is way further as shown in Fig 5. (each pixel in the heatmaps represents a distance.)
 
-![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/5.png){: .mx-auto.d-block width="100%" :}
+![visualization_distance](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/5.png){: .mx-auto.d-block width="100%" :}
 
 
 ### <span style="color:gray"> 2.3 EagleEye pruning algorithm </span>
 
 The overall procedure of EagleEye is described in Fig 6. The procedure contains three parts, (1) pruning strategy generation, (2) filter pruning, and (3) adpative BN-basesd evaluation.
 
-![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/6.png){: .mx-auto.d-block width="100%" :}
+![procedure_eagleeye](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/6.png){: .mx-auto.d-block width="100%" :}
 
 
 **1. Strategy generation**  
@@ -127,7 +127,7 @@ The fine-tuning will be applied to the winner candidate network.
 ## Experiments
 
 
-![2](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/7.png){: .mx-auto.d-block width="100%" :}
+![experiment_result](https://da2so.github.io/assets/post_img/2020-10-25-EagleEye_Fast_Sub_net_Evaluation_for_Efficient_Neur_Network_Pruning/7.png){: .mx-auto.d-block width="100%" :}
 
 
 
@@ -135,4 +135,4 @@ The fine-tuning will be applied to the winner candidate network.
 *Li, Bailin, et al. "Eagleeye: Fast sub-net evaluation for efficient neural network pruning." European Conference on Computer Vision. Springer, Cham, 2020.*
 
 
-**Github Code: [Here](https://github.com/da2so/Eagleeye_Tensorflow)**
+**Github Code: [Eagleeye](https://github.com/da2so/Eagleeye_Tensorflow)**

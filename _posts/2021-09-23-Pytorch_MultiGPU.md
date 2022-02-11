@@ -8,7 +8,7 @@ thumbnail-img: /assets/thumbnail_img/2021-09-23-Pytorch_MultiGPU/post.PNG
 ---
 
 ## 1. Introduction
-게재된 모든 실험은 python 3.6, Pytorch 1.7.0 에서 진행되었음을 알려드립니다. 
+모든 실험은 python 3.6, Pytorch 1.7.0 에서 진행되었음을 알려드립니다. 
 {: .box-note}
 해당 글은 Pytorch에서 Single-GPU와 Multi-GPU의 차이를 이해하고 직접 실험해 볼 수 있는 환경을 제공하기 위함을 알려드립니다.
 오늘 설명드릴 목차는 다음과 같습니다.
@@ -60,7 +60,7 @@ optimizer.step()
 Multi-GPU를 사용하기 위해 torch.nn.DataParallel function인자에 Multi-GPU로 training하고 싶은 model만 넣어주면 됩니다.
 torch.nn.DataParallel를 사용하였을 때 model의 forward와 backward는 다음과 같이 작동합니다.
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/1.png){: .mx-auto.d-block width="100%" :}
+![forward_backward_process](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/1.png){: .mx-auto.d-block width="100%" :}
 
 1. **Forward process**s
     1. GPU 1가 master GPU로써 batch를 사용하는 GPU 개수(4개)로 나누어 줍니다(scatter).
@@ -94,7 +94,7 @@ torch.nn.DataParallel를 사용하였을 때 model의 forward와 backward는 다
 
 **Out:**
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/2.PNG){: .mx-auto.d-block width="60%" :}
+![batch_division](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/2.PNG){: .mx-auto.d-block width="60%" :}
 
 
 총 4개의 GPU를 사용하였고 Batch size가 256개 이므로 각 GPU에서 64개 batch단위로 forward하게 되는것을 확인가능합니다.
@@ -103,7 +103,7 @@ torch.nn.DataParallel를 사용하였을 때 model의 forward와 backward는 다
 **Out:**
 
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/3.png){: .mx-auto.d-block width="80%" :}
+![cuda_device_division](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/3.png){: .mx-auto.d-block width="80%" :}
 
 
 다음으로는 나누어진 outputs들이 합쳐지는 지 다음과 같은 코드로 확인해보면
@@ -116,7 +116,7 @@ print(f'Output size: {outputs.size()}')
 
 **Out:**
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/4.PNG){: .mx-auto.d-block width="75%" :}
+![reduced_outputs](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/4.PNG){: .mx-auto.d-block width="75%" :}
 
 각 GPU에서 forwards된 outputs이 master GPU(cuda:0)에 합쳐지는 것을 볼 수 있습니다.
 
@@ -126,7 +126,7 @@ print(f'Output size: {outputs.size()}')
 Mobilenetv2 model에서 총 10epoch을 돌려 Single-GPU와 Multi-GPU의 elapse time를 비교하겠습니다.
 
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/5.png){: .mx-auto.d-block width="100%" :}
+![comparison_GPU](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/5.png){: .mx-auto.d-block width="100%" :}
 
 
 위의 그림에서 볼 수 있듯이 같은 batch일 경우는 Multi-GPU의 효과를 보기 힘드네요. 추측해본건데 같은 batch일경우
@@ -134,7 +134,7 @@ Dataparallel사용에 따른 scatter, replicate, gather 과정이 추가되므�
 
 MobileNetv2 모델하나로 판단하는 게 generality가 떨어진다고 생각되어 ResNet50으로도 돌려보았습니다.
 
-![1](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/6.png){: .mx-auto.d-block width="80%" :}
+![single_and_multi_GPU_comparison](https://da2so.github.io/assets/post_img/2021-09-23-Pytorch_MultiGPU/6.png){: .mx-auto.d-block width="80%" :}
 
 분석하자면 다음과 같습니다.
 
@@ -161,11 +161,5 @@ MobileNetv2 모델하나로 판단하는 게 generality가 떨어진다고 생�
 
 그래서 정리하자면 GIL때문에 DataParallel사용 시 multi-thread paralleslism이 잘 작동하지 않는 것이다. 그렇다면 이를 해결하기 위해 Pytorch에서는 <span style="color:#C70039">**DistributedDataParallel**</span>을 사용하기를 권장하는데 이는 다음 글에서 만나보자.
 
-해당 실험에 대한 코드는 [여기서](https://github.com/da2so/Pytorch_MultiGPU) 사용가능하다.
+해당 실험에 대한 코드는 [Pytorch_MultiGPU](https://github.com/da2so/Pytorch_MultiGPU)에서 사용가능하다.
 
-
-### <span style="color:#C70039 "> Reference </span>
-
-[Training Neural Nets on Larger Batches: Practical Tips for 1-GPU, Multi-GPU & Distributed setups](https://medium.com/huggingface/training-larger-batches-practical-tips-on-1-gpu-multi-gpu-distributed-setups-ec88c3e51255)
-
-[Pytorch docs](https://pytorch.org/tutorials/beginner/blitz/data_parallel_tutorial.html)

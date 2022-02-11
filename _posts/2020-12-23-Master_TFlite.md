@@ -38,7 +38,7 @@ compile정보를 담고 있는 converter object에서 ```convert()``` 함수를 
 
 TFLiteConverter의 입출력 관계는 다음 그림과 같습니다.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-23-Master_TFlite/1.png){: .mx-auto.d-block width="60%" :}
+![relation_input_output](https://da2so.github.io/assets/post_img/2020-12-23-Master_TFlite/1.png){: .mx-auto.d-block width="60%" :}
 
 (저의 경우) Keras model을 입력으로 받고 TFLiteConverter를 통과해 tflite확장자를 가진 Flatbuffer형식의 파일을 얻게 됩니다.
 Serialized인 Flatbuffer형식이므로 언어(i.e. C, Java, Python)에 dependency 영향을 받지 않는 모델이 되는 것이고 이는 다양한 device, mobile에 deploy할 수 있음을 암시하겠죠!?
@@ -64,8 +64,8 @@ def keras2TFlite(model_path):
 ```
 
 
-예제 모델은 제가 resnet18모델을 pruning시킨 거에요. Test acc는 85%정도인데 parameter는 8만개밖에  안쓰였습니다!  
-어떻게 pruning시킨지 알고싶으면 여기로 [HERE](https://github.com/da2so/Eagleeye_Tensorflow)
+예제 모델은 제가 resnet18모델을 pruning시킨 거에요. Test acc는 85%정도인데 parameter는 8만개밖에 안쓰였습니다!  
+Pruning은 [EagleEye code](https://github.com/da2so/Eagleeye_Tensorflow)를 사용했습니다.
 
 |Model|File size|Download|
 |-----|--------|---------|
@@ -83,14 +83,9 @@ TFLite model로 변환했는데 model size가 줄었네요! 역시 TFLite model�
 Tensorflow 에서는 지원하지만 Tensorflow Lite에서는 지원하지 않는 operator가 있습니다.  
 
 **type측면으로 보면** 대부분의 TFLite의 operator들은 float32, uint8, int8 을 대상으로 한다고 합니다. 그래서 float16또는 string위한 많은 operator들은 아직이라네요..ㅠ  
-**document상으로 보면** 해당 [site](https://www.tensorflow.org/mlir/tfl_ops)에서 지원하는 operator를 보실수 있습니다.
 
 
-오늘 보여드린 예제 코드는 여기서 [Here](https://github.com/da2so/Conquer_TFLite/blob/main/1_keras2TFLite.py) 사용가능합니다.  
+오늘 보여드린 예제 코드 [keras2TFLite](https://github.com/da2so/Conquer_TFLite/blob/main/1_keras2TFLite.py)입니다.
 다음 장에서는 TFLite 모델로 inference하는 방식과 여유가 된다면 mobile로 작동하는 것을 보여드리도록 하는 게 목표입니다.  
 **BYE!**
 
-
-## <span style="color:#C70039 "> Reference </span>
-
-[TFLite document](https://www.tensorflow.org/lite/guide)

@@ -24,7 +24,7 @@ For realizing both data efficiency and training efficiency, this paper proposes 
 
 ### <span style="color:gray"> 2.1 Overview </span>
 
-![2](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/1.png){: .mx-auto.d-block width="90%" :}
+![FSKD_procedure](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/1.png){: .mx-auto.d-block width="90%" :}
 
 FSKD method consists of three steps:
 
@@ -96,18 +96,25 @@ This condition is required not only for ensuring the same parameter size and com
 
 The overall algorithm of FSKD is described in below figure.
 
-![3](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/2.png){: .mx-auto.d-block width="60%" :}
+![algorithm](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/2.png){: .mx-auto.d-block width="60%" :}
 
 ## 3. Experiment Setting
 
 For all experiments, the results are averaged over 5 trials of different randomly selected images. Considering the number of channels in teacher may be different from that in student, they only match the un-pruned part of feature maps in teacher-net to the feature maps in the student net as shown in Fig 2. And, Fig 3 represents how FSKD works for block-level alignment.
 
-![3](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/3.png){: .mx-auto.d-block width="90%" :}
+![experiment_setting](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/3.png){: .mx-auto.d-block width="90%" :}
 
 
 ## 4. Experiment Result
 
 
-![3](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/4.png){: .mx-auto.d-block width="100%" :}
-![3](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/5.png){: .mx-auto.d-block width="100%" :}
+![experiment_result1](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/4.png){: .mx-auto.d-block width="100%" :}
+![experiment_result2](https://da2so.github.io/assets/post_img/2021-02-20-Few_Sample_Knowledge_Distillation_for_Efficient_Network_Compression/5.png){: .mx-auto.d-block width="100%" :}
+
+<br />
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Li, Tianhong, et al. "Few sample knowledge distillation for efficient network compression." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.*
+
 

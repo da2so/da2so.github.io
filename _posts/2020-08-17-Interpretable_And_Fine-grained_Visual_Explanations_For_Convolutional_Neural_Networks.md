@@ -14,10 +14,10 @@ In Interpretable And Fine-grained Visual Explanations For Convolutional Neural N
 
 ### <span style="color:gray">1.1 Sub-goal </span>
 
-<span style="color:gray">**#[A]#**</span> Defend against adversarial evidence (i.e. faulty evidence due to artifacts).  
-<span style="color:gray">**#[B]#**</span> Provide the explanations which are both fine-grained and preserve the characteristics of images, such as edges and colors.
+<span style="color:gray">**[A]:**</span> Defending against adversarial evidence (i.e. faulty evidence due to artifacts).  
+<span style="color:gray">**[B]:**</span> Providing the explanations which are both fine-grained and preserve the characteristics of images, such as edges and colors.
 
-![1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/1.png){: .mx-auto.d-block width="90%" :}
+![explanation](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/1.png){: .mx-auto.d-block width="90%" :}
 
 
 ## 2. Method
@@ -48,15 +48,8 @@ An explanation is computed by removing either relevant or irrelevant information
 To do this, they use a mask based operator <span style="color:DodgerBlue">$\Phi$</span>, which computes a weighted average between the image <span style="color:DodgerBlue">$x$</span> and a reference image <span style="color:DodgerBlue">$r$</span>, using a mask <span style="color:DodgerBlue">$m_{c_T} \in \[ 0,1 \]^{3 \times H \times W}$</span>:
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/2.png){: .mx-auto.d-block  width="82%" :}
+![equation_1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/2.png){: .mx-auto.d-block  width="82%" :}
 
-<!--
-<span style="color:DodgerBlue">
-\\[
-e_{c_T}=\Phi(x,m_\{c_T \})= x \cdot m_\{c_T \} + (1- m_\{c_T \} )\cdot r \quad \cdots Eq.(1).
-\\]
-</span>
--->
 
 Authors introduce a similarity metric <span style="color:DodgerBlue">$\varphi (y^{c_T}_x, y^{c_T}_e)$</span>.
 
@@ -97,7 +90,7 @@ We can compute a *deleting explanation* using:
 <span style="color:DodgerBlue">$\lambda$</span> encourages masks Fig. 3 (b1) to contain mainly ones (*i.e.* appear white) and only small entries at pixels, which provide the most prominent evidence for the target class.
 
 
-![3](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/3.png){: .mx-auto.d-block :}
+![experiment_result_1](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/3.png){: .mx-auto.d-block :}
 
 
 To solve the optimization in Eq. (2) and (3), we utilize Stochastic Gradient Descent (SGD and start with an explanation <span style="color:DodgerBlue">$e^0_{c_T} =1 \cdot x$</span> identical to the original image (*i.e.* a mask initialized with ones).
@@ -150,7 +143,16 @@ However, since this method changes the architecture of the model which we explai
 where <span style="color:DodgerBlue">$\[ \cdot \]$</span> is the indicator function and <span style="color:DodgerBlue">$bl$</span>, <span style="color:DodgerBlue">$bu$</span> the bounds computed in Eq. (5). This clipping only affects the gradients of the similarity metric <span style="color:DodgerBlue">$\varphi ( \cdot , \cdot )$</span> which are propagated through the network. The result examples of our adversarial defense are shown in Fig 4.
 
 
-![4](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/4.png){: .mx-auto.d-block width="80%" :}
+![experiment_result_2](https://da2so.github.io/assets/post_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/4.png){: .mx-auto.d-block width="80%" :}
+
+
+
+<br />
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Wagner, Jorg, et al. "Interpretable and fine-grained visual explanations for convolutional neural networks." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2019.*
+
 
 
 

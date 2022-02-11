@@ -16,7 +16,7 @@ As the word itself, We perform knowledge distillation when there are no original
 
 In order to perform data-free knowledge distillation, it is a necessary to reconstruct a dataset for training Student network. Then, in this paper, we propose "Zero-Shot Knowledge Distillation" (ZSKD), which perform pseudo data synthesis from the Teacher model that act as the transfer set to perform the distillation without even using any meta-data.
 
-![2](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/1.png){: .mx-auto.d-block :}
+![comparison](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/1.png){: .mx-auto.d-block :}
 
 
 ## 2. Method
@@ -70,7 +70,7 @@ So, it is important to determine right <span style="color:DodgerBlue">$\alpha$</
 Thus, we resort to the *Teacher* network for extracting this information. We compute a normalized class similarity matrix (<span style="color:DodgerBlue">$C$</span>) using the weights <span style="color:DodgerBlue">$W$</span> connecting the final (softmax) and the pre-final layers. The element <span style="color:DodgerBlue">$C(i,j)$</span> of this matrix denotes the visual similarity between the categories <span style="color:DodgerBlue">$i$</span> and <span style="color:DodgerBlue">$j$</span> in [0,1].
 
 
-![2](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/2.PNG){: .mx-auto.d-block :}
+![confusion_matrix](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/2.PNG){: .mx-auto.d-block :}
 
 #### <span style="color:gray"> 2.2.2 Class Similarity Matrix ($C$)</span>
 
@@ -109,7 +109,7 @@ We initialize <span style="color:DodgerBlue">$\overline{x}^k_i$</span> as a rand
 
 The probability density function of the Dirichlet distribution for <span style="color:DodgerBlue">$K$</span> random variables is a <span style="color:DodgerBlue">$K-1$</span> dimensional probability simplex that exists on a <span style="color:DodgerBlue">$K$</span> dimensional space. Since we treat Dirichlet distribution, it is important to discuss the significance of the range of <span style="color:DodgerBlue">$\alpha_i \in \alpha$</span>, in controlling the density of the distribution.
 
-![3](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/3.png){: .mx-auto.d-block :}
+![comparison_density](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/3.png){: .mx-auto.d-block :}
 
 Thus, we define a scaling vector <span style="color:DodgerBlue">$\beta$</span> which can control the range of the individual elements of the concentration parameter, which in turn decides regions in the simplex from which sampling is performed. This becomes a hyper-parameter for the algorithm. Thus, the actual sampling of the probability sampling of the probability vectors happen from <span style="color:DodgerBlue">$p(s)=Dir(K,\beta \times \alpha)$</span>.
 
@@ -131,20 +131,19 @@ We ignore the cross-entropy loss <span style="color:DodgerBlue">$L_C$</span> fro
 
 
 
-![4](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/4.PNG){: .mx-auto.d-block width='70%':}
+![algorithm](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/4.PNG){: .mx-auto.d-block width='55%':}
 
 
 ## 3. Experiment Setting & Result
 
 
-![5](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/5.png){: .mx-auto.d-block :}
-
+![experiment_result](https://da2so.github.io/assets/post_img/2020-08-12-Zero-Shot_Knowledge_Distillation_in_Deep_Networks/5.png){: .mx-auto.d-block :}
 
 <br />
-<br />
+
 
 ### <span style="color:#C70039 ">Reference </span>
 *Nayak, Gaurav Kumar, et al. "Zero-Shot Knowledge Distillation in Deep Networks." International Conference on Machine Learning. 2019.*
 
 
-**Github Code: [Here](https://github.com/da2so/Zero-shot_Knowledge_Distillation)**
+**Github Code: [Zero-Shot Knowledge Distillation in Deep Networks](https://github.com/da2so/Zero-shot_Knowledge_Distillation)**

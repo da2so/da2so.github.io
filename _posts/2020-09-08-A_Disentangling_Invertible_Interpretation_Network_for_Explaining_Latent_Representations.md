@@ -11,7 +11,7 @@ thumbnail-img: /assets/thumbnail_img/2020-09-08-A_Disentangling_Invertible_Inter
 ### <span style="color:gray"> 1.1 Invertible transformation of hidden representations </span>
 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/1.png){: .mx-auto.d-block width="80%" :}
+![CNN](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/1.png){: .mx-auto.d-block width="80%" :}
 
 - Input image: <span style="color:DodgerBlue">$x \in \mathbb{R}^{H \times W \times 3}$</span>
 - Sub-network of <span style="color:DodgerBlue">$f$</span> including hidden layers: <span style="color:DodgerBlue">$E$</span>
@@ -24,7 +24,7 @@ In A Disentangling Invertible Interpretation Network for Explaining Latent Repre
 
 In order to <span style="color:DodgerBlue">$z$</span> into an interpretable representation, the following is introduced.
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/2.png){: .mx-auto.d-block width="90%" :}
+![interpretable_representation](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/2.png){: .mx-auto.d-block width="90%" :}
 
 
 
@@ -32,11 +32,11 @@ So, what can we obtain from interpretable representations??
 
 <span style="color:#CC16CF">**(i)**</span> We can comprehend the meaning of the latent variable from the value of interpretable representation and get more natural images from GAN.
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/3.png){: .mx-auto.d-block width="80%" :}
+![comparison_experiment](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/3.png){: .mx-auto.d-block width="80%" :}
 
 <span style="color:#CC16CF">**(ii)**</span> Semantic image modifications and embeddings. As we manipulate the semantic factor (=interpretable representation) for digit, we can get '3' digit image from '9' digit image.
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/4.png){: .mx-auto.d-block width="80%" :}
+![control_experiment](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/4.png){: .mx-auto.d-block width="80%" :}
 
 
 
@@ -77,7 +77,7 @@ For a given training pair <span style="color:DodgerBlue">$(x^a, x^b)$</span> fac
 <span style="color:gray">$\quad \quad \Rightarrow$</span><span style="color:DodgerBlue">$\widetilde{z}^b_k \sim N (\widetilde{z}^b_k | 0,1  ) \; k \in \\{ 0, \cdots , K \\} \backslash \\{ F \\} \quad \cdots Eq. (3)$</span>
 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/5.png){: .mx-auto.d-block width="90%" :}
+![equation](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/5.png){: .mx-auto.d-block width="90%" :}
 
 
 To fit this model to data, we utilize the invertibility of <span style="color:DodgerBlue">$T$</span> to directly compute and **maximize the likelihood <span style="color:DodgerBlue">$(z^a, z^b)=(E(x^a), E(x^b))$</span>.**
@@ -85,7 +85,7 @@ To fit this model to data, we utilize the invertibility of <span style="color:Do
 Compute the likelihood with the absolute value of the Jaccobian determinant of <span style="color:DodgerBlue">$T$</span>, denoted <span style="color:DodgerBlue">$T'(\cdot)$</span>, as
 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/6.png){: .mx-auto.d-block width="90%" :}
+![equation_explanation1](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/6.png){: .mx-auto.d-block width="90%" :}
 
 
 Build <span style="color:DodgerBlue">$T$</span> based on ActNorm, AffineCoupling and suffling layers. (detailed in original paper...)
@@ -95,7 +95,7 @@ For training, we use negative log-likelihood as our loss function.
 Subsitituting Eq. (1) into Eq. (4), Eq. (2) and (3) into Eq.(5) leads to the per-example loss <span style="color:DodgerBlue">$l(z^a,z^b |F)$</span>.
 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/7.png){: .mx-auto.d-block width="90%" :}
+![equation_explanation2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/7.png){: .mx-auto.d-block width="90%" :}
 
 
 The loss function is optimized over training pairs <span style="color:DodgerBlue">$(x^a, x^b)$</span> for all semantic concepts <span style="color:DodgerBlue">$F \in \\{1, \cdots , K \\}$</span>
@@ -136,7 +136,7 @@ s_F=\sum_i \frac{Cov (E(x^a)_i, E(x^b)_i)}{\sqrt{Var(E(x^a)_i Var(E(x^b)_i))}}. 
 
 Since, correlation is in $[-1,1]$, scores <span style="color:DodgerBlue">$s_F$</span> are in <span style="color:DodgerBlue">$[-1 \times N, 1 \times N] = [-N, N]$</span> for <span style="color:DodgerBlue">$N$</span> dimensional latent representations of <span style="color:DodgerBlue">$E$</span>.
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/8.png){: .mx-auto.d-block width="100%" :}
+![dimensionality](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/8.png){: .mx-auto.d-block width="100%" :}
 
 
 ### <span style="color:gray"> 2.2 Sketch-based description of semantic concepts </span>
@@ -146,7 +146,7 @@ Since, correlation is in $[-1,1]$, scores <span style="color:DodgerBlue">$s_F$</
 
 <span style="color:gray">**Solution: **</span> A user only has to provide two sketches, <span style="color:DodgerBlue">$y^a$</span> and <span style="color:DodgerBlue">$y^b$</span> which demonstrate a change in concept.
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/9.png){: .mx-auto.d-block width="100%" :}
+![sketch_example](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/9.png){: .mx-auto.d-block width="100%" :}
 
 
 
@@ -161,4 +161,14 @@ L_{unsup}= - E_x \Vert T(E(x)) \Vert^2 - log \vert T'(E(x)) \vert. \quad \cdots 
 \\]
 </span>
 
-![2](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/10.png){: .mx-auto.d-block width="90%" :}
+![linear_vs_nonlinear](https://da2so.github.io/assets/post_img/2020-09-08-A_Disentangling_Invertible_Interpretation_Network_for_Explaining_Latent_Representations/10.png){: .mx-auto.d-block width="90%" :}
+
+
+<br />
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Esser, Patrick, Robin Rombach, and Bjorn Ommer. "A disentangling invertible interpretation network for explaining latent representations." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.*
+
+
+

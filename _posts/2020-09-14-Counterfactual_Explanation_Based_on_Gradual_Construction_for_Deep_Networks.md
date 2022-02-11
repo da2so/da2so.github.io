@@ -13,11 +13,11 @@ forced to predict the perturbed data as a target class.
 The Framework for counterfactual explanation is described in Fig 1. 
 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/1.png){: .mx-auto.d-block width="90%" :}
+![framework](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/1.png){: .mx-auto.d-block width="90%" :}
 
 From perturbed data, we can **interpret** that the pre-trained model thinks the the perturbed parts(regions) as the discriminative features between the original and target classes, such as Fig 2. 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/2.png){: .mx-auto.d-block width="90%" :}
+![example_results](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/2.png){: .mx-auto.d-block width="90%" :}
 
 
 For this, the perturbed data for counterfactual explanation should satisfy two desirable properties.
@@ -32,7 +32,7 @@ For this, the perturbed data for counterfactual explanation should satisfy two d
 
 To generate counterfactual explanations, we propose a counterfactual explanation method based on gradual construction that considers the statistics learned from training data. We particularly generate counterfactual explanation by iterating over masking and composition steps.
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/3.png){: .mx-auto.d-block :}
+![method](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/3.png){: .mx-auto.d-block :}
 
 
 ### <span style="color:gray"> 2.1 Problem definition </span>
@@ -119,7 +119,7 @@ where <span style="color:DodgerBlue">$\epsilon= \\{ \epsilon_1, \cdots , \epsilo
 
 However, this obejctive function causes an adversarial attack such as Failure images in Fig. 3. Then, we compared the tributions of logit scores (before the softmax layer) for each failure case and the training images that are classified as <span style="color:DodgerBlue">$c_t$</span> from a pre-trained network. And, we discovered that there exist a notable difference between the two distributions as depicted in Fig 3. 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/4.png){: .mx-auto.d-block width='70%' :}
+![comparison_logit](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/4.png){: .mx-auto.d-block width='70%' :}
 
 Thus, we regard failure cases as the result of an n inappropriate objective function that maps the perturbed data onto a different logit space from the training data. To solve this problem, we instead force the logit space of <span style="color:DodgerBlue">$X'$</span> to belong to the space of training data as follows:
 
@@ -137,16 +137,16 @@ Overall, gradual construction iterates over the masking and composition steps un
 We present a pseudo-code in Algorithm 1.
 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/5.png){: .mx-auto.d-block width='60%' :}
+![algorithm](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/5.png){: .mx-auto.d-block width='60%' :}
 
 
 
 ## 3. Experiment
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/6.png){: .mx-auto.d-block width='100%' :}
+![experiment1](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/6.png){: .mx-auto.d-block width='100%' :}
 
 
-![2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/7.png){: .mx-auto.d-block width='100%' :}
+![experiment2](https://da2so.github.io/assets/post_img/2020-09-14-Counterfactual_Explanation_Based_on_Gradual_Construction_for_Deep_Networks/7.png){: .mx-auto.d-block width='100%' :}
 
 
 
@@ -156,4 +156,4 @@ We present a pseudo-code in Algorithm 1.
 *Kang, Sin-Han, et al. "Counterfactual Explanation Based on Gradual Construction for Deep Networks." arXiv preprint arXiv:2008.01897 (2020).*
 
 
-**Github Code: [Here](https://github.com/da2so/Counterfactual-Explanation-Based-on-Gradual-Construction-for-Deep-Networks)**
+**Github Code: [Counterfactual Explanation Based on Gradual Construction for Deep Networks](https://github.com/da2so/Counterfactual-Explanation-Based-on-Gradual-Construction-for-Deep-Networks)**

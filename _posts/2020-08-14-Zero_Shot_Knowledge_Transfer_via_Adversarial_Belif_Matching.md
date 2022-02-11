@@ -70,7 +70,7 @@ L_s=D_{KL} (T(x_p) || S(x_p)) + \beta \sum_l^{N_L} \Vert \frac{f (A^{(t)}_l)}{ \
 
  We take the sum over some subet of <span style="color:DodgerBlue">$N_L$</span> layers. The second term encourages both spatial attention maps between teacher and student networks to be similar. We don't use attention for the generator loss because it makes it too easy to fool the student. The training procdure is described in Fig. 1.
 
-![2](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/1.png){: .mx-auto.d-block :}
+![framework](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/1.png){: .mx-auto.d-block :}
 
  
 
@@ -82,7 +82,7 @@ The dynamics of our algorithm is illustrated in Fig. 2, where we use two layer M
 During training, pseudo points can be seen to explore the input space, typically running along decision boundaries where the student is most likely to match the teacher poorly. At the same time, the student is trained to match the teacher on the pseudo points, and so they must keep changing locations. When the decision boundaries between student and teacher are well aligned, some pseudo points will naturally depart from them and search for new high teacher mismatch regions, which allows disconnected decision boundaries to be explored as well.
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/2.png){: .mx-auto.d-block :}
+![toy_experiment](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/2.png){: .mx-auto.d-block :}
 
 
 
@@ -107,7 +107,7 @@ We observe that some teacher-student pairs tend to work better than others, as i
 Samples from generator during training are shown in Fig. 3 (d). We notice that early in training the samples look like coarse textures and are reasonly diverse. After about 10% of the training run, most images produced by generator look like high frequency patterns that have little meaning to humans.
 
 
-![3](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/3.png){: .mx-auto.d-block :}
+![pseudo_data_experiment](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/3.png){: .mx-auto.d-block :}
 
 
 ### <span style="color:gray"> 3.4 Measuring belief match near decision boundaries </span>
@@ -143,7 +143,14 @@ MTE(net_A, net_B)= \frac{1}{N_{test}} \sum^{N_\{test\}}_n \frac{1}{C-1} \sum^{C-
 The mean transition errors are reported in Fig. 4 (b).
 
 
-![4](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/4.png){: .mx-auto.d-block :}
+![experiments_and_results](https://da2so.github.io/assets/post_img/2020-08-14-Zero-Shot_Knowledge_Transfer_via_Adversarial_Belif_Matching/4.png){: .mx-auto.d-block :}
+
+
+<br />
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Micaelli, Paul, and Amos J. Storkey. "Zero-shot knowledge transfer via adversarial belief matching." Advances in Neural Information Processing Systems 32 (2019).*
 
 
 

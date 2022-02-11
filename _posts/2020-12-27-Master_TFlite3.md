@@ -11,7 +11,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-27-Master_TFlite3/post.png
 내용은 python, Tensorflow-gpu 2.x, keras model, mobile 에 한정되어 있음을 알려드립니다.  
 {: .box-note}
 
-**[이전 글](https://da2so.github.io/2020-12-24-Master_TFlite2/)**에서 TFLite model로 Inference까지 해봤습니다. 이번에는 TFLite model을 경량화 시키는 방법을 알려드릴게요. 
+이전 글에서 TFLite model로 Inference까지 해봤습니다. 이번에는 TFLite model을 경량화 시키는 방법을 알려드릴게요. 
 
 경량화 방법은 TFLite에서 제공하는 Quantization이며 경량화의 효과는 다음과 같습니다.
 
@@ -41,11 +41,11 @@ thumbnail-img: /assets/thumbnail_img/2020-12-27-Master_TFlite3/post.png
 2번에 대해 좀더 설명하자면 아래 그림을 참고하십시오.  
 해당 그림은 uint8로 Quantization하는 과정을 보여줍니다.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/1.png){: .mx-auto.d-block width="80%" :}
+![int8_mapping](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/1.png){: .mx-auto.d-block width="80%" :}
 
 그래서 TFLite에서는 다음과 같은 Quantization 방법론을 제공합니다.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/2.png){: .mx-auto.d-block width="80%" :}
+![quantization_method](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/2.png){: .mx-auto.d-block width="80%" :}
 
 총 4가지의 Technique를 TFLite에서 제공합니다. 크게 보면 **Post-Training Quantization**과 **Quantization Aware Training**두 개로 나뉘는 것을 볼 수 있습니다.  
 그럼 먼저 **Post-Training Quantization** 알아봐요.
@@ -53,11 +53,11 @@ thumbnail-img: /assets/thumbnail_img/2020-12-27-Master_TFlite3/post.png
 ## 2. Post-Training Quantization (PTQ)
 
 PTQ는 해석 그대로 training 후에 Quantization하겠다는 말입니다. 그래서 already-trained된 float TF model을 대상으로 Quantization하게됩니다.  
-TF Lite에서는 **[이전 글](https://da2so.github.io/2020-12-23-Master_TFlite/)**에서 설명드린 Tensorflow Lite Converter을 이용하여 PTQ를 합니다.
+TF Lite에서는 이전 글에서 설명드린 Tensorflow Lite Converter을 이용하여 PTQ를 합니다.
 
 PTQ방법론에서는 위의 표와 같이 3가지의 option과 그에 대한 장점이 있어요.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/3.png){: .mx-auto.d-block width="80%" :}
+![advantages_quantization](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/3.png){: .mx-auto.d-block width="80%" :}
 
 하지만, PTQ는 training후에 quantization을 하므로 model이 작을 수록 information loss가 크며, 이는 accuracy loss로 이어진다고 합니다.
 
@@ -92,24 +92,23 @@ def keras2TFlite(model_path):
 
 TFLite의 Converter를 통해서 quantization을 진행하게 되는데 ```converter.optimizations = [tf.lite.Optimize.DEFAULT]``` 를 추가하면 dynamic range quantization을 하도록 한뒤 TFLite model을 출력하게 됩니다.
 
-이제 결과를 **[이전 글](https://da2so.github.io/2020-12-24-Master_TFlite2/)**에서 진행했던 keras model과 float32로 operation되는 tflite와 비교해 보죠.
+이제 결과를 이전 글에서 진행했던 keras model과 float32로 operation되는 tflite와 비교해 보죠.
 
-|Model|Test Acc|Inference Time(seconds)|File size|Download|
-|-----|--------|-----------------------|---------|--------|
-|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|float32_resnet18|85.65%|0.0023s [CPU]|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
-|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.tflite](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
+|Model|Test Acc|Inference Time(seconds)|File size|
+|-----|--------|-----------------------|---------|
+|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|
+|float32_resnet18|85.65%|0.0023s [CPU]|329KB|
+|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|
 
 TFLite파일을 기준으로 dynamic range quantization은 weights들을 모두 float32에서 int8로 줄이므로 File size는 1/4 (329KB-> 107KB)정도 줄어드는 정상입니다.
 하지만, 위에서 설명드린 activation연산을 위한 내부 kernels을 쓰므로 Inference time은 늘어나는 것이라 추축하고 있습니다. (저의 지극한 개인 의견)
 
 그리고 netron으로 network를 visualization했을 때 재밌는 발견이 있네요.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/4.png){: .mx-auto.d-block width="90%" :}
+![visualization_resnet18](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/4.png){: .mx-auto.d-block width="90%" :}
 
 어떤 conv layer는 float32로 표현되지만 어떤 conv layer의 weights는 int8로 표현되네요... (머지?)
 
-Dynamic PTQ의 Example code는 **[여기서](https://github.com/da2so/Conquer_TFLite/blob/main/3_dynamicPTQ.py)** 사용가능 합니다.
 
 
 ### 2.2 Post-training integer quantization
@@ -208,21 +207,20 @@ def TFLiteInference(model_path,x_test,y_test):
 Int8_all.tflite인 경우에는 ```input_details['dtype'] == np.uint8```이므로 input data를 int8로 바꾸는 작업을 하게됩니다.  
 위의 결과표에 더하여 int8_all.tflite 와 int8_notall.tflite를 추가한 결과를 보여드립니다.
 
-|Model|Test Acc|Inference Time(seconds)|File size|Download|
-|-----|--------|-----------------------|---------|--------|
-|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|float32_resnet18|85.65%|0.0023s [CPU]|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
-|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.tflite](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
-|int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|[int8_all.tflite](https://drive.google.com/file/d/1H7Lwg4Rbna4hX9025-9_jW7nmppXFpfu/view?usp=sharing)|
-|int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|[int8_notall.tflite](https://drive.google.com/file/d/1tglks42aur_4y4q8PPv8Z7h4Ec81Y8mp/view?usp=sharing)|
+|Model|Test Acc|Inference Time(seconds)|File size|
+|-----|--------|-----------------------|---------|
+|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|
+|float32_resnet18|85.65%|0.0023s [CPU]|329KB|
+|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|
+|int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|
+|int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|
 
 
 Int8로 quantization하고 linux서버 환경에서 run하게되면 file size는 4배정도 줄지만 inference time이 엄청 많이 높아지네요...ㅠ 
 그리고 int8_all.tflite과 int8_notall.tflite을 netron으로 visualization하면 다음과 같습니다.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="90%" :}
+![int8_visualization](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="90%" :}
 
-int8 PTQ의 Example code는 **[여기서](https://github.com/da2so/Conquer_TFLite/blob/main/4_int8PTQ.py)** 사용가능 합니다.
 
 ### 2.3 Post-training float16 quantization
 
@@ -265,10 +263,6 @@ dynamic range quantization과 다른점은 ```converter.target_spec.supported_ty
 
 float16_resnet18의 visualization은 다음과 같습니다.
 
-![2](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/5.png){: .mx-auto.d-block width="80%" :}
+![float16_visualization](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/6.png){: .mx-auto.d-block width="80%" :}
 
-float16 PTQ의 Example code는 **[여기서](https://github.com/da2so/Conquer_TFLite/blob/main/5_float16PTQ.py)** 사용가능 합니다.
-
-## <span style="color:#C70039 "> Reference </span>
-
-[TFLite document](https://www.tensorflow.org/lite/guide)
+위의 실습코드들은 [Conquer_TFLite](https://github.com/da2so/Conquer_TFLite)에서 사용가능합니다.

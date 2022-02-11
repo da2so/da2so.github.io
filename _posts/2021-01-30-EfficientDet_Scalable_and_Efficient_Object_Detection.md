@@ -11,8 +11,8 @@ thumbnail-img: /assets/thumbnail_img/2021-01-30-EfficientDet_Scalable_and_Effici
 ### <span style="color:gray"> 1.1 Motivation </span>
 
 The existing methods for object detection mainly have two problems.  
-**(i)** Most previous works have developed network structures for cross-scale feature fusion. However, they usually contribute to the fused output feature unequally.  
-**(ii)** While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
+<span style="color:#5256BC">**(i)**</span> Most previous works have developed network structures for cross-scale feature fusion. However, they usually contribute to the fused output feature unequally.  
+<span style="color:#5256BC">**(ii)**</span> While previous works mainly rely on bigger backbone networks or larger input image sizes for higher accuracy, scaling up feature network and box/class prediction network is also critical when taking into account both accuracy and efficiency. 
 
 ### <span style="color:gray"> 1.2 Goal </span>
 
@@ -36,14 +36,14 @@ First, they formulate the multi-scale feature fusion problem that aims to aggreg
 
 For an example of a multi-scale feature fusion, FPN [*T. Y. Lin et al, 2017*] has the conventional top-down pathway. The way of fusion describes the below figure.
 
-![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/1.PNG){: .mx-auto.d-block width="100%" :}
+![FPN](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/1.PNG){: .mx-auto.d-block width="100%" :}
 
 $Resize$ is usually a upsampling or downsampling op for resolution matching, and $Conv$ is a convolutional op for feature processing.
 
 
 ### <span style="color:gray"> 2.2 Cross-Scale Connections </span>
 
-![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/2.png){: .mx-auto.d-block width="90%" :}
+![comparison_FPN](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/2.png){: .mx-auto.d-block width="90%" :}
 
 Above figure represents multi-scale feature fusion method of previous approaches.  
 The problem of existing methods for feature fusion is: 
@@ -89,7 +89,7 @@ O = \sum_i \frac{w_i}{\epsilon + \sum_j w_j } \cdot I_i
 The final BiFPN integrates both the bidirectional cross scale connections and the fast normalized fusion. As a concrete example, they describe the two fused features at level **6** for BiFPN shown in Fig 2 (d):
 
 
-![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/3.png){: .mx-auto.d-block width="90%" :}
+![BiFPN](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/3.png){: .mx-auto.d-block width="90%" :}
 
 
 ## 3. EfficientDet
@@ -100,7 +100,7 @@ Based on BiFPN, they developed a detection models named EfficientDet.
 ### <span style="color:gray"> 3.1 EfficientDet Architecture </span>
 
 
-![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/4.png){: .mx-auto.d-block width="100%" :}
+![architecture](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/4.png){: .mx-auto.d-block width="100%" :}
 
 
 Fig 3. shows the overall architecture of EfficientDet, which is the one-stage detectors paradigm. They use ImageNet-pretrained EfficientNets as the backbone network. BiFPN
@@ -155,7 +155,7 @@ R_\{input\} = 512 + \phi \cdot 128 \quad \cdots (3)
 
 Following Eq. (1), (2), (3) with different <span style="color:DodgerBlue">$\phi$</span>, they have developed EfficientDet-D0 (<span style="color:DodgerBlue">$\phi$</span>=0 ) to D7 (<span style="color:DodgerBlue">$\phi$</span>=7). 
 
-![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/5.png){: .mx-auto.d-block width="70%" :}
+![scaling_config](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/5.png){: .mx-auto.d-block width="70%" :}
 
 
 ## 4. Experiment Setting
@@ -173,7 +173,12 @@ Following Eq. (1), (2), (3) with different <span style="color:DodgerBlue">$\phi$
 
 ## 5. Experiment Result
 
-![2](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/6.png){: .mx-auto.d-block width="100%" :}
+![experiment_result](https://da2so.github.io/assets/post_img/2021-01-30-EfficientDet_Scalable_and_Efficient_Object_Detection/6.png){: .mx-auto.d-block width="100%" :}
+
+<br />
+
+### <span style="color:#C70039 ">Reference </span>
+*Tan, Mingxing, Ruoming Pang, and Quoc V. Le. "Efficientdet: Scalable and efficient object detection." Proceedings of the IEEE/CVF conference on computer vision and pattern recognition. 2020.*
 
 
 

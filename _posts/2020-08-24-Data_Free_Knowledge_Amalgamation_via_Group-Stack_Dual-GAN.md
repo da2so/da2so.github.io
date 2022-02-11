@@ -23,7 +23,7 @@ For this, the main idea is to construct the group-stack generative adversarial n
 The architecture of Dual-GAN is shown in Fig 0.
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="50%", height="50%" :}
+![architecture](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/1.png){: .mx-auto.d-block width="50%", height="63%" :}
 
 
 ## 2. Problem Definiton
@@ -56,7 +56,7 @@ The process of obtaining the well-behaved TargetNet with the proposed data-free 
 The overall training procedure of group-stack GAN is depicted in Fig 1. 
 
 
-![1](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/5.PNG){: .mx-auto.d-block width="100%":}
+![training_procedure](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/5.PNG){: .mx-auto.d-block width="100%":}
 
 ### <span style="color:gray"> 3.1 Amalgamating GAN </span>
 
@@ -87,7 +87,7 @@ F^j_g=G^j(F^\{ j-1 \}_g) \; 1 < j \leq B,
 \\]
 </span>
 
-![2](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/2.png){: .mx-auto.d-block width="60%" height="80%" :}
+![group_stack_GAN](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/2.png){: .mx-auto.d-block width="60%" height="80%" :}
 
 
 when <span style="color:DodgerBlue">$j=B$</span>, the output of the <span style="color:DodgerBlue">$B$</span>-th group <span style="color:DodgerBlue">$G^B$</span> is <span style="color:DodgerBlue">$F^B_g$</span>, which is also thought as the final generated image <span style="color:DodgerBlue">$\mathcal{I}_g$</span>.
@@ -109,7 +109,7 @@ D^j \leftarrow \bigcup^j_{i=1} \\{ \mathcal{A}^{B-j+i} \\} \quad \cdots Eq. (4)
 \\]
 </span>
 
-![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/3.png){: .mx-auto.d-block width="80%" :}
+![discriminator](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/3.png){: .mx-auto.d-block width="80%" :}
 
 During the training for the group pair <span style="color:DodgerBlue">$\\{ G^j, D^j \\}$</span>, only <span style="color:DodgerBlue">$G^j$</span> is optimized with discriminator <span style="color:DodgerBlue">$D^j$</span> is fixed, whose output is for classifying multiple labels. We make use of several losses to constraint the output of <span style="color:DodgerBlue">$D^j$</span> to motivate the real data's response. 
 
@@ -149,7 +149,7 @@ L_{gan}= L_\{oh\} + \alpha L_a + \beta L_\{ie\} + \gamma L_\{dis \}, \quad \cdot
 \\]
 </span>
 
-where <span style="color:DodgerBlue">$\alpha, \beta $</span> and <span style="color:DodgerBlue">$\gamma $</span> are the hyperparameters for balancing different loss items. <span style="color:DodgerBlue">$L_a$</span> and <span style="color:DodgerBlue">$L_{ie}$</span> are the activation loss and infromation entropy loss functions and described in [here](https://da2so.github.io/2020-08-13-Data_Free_Learning_of_Student_Networks/).
+where <span style="color:DodgerBlue">$\alpha, \beta $</span> and <span style="color:DodgerBlue">$\gamma $</span> are the hyperparameters for balancing different loss items. <span style="color:DodgerBlue">$L_a$</span> and <span style="color:DodgerBlue">$L_{ie}$</span> are the activation loss and infromation entropy loss functions and described in paper "Data-Free Learning of Student Networks"[H. Chen et al., 2019].
 
 #### <span style="color:gray"> 3.1.2 Multiple Targets </span>
 
@@ -166,7 +166,7 @@ F^{f,m}_g=f^j_m (F^j_g), \quad \cdots Eq. (9)
 where the filtering function <span style="color:DodgerBlue">$f^j_m$</span> is realized by a light learnable module consisting of a global pooling layer and two fully connected layers. <span style="color:DodgerBlue">$F^{j,m}_g$</span> is the filtered generated features that approaches the output feature distribution of <span style="color:DodgerBlue">$\mathcal{A}^{B-j}_m$</span>. The output of discriminator is donated as  <span style="color:DodgerBlue">$\mathcal{O}_m (F^j_g) = D^j_m (F^{j,m}_g$</span>.
 
 
-![3](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/4.png){: .mx-auto.d-block width="100%" :}
+![example_procedure](https://da2so.github.io/assets/post_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/4.png){: .mx-auto.d-block width="100%" :}
 
 The for the generated features  <span style="color:DodgerBlue">$F^j_g$</span> from  <span style="color:DodgerBlue">$G^j$</span>, we collect from the multi-discriminator the  <span style="color:DodgerBlue">$M$</span> prediction sets  <span style="color:DodgerBlue">$\\{ \mathcal{O}_1(F^j_g), \cdots , \mathcal{O}_M (F^j_g) \\}$</span>, which are:
 
@@ -259,4 +259,14 @@ Then according to the different inputs to <span style="color:DodgerBlue">$\mathc
 L^{b}_u=\lambda^1_i L^{b,m}_d (F^1_i) + \lambda^2_i L^{b,m}_d (F^2_i), \quad \cdots Eq. (16)
 \\]
 </span>
+
+
+<br />
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Ye, Jingwen, et al. "Data-free knowledge amalgamation via group-stack dual-gan." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2020.*
+
+
+
 

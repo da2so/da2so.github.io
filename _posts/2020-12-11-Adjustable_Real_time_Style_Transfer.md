@@ -12,7 +12,7 @@ thumbnail-img: /assets/thumbnail_img/2020-12-11-Adjustable_Real_time_Style_Trans
 {: .box-note}
 
 
-![2](https://da2so.github.io/assets/post_img/2020-12-11-Adjustable_Real_time_Style_Transfer/1.PNG){: .mx-auto.d-block width="60%" :}
+![style_transferd_images](https://da2so.github.io/assets/post_img/2020-12-11-Adjustable_Real_time_Style_Transfer/1.PNG){: .mx-auto.d-block width="60%" :}
 
 ### <span style="color:gray"> 1.1 Motivation </span>
 
@@ -89,7 +89,7 @@ The second problem from this is that this generates only one stylization for a p
 
 ## 3. Proposed Method
 
-![2](https://da2so.github.io/assets/post_img/2020-12-11-Adjustable_Real_time_Style_Transfer/2.png){: .mx-auto.d-block width="100%" :}
+![architecture](https://da2so.github.io/assets/post_img/2020-12-11-Adjustable_Real_time_Style_Transfer/2.png){: .mx-auto.d-block width="100%" :}
 
 To address the two issues that are mentioned in above, the authors condition the generated stylized image on additional input parameters where each parameter controls the share of the loss from a corresponding layer.
 
@@ -139,4 +139,10 @@ Similar to previous approaches, they used the last feature set of *conv3* as con
 
 ## 5. Experiment
 
-![2](https://da2so.github.io/assets/post_img/2020-12-11-Adjustable_Real_time_Style_Transfer/3.png){: .mx-auto.d-block width="100%" :}
+![experiment_result](https://da2so.github.io/assets/post_img/2020-12-11-Adjustable_Real_time_Style_Transfer/3.png){: .mx-auto.d-block width="100%" :}
+
+<br />
+
+
+### <span style="color:#C70039 ">Reference </span>
+*Babaeizadeh, Mohammad, and Golnaz Ghiasi. "Adjustable real-time style transfer." arXiv preprint arXiv:1811.08560 (2018).*
