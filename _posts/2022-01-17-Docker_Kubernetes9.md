@@ -12,7 +12,8 @@ Enviroment: Ubuntu 18.04
 ## 1. Kubernetes(k8s)란?
 Kubernetes(k8s)는 docker swarm mode처럼 여러 대의 docker host를 하나의 cluster로 만들어 준다는 것은 같지만 세부적으로 폭넓은 기능을 제공한다는 점이 다릅니다. 구체적으로 특징은 다음과 같습니다. (K8s라는 표기는 "K"와 "s"와 그 사이에 있는 8글자를 나타내는 약식 표기)
 
-- 서버 자원 clustering, 마이크로서비스 구조의 container 배포, 서비스 장애 복구 등 container기반의 서비스 운영에 필요한 폭넓은 오케스트레이션 기능을제공
+- 서버 자원 clustering, 마이크로서비스 구조의 container 배포, 서비스 장애 복구 등 container기반의 서비스 운영에 필요한 폭넓은 오케스트레이션(Orchestration) 기능을 제공
+  -  Orchestration: container의 배포, 관리, 확장 ,네트워킹을 자동화하는 기술로, 복잡한 container 환경을 효과적으로 관리하기 위한 도구
 - 구글, 레드햇을 비롯한 많은 오픈소스에서 k8s의 소스코드에 기여하므로 성능과 안정성 보장
 - Persistent volume, scheduling, 장애 복구, auto scaling, service discovery, ingress등 대부분의 기능과 컴포넌트를 사용자가 직접 customizing가능
 - CNCF(Cloud Native Computing Foundation) 및 다른 클라우드 운영 도구들과 쉽게 연동되므로 확장성 
