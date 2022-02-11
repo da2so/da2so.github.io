@@ -23,7 +23,7 @@ If we find and remove <span style="background-color: #B1FF8C">THE REGIONS</span>
 **Note:** In this paper, removing the region represents that the regions are replaced with reference data (e.g. blurred, noise).
 
 
-![2](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/2.png){: .mx-auto.d-block :}
+![how_to_perturbation](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/2.png){: .mx-auto.d-block :}
 
 <p align=center><b>Fig 1. Input and result for explanations </b></p>
 
@@ -75,14 +75,8 @@ Find the smallest deletion mask <span style="color:DodgerBlue">$m$</span> that c
 #### <span style="color:gray">2.2.2 Dealing with artifacts</span>  
 By committing to finding a single representative perturbation, our approach incurs the risk of triggering artifacts of the black-box model, like below figures.
 
-<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/3.png" width="300" height="170" style="float: left">
-<br />
-<br />
-<br />
-$\rightarrow$ Explanations containing artifacts
-
-<br />
-<br />
+![artifacts](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/3.png){: .mx-auto.d-block width="90%" :}
+ 
 To solve this problem, we suggest two approaches in generating explanations.
 
 
@@ -102,25 +96,15 @@ With these two modifications, the final objective function is follows:
 
 ## 3. Implement details
 
-<img src="https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/4.png" width="400" height="230" style="float: left">
+![procedure](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/4.png){: .mx-auto.d-block width="70%" :}
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 
 ### <span style="color:gray">3.1 Procedure of the upsampling method in the method</span>
 
 
-![3](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/5.png){: .mx-auto.d-block :}
+![procedure](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/5.png){: .mx-auto.d-block :}
 
 
-<br />
 <br />
 
 
@@ -129,4 +113,4 @@ With these two modifications, the final objective function is follows:
 *Fong, Ruth C., and Andrea Vedaldi. "Interpretable explanations of black boxes by meaningful perturbation." Proceedings of the IEEE International Conference on Computer Vision. 2017.*
 
 
-**Github Code: [Here](https://github.com/da2so/Interpretable-Explanations-of-Black-Boxes-by-Meaningful-Perturbation)**
+**Github Code: [Interpretable Explanations of Black Boxes by Meaningful Perturbation](https://github.com/da2so/Interpretable-Explanations-of-Black-Boxes-by-Meaningful-Perturbation)**
