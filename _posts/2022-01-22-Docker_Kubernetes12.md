@@ -4,7 +4,7 @@ title: Docker/Kubernetes - (12) Kubernetes Ingress
 tags: [Docker, Kubernetes]
 comments: true
 use_math: true
-thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo.png
+thumbnail-img: /assets/thumbnail_img/2022-01-05-Docker_Kubernetes1/logo2.png
 ---
 
 Enviroment: Ubuntu 18.04 
@@ -24,7 +24,7 @@ Ingress network는 외부에서 서버로 들어오는 트래피을 처리하며
 구체적으로 기존에 설명하였던 NodePort, LoadBalancer타입의 service도 위와 같은 기능을 구현가능하지만 Ingress를 사용하는 이유는 다음과 같습니다. 
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/1.png){: .mx-auto.d-block width="100%" :}
+![reason_to_use_ingress](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/1.png){: .mx-auto.d-block width="100%" :}
 
 
 왼쪽 그림처럼 기존의 NodePort 또는 LoadBalancer타입의 service는 deployement 3개를 외부에 노출해야한다면 service가 3개필요합니다. 그리고 service마다 세부적인 설정을 할때 추가적인 복잡성이 발생하게 되고 SSL/TLS 보안 연결, 접근 도메인 및 클라이언트 상태에 기반한 라우팅을 구현하려면 각 service와 deployement에 일일이 설정해야합니다. 
@@ -38,7 +38,7 @@ Ingress network는 외부에서 서버로 들어오는 트래피을 처리하며
 
 <span style="color:DodgerBlue">kubectl get ing</span>으로 ingress의 목록을 확인가능하다. 확인 시 ingress목록이 없으니 ingress-example.yaml파일로 생성해보자.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/2.png){: .mx-auto.d-block width="55%" :}
+![get_ingress](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/2.png){: .mx-auto.d-block width="55%" :}
 
 
 ```
@@ -75,12 +75,12 @@ spec:
   - **name, port.number**: service 이름, port 번호
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/3.png){: .mx-auto.d-block width="70%" :}
+![get_created_ingress](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/3.png){: .mx-auto.d-block width="70%" :}
 
 minimal-ingress라는 이름으로 ingress를 생성했지만 이는 단지 요청을 처리하는 규칙을 정의하는 선언적인 object이다. 그래서 외부 요청을 받아들일 수 있는 실제 서버가 아니기 때문에 <span style="color:Crimson">Ingress Controller</span>라는 특수한 서버에 적용해야만 그 규칙을 사용가능하다. 즉, 실제로 외부 요청을 받아들이는 것은 Ingress controller server이며 이 서버가 ingress 규칙을 로드해 사용합니다.
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/4.png){: .mx-auto.d-block width="85%" :}
+![ingress_controller](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/4.png){: .mx-auto.d-block width="85%" :}
 
 
 그래서 k8s의 ingress는 반드시 ingress controller를 필요로하며 우리는 nginx 웹서버를 사용하므로 **Ngnix 웹서버 Ingress controller**를 사용합니다. Kong이라는 API gateway나 GKE의 클라우드 플랫폼에서 제공되는 ingress controller도 있음을 알아두면 좋다. Nginx 웹서버 Ingress controller는 다음과 같은 명령어로 Nginx ingress controller와 관련된 resource를 다운받습니다. (제가 사용한 k8s 버전이 1.23인데 이는 controller 버전 1.1.1과 연동가능합니다. )
@@ -89,17 +89,17 @@ minimal-ingress라는 이름으로 ingress를 생성했지만 이는 단지 요�
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/cloud/deploy.yaml
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/5.png){: .mx-auto.d-block width="85%" :}
+![download_ingress_controller](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/5.png){: .mx-auto.d-block width="85%" :}
 
 위의 그림은 ingress controller의 역할 및 관계를 나타낸 그림**(A)**이다. 이제 <span style="color:DodgerBlue">kubectl get all -n ingress-nginx</span>명령어로 생성한 ingress-controller에 의해 생성된 ingress-nginx namespace의 모든 object를 확인가능합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/6.png){: .mx-auto.d-block width="90%" :}
+![get_ingress_nginx](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/6.png){: .mx-auto.d-block width="90%" :}
 
 
- 여기서 default로 ingress-nginx-controller의 service type이 LoadBalancer로 되어있는데 저는 NodePort service로 진행할것이기 때문에 <span style="color:DodgerBlue">kubectl -n ingress-nginx edit service/ingress-nginx-controller</span>명령어를 통해 다음과 같이 해당 내용을 수정해줍니다. 그리고 다시 ingress-nginx-controller의 service type이 NodePort로 변환된것을 확인가능합니다.
+여기서 default로 ingress-nginx-controller의 service type이 LoadBalancer로 되어있는데 저는 NodePort service로 진행할것이기 때문에 <span style="color:DodgerBlue">kubectl -n ingress-nginx edit service/ingress-nginx-controller</span>명령어를 통해 다음과 같이 해당 내용을 수정해줍니다. 그리고 다시 ingress-nginx-controller의 service type이 NodePort로 변환된것을 확인가능합니다.
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/7.png){: .mx-auto.d-block width="90%" :}
+![edit_to_nodeport](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/7.png){: .mx-auto.d-block width="90%" :}
 
 
 이제 **A** 그림에서 hostname-service-nodeport 서비스 부분과 deployment에 대한 yaml을 다음과 같이 작성합니다.
@@ -145,16 +145,16 @@ spec:
 
 <span style="color:DodgerBlue">kubectl apply -f ingress-deployment-service.yaml</span>명령어로 object들을 실행시키고 나면 다음과 같이 deployment와 **NodePort**타입의 service가 생성된다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/8.png){: .mx-auto.d-block width="80%" :}
+![check_nodeport](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/8.png){: .mx-auto.d-block width="80%" :}
 
 마지막으로 현재 예시는 on-premise환경이기 때문에 마스터노드에서 /etc/hosts파일에 IP와 도메인을 설정해 임시로 동작 여부를 테스트하도록한다. 다음과 같이 /etc/hosts에 da2so.example.com과 워커 노드 IP와 연결한다. 이는 ingress controller는 기본적으로 도메인 이름으로 연결되기 때문에 도메인을 IP연동시켜줘야하는 부분이다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/9.png){: .mx-auto.d-block width="80%" :}
+![check_ingress](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/9.png){: .mx-auto.d-block width="80%" :}
 
 위와 같이 도메인과 IP를 연결해주는 내용을 추가해주면 ingress의 address에 ingress controller service clusterIP로 연결이 되었다. nginx ingress controller는 항상 ingress 리소스의 상태를 지켜보고 있으며 기본적으로 모든 namespace의 ingress리소스를 읽어와 규칙을 적용하게 되는 것입니다. 위의 모든 설정을 그림으로 나타내면 아래와 같고 외부에서 da2so.com:30172/hostname에 접속하는 것은 다음과 같은 프로세스를 거친다.
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/10.png){: .mx-auto.d-block width="100%" :}
+![system_architecture](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/10.png){: .mx-auto.d-block width="100%" :}
 
 
 1. 외부에서 da2so.com:30172/hostname로 request
@@ -212,7 +212,7 @@ metadata:
 ```
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/11.png){: .mx-auto.d-block width="60%" :}
+![ingress_paths](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/11.png){: .mx-auto.d-block width="60%" :}
 
 참고! Nginx Ingress Controller는 bypassing이라는 기능을 통하여 application pod에 트래픽을 직접 전달합니다. 해당 Pod의 Service를 경유해야 하는 네트워크 홉을 줄이게 됩니다.
 {: .box-note}
@@ -228,7 +228,7 @@ Ingress의 장점은 ingress controller에서 편리하게 SSL/TLS 보안 연결
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=da2so.com/O=da2so"
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/12.png){: .mx-auto.d-block width="100%" :}
+![openssl](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/12.png){: .mx-auto.d-block width="100%" :}
 
 tls.key라는 비밀키와 tls.crt라는 인증서가 생성되었습니다. 그리고 secret object를 다음과 같이 만든다.
 
@@ -236,12 +236,12 @@ tls.key라는 비밀키와 tls.crt라는 인증서가 생성되었습니다. 그
 ```
  kubectl create secret tls tls-secret --key tls.key --cert tls.crt
 ```
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/13.png){: .mx-auto.d-block width="80%" :}
+![create_secret](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/13.png){: .mx-auto.d-block width="80%" :}
 
 
 tls을 적용한 ingress를 작성하기 전에 위에서 사용한 **ingress-deployment-service.yaml**을 통해 service와 deployment를 실행시키자.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/14.png){: .mx-auto.d-block width="80%" :}
+![create_deploy_svc](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/14.png){: .mx-auto.d-block width="80%" :}
 
 
 이제 tls가 적용될 ingress yaml을 다음과 같이 작성한다. 그리고 해당 ingress을 생성하고 생성한 ingress의 정보와 nginx ingress controller의 https(443port)의 정보를 확인한다.
@@ -275,7 +275,7 @@ spec:
 - spec.tls.hosts: 보안 연결을 적용할 도메인 이름
 - spec.tls.secretName: 위에서 생성하였던 tls 타입의 secret 이름
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/15.png){: .mx-auto.d-block width="100%" :}
+![check_tls_value](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/15.png){: .mx-auto.d-block width="100%" :}
 
 위의 그림에서 알 수 있듯이 ingress의 정보에 tls연결 정보가 새로 생긴것을 확인가능하며 tls보안이 있기때문에 https로 접속해야하는데 https로 접속하기 위한 ingress controller의 https포트는 31355인것을 알 수 있다. 즉, **$https$://da2so.com:31355**는 https와 31355와 맵핑되는 443포트(https)를 통해 ingress controller의 https로 접근을 명시하는 것이고 그다음은 위에서 설명한것과 같이 ingress controller에게 da2so.com과 연결되는 ip주소에 접속하도록 요청하는것이다. 다음 명령어를 통해 https연결을 통해 web service에 접속해보자.
 
@@ -284,5 +284,5 @@ curl https://da2so.com:31355/hostname -k
 # -k 옵션은 신뢰할 수 없는 인증서로 보안연결을 위함이다.
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/16.png){: .mx-auto.d-block width="80%" :}
+![check_https](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/16.png){: .mx-auto.d-block width="80%" :}
 

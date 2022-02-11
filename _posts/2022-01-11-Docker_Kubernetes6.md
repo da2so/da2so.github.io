@@ -15,7 +15,7 @@ docker 그 자체에 대해서 알아보는 시간입니다. Docker의 구조는
 - **<span style="color:Crimson">Docker server</span>**
 	- */usr/bin/dockerd* 파일로 실행
 	- container 생성 및 실행과 image관리하는 주체
-	- 외부에서 API 입력을 받아 도커 엔진의 기능을 수행
+	- 외부에서 API 입력을 받아 docker engine의 기능을 수행
 	- docker process가 실행되어 서버로서 API 입력을 받을 준비가 된 상태를 <span style="color:DodgerBlue">docker daemon</span>
 - **<span style="color:Crimson">Docker client</span>**
 	- */usr/bin/docker* 에서 실행
@@ -24,7 +24,7 @@ docker 그 자체에 대해서 알아보는 시간입니다. Docker의 구조는
 	- Client는 */var/run/docker.sock*에 위치한 unix socket을 통해 daemon API호출
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/1.png){: .mx-auto.d-block width="90%" :}
+![docker_client_daemon](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/1.png){: .mx-auto.d-block width="90%" :}
 
 ## 2. Docker daemon 실행 및 설정
 
@@ -49,13 +49,13 @@ dockerd -H unix:///var/run/docker.sock
 ```
 
 즉, **-H**옵션을 통해서 dameon의 API를 사용할 방법을 추가할수 있다는 것이고 예를 들어 **-H**뒤에 IP주소와 port번호를 입력하면 원격 API인 Docker remote API로 docker를 제어가능합니다.
-(Remote API는 RESTful API형식을 띄고 있으므로 HTTP 요청으로 docker를 제어가능) 다음과 같이 docker daemon을 실행하면 host에 존재하는 모든 네트워크 인터페이스의 IP주소와 2375버 포트를 바인딩해 입력을 받습니다.
+(Remote API는 RESTful API형식을 띄고 있으므로 HTTP 요청으로 docker를 제어가능) 다음과 같이 docker daemon을 실행하면 host에 존재하는 모든 네트워크 인터페이스의 IP주소와 2375번 포트를 바인딩해 입력을 받습니다.
 
 ```
 dockerd -H tcp://0.0.0.0:2375
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/2.png){: .mx-auto.d-block width="90%" :}
+![docker_ps](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/2.png){: .mx-auto.d-block width="90%" :}
 
 하지만 이렇게 할경우 Remote API만을 위한 바인딩 주소를 입력했으므로 unix scoket은 비활성화 되고 docker client를 사용못하게 됩니다. 즉, 위와 같이 **docker ps**와 같이 docker로 시작하는 명령어 사용 이 불가합니다. 그러므로 이를 해결하기 위해 Remote API를 위한 바인딩 주소와 unix scoket을 같이 설정해 줍니다.
 
@@ -63,14 +63,14 @@ dockerd -H tcp://0.0.0.0:2375
 dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 ```
 
-위와 같이 하면 docker client가 docker daemon에게 명령 수행 요청뿐만 아니라 Remote API또한 사용 가능하다. 또 하나의 terminal을 켜서 curl을 통해 Http요청을 보내 Remote API가 작동가능한 지 확인해봅니다. Host ip(192.168.26.129), port(2375)를 가지는 docker daemon으로 http 요청을 보내는 것이고 192.168.26.129:2375/version은 <span style="color:DodgerBlue">docker version</span> 명령어와 같습니다. 
+위와 같이 하면 docker client가 docker daemon에게 명령 수행 요청뿐만 아니라 Remote API또한 사용 가능합니다. 또 하나의 terminal을 켜서 curl을 통해 Http요청을 보내 Remote API가 작동가능한 지 확인해봅니다. Host ip(192.168.26.129), port(2375)를 가지는 docker daemon으로 http 요청을 보내는 것이고 192.168.26.129:2375/version은 <span style="color:DodgerBlue">docker version</span> 명령어와 같습니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/3.png){: .mx-auto.d-block width="80%" :}
+![dockerd](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/3.png){: .mx-auto.d-block width="80%" :}
 
 
 그리고 다음과 같이 docker client에 -H옵션을 설정해 제어할 원격 docker daemon을 설정가능합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/4.png){: .mx-auto.d-block width="60%" :}
+![docker_client_option](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/4.png){: .mx-auto.d-block width="60%" :}
 
 ### 2.2 Docker daemon 보안 적용 **--tlsverify**
 
@@ -78,7 +78,7 @@ Docker는 기본적으로 보안 연결 설정이 안되어있기 때문에 dock
 
 그래서 docker daemon에 TLS 보안을 적용하고 docker client가 인증하지 않으면 docker를 제어할 수 없도록 설정해봅시다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/5.png){: .mx-auto.d-block width="60%" :}
+![TLS](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/5.png){: .mx-auto.d-block width="60%" :}
 
 
 #### 서버 측 파일 생성
@@ -87,33 +87,33 @@ Docker는 기본적으로 보안 연결 설정이 안되어있기 때문에 dock
 
 RSA 4096 키 생성 및 개인키를 AES256 으로 암호화하여 ca-key.pem 파일을 만듭니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/6.png){: .mx-auto.d-block width="90%" :}
+![create_key](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/6.png){: .mx-auto.d-block width="90%" :}
 
 - Public key를 생성 **<span style="color:Crimson">(ca.pem)</span>**
 
 입력하는 모든 항목은 공백으로 둬도 상관없으므로 공백으로 둔다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/7.png){: .mx-auto.d-block width="90%" :}
+![create_public_key](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/7.png){: .mx-auto.d-block width="90%" :}
 
 
 - 서버에서 사용할 key 생성 **<span style="color:Crimson">(server-key.pem)</span>**
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/8.png){: .mx-auto.d-block width="90%" :}
+![create_server_key](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/8.png){: .mx-auto.d-block width="90%" :}
 
 
 - 서버에서 사용될 인증서를 위한 인증 요청서 파일 생성 **<span style="color:Crimson">(server.csr)</span>**
 
 192.168.29.129은 docker host의 IP주소 또는 domain이름이고 이는 외부에서 접근가능해야합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/9.png){: .mx-auto.d-block width="90%" :}
+![create_cert_file](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/9.png){: .mx-auto.d-block width="90%" :}
 
 
 - 서버 측의 인증서 파일을 생성합니다. **<span style="color:Crimson">(server-cert.pem)</span>**
 
 접속에 사용될 IP주소를 extfile.cnf로 저장하고 192.168.29.129으로 연결이 사용되도록 인증서 파일을 생성한다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/10.png){: .mx-auto.d-block width="90%" :}
+![create_cert_server_file](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/10.png){: .mx-auto.d-block width="90%" :}
 
 
 #### 클라이언트 측 파일 생성
@@ -121,28 +121,28 @@ RSA 4096 키 생성 및 개인키를 AES256 으로 암호화하여 ca-key.pem �
 
 - 클라이언트 측의 key 파일 **<span style="color:Crimson">(key.pem)</span>**과 인증 요청파일을 생성 **<span style="color:Crimson">(client.csr)</span>** , extfile.cnt파일에 extendedKeyUsage항목 추가
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/11.png){: .mx-auto.d-block width="90%" :}
+![create_client_key](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/11.png){: .mx-auto.d-block width="90%" :}
 
 
 - 클라이언트 측의 인증서 생성 **<span style="color:Crimson">(cert.pem)</span>**
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/12.png){: .mx-auto.d-block width="90%" :}
+![create_client_cert](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/12.png){: .mx-auto.d-block width="90%" :}
 
 
 - 서버, 클라이언트 측에서 사용할 인증서들에 대한 쓰기 권한 삭제
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/13.png){: .mx-auto.d-block width="90%" :}
+![remove_authorization](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/13.png){: .mx-auto.d-block width="90%" :}
 
 
 #### TLS 보안 적용
 
-TLS 보안 적용을 위해 *--tlsverify* 옵션과 보안을 위해 필요한 옵션들을 더하여 docker daemon을 실행한다.(Top 그림)
+TLS 보안 적용을 위해 *--tlsverify* 옵션과 보안을 위해 필요한 옵션들을 더하여 docker daemon을 실행한다. (밑의 맨위 그림)
 
 ```
 dockerd --tlsverify --tlscacert=ca.pem --tlscert=server-cert.pem --tlskey=server-key.pem -H=0.0.0.0:2376 -H unix:///var/run/docker.sock
 ```
 
-그리고 client측에서 TLS 연결 설정을 하지 않고 Remote API로 접근했을 때와(Middle 그림) TLS 연결 설정을 하고 접근했을때의 원격 제어시(Bottom 그림)의 결과 차이를 볼 수 있다
+그리고 client측에서 TLS 연결 설정을 하지 않고 Remote API로 접근했을 때와(Middle 그림) TLS 연결 설정을 하고 접근했을때의 원격 제어시(밑의 맨아래 그림)의 결과 차이를 볼 수 있다.
 
 ```
 # No TLS
@@ -154,7 +154,7 @@ docker -H 192.168.26.129:2376 --tlscacert=ca.pem --tlscert=cert.pem --tlskey=key
 docker의 remote API를 사용하는 포트는 보안이 적용되어 있지 않으면 2375, 되어 있으면 2376를 사용하는 것이 도커 커뮤니티의 관례
 {: .box-note}
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/14.png){: .mx-auto.d-block width="90%" :}
+![TLS_comparsion](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/14.png){: .mx-auto.d-block width="90%" :}
 
 
 ### 2.3 Docker daemon 모니터링
@@ -164,7 +164,7 @@ docker의 remote API를 사용하는 포트는 보안이 적용되어 있지 않
 - 많은 수의 docker server 관리
 - container 어플리케이션 개발 중 오류 디버깅
 - 도크를 Paas로써 제공하기 위해 실시간으로 상태 체크
-- 
+
 
 #### Docker daemon 디버그 모드
 
@@ -182,9 +182,9 @@ dockerd -D
 docker events
 ```
 
-위의 명령어를 실행시키고 **docker pull ubuntu:14.04**을 해보면 다음과 같이 docker events 명령어 밑으로 logging이 됩니다. events는 attach, commit, copy, create와 같은 container관련 명령어, delete, import, pull, push등의 이미지 관련 명령어, 볼륨, 네트워크, 플러그인 명령어의 수행 결과만을 출력합니다. 
+위의 명령어를 실행시키고 **docker pull ubuntu:14.04**을 해보면 다음과 같이 docker events 명령어 밑으로 logging이 됩니다. events는 attach, commit, copy, create와 같은 container관련 명령어, delete, import, pull, push등의 image 관련 명령어, 볼륨, 네트워크, 플러그인 명령어의 수행 결과만을 출력합니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/15.png){: .mx-auto.d-block width="80%" :}
+![docker_pull](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/15.png){: .mx-auto.d-block width="80%" :}
 
 **<span style="color:Crimson">stats</span>**은 실행 중인 모든 container의 자원 사용량을 stream으로 출력한다.
 
@@ -192,7 +192,7 @@ docker events
 docker stats
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/16.png){: .mx-auto.d-block width="80%" :}
+![docker_stats](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/16.png){: .mx-auto.d-block width="80%" :}
 
 **<span style="color:Crimson">system df</span>**은 docker에서 사용하고 있는 이미지, 컨테이너, 로컬 볼륨의 총 개수 및 사용중인 개수, 크기 등을 출력합니다.
 
@@ -200,7 +200,7 @@ docker stats
 docker system df
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/17.png){: .mx-auto.d-block width="70%" :}
+![docker_system_df](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/17.png){: .mx-auto.d-block width="70%" :}
 
 
 #### CAdvisor
@@ -221,13 +221,13 @@ docker run \
 google/cadvisor:latest
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/18.png){: .mx-auto.d-block width="80%" :}
+![cadvisor](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/18.png){: .mx-auto.d-block width="80%" :}
 
 
 Host에서 *127.0.0.1:8080*에 접속하면 CAdvisor 대시보드에 접근할 수 있고 해당 웹에서 말한 다양한 정보를 볼 수 있다. [Subcontainers]항목의 [/docker]를 클릭하면 docker daemon의 정보, 컨테이너의 목록을 보여주는 페이지로 이동한다. CAdvisor의 container는 위의 옵션에서 많은 *--volume*옵션을 통해 docker의 정보를 담고 있는 파일들을 마운트했기때문에 CAdvisor에서 다양한 모니터링이 가능함을 알아둡시다. 예를 들어 /var/lib/docker에는 도커 컨테이너, 이미지 등이 파일로 존재합니다. 
 
 
-하지만 CAdvisor는 단일 docker host만을 모니터링 가능하므로 여러개의 호스트로 docker를 사용하고 있다면  Kubernetes나 스웜 모드 등과 같은 오케스트레이션 툴을 설치한 뒤에 프로메테우스(Prometheus), InfluxDB등을 이용해 여러 host의 데이터를 수집해야한다. (이후 글에서 더 자세히!!)
+하지만 CAdvisor는 단일 docker host만을 모니터링 가능하므로 여러개의 호스트로 docker를 사용하고 있다면 **Kubernetes**나 **swarm mode** 등과 같은 오케스트레이션 툴을 설치한 뒤에 프로메테우스(Prometheus), InfluxDB등을 이용해 여러 host의 데이터를 수집해야한다. (이후 글에서 더 자세히!!)
 
 
 ### 2.4 Remote API라이브러리를 이용한 docker 사용
@@ -248,7 +248,7 @@ pip3 install docker
 
 라이브러리가 정상적으로 설치되어있는 지 확인하기위해 unix socket에 연결해 docker engine의 정보를 출력해봅니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/19.png){: .mx-auto.d-block width="90%" :}
+![python3](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/19.png){: .mx-auto.d-block width="90%" :}
 
 
 좀더 심화 과정으로 다음과 같은 시나리오를 진행해보죠.
@@ -264,10 +264,13 @@ pip3 install docker
 import docker
 import requests.packages.urllib3 as urllib3
 urllib3.disable_warnings() # disable to print warning
+
 tls_config = docker.tls.TLSConfig(client_cert=('./cert.pem', './key.pem')) 
+
 client= docker.DockerClient(base_url='tcp://192.168.26.129:2376', tls=tls_config) 
 container = client.containers.run('ubuntu:16.04', name='python_ubuntu', detach=True)
+
 print(f'Created container is : {container.name}, {container.id}')
 ```
-![1](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/20.png){: .mx-auto.d-block width="90%" :}
+![python_with_docker](https://da2so.github.io/assets/post_img/2022-01-11-Docker_Kubernetes6/20.png){: .mx-auto.d-block width="90%" :}
 

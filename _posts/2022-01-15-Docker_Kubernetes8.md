@@ -28,7 +28,7 @@ docker-compose -x
 ```
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/1.png){: .mx-auto.d-block width="80%" :}
+![docker_compose_check](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/1.png){: .mx-auto.d-block width="80%" :}
 
 ### 1.2 Docker compose 사용
 
@@ -95,16 +95,16 @@ services:
 docker-compose up -d
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/2.png){: .mx-auto.d-block width="100%" :}
+![docker_compose_up](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/2.png){: .mx-auto.d-block width="100%" :}
 
 기본적으로 dokcer-compose up -d는 명령어를 실행한 디렉터리의 docker-compse.yml파일이름을 가진 yml에 대해 docker compose를 실행하게됩니다. 그리고 위와 같이 web, fluentd, mongo서비스를 정의하였고 각 서비스별로 container하나씩 생성되었으며 이름은 **[프로젝트 이름]_[서비스 이름]_[서비스 내의 container번호]**로 정해집니다. 프로젝트 이름은 지정해주지 않으면 위의 그림과 같이 현재 디렉토리 이름으로 지정하게 됩니다. docker-compose로 로깅이 잘되는지 확인도 가능합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/7.png){: .mx-auto.d-block width="90%" :}
+![docker_compose_active_check](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/7.png){: .mx-auto.d-block width="90%" :}
 
 
 swarm moded에서의 서비스와 마찬가지로, 하나의 서비스에는 여러 개의 container가 존재할 수 있으므로 차례대로 증가하는 container의 번호를 붙여 서비스 내의 container를 구별합니다. 생성된 프로젝트는 <span style="color:DodgerBlue">docker-compose down</span>으로 삭제할 수 있으며 이 명령어는 서비스의 container모두 정지시킨 뒤 삭제합니다. 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/3.png){: .mx-auto.d-block width="60%" :}
+![docker_compose_down](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/3.png){: .mx-auto.d-block width="60%" :}
 
 그리고 ubuntu이미지로 docker-compose.yml을 만들고 **-p**옵션을 사용해서 프로젝트 이름을 설정하여 프로젝트를 생성합니다. 그럼 projectname이 옵션을 준값대로 설정된 것을 확인가능합니다.
 
@@ -112,7 +112,7 @@ swarm moded에서의 서비스와 마찬가지로, 하나의 서비스에는 여
 docker-compose -p myubuntu up -d
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/4.png){: .mx-auto.d-block width="70%" :}
+![docker_compose_up_with_p_option](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/4.png){: .mx-auto.d-block width="70%" :}
 
 ### 1.3 docker swarm mode와 연동
 
@@ -129,7 +129,7 @@ docker swarm init --advertise-addr='host의 ip 주소'
 docker stack deploy -c docker-compose.yml stack_test
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/5.png){: .mx-auto.d-block width="90%" :}
+![docker_stack](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/5.png){: .mx-auto.d-block width="90%" :}
 
 
 -c옵션은 YAML파일을 지정해주는 것이고 마지막은 stack의 이름입니다. 위에서 보이듯이 swarm mode에서도 잘 생성된것을 확인가능합니다. 그리고 종료는 다음과 같습니다.
@@ -138,7 +138,7 @@ docker stack deploy -c docker-compose.yml stack_test
 docker stack rm stack_test
 ```
 
-![1](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/6.png){: .mx-auto.d-block width="60%" :}
+![docker_stack_stop](https://da2so.github.io/assets/post_img/2022-01-15-Docker_Kubernetes8/6.png){: .mx-auto.d-block width="60%" :}
 
 
 

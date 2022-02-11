@@ -12,18 +12,18 @@ Enviroment: Ubuntu 18.04
 ## 1. Docker container 네트워크
 Docker는 컨테이너에 내부 IP를 순차적으로 할당하며, IP는 컨테이터 재시작마다 변경될 수 있습니다. 컨테이너 내부의 IP는 외부와 연결될 수 있도록 Host에 veth(virtual eth)라는 네트워크 인터페이스를 자동으로 만들게 됩니다. 그렇다면 각 컨테이너 마다 veth를 생성하게 되고 docker0이라는 브리지를 통해 veth인터페이스와 바인딩되어 호스트의 eth0과 연결시켜줍니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/1.png){: .mx-auto.d-block width="70%" :}
+![docker_composition](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/1.png){: .mx-auto.d-block width="70%" :}
 
 실제로 Host에서 container생성후 다음과 같이 veth와 docker0를 확인가능합니다.
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/2.png){: .mx-auto.d-block width="70%" :}
+![ifconfig](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/2.png){: .mx-auto.d-block width="70%" :}
 
 ### 1.1 Docker network 기능
 
-'docker networ ls'로 Docker에서 기본적으로 쓸수 있는 네트워크를 확인 가능합니다.
+<span style="color:DodgerBlue">docker networ ls</span>로 Docker에서 기본적으로 쓸수 있는 네트워크를 확인 가능합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/3.png){: .mx-auto.d-block width="50%" :}
+![docker_network_ls](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/3.png){: .mx-auto.d-block width="50%" :}
 
 컨테이너 생성 시 자동으로 bridge를 선택하게 되는 것이고 위에서 docker0이 해당 브리지를 의미합니다.
 
@@ -36,7 +36,7 @@ docker network create --driver bridge mybridge
 
 다음과 같이 브리지 타입의 네트워크가 생성된 것을 확인가능하며 기존의 bridge와 대역폭이 다르다는 것도 알 수 있습니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/4.png){: .mx-auto.d-block width="80%" :}
+![bridge_network](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/4.png){: .mx-auto.d-block width="80%" :}
 
 
 ```
@@ -67,7 +67,7 @@ docker run -i -t --net none ubuntu:16.04
 
 다음과 같은 로그 수집 시나리오를 실행해보죠.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/5.png){: .mx-auto.d-block width="70%" :}
+![log_system](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/5.png){: .mx-auto.d-block width="70%" :}
 
 예시를 위한 것이니 위의 3개의 서버의 호스트는 모두 같게 해봅시다. 즉, docker server, fluentd, docker server모두 한 host에서 진행한다는 말입니다.
 먼저 mongo 서버의 호스트에서 로그를 저장을 위한 container를 생성해보죠.
@@ -78,7 +78,7 @@ docker run --name mongoDB -d -p 27017:27017 mongo
 
 그리고 fluentd 서버의 호스트에서 다음과 같은 fluent.conf를 작성합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/6.png){: .mx-auto.d-block width="50%" :}
+![fluentd_conf](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/6.png){: .mx-auto.d-block width="50%" :}
 
 
 해당 내용은 로그 데이터를 mongodb에 전송하고 mongodb의 access라는 collection에 로그를 저장하겟다는 것과 mongodb의 host, port를 지정한것입니다.
@@ -97,22 +97,22 @@ docker run -p 80:80 -d --log-driver=fluentd --log-opt fluentd-address=192.168.26
 
 이와 같이 되었다면 이제 ubuntu에 127.0.0.1로 접속하면 다음과 같이 nginx 웹서비스가 보이는데 이것은 host의 80포트가 위의 container80포트와 바인딩 된것이기 때문에 가능합니다.
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/7.png){: .mx-auto.d-block width="90%" :}
+![webserver_check](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/7.png){: .mx-auto.d-block width="90%" :}
 
 
-그리고 해당 웹서비스를 하는 컨테이너의 로그를 fluentd가 수집하여 mongodb의 access collection에 저장하게 됩니다. 확인을 위해 'docker exec -it mogoDB mongo'로 mongodb 서버의 mongo container에 접속하여 다음과 같은 명령어로 저장된 로깅을 확인가능합니다.
+그리고 해당 웹서비스를 하는 컨테이너의 로그를 fluentd가 수집하여 mongodb의 access collection에 저장하게 됩니다. 확인을 위해 <span style="color:DodgerBlue">docker exec -it mogoDB mongo<span style="color:DodgerBlue">로 mongodb 서버의 mongo container에 접속하여 다음과 같은 명령어로 저장된 로깅을 확인가능합니다.
 
 
-![1](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/8.png){: .mx-auto.d-block width="70%" :}
+![db_check](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/8.png){: .mx-auto.d-block width="70%" :}
 
 
-__정리__
+<span style="color:Crimson">__정리__</span>
 - docker server host와 nginx container가 80번 포트로 서로 연결됨
 - 해당 host에서 nginx containerd안의 nginx 웹서비스 접속(127.0.0.1)
 - nginx에 대한 log를 fluentd로 logging 수집
 - fluentd에 수집된 log들은 mongo db server로 전달되고 db의 access라는 collection에 log저장
 
-## 3. Docker container 제한
+## 3. Docker container resource 제한
 
 1. container memory제한
 ```
