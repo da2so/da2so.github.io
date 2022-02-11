@@ -96,7 +96,7 @@ With these two modifications, the final objective function is follows:
 
 ## 3. Implement details
 
-![procedure](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/4.png){: .mx-auto.d-block width="70%" :}
+![implement_details](https://da2so.github.io/assets/post_img/2020-08-11-Meaningful_Perturbation/4.png){: .mx-auto.d-block width="60%" :}
 
 
 ### <span style="color:gray">3.1 Procedure of the upsampling method in the method</span>
