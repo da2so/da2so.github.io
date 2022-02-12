@@ -250,14 +250,14 @@ def keras2TFlite(model_path):
 dynamic range quantization과 다른점은 ```converter.target_spec.supported_types = [tf.float16]```이 추가된것 이외에는 없습니다. 
 
 
-|Model|Test Acc|Inference Time(seconds)|File size|Download|
-|-----|--------|-----------------------|---------|--------|
-|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|float32_resnet18|85.65%|0.0023s [CPU]|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
-|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|[dynamic.tflite](https://drive.google.com/file/d/1msiOxUmI7OfwOVSajP-ID17h_NuzhuqN/view?usp=sharing)|
-|int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|[int8_all.tflite](https://drive.google.com/file/d/1H7Lwg4Rbna4hX9025-9_jW7nmppXFpfu/view?usp=sharing)|
-|int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|[int8_notall.tflite](https://drive.google.com/file/d/1tglks42aur_4y4q8PPv8Z7h4Ec81Y8mp/view?usp=sharing)|
-|float16_resnet18|85.64%|0.0022 [CPU]|181KB|[float16.tflite](https://drive.google.com/file/d/1s_o57wM7Yl33Gn1regO58MKYCtg3kf0W/view?usp=sharing)|
+|Model|Test Acc|Inference Time(seconds)|File size|
+|-----|--------|-----------------------|---------|
+|pruned_resnet18|85.65%|0.0133s [GPU]|507KB|
+|float32_resnet18|85.65%|0.0023s [CPU]|329KB|
+|dynamic_tflite_resnet18|85.48%|0.0033s [CPU]|107KB|
+|int8_all_resnet18|85.65%|0.0323s [CPU]|115KB|
+|int8_notall_resnet18|85.59%|0.0323s [CPU]|115KB|
+|float16_resnet18|85.64%|0.0022 [CPU]|181KB|
 
 예상과 같이 float32_resnet18보다 float16_resnet18이 2배정도 File size는 줄었네요. Inference time은 비슷하고요. 
 
@@ -265,4 +265,4 @@ float16_resnet18의 visualization은 다음과 같습니다.
 
 ![float16_visualization](https://da2so.github.io/assets/post_img/2020-12-27-Master_TFlite3/6.png){: .mx-auto.d-block width="80%" :}
 
-위의 실습코드들은 [Conquer_TFLite](https://github.com/da2so/Conquer_TFLite)에서 사용가능합니다.
+위의 실습코드들과 실험모델들은 [Conquer_TFLite](https://github.com/da2so/Conquer_TFLite)에서 사용가능합니다.

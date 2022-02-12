@@ -67,10 +67,10 @@ def keras2TFlite(model_path):
 예제 모델은 제가 resnet18모델을 pruning시킨 거에요. Test acc는 85%정도인데 parameter는 8만개밖에 안쓰였습니다!  
 Pruning은 [EagleEye code](https://github.com/da2so/Eagleeye_Tensorflow)를 사용했습니다.
 
-|Model|File size|Download|
-|-----|--------|---------|
-|pruned_resnet18|507KB|[pruned.h5](https://drive.google.com/file/d/15fmEkZYk0bvi_9YbsBw5jZELuzoz7gym/view?usp=sharing)|
-|float32_resnet18|329KB|[float32.tflite](https://drive.google.com/file/d/1IpjGsOwqaqBg3S7RqSxVR3aN0qOF_AMS/view?usp=sharing)|
+|Model|File size|
+|-----|--------|
+|pruned_resnet18|507KB|
+|float32_resnet18|329KB|
 
 TFLite model로 변환했는데 model size가 줄었네요! 역시 TFLite model이 더 최적화되어 있는 듯하네요.
 그리고 keras model와 tflite model을 netron을 이용해서 visualization한 모습을 비교해 드릴게요.
@@ -85,7 +85,7 @@ Tensorflow 에서는 지원하지만 Tensorflow Lite에서는 지원하지 않�
 **type측면으로 보면** 대부분의 TFLite의 operator들은 float32, uint8, int8 을 대상으로 한다고 합니다. 그래서 float16또는 string위한 많은 operator들은 아직이라네요..ㅠ  
 
 
-오늘 보여드린 예제 코드 [keras2TFLite](https://github.com/da2so/Conquer_TFLite/blob/main/1_keras2TFLite.py)입니다.
+오늘 보여드린 예제 코드와 실험 모델들은[Conquer_TFLite](https://github.com/da2so/Conquer_TFLite/)에서 사용가능합니다.
 다음 장에서는 TFLite 모델로 inference하는 방식과 여유가 된다면 mobile로 작동하는 것을 보여드리도록 하는 게 목표입니다.  
 **BYE!**
 
