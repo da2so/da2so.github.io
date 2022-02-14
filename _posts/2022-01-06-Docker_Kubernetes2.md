@@ -43,7 +43,7 @@ Docker image 구성은 다음과 같습니다.
 
 docker engine의 pull명령어로 docker hub(docker image들이 저장되어있는 공식적인 장소)에서 ubuntu:16.04라는 docker image를 다운받아 봅시다.
 
-```
+```bash
 docker pull ubuntu:16.04 
 ```
 
@@ -54,7 +54,7 @@ image가 잘 다운되었는지 확인하려면 "docker images"로 확인가능�
 
 docker engine의 run명령어로 ubuntu:16.04 image로 container생성을 해봅시다.
 
-```
+```bash
 docker run -i -t  ubuntu:16.04 
 ```
 
@@ -70,7 +70,7 @@ docker run에 유용한 옵션은 다음과 같습니다.
 <summary>--name [명칭]</summary>
 <div markdown="1">
 
-```
+```bash
 docker run -i -t  --name myubuntu ubuntu:16.04 
 ```
 name옵션은 container의 명칭을 정해주는 것입니다. 
@@ -82,7 +82,7 @@ name옵션은 container의 명칭을 정해주는 것입니다.
 <summary>-p [포트]</summary>
 <div markdown="1">
 
-```
+```bash
 docker run -i -t -p 88:80 ubuntu:16.04 
 ```
 -p 뒤의 88(호스트의 포트):80(컨테이너 포트)로 호스트와 컨테이너의 포트를 바인딩시킵니다. 
@@ -98,7 +98,7 @@ docker run -i -t -p 88:80 ubuntu:16.04
 <summary>-e [환경설정]</summary>
 <div markdown="1">
 
-```
+```bash
 docker run -i -t -e MYSQL_ROOT_PASSWORD=password mysql 
 ```
 -e옵션은 컨테이너 내부의 환경변수를 설정합니다. DB(mysql)과 같은 특정 image에서는 e옵션을 통해 환경설정을 안해줄경우 실행이 되지않는 경우가 있으니 주의하세요.
@@ -111,7 +111,7 @@ docker run -i -t -e MYSQL_ROOT_PASSWORD=password mysql
 <summary>-v (볼륨)</summary>
 <div markdown="1">
 
-```
+```bash
 docker run -i -t -v /home/wordpress_db:/var/lib/mysql mysql:5.7
 ```
 -v옵션 뒤의 home/wordpress_db(호스트의 볼륨):/var/lib/mysql(컨테이너 볼륨)은 호스트의 디렉터리와 컨테이너의 디렉터리를 공유한다는 뜻입니다.
@@ -122,7 +122,7 @@ docker run -i -t -v /home/wordpress_db:/var/lib/mysql mysql:5.7
 <summary>--workdir (실행 디렉터리)</summary>
 <div markdown="1">
 
-```
+```bash
 docker run -i -t --workdir="/var/www" nginx:latest
 ```
 --workdir 옵션 뒤의 /var/www 디렉토리에서 프로세스가 실행된다라는 뜻입니다.
@@ -135,21 +135,21 @@ docker run -i -t --workdir="/var/www" nginx:latest
 docker engine의 유용한 명령어는 다음과 같습니다.
 
 1. **정지된 container 포함하여 모든 container 출력**
-```
+```bash
 docker ps -a
 ```
 
 2. **실행 중인 컨테이너 정지/삭제**
-```
+```bash
 docker stop/rm ${CONTAINER ID 또는 NAMES}
 ```
 
 3. **실행 중인 모든 컨테이너 정삭제**
-```
+```bash
 docker container prune
 ```
 
 3. **정지된 컨테이너 시작/접속**
-```
+```bash
 docker start/attach ${CONTAINER ID 또는 NAMES}
 ```

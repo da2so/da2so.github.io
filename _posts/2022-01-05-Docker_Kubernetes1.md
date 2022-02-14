@@ -44,7 +44,7 @@ Docker의 필요성에 대한 예시로 AI개발자들은 겪어 봤을 예시�
 
 다음 명령어를 통해 docker engine을 설치합시다.
 
-```
+```bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 add-apt-repository \
