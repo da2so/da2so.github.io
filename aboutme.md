@@ -22,6 +22,7 @@ Enjoy my site.
 - Explainable AI (XAI)
 - Knowledge Distillation
 - Pruning
+- MLOps
 
 *****
 
