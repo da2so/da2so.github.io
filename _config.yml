@@ -15,7 +15,7 @@ navbar-links:
   Home: "https://da2so.github.io/"
   About Me: "aboutme"
   Search: "search/"
-  Tags: : "tags.html"
+  Tags: "tags.html"
 
 # --- Logo --- #
 
