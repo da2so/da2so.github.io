@@ -78,7 +78,7 @@ link-tags: true
 excerpt_length: 40
 
 # The keywords to associate with your website, for SEO purposes
-#keywords: "my,list,of,keywords"
+keywords: "xai,model_compression,MLOps,ai,tflite,pytorch,tensorflow,pruning,docker,airflow,kubernetes"
 
 # --- Colours / background image --- #
 
