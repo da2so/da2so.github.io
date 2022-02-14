@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Data-Free Knowledge Amalgamation via Group-Stack Dual-GAN
-tags: [Knowledge distillation, Data-free, Synthesized image, Multi-]
+tags: [Knowledge distillation, Data-free]
 comments: true
 use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-24-Data_Free_Knowledge_Amalgamation_via_Group-Stack_Dual-GAN/post.png

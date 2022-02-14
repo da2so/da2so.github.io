@@ -1,7 +1,7 @@
 ---
 layout: post
 title: TFLite 뽀개기 (3) - Quantization 
-tags: [TFLite, Mobile, Tensorflow]
+tags: [TFLite, Tensorflow]
 comments: true
 use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-12-27-Master_TFlite3/post.png

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: PyTorch MultiGPU (2) - Single-GPU vs Multi-GPU (DistributedDataParallel)
-tags: [PyTorch, MultiGPU, DistributedDataParallel]
+tags: [PyTorch, MultiGPU]
 comments: true
 use_math: true
 thumbnail-img: /assets/thumbnail_img/2021-09-23-Pytorch_MultiGPU/post.PNG

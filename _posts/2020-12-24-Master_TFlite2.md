@@ -1,7 +1,7 @@
 ---
 layout: post
 title: TFLite 뽀개기 (2) - TFLite Inference
-tags: [TFLite, Mobile, Tensorflow]
+tags: [TFLite, Tensorflow]
 comments: true
 use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-12-24-Master_TFlite2/post.png
