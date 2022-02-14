@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Interpretable Explanations of Black Boxes by Meaningful Perturbation
-tags: [Explainable AI(XAI), Perturbation, Model Induction]
+tags: [Explainable AI, Perturbation]
 comments: true
 use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-11-Meaningful_Perturbation/post.png

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Interpretable And Fine-grained Visual Explanations For Convolutional Neural Networks
-tags: [Explainable AI(XAI), Perturbation]
+tags: [Explainable AI, Perturbation]
 comments: true
 use_math: true
 thumbnail-img: /assets/thumbnail_img/2020-08-17-Interpretable_And_Fine-grained_Visual_Explanations_For_Convolutional_Neural_Networks/post.png
