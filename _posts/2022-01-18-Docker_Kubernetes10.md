@@ -48,7 +48,7 @@ container applicaton의 기본 단위를 Pod라고 부르며 Pod는 1개 이상�
 
 이제 실제로 Nginx container로 구성된 pod을 생성해봅시다. **nginx-pod.yaml**파일에 다음 내용을 담도록 합시다.
 
-```
+```bash
 # nginx-pod.yaml
 
 apiVersion: v1
@@ -92,7 +92,7 @@ spec:
 
 이제 다음명령어로 worker2가 아닌 마스터 노드에서 pod container내부로 직접 들어가봅시다.
 
-```
+```bash
 kubectl exec -it my-nginx-pod bash
 ```
 
@@ -111,7 +111,7 @@ k8s object는 <span style="color:DodgerBlue">kubectl delete -f</span>명령어�
  
 k8s에서 container가 아닌 pod를 사용하는 이유는 container runtime의 interface 제공 등 여러가지 이유가 있지만 그 중 하나는 **여러 리눅스 네임스페이스(namespace)**을 공유하는 여러 container들을 추상화된 집합으로 사용하기 위함입니다. 예제를 위해 다음과 같이 nginx-ubuntu-pod.yaml파일을 작성해보죠.
 
-```
+```bash
 #nginx-ubuntu-pod.yaml
 apiVersion: v1
 kind: Pod
@@ -143,7 +143,7 @@ spec:
 
 ubuntu container안에서 다음 명령어를 입력합니다.
 
-```
+```bash
 # curl install
 apt-get update
 apt-get install curl -y
@@ -182,7 +182,7 @@ curl localhost
 
 nginx pod를 생성하는데 replica set을 사용해보겠습니다. 다음과 같은 내용으로 replicaset-nginx.yaml을 만들어봅시다.
 
-```
+```bash
 #replicaset-nignx.yaml
 apiVersion: apps/v1
 kind: ReplicaSet
@@ -236,7 +236,7 @@ pod와 replicaset은 느슨한 연결(loosely coupled)을 유지하며 이러한
 
 그래서 app:my-nginx-pods-label이라는 label을 가지는 pod를 미리 생성해두고 replicaset을 생성하면 어떻게 될까요? 먼저 해당 label을 가지는 pod을 수동으로 생성해보죠.
 
-```
+```bash
 #nginx-label-pod.yaml
 apiVersion: v1
 kind: Pod
@@ -265,7 +265,7 @@ replicaset의 selector.matchLabel에 정의된 app:my-nginx-pods-label을 가지
 
 만약 replicase이 생성해 놓은 pod의 label을 삭제하면 예상하셨듯이 label을 통해 replicaset 숫자를 결정하므로 app:my-nginx-pods-label이름의 label을 가지는 새로운 pod가 생성됩니다. 예시를 위해 <span style="color:DodgerBlue">kubectl edit</span>명령어을 사용하여 pod 중 하나의 label을 삭제해봅니다. label삭제는 아래 그림과 같이 label에 대한 정보를 담는 내용을 삭제하면 됩니다.
 
-```
+```bash
 # replicaset-nginx-vmnrz는 pod의 이름 중 하나임
 kubectl edit pods replicaset-nginx-vmnrz
 ```
@@ -282,7 +282,7 @@ edit한 부분을 저장하면 다시 pod의 목록을 보면 새로운 하나�
 
 그리고 중요한 특징 중 하나로 replicaset은 다음과 같은 YAML파일에서 표현식(matchExpressions)으로 정의가능합니다.
 
-```
+```bash
 # nginx-expression-pod.yaml
 ...
 spec:
@@ -309,7 +309,7 @@ Deployment는 replicaset의 상위 object이기 때문에 deployment생성시 �
 ![deployment](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/24.png){: .mx-auto.d-block width="70%" :}
 
 
-```   
+```bash
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -344,7 +344,7 @@ spec:
 
 deployement로 생성하였지만 replicaset과 크게 다르지 않는 데 차이점이라고는 NAME항목에서 중간에 해시값(**6b4b7f7cdc**)이 포함되어있는데 이는 pod를 정의하는 template으로부터 생성된 것인데 자세히는 뒤에서 설명할것이므로 기억해두자. deployment삭제는 다음 명령어로 진행한다.
 
-```
+```bash
 kubectl delete deploy my-nginx-deployment
 ```
 
@@ -354,13 +354,13 @@ Deployment를 사용하는 큰 이유 중 하나는 application의 업데이트�
 
 Deployment을 이용해 application의 버전을 업데이트해 배포하는 예시를 알아보자. 위의 deployment-nginx.yaml을 이용해 다시 deployment을 실행하자. **--record**옵션을 통해 deployment의 변경사항을 저장하도록 한다.
 
-```
+```bash
 kubectl apply -f deployment-nginx.yaml --record
 ```
 
 이제 만약 당신이 nginx:1.10 을 nginx:1.11로 업데이트하고 싶다고 할때 deployment에서 생성된 pod의 image을 <span style="color:DodgerBlue">kubectl set image</span>명령어로 업데이트 가능하다.
 
-```
+```bash
 kubectl set image deployment my-nginx-deployment nginx=nginx:1.11 --record
 ```
 ![record](https://da2so.github.io/assets/post_img/2022-01-18-Docker_Kubernetes10/27.png){: .mx-auto.d-block width="85%" :}
@@ -372,7 +372,7 @@ kubectl set image deployment my-nginx-deployment nginx=nginx:1.11 --record
 
 CHANCE-CAUSE에 나오는 명령어들은 **--record**에 의해 저장된 것이며 이제 nginx:1.10으로 다시 롤백을 해보자. **--to-revision**옵션의 값으로 되돌리고자하는 revision번호의 값을 설정하면 된다.
 
-```
+```bash
 kubectl rollout undo deploy my-nginx-deployment --to-revision 1
 ```
 
@@ -406,7 +406,7 @@ k8s 서비스는 pod에 어떻게 접근할 것이냐에 따라 종류가 여러
 
 먼저 지금부터 deployment를 설명할때 사용했던 deployment-nginx.yaml과 함께 예제를 진행할 것입니다. 다음과 같이 svc-clusterip.yaml을 생성해봅시다.
 
-```
+```bash
 # svc-clusterip.yaml
 apiVersion: v1
 kind: Service
@@ -438,7 +438,7 @@ deployment-nginx.yaml을 통해 deployment를 실행시키고 svc-clusterip.yaml
 
 svc-clutserip라는 이름으로 service를 생성하였습니다. <span style="color:DodgerBlue">kubectl run</span>명령어를 통해 임시 ubuntu pod를 만들고 출력된 CLUSTER-IP와 PORT(S)로 curl를 통한 http 요청을 보내면 응답받을 수 있습니다. 또한 service이름 자체로도 접근가능한데 이는 k8s가 application이 service나 pod를 쉽게 찾을 수 있도록 내부 DNS를 구동하고 있고 pod들은 자동으로 이 DNS을 사용된다. 
 
-```
+```bash
 # run ubuntu pod and connect to it
 kubectl run -i --tty --rm debug --image=ubuntu:16.04 --restart=Never -- bash
 
@@ -463,7 +463,7 @@ kubectl delete svc svc-clusterip
 
 다음과 같은 svc-nodeport.yaml을 작성(ClusterIP와 비교했을 때 type만 다릅니다.)하고 apply시켜 service를 생성해봅니다.
 
-```
+```bash
 # svc-nodeport.yaml
 apiVersion: v1
 kind: Service
@@ -516,7 +516,7 @@ LoadBalanacer service를 사용하면 외부로부터 들어온 요청은 각 �
 
 Cluster값은 default설정값으로 클러스터의 모든 노드에 랜덤한 port를 개방하는 기존 방식입니다. 다음 service YAML 파일처럼 externalTrafficPolicy를 **Local**로 설정하면 pod가 생성한 노드에서만 pod로 접근할 수 있게하며 이는 추가적인 네트워크 hob이 발생하지 않으며 전달되는 요청의 client IP또한 보존됩니다. 
 
-```
+```bash
 # svc-local-nodeport.yaml
 apiVersion: v1
 kind: Service
@@ -545,7 +545,7 @@ k8s를 외부 시스템과 연동해야할 때 사용하는 타입의 service입
 CNAME은 Canonical Name의 약자로 도메인 주소를 또 다른 도메인 주소로 매핑 시키는 형태의 DNS 레코드 타입
 {: .box-note}
 
-```
+```bash
 # svc-external.yaml
 apiVersion: v1
 kind: Service

@@ -30,7 +30,7 @@ Docker는 컨테이너에 내부 IP를 순차적으로 할당하며, IP는 컨�
 #### 브리지 네트워크
 해당 네트워크는 docker0이 아닌 사용자 정의 브리지를 새로 생성도 가능합니다.
 
-```
+```bash
 docker network create --driver bridge mybridge
 ```
 
@@ -39,14 +39,14 @@ docker network create --driver bridge mybridge
 ![bridge_network](https://da2so.github.io/assets/post_img/2022-01-07-Docker_Kubernetes3/4.png){: .mx-auto.d-block width="80%" :}
 
 
-```
+```bash
 docker run -i -t --net mybridge ubuntu:16.04
 ```
 위와 같이 새로 만든 네트워크를 사용하여 container생성이 가능하고 생성된 container는 mybridge의 IP 대역폭을 사용하게 됩니다.
 
 #### 호스트 네트워크
 
-```
+```bash
 docker run -i -t --net host ubuntu:16.04
 ```
 호스트 네트워크로 설정시 호스트의 네트워크 환경을 그대로 쓸 수 있습니다.
@@ -54,7 +54,7 @@ docker run -i -t --net host ubuntu:16.04
 
 #### 논 네트워크
 
-```
+```bash
 docker run -i -t --net none ubuntu:16.04
 ```
 
@@ -72,7 +72,7 @@ docker run -i -t --net none ubuntu:16.04
 예시를 위한 것이니 위의 3개의 서버의 호스트는 모두 같게 해봅시다. 즉, docker server, fluentd, docker server모두 한 host에서 진행한다는 말입니다.
 먼저 mongo 서버의 호스트에서 로그를 저장을 위한 container를 생성해보죠.
 
-```
+```bash
 docker run --name mongoDB -d -p 27017:27017 mongo
 ```
 
@@ -91,7 +91,7 @@ docker run -d --name fluentd -p 24224:24224 -v $(pwd)/fluent.conf:/fluentd/etc/f
 
 마지막으로 docker서버에서 로그를 수집할 컨테이너를 생성합니다. --log-driver를 fluentd로, fluentd-address를 fluentd 서버 주소로 설정합니다. 그리고 tag는 위의 fluent.conf에서 docker로 시작하는 tag로부터 로그를 받기때문에 아래와 같은 태그도 mongodb로 저장됩니다. 로그기록위해 nginx로 이미지를 생성하였습니다.
 
-```
+```bash
 docker run -p 80:80 -d --log-driver=fluentd --log-opt fluentd-address=192.168.26.128:24224 --log-opt tag=docker.nginx.webserver nginx
 ```
 
@@ -115,19 +115,19 @@ docker run -p 80:80 -d --log-driver=fluentd --log-opt fluentd-address=192.168.26
 ## 3. Docker container resource 제한
 
 1. container memory제한
-```
+```bash
 docker run -d --memory='1g' nginx
 # memory를 1 GB로 제한
 ```
 
 2. container cpu 개수 제한
-```
+```bash
 docker run -d --cpuset-cpu=2 nginx
 # container가 3번째 cpu(0부터 시작이라 3임)만 사용하도록 함.
 ```
 
 3. container cpu 사용량 제한
-```
+```bash
 docker run -d --cpus=0.5 nginx
 # container가 cpu사용량을 50%만 점유할수 있도록 함.
 ```

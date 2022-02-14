@@ -71,7 +71,7 @@ Enviroment: Ubuntu 18.04
 
 k8s를 설치할 모든 노드에서 다음 명령어들을 통해 저장소를 추가합니다.
 
-```
+```bash
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 cat <<EOF > /etc/apt/sources.list.d/kubernetes.list
 deb http://apt.kubernetes.io/ kubernetes-xenial main
@@ -82,7 +82,7 @@ EOF
 
 모든 노드에 docker의 최신버전 설치는 다음 명령어를 통해 진행합니다. 또한 k8s에 필요한 패키지를 설치합니다.
 
-```
+```bash
 # docker install
 sudo wget -qO- http://get.docker.com/ | sh
 # package install 
@@ -94,7 +94,7 @@ apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 마스터 노드로 사용할 host에서 다음 명령어를 통해 clutser를 초기화 합니다. 
 
-```
+```bash
 kubeadm init --apiserver-advertise-address 192.168.26.148 --pod-network-cidr=172.31.0.0/16
 ```
 
@@ -122,7 +122,7 @@ sudo systemctl enable docker</span> -> <span style="color:DodgerBlue">sudo syste
 
 k8s의 container 간 통신을 위해 여러 오버레이 네트워크를 사용할 수 있지만 여기서는 calico를 사용합니다. 마스터 노드에서 calico.yaml을 다운받아 줍니다.
 
-```
+```bash
 # version 3.21 calico.yaml 다운로드 (2022.1월 기준)
 wget https://docs.projectcalico.org/v3.21/manifests/calico.yaml
 ```
@@ -134,13 +134,13 @@ wget https://docs.projectcalico.org/v3.21/manifests/calico.yaml
 
 위의 192.168.126.2는 마스터 노드의 게이트 웨이로 다음 명령어로 확인가능합니다. 
 
-```
+```bash
 route -n | grep 'UG[ \t]' | awk '{print $2}'
 ```
 
 이제 calicp.yaml을 통해 플러그인을 설치합니다.
 
-```
+```bash
 kubectl apply -f calico.yaml
 ```
 
@@ -159,7 +159,7 @@ calico가 설치 유무에 따라 노드간의 통신이 가능해지냐 마느�
 
 마지막으로 kubeadm으로 설치된 k8s는 각 노드에서 다음 명령어로 삭제 가능하다. k8s설치 도중 오류 발생했거나 테스트용 k8s 클러스터를 삭제할때 사용합니다.
 
-```
+```bash
 kubeadm reset
 ```
 

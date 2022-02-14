@@ -40,7 +40,7 @@ Enviroment: Ubuntu 18.04
 
 ### 1.2 Dockerfile build
 
-```
+```bash
 docker build -t mybuild:0.0 ./
 ```
 
@@ -84,7 +84,7 @@ Dockerfile이 위치한 디렉터리가 build context가 됩니다. 위의 예�
 
 #### ADD, COPY
 
-```
+```bash
 COPY test.html /home/
 COPY ['test.html', 'home']
 ```
@@ -106,7 +106,7 @@ CMD는 아까 설명드렸듯이 docker run명령어에서 맨 뒤에 입력했�
 
 CMD와 ENTRYPOINT에 설정하려는 명령어를 /bin/sh로 사용할 수 없다면 JSON형태로 명령어를 설정해야합니다. 즉, JSON형태가 아닌 경우 image생성 시에 CMD와 ENTRYPOINT에 /bin/sh -c가 앞에 추가되기 때문입니다. 다음 예제를 보시면 일반 형식과 JSON형식의 차이점을 아실 수 있습니다. 
 
-```
+```bash
 CMD echo test
 # -> /bin/sh -c echo test
 

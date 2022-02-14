@@ -29,7 +29,7 @@ docker 그 자체에 대해서 알아보는 시간입니다. Docker의 구조는
 ## 2. Docker daemon 실행 및 설정
 
 docker daemon은 다음 명령어로 시작, 정지가 가능합니다. (start는 둘 중 아무 명령어를 사용해도 됩니다.)
-```
+```bash
 #start
 service docker start
 dockerd
@@ -43,7 +43,7 @@ service docker stop
 
 아무런 옵션 없이 daemon을 실행시키면 default로 docker client인 /usr/bin/docker을 위한 unix socket인 /var/run/dokcer.sock을 사용하게 됩니다. 이를 **-H**옵션을 통해 나타내면 다음과 같고 두 명령어는 같은 명령어입니다.
 
-```
+```bash
 dockerd
 dockerd -H unix:///var/run/docker.sock
 ```
@@ -51,7 +51,7 @@ dockerd -H unix:///var/run/docker.sock
 즉, **-H**옵션을 통해서 dameon의 API를 사용할 방법을 추가할수 있다는 것이고 예를 들어 **-H**뒤에 IP주소와 port번호를 입력하면 원격 API인 Docker remote API로 docker를 제어가능합니다.
 (Remote API는 RESTful API형식을 띄고 있으므로 HTTP 요청으로 docker를 제어가능) 다음과 같이 docker daemon을 실행하면 host에 존재하는 모든 네트워크 인터페이스의 IP주소와 2375번 포트를 바인딩해 입력을 받습니다.
 
-```
+```bash
 dockerd -H tcp://0.0.0.0:2375
 ```
 
@@ -59,7 +59,7 @@ dockerd -H tcp://0.0.0.0:2375
 
 하지만 이렇게 할경우 Remote API만을 위한 바인딩 주소를 입력했으므로 unix scoket은 비활성화 되고 docker client를 사용못하게 됩니다. 즉, 위와 같이 **docker ps**와 같이 docker로 시작하는 명령어 사용 이 불가합니다. 그러므로 이를 해결하기 위해 Remote API를 위한 바인딩 주소와 unix scoket을 같이 설정해 줍니다.
 
-```
+```bash
 dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 ```
 
@@ -138,13 +138,13 @@ RSA 4096 키 생성 및 개인키를 AES256 으로 암호화하여 ca-key.pem �
 
 TLS 보안 적용을 위해 *--tlsverify* 옵션과 보안을 위해 필요한 옵션들을 더하여 docker daemon을 실행한다. (밑의 맨위 그림)
 
-```
+```bash
 dockerd --tlsverify --tlscacert=ca.pem --tlscert=server-cert.pem --tlskey=server-key.pem -H=0.0.0.0:2376 -H unix:///var/run/docker.sock
 ```
 
 그리고 client측에서 TLS 연결 설정을 하지 않고 Remote API로 접근했을 때와(Middle 그림) TLS 연결 설정을 하고 접근했을때의 원격 제어시(밑의 맨아래 그림)의 결과 차이를 볼 수 있다.
 
-```
+```bash
 # No TLS
 docker -H 192.168.26.129:2376 version
 # TLS
@@ -170,7 +170,7 @@ docker의 remote API를 사용하는 포트는 보안이 적용되어 있지 않
 
 다음과 Docker daemon을 디버그 옵션으로 실행하면 Remote API뿐만 아니라 로컬 docker client에서 오가는 명령어도 로그로 출력하게 됩니다. 하지만 원치 않는 정보도 출력되고 해당 daemon을 foreground 상태로 실행해야 한다는 단점이 있다.
 
-```
+```bash
 dockerd -D
 ```
 
@@ -178,7 +178,7 @@ dockerd -D
 
 **<span style="color:Crimson">events</span>**는 docker daemon에서 일어나는 일을 실시간 stream log로 보여줍니다.
 
-```
+```bash
 docker events
 ```
 
@@ -196,7 +196,7 @@ docker stats
 
 **<span style="color:Crimson">system df</span>**은 docker에서 사용하고 있는 이미지, 컨테이너, 로컬 볼륨의 총 개수 및 사용중인 개수, 크기 등을 출력합니다.
 
-```
+```bash
 docker system df
 ```
 
@@ -208,7 +208,7 @@ docker system df
 구글이 만든 컨테이너 모니터링 도구로 실기간 자원 사용량 및 도커 모니터링 정보 등을 시각화해서 보여줍니다. 다음과 같이 docker hub에서 docker image로 사용 가능하며 container agent형태로 도커 모니터링에 필요한 자료를 수집합니다. 
 
 
-```
+```bash
 docker run \
 --volume=/:/rootfs:ro \
 --volume=/var/run:/var/run/:ro \
@@ -239,7 +239,7 @@ docker daemon을 제어하기 위해 -H옵션을 통해 진행했었는데 conta
 
 파이썬 라이브러리를 사용하기 위한 환경은 python 3.6입니다. docker library를 설치하려면 pip3가 필요하기 때문에 pip3가 설치되어 있지 않으시면 다음과 같이 설치하고 docker library를 설치합시다. 
 
-```
+```bash
 # if you don't installed pip3 before
 apt install python3-pip -y
 # install docker library 
@@ -258,7 +258,7 @@ pip3 install docker
 
 위에서 TLS적용을 위해 진행한 key들이 있는 directory에서 tls_docker_run.py이라는 python 파일을 만들어 실행해보았습니다. 
 
-```
+```bash
 #ls_docker_run.py
 
 import docker

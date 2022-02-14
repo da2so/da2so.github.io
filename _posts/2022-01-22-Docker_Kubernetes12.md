@@ -41,7 +41,7 @@ Ingress network는 외부에서 서버로 들어오는 트래피을 처리하며
 ![get_ingress](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/2.png){: .mx-auto.d-block width="55%" :}
 
 
-```
+```bash
 #ingress-example.yaml  
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -85,7 +85,7 @@ minimal-ingress라는 이름으로 ingress를 생성했지만 이는 단지 요�
 
 그래서 k8s의 ingress는 반드시 ingress controller를 필요로하며 우리는 nginx 웹서버를 사용하므로 **Ngnix 웹서버 Ingress controller**를 사용합니다. Kong이라는 API gateway나 GKE의 클라우드 플랫폼에서 제공되는 ingress controller도 있음을 알아두면 좋다. Nginx 웹서버 Ingress controller는 다음과 같은 명령어로 Nginx ingress controller와 관련된 resource를 다운받습니다. (제가 사용한 k8s 버전이 1.23인데 이는 controller 버전 1.1.1과 연동가능합니다. )
 
-```
+```bash
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/cloud/deploy.yaml
 ```
 
@@ -104,7 +104,7 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 
 이제 **A** 그림에서 hostname-service-nodeport 서비스 부분과 deployment에 대한 yaml을 다음과 같이 작성합니다.
 
-```
+```bash
 #ingress-deployment-service.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -173,7 +173,7 @@ spec:
 위의 **ingress-example.yaml**에서 annotation부분에 대해 설명하지 않았는데 여기서 설명하겠다. 다음은 위에서 작성한 anntotation부분을 가져온 것이다.
 
 
-```
+```bash
 #ingress-example.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -196,7 +196,7 @@ metadata:
 
 그리고 다음(yaml)과 같이 정규식으로 설정할 경우 ingress에 요청온 path는 hostname-svc으 다음(밑의 그림)경로로 전달됩니다. 
 
-```
+```bash
 #ingress-example.yaml
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -224,7 +224,7 @@ Ingress의 장점은 ingress controller에서 편리하게 SSL/TLS 보안 연결
 
 보안 연결에 사용할 인증서와 비밀키를 생성해보자.
 
-```
+```bash
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=da2so.com/O=da2so"
 ```
 
@@ -233,7 +233,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout tls.key -out tls.crt
 tls.key라는 비밀키와 tls.crt라는 인증서가 생성되었습니다. 그리고 secret object를 다음과 같이 만든다.
 
 
-```
+```bash
  kubectl create secret tls tls-secret --key tls.key --cert tls.crt
 ```
 ![create_secret](https://da2so.github.io/assets/post_img/2022-01-22-Docker_Kubernetes12/13.png){: .mx-auto.d-block width="80%" :}
@@ -246,7 +246,7 @@ tls을 적용한 ingress를 작성하기 전에 위에서 사용한 **ingress-de
 
 이제 tls가 적용될 ingress yaml을 다음과 같이 작성한다. 그리고 해당 ingress을 생성하고 생성한 ingress의 정보와 nginx ingress controller의 https(443port)의 정보를 확인한다.
 
-```
+```bash
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -279,7 +279,7 @@ spec:
 
 위의 그림에서 알 수 있듯이 ingress의 정보에 tls연결 정보가 새로 생긴것을 확인가능하며 tls보안이 있기때문에 https로 접속해야하는데 https로 접속하기 위한 ingress controller의 https포트는 31355인것을 알 수 있다. 즉, **$https$://da2so.com:31355**는 https와 31355와 맵핑되는 443포트(https)를 통해 ingress controller의 https로 접근을 명시하는 것이고 그다음은 위에서 설명한것과 같이 ingress controller에게 da2so.com과 연결되는 ip주소에 접속하도록 요청하는것이다. 다음 명령어를 통해 https연결을 통해 web service에 접속해보자.
 
-```
+```bash
 curl https://da2so.com:31355/hostname -k
 # -k 옵션은 신뢰할 수 없는 인증서로 보안연결을 위함이다.
 ```

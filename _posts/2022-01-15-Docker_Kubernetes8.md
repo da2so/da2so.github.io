@@ -14,13 +14,13 @@ Enviroment: Ubuntu 18.04
 
 ### 1.1 Docker Compose 설치 
 
-```
+```bash
  sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
 위의 명령어로 docker-compose 1.24.1버전을 설치하고 다음과 같이 docker-compose를 사용할수 있게 권한을 해제하고 compose 버전을 확인한다.
 
-```
+```bash
 # 권한 해제
 sudo chmod +x /usr/local/bin/docker-compose
 # 버전 확인
@@ -34,7 +34,7 @@ docker-compose -x
 
 기본적으로 docker compose는 container의 설정이 정의된 **YAML**파일을 읽어 docker engien을 통해 container를 생성합니다. YAML파일 작성과 docker compose 실행 예시를 보여드리기 위해 [이전 글](https://da2so.github.io/2022-01-07-Docker_Kubernetes3/)에서 네트워크 logging을 docker compose로 만들어보도록 하겠습니다. 다음과 같이 **docker-compse.yml**이름으로 파일을 만들어봅니다.
 
-```
+```bash
 #docker-compose.yml
 version: '3.0'
 services:
@@ -91,7 +91,7 @@ services:
 	- tty: docker 특성상 커맨드가 끝나면 container가 종료되므로 해당 옵션을 통해 종료를 방지함
 위에서 설명한 옵션이 전부는 아니지만 대부분의 옵션은 설명드렸습니다. 이제 해당 파일을 통해 docker compose를 사용해봅시다.
 
-```
+```bash
 docker-compose up -d
 ```
 
@@ -108,7 +108,7 @@ swarm moded에서의 서비스와 마찬가지로, 하나의 서비스에는 여
 
 그리고 ubuntu이미지로 docker-compose.yml을 만들고 **-p**옵션을 사용해서 프로젝트 이름을 설정하여 프로젝트를 생성합니다. 그럼 projectname이 옵션을 준값대로 설정된 것을 확인가능합니다.
 
-```
+```bash
 docker-compose -p myubuntu up -d
 ```
 
@@ -118,14 +118,14 @@ docker-compose -p myubuntu up -d
 
 swarm mode와 함께 사용되는 개념으로 stack을 사용하는데요. 기존에는 docker-compose로 제어했다면 swarm mode에서는 <span style="color:DodgerBlue">docker stack</span>명령어로 제어합니다. 이는 swarm mode cluster의 매니저에 의해 생성되는 명령어라고 생각하면 됩니다. 먼저 다음 명령어로 docker swarm mode로 변경해줍니다.
 
-```
+```bash
 docker swarm init --advertise-addr='host의 ip 주소'
 ```
 
 그리고 다음과 같이 docker-compose.yml을 작성해주고 <span style="color:DodgerBlue">docker stack deploy</span> 명령어로 프로젝트를 생성합니다.
 
 
-```
+```bash
 docker stack deploy -c docker-compose.yml stack_test
 ```
 
@@ -134,7 +134,7 @@ docker stack deploy -c docker-compose.yml stack_test
 
 -c옵션은 YAML파일을 지정해주는 것이고 마지막은 stack의 이름입니다. 위에서 보이듯이 swarm mode에서도 잘 생성된것을 확인가능합니다. 그리고 종료는 다음과 같습니다.
 
-```
+```bash
 docker stack rm stack_test
 ```
 

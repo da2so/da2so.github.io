@@ -31,7 +31,7 @@ Docker는 다음과 같이 <span style="color:Crimson">docker hub</span>라는 �
 
 저만의 docker image를 만들기 위해서는 Host에서 <span style="color:DodgerBlue">docker commit</span>명령어를 사용합니다.
 
-```
+```bash
 docker commit -a 'da2so' -m 'writing test' myubuntu  myubuntu:first
 ``` 
 
@@ -57,7 +57,7 @@ docker commit -a 'da2so' -m 'writing test' myubuntu  myubuntu:first
 
 업로드하기 전에 만든 repo이름이 da2so/test_repo이기 때문에 기존 myubuntu image를 <span style="color:DodgerBlue">docker tag</span>명령어로 da2so/test_repo:0.0으로 바꿔줍니다. 그리고 해당 image를 docker hub에 push합니다. 
 
-```
+```bash
 docker tag myubuntu:first da2so/test_repo:0.0
 docker push da2so/test_repo:0.0 
 ```

@@ -51,7 +51,7 @@ Swarm mode는 여러 대의 docker server를 하나의 클러스터로 만들어
 
 먼저 매니저 노드인 192.168.26.129에서 다음 명령어를 입력해 swarm cluster을 시작한다.
 
-```
+```bash
 docker swarm init --advertise-addr 192.168.26.129
 ```
 ![swarm_init](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/2.png){: .mx-auto.d-block width="100%" :}
@@ -67,7 +67,7 @@ docker swarm init --advertise-addr 192.168.26.129
 
 ID옆에 별표(\*)는 현재 노드인 매니저를 말합니다. 그리고 새로운 매니저 노드를 추가하려면 매니저 노드를 위한 token은 다음과 같은 명령어로 확인가능합니다.
 
-```
+```bash
 docker swarm join-token manager
 ```
 ![create_manager](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/4.png){: .mx-auto.d-block width="100%" :}
@@ -79,7 +79,7 @@ docker swarm join-token manager
 
 워커 노드를 삭제하려고 할때는 먼저 워커 노드에서 <span style="color:DodgerBlue">docker swarm leave</span>를 해주고 매니저 노드에서 down된 워커를  다음과 같은 명령어로 제거해줍니다. 
 
-```
+```bash
 #in worker1 node
 docker swarm leave
 
@@ -90,7 +90,7 @@ docker node rm worker1
 
 그리고 워커 노드를 매니저 노드로 반대로 매니저 노드를 워커노드로 변경하는 명령어는 각각 <span style="color:DodgerBlue">docker node promote</span>, <span style="color:DodgerBlue">docker node demote</span>입니다. 하지만 매니저 노드가 1개일때는 demote명령어를 사용할수 없으며 매니저 리더 노드에 demote를 할경우 다른 매니저 노드 중 새로운 리더를 선출합니다.
 
-```
+```bash
 docker node promote worker2
 docker node demote worker2
 ```
@@ -100,7 +100,7 @@ docker node demote worker2
 그리고 매니저 노드를 삭제하려면 다음 명령어로 진행합니다. 매니저 노드가 한개인 경우에 매니저 노드를 삭제할경우 스웜 클러스터는 더 이상 사용하지 못하는 상태가 되므로 삭제시에는 신중히 해야합니다.
 
 
-```
+```bash
 docker swarm leave --force
 ```
 
@@ -124,7 +124,7 @@ docker swarm leave --force
 
 서비스는 <span style="color:DodgerBlue">docker service create</span> 명령어를 통해 생성하며 replica수 2개로 다음과 같이 옵션으로 추가해줍니다. 이번 글에서 만들 서비스는 Nginx 웹서버 image를 이용해 서비스를 외부에 노출하는 것입니다. 서비스가 올바르게 생성 된지 확인하려면 <span style="color:DodgerBlue">docker service ls</span>를 사용하고 더 자세한 정보를 확인하려면 <span style="color:DodgerBlue">docker service ps [서비스이름]</span>을 입력합니다.
 
-```
+```bash
 docker service create --name myweb --replicas 2 -p 80:80 nginx
 
 docker service ls
@@ -145,14 +145,14 @@ docker service ps myweb
 
 서비스를 삭제 명령어는 다음과 같습니다.
 
-```
+```bash
 docker service rm myweb
 ```
 #### global 서비스 생성하기
 
 지금까지는 --replica 옵션을 통해 container수를 정해주었지만 모든 노드에 container를 하나씩 생성하게 하는 global 서비스를 제공합니다. 
 
-```
+```bash
 docker service create --name global_web --mode global nginx
 ```
 
@@ -181,7 +181,7 @@ docker service create --name global_web --mode global nginx
 이번 예제에서는 nginx:1.10 image로 service를 만들고 nginx:1.11로 롤링 업데이트를 하는 방법으로 설명합니다. 서비스를 생성할 때 롤링 업데이트 주기(--update-delay)와 업데이트를 동시에 진행할 container 수(--update-parallelism)을 설정가능합니다. replica수는 4개, 주기는 10초, 동시에 업데이트 할 container를 2개로 지정하려면 다음과 같습니다.
 
 
-```
+```bash
 docker service create --replicas 4 --name rolling_web --update-delay 10s --update-parallelism 2 nginx:1.10
 ```
 
@@ -189,7 +189,7 @@ docker service create --replicas 4 --name rolling_web --update-delay 10s --updat
 
 롤링 업데이트는 다음 명령어로 진행합니다. 아래와 같이 업데이트는 container 2개씩 진행됨을 확인가능하며 실제로 보면 주기가 10초임을 알 수 있습니다.
 
-```
+```bash
 docker service update --image nginx:1.11 rolling_web
 ```
 
@@ -197,7 +197,7 @@ docker service update --image nginx:1.11 rolling_web
 
 그리고 롤링 업데이트 후에 서비스를 업데이트 전으로 되돌리고 싶다면 Rollback을 사용합니다.
 
-```
+```bash
 docker service rollback rolling_web
 ```
 
@@ -218,7 +218,7 @@ swarm cluster에서 환경에 맞춘 설정 파일이나 값들이 컨테이너�
 
 Mysql image로 서비스를 만들때 mysql 사용자 비밀번호를 container내부에 마운트하는 예제로 이해해보죠. 먼져 **passwd.txt**파일 안에 da2so라는 비밀번호를 적어놓고 다음 명령어로 secret을 생성합니다.
 
-```
+```bash
 cat passwd.txt | docker secret create mysql_passwd -
 ```
 
@@ -226,7 +226,7 @@ cat passwd.txt | docker secret create mysql_passwd -
 
 생성된 secret을 조회해도 비밀번호는 조회할수 없는데요. 이는 secret값은 매니저 노드 간에 암호화된 상태로 저장됩니다. secret파일은 container에 배포된 뒤에도 파일 시스템이 아닌 메모리에 저장되기 때문에 service container가 삭제되면 secret도 삭제되므로 휘발성을 띕니다. secret파일로 MySQL service를 생성해 보죠.
 
-```
+```bash
 docker service create \
 --name mysql \
 --replicas 1 \
@@ -249,7 +249,7 @@ mysql:5.7
 
 위에서 만든 **passwd.txt** 재사용해서 config를 사용해보죠. config파일 이름은 config_test로 합시다. 
 
-```
+```bash
 docker config create config_test passwd.txt
 ```
 
@@ -297,7 +297,7 @@ daemon명령어 중 run명령어에서 -v옵션을 통해 host와 디렉터리�
 
 **--mount**옵션에서 type=volume이며 source는 사용할 볼륨이며(해당 볼륨이 존재하지 않을경우 임의의 16진수로 이름을 구성) target은 컨테이너 내부에 마운트될 디렉터리 위치입니다.
 
-```
+```bash
 docker service create --name volume_nginx --mount type=volume,source=volume_test,target=/root -p 80:80 nginx
 ```
 
@@ -308,7 +308,7 @@ docker service create --name volume_nginx --mount type=volume,source=volume_test
 
 bind타입은 host와 디렉터리를 공유할때 사용되므로 공유될 호스트의 디렉터리가 존재해야하며 이를 source 옵션에 반드시 명시해야합니다. type=bind을 사용합니다.
 
-```
+```bash
 docker service create --name bind_nginx --mount type=bind,source=/home/kangsinhan/bind_test,target=/root -p 80:80 nginx
 ```
 
@@ -330,7 +330,7 @@ swarm cluster에서 서비스를 할당받을 수 있는 모든 노드가 volume
 
 새로운 노드가 swarm clutser에 추가되면 기본적으로 설정되는 상태이며 노드가 서비스의 container를 할당 받을 수 있습니다. Active상태가 아닌 노드를 Active 상태로 바꾸고 싶으면 다음과 같다
 
-```
+```bash
 docker node update --availability active worker1
 ```
 
@@ -338,7 +338,7 @@ docker node update --availability active worker1
 
 해당 상태로 설정되면 scheduler는 container를 해당 노드에 할당하지 않습니다. 노드에 문제가 있을경우 Drain상태로 만듭니다.
 
-```
+```bash
 docker node update --availability drain worker1
 ```
 ![node_drain](https://da2so.github.io/assets/post_img/2022-01-12-Docker_Kubernetes7/26.png){: .mx-auto.d-block width="90%" :}
@@ -351,7 +351,7 @@ docker node update --availability drain worker1
 
 해당 상태는 서비스의 container를 더는 할당받지 않는다는 점에서 drain과 동일하지만 실행 중인 container가 중지되지 않는다는 점에서 다릅니다.
 
-```
+```bash
 docker node update --availability pause worker1
 ```
 
@@ -359,7 +359,7 @@ docker node update --availability pause worker1
 
 노드에 Label을 추가하는 것은 노드를 분류하는 것입니다. label은 key-value 형태를 가지고 있으며 key값으로 노드를 구별합니다. label추가는 <span style="color:DodgerBlue">docker node update</span>명령어의 **--label-add**옵션을 통해 key, value를 넣어줍니다. 
 
-```
+```bash
 docker node update --label-add worker=1 worker1
 ```
 
