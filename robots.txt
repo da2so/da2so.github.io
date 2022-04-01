@@ -1,3 +1,0 @@
- User-agent: *
- Allow: /
- Sitemap: http://da2so.github.io/sitemap.xml
